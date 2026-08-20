@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#F6F6FB;--card:#fff;--surface2:#F3F2F9;
+    --border:#ECEBF3;--border-soft:#F1F0F8;--hover:#F1F0F8;
+    --text:#191735;--text2:#6C6A85;--muted:#9E9CB4;--muted2:#B9B7CC;
+    --accent:#5B3DF5;--accent-hover:#4A2FE0;--accent-soft:#EEEBFE;--accent-ink:#3B2E7A;
+    --green:#12A150;--danger:#E5484D;--amber:#B8842A;
+    --danger-soft:#FDEEEE;--danger-border:#F3D9D9;--danger-ink:#8A2F2F;
+    --amber-soft:#FBF4EA;--amber-border:#EAD9C6;--amber-ink:#5C4A2E;
+    /* spreadsheet frame */
+    --grid:#E4E3EF;          /* cell rules */
+    --frame:#F4F3F9;         /* letter / number frame */
+    --frame-ink:#8E8CA6;
+    --frame-on:#E3DEFD;      /* frame cell for the active row/col */
+    --freeze:#C9C5E6;        /* frozen-pane divider */
+    --sheet-title:#DFF3C6;   /* A1 fill carried over from the workbook */
+    --sheet-head:#FCEDE3;    /* month header band carried over from the workbook */
+    --sheet-body:#FEF8F4;    /* the peach used-range fill, lightened for legibility */
+    --mm-title:#FFF7C2;      /* Margin Model: yellow title band  (FFFF00) */
+    --mm-input:#E4F7E7;      /* Margin Model: green  = you type here (C1F0C8) */
+    --mm-calc:#EDEDF2;       /* Margin Model: grey   = calculated  (D0D0D0) */
+    --mm-calc2:#E0E0E8;      /* Margin Model: darker grey = 2nd-tier calc (ADADAD) */
+    --scroll:#DDDBEC;
+  }
+  [data-theme="dark"],:root:has([data-theme="dark"]){
+    --bg:#0B0B14;--card:#101019;--surface2:#181826;
+    --border:rgba(255,255,255,0.08);--border-soft:rgba(255,255,255,0.06);--hover:rgba(255,255,255,0.05);
+    --text:#F2F2F8;--text2:#9C9CB0;--muted:#9C9CB0;--muted2:#5F5F72;
+    --accent:#7B70F5;--accent-hover:#6A5EF0;--accent-soft:rgba(123,112,245,0.16);--accent-ink:#C6BEFF;
+    --green:#4ADE80;--danger:#F87171;--amber:#E0A94A;
+    --danger-soft:rgba(248,113,113,0.12);--danger-border:rgba(248,113,113,0.30);--danger-ink:#FCA5A5;
+    --amber-soft:rgba(224,169,74,0.12);--amber-border:rgba(224,169,74,0.30);--amber-ink:#E8C98A;
+    --grid:rgba(255,255,255,0.075);
+    --frame:#16161F;
+    --frame-ink:#7B7A90;
+    --frame-on:rgba(123,112,245,0.22);
+    --freeze:rgba(123,112,245,0.45);
+    --sheet-title:rgba(146,208,80,0.16);
+    --sheet-head:rgba(251,226,213,0.10);
+    --sheet-body:rgba(251,226,213,0.035);
+    --mm-title:rgba(255,255,0,0.13);
+    --mm-input:rgba(74,222,128,0.11);
+    --mm-calc:rgba(255,255,255,0.05);
+    --mm-calc2:rgba(255,255,255,0.09);
+    --scroll:#2A2A3A;
+  }
+  html,body{height:100%}
+  body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--card);color:var(--text);
+       -webkit-font-smoothing:antialiased;letter-spacing:-0.011em;overflow:hidden}
+  a{color:var(--accent);text-decoration:none}
+  .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+  .btn{transition:background .14s ease,border-color .14s ease}
+  .btn:hover{background:var(--hover)}
+  .btnk{transition:background .14s ease}
+  .btnk:hover{background:var(--accent-hover)}
+  .tab{transition:background .14s ease,color .14s ease}
+  .tab:hover{background:var(--hover)}
+  .fcell:hover{background:var(--frame-on)}
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:var(--card)}
+  ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px;border:3px solid var(--card)}
+  ::-webkit-scrollbar-corner{background:var(--card)}
+  input{font-family:inherit}
+</style>
+</helmet>
+
+<div data-theme="{{ themeAttr }}" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--card)">
+
+  <!-- ══════════ TOP BAR ══════════ -->
+  <div style="flex:none;height:44px;display:flex;align-items:center;gap:14px;padding:0 12px 0 10px;border-bottom:1px solid var(--border);background:var(--card)">
+    <a href="./Overview.dc.html" class="btn" style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:7px;color:var(--text2);flex:none" title="Tilbake til arbeidspapirer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <div style="display:flex;align-items:baseline;gap:9px;min-width:0">
+      <span style="font-size:13.5px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap">{{ fileName }}</span>
+      <span style="color:var(--muted2);font-size:12px">/</span>
+      <span class="mono" style="font-size:11.5px;color:var(--accent)">{{ periodLabel }}</span>
+      <span style="font-size:11px;color:var(--muted);white-space:nowrap">{{ clientLabel }}</span>
+    </div>
+
+    <div style="flex:1"></div>
+
+    <span class="mono" style="{{ saveStyle }}">{{ saveLabel }}</span>
+
+    <div style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
+      <div onClick="{{ undo }}" title="{{ undoTitle }}" style="{{ undoStyle }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      </div>
+      <div onClick="{{ redo }}" title="{{ redoTitle }}" style="{{ redoStyle }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+      </div>
+    </div>
+
+    <div onClick="{{ addCol }}" class="btn" style="height:28px;display:flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--text2);cursor:pointer;flex:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>{{ addColLabel }}
+    </div>
+    <div style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
+      <sc-for list="{{ langs }}" as="g" hint-placeholder-count="2">
+        <div onClick="{{ g.pick }}" class="mono" style="{{ g.style }}">{{ g.label }}</div>
+      </sc-for>
+    </div>
+    <div onClick="{{ toggleTicks }}" style="{{ tickBtnStyle }}">Tickmarks</div>
+    <div onClick="{{ toggleDrawer }}" style="{{ drawerBtnStyle }}">{{ drawerLabel }}</div>
+    <div onClick="{{ openComp }}" class="btnk" style="height:28px;display:flex;align-items:center;padding:0 12px;border-radius:7px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;cursor:pointer;flex:none">{{ adjLabel }}</div>
+  </div>
+
+  <!-- ══════════ FORMULA BAR ══════════ -->
+  <div style="flex:none;height:34px;display:flex;align-items:center;border-bottom:1px solid var(--border);background:var(--card)">
+    <div class="mono" style="{{ addrStyle }}">{{ addr }}</div>
+    <div style="width:1px;height:16px;background:var(--border);flex:none"></div>
+    <span class="mono" style="{{ fxStyle }}">fx</span>
+    <input data-fb="1" value="{{ fbValue }}" onChange="{{ fbInput }}" onKeyDown="{{ fbKey }}" onFocus="{{ fbFocus }}" onBlur="{{ fbBlur }}" placeholder="{{ fbPlaceholder }}" style="{{ fbStyle }}" />
+    <sc-if value="{{ fbHelp }}" hint-placeholder-val="{{ false }}">
+      <span class="mono" style="font-size:10.5px;color:var(--muted);flex:none;padding:0 14px;white-space:nowrap">{{ fbHelp }}</span>
+    </sc-if>
+  </div>
+
+  <!-- ══════════ BODY ══════════ -->
+  <div style="flex:1;display:flex;min-height:0">
+
+    <!-- ─── THE SHEET ─── -->
+    <div data-grid="1" tabIndex="0"
+         onKeyDown="{{ onKey }}" onPaste="{{ onPaste }}" onCopy="{{ onCopy }}"
+         onMouseUp="{{ endDrag }}" onMouseLeave="{{ endDrag }}" onMouseMove="{{ onMove }}"
+         style="flex:1;min-width:0;overflow:auto;outline:none;background:var(--card);position:relative">
+      <div style="min-width:100%;width:max-content">
+
+        <!-- column letter frame -->
+        <div style="{{ letterRowStyle }}">
+          <div onMouseDown="{{ selectAll }}" class="fcell" style="{{ cornerStyle }}">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M10 0 L10 10 L0 10 Z" fill="currentColor" opacity=".55"/></svg>
+          </div>
+          <sc-for list="{{ letters }}" as="L" hint-placeholder-count="7">
+            <div onMouseDown="{{ L.pick }}" data-col="{{ L.key }}" class="fcell" style="{{ L.style }}">
+              {{ L.ch }}
+              <span onMouseDown="{{ L.grab }}" style="{{ L.gripStyle }}"></span>
+            </div>
+          </sc-for>
+          <div style="{{ fillerHeadStyle }}"></div>
+        </div>
+
+        <!-- rows -->
+        <sc-for list="{{ rows }}" as="row" hint-placeholder-count="22">
+          <div style="{{ row.style }}">
+            <div onMouseDown="{{ row.pick }}" class="fcell" style="{{ row.numStyle }}">{{ row.num }}</div>
+            <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="7">
+              <div onMouseDown="{{ c.down }}" onMouseEnter="{{ c.enter }}" onDoubleClick="{{ c.dbl }}" data-cell="{{ c.ref }}" data-band="{{ c.band }}" style="{{ c.style }}">
+                <sc-if value="{{ c.editing }}" hint-placeholder-val="{{ false }}">
+                  <input data-edit="1" value="{{ c.draft }}" onChange="{{ c.input }}" onKeyDown="{{ c.editKey }}" onBlur="{{ c.blur }}" style="{{ c.inputStyle }}" />
+                </sc-if>
+                <sc-if value="{{ c.notEditing }}" hint-placeholder-val="{{ true }}">
+                  <sc-if value="{{ c.tick }}" hint-placeholder-val="{{ false }}">
+                    <span style="{{ c.tickStyle }}">{{ c.tick }}</span>
+                  </sc-if>
+                  <span style="{{ c.textStyle }}">{{ c.text }}</span>
+                </sc-if>
+                <sc-if value="{{ c.flag }}" hint-placeholder-val="{{ false }}">
+                  <span onMouseDown="{{ c.openFlag }}" title="Merknad fra import — åpent punkt" style="position:absolute;top:0;right:0;width:0;height:0;border-top:8px solid var(--amber);border-left:8px solid transparent;cursor:pointer;z-index:3"></span>
+                </sc-if>
+                <sc-if value="{{ c.handle }}" hint-placeholder-val="{{ false }}">
+                  <span onMouseDown="{{ c.grabFill }}" style="position:absolute;right:-3px;bottom:-3px;width:7px;height:7px;background:var(--accent);border:1px solid var(--card);cursor:crosshair;z-index:6"></span>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="{{ row.fillerStyle }}"></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ─── DRAWER ─── -->
+    <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ true }}">
+      <div style="width:318px;flex:none;border-left:1px solid var(--border);background:var(--card);overflow:auto">
+
+        <!-- adjustment composer -->
+        <sc-if value="{{ compOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:15px 17px;border-bottom:1px solid var(--border)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <span style="font-size:13px;font-weight:700">{{ compNo }}</span>
+              <span onClick="{{ closeComp }}" style="font-size:11.5px;color:var(--muted);cursor:pointer">{{ closeLabel }}</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--text2);line-height:1.5;margin-bottom:12px">{{ compTargetLabel }}</div>
+            <div class="eyebrow" style="margin-bottom:6px">{{ amountLabel }}</div>
+            <input value="{{ compAmount }}" onChange="{{ setCompAmount }}" placeholder="-1 490" style="{{ compInpN }}" />
+            <div class="eyebrow" style="margin:13px 0 6px">{{ reasonLabel }}</div>
+            <textarea value="{{ compReason }}" onChange="{{ setCompReason }}" placeholder="{{ reasonPh }}" style="width:100%;min-height:60px;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.5;padding:8px 9px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);resize:vertical"></textarea>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:12px">
+              <div onClick="{{ saveComp }}" style="{{ saveCompStyle }}">{{ postLabel }}</div>
+              <span onClick="{{ closeComp }}" style="font-size:12px;color:var(--muted);cursor:pointer">{{ cancelLabel }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- tickmark palette -->
+        <sc-if value="{{ ticksOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:15px 17px;border-bottom:1px solid var(--border)">
+            <div class="eyebrow" style="margin-bottom:9px">{{ tickLabel }}</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{ tickPalette }}" as="t" hint-placeholder-count="8">
+                <div onClick="{{ t.pick }}" style="{{ t.style }}">
+                  <span class="mono" style="font-size:11.5px;color:var(--green);min-width:24px">{{ t.sym }}</span>
+                  <span style="font-size:11.5px;color:var(--text2)">{{ t.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:9px;line-height:1.5">{{ tickHint }}</div>
+          </div>
+        </sc-if>
+
+        <!-- open points carried in from the workbook's cell comments -->
+        <sc-if value="{{ openPoints }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:15px 17px;border-bottom:1px solid var(--border)">
+            <div class="eyebrow" style="margin-bottom:10px">{{ openPtsLabel }} · {{ openCount }}</div>
+            <sc-for list="{{ openPoints }}" as="p" hint-placeholder-count="4">
+              <div onClick="{{ p.jump }}" style="border:1px solid var(--amber-border);border-left:2px solid var(--amber);border-radius:9px;padding:10px 11px;margin-bottom:7px;background:var(--amber-soft);cursor:pointer">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:4px">
+                  <span style="font-size:11.5px;font-weight:600;color:var(--amber-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.label }}</span>
+                  <span class="mono" style="font-size:10px;color:var(--amber);flex:none">{{ p.ref }}</span>
+                </div>
+                <div style="font-size:11.5px;line-height:1.5;color:var(--amber-ink)">{{ p.text }}</div>
+                <div style="font-size:10.5px;color:var(--muted);margin-top:5px">{{ p.author }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- cell detail -->
+        <sc-if value="{{ detail }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:15px 17px">
+            <div style="font-size:13px;font-weight:700;margin-bottom:1px">{{ detail.title }}</div>
+            <div style="font-size:11.5px;color:var(--muted);margin-bottom:15px">{{ detail.col }}</div>
+
+            <div class="eyebrow" style="margin-bottom:8px">{{ originLabel }}</div>
+            <div style="border:1px solid var(--border);border-radius:9px;padding:10px 11px;margin-bottom:15px">
+              <div class="mono" style="font-size:11px;color:var(--accent)">{{ detail.cell }}</div>
+              <div class="mono" style="font-size:12px;margin-top:5px">{{ detail.raw }}</div>
+              <div style="font-size:10.5px;color:var(--muted);margin-top:5px">{{ detail.origin }}</div>
+            </div>
+
+            <sc-if value="{{ detail.comment }}" hint-placeholder-val="{{ false }}">
+              <div class="eyebrow" style="margin-bottom:8px">{{ noteLabel }}</div>
+              <div style="border:1px solid var(--amber-border);border-left:2px solid var(--amber);border-radius:9px;padding:10px 11px;background:var(--amber-soft);margin-bottom:15px">
+                <div style="font-size:11.5px;line-height:1.5;color:var(--amber-ink)">{{ detail.comment.text }}</div>
+                <div style="font-size:10.5px;color:var(--muted);margin-top:5px">{{ detail.comment.author }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ detail.edited }}" hint-placeholder-val="{{ false }}">
+              <div class="eyebrow" style="margin-bottom:8px">{{ detail.editTitle }}</div>
+              <div style="{{ detail.editCard }}">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+                  <span class="mono" style="font-size:11.5px;word-break:break-all">{{ detail.editRaw }}</span>
+                  <span class="mono" style="font-size:11.5px;flex:none;color:{{ detail.editColor }}">{{ detail.editVal }}</span>
+                </div>
+                <sc-if value="{{ detail.wasVal }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:11px;color:var(--muted);margin-top:6px">{{ wasLabel }} <span class="mono">{{ detail.wasVal }}</span> {{ wasSuffix }}</div>
+                </sc-if>
+                <div style="font-size:10.5px;color:var(--muted);margin-top:5px">{{ detail.editWho }}</div>
+              </div>
+              <div style="height:15px"></div>
+            </sc-if>
+
+            <sc-if value="{{ detail.entries }}" hint-placeholder-val="{{ false }}">
+              <div class="eyebrow" style="margin-bottom:8px">{{ adjustLabel }}</div>
+              <sc-for list="{{ detail.entries }}" as="e" hint-placeholder-count="1">
+                <div style="border:1px solid var(--border);border-radius:9px;padding:10px 11px;margin-bottom:7px">
+                  <div style="display:flex;align-items:center;justify-content:space-between">
+                    <span class="mono" style="font-size:11px;color:var(--accent)">{{ e.no }}</span>
+                    <span class="mono" style="font-size:11px;color:var(--accent)">{{ e.amount }}</span>
+                  </div>
+                  <div style="font-size:11.5px;line-height:1.5;color:var(--text2);margin-top:5px">{{ e.narrative }}</div>
+                  <div style="font-size:10.5px;color:var(--muted);margin-top:5px">{{ e.type }} · {{ e.author }}</div>
+                </div>
+              </sc-for>
+              <div style="height:15px"></div>
+            </sc-if>
+
+            <div class="eyebrow" style="margin-bottom:8px">{{ historyLabel }}</div>
+            <sc-for list="{{ detail.history }}" as="h" hint-placeholder-count="2">
+              <div style="display:flex;gap:9px;padding:6px 0;border-top:1px solid var(--border-soft)">
+                <span style="width:4px;height:4px;border-radius:9999px;background:var(--muted2);margin-top:6px;flex:none"></span>
+                <div>
+                  <div style="font-size:11.5px">{{ h.t }}</div>
+                  <div style="font-size:10.5px;color:var(--muted);margin-top:1px">{{ h.w }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ drawerEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:20px 17px">
+            <div style="font-size:12.5px;font-weight:600;margin-bottom:4px">{{ emptyTitle }}</div>
+            <div style="font-size:11.5px;line-height:1.55;color:var(--muted)">{{ emptyBody }}</div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- ══════════ SHEET TABS + STATUS ══════════ -->
+  <div style="flex:none;height:32px;display:flex;align-items:stretch;border-top:1px solid var(--border);background:var(--surface2)">
+    <div style="display:flex;align-items:stretch;padding-left:6px;overflow:auto">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <div onClick="{{ t.pick }}" class="tab" style="{{ t.style }}">{{ t.label }}</div>
+      </sc-for>
+      <div onClick="{{ addSheet }}" class="tab" style="display:flex;align-items:center;padding:0 11px;font-size:14px;color:var(--muted);cursor:pointer">+</div>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:16px;padding:0 8px 0 16px">
+      <sc-if value="{{ stats }}" hint-placeholder-val="{{ true }}">
+        <span onClick="{{ stats.copySum }}" class="mono" style="font-size:11px;cursor:pointer;color:var(--text2)">{{ sumLabel }} <b style="color:var(--text)">{{ stats.sum }}</b></span>
+        <span onClick="{{ stats.copyAvg }}" class="mono" style="font-size:11px;cursor:pointer;color:var(--text2)">{{ avgLabel }} <b style="color:var(--text)">{{ stats.avg }}</b></span>
+        <span class="mono" style="font-size:11px;color:var(--text2)">{{ countLabel }} <b style="color:var(--text)">{{ stats.count }}</b></span>
+      </sc-if>
+      <sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:11px;color:var(--green)">Kopiert</span>
+      </sc-if>
+      <sc-if value="{{ checkSummary }}" hint-placeholder-val="{{ true }}">
+        <span onClick="{{ toggleChecks }}" style="{{ checkStyle }}">{{ checkSummary }}</span>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:1px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1px">
+        <sc-for list="{{ dens }}" as="d" hint-placeholder-count="3">
+          <div onClick="{{ d.pick }}" title="{{ d.title }}" style="{{ d.style }}">{{ d.glyph }}</div>
+        </sc-for>
+      </div>
+      <div onClick="{{ toggleTheme }}" class="btn" style="width:24px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted);cursor:pointer">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- checks strip (toggled) -->
+  <sc-if value="{{ checksOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:none;display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:8px 16px;border-top:1px solid var(--border);background:var(--card)">
+      <sc-for list="{{ checks }}" as="c" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;gap:7px">
+          <span style="font-size:11px;color:{{ c.color }}">{{ c.glyph }}</span>
+          <span style="font-size:11px;color:var(--text2)">{{ c.name }}</span>
+          <span class="mono" style="font-size:11px;color:var(--muted)">{{ c.val }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    lang:(function(){try{return new URLSearchParams(location.search).get('lang')||'no';}catch(e){return 'no';}})(),
+    sheet:'pl', density:'tight', dark:false,
+    edits:{}, extraCols:{}, widths:{},
+    sel:null, focus:{r:1,c:1}, editing:null,
+    undo:[], redo:[], fbFocus:false, fbDraft:null,
+    drawer:true, ticksOpen:false, checksOpen:false, copied:false, armedTick:null,
+    ticks:{'pl!C2':{sym:'√',who:'DK · 13. juni'},'pl!C7':{sym:'√GL',who:'DK · 13. juni'}},
+    resolved:{},
+    adj:[{id:'a1',sheet:'pl',ref:'B27',amount:-1490,reason:'Tripletex fakturert kvartalsvis — juni-andel periodisert.',author:'DK · 13. juni'}],
+    comp:{open:false,no:2,ref:'',amount:'',reason:''}
+  };
+
+  /* ═════════════ THE IMPORTED WORKBOOK ═════════════
+     Structure, labels, formulas, number formats and cell comments are a faithful
+     reproduction of Phonero_Template_EN.xlsx. The template ships empty (zeros and
+     10/20 placeholders); the figures below are a filled-in June–December instance,
+     i.e. what the file looks like after a period has been worked.                */
+
+  t(no,en){ return this.state.lang==='no'?no:en; }
+  MONTHS(){ return ['June','July','August','September','October','November','December']; }
+  cl(i){ return String.fromCharCode(66+i); }            // B..H  (month columns)
+
+  buildPL(){
+    const M=this.MONTHS(), cells={};
+    const BOLD=[4,7,16,34,37,39];
+    const ser=(base,step)=>[0,1,2,3,4,5,6].map(i=>Math.round((base+step*i)/100)*100);
+    const flat=v=>[v,v,v,v,v,v,v];
+
+    cells['A1']={v:'Phonero',s:'title'};
+    M.forEach((m,i)=>{ cells[this.cl(i)+'1']={v:m,s:'head'}; });
+    cells['I1']={v:'Total',s:'head'};
+
+    // label + 7 monthly cells + a row total in column I
+    const put=(r,label,vals,ftpl)=>{
+      const b=BOLD.indexOf(r)>-1;
+      cells['A'+r]={v:label,s:b?'b':''};
+      M.forEach((m,i)=>{
+        const ref=this.cl(i)+r;
+        cells[ref]= ftpl ? {f:ftpl.replace(/\{C\}/g,this.cl(i)),s:b?'b':''}
+                         : {v:vals[i],s:b?'b':''};
+      });
+      cells['I'+r]={f:'=SUM(B'+r+':H'+r+')',s:'b'};
+    };
+
+    put(2,'Sales revenue',ser(2683400,78000));
+    put(3,'Bonus revenue',ser(163600,5200));
+    put(4,'Total revenue',null,'={C}2+{C}3');
+
+    put(6,'Cost of sales',ser(1235000,34000));
+    put(7,'Total cost of sales',null,'={C}6');
+
+    const emp=[62000,58000,71000,54000,66000,59000,63000];
+    emp.forEach((base,k)=>put(9+k,'Salary cost – Employee '+(k+1),ser(base,900)));
+    put(16,'Total salary costs',null,'=SUM({C}9:{C}15)');
+
+    const indirect=[
+      ['Rent / premises',46000],['Accountant / bookkeeper',12500],['Recruiter',18000],
+      ['Internet',3200],['Shared / common costs',8400],['Incentives / prizes',14000],
+      ['Furniture / office equipment',6500],['Coffee & water',2400],
+      ['Tripletex (accounting software)',2980],['Loan payments',21000],
+      ['Lists (unclear — confirm with source)',0],['Upgrades',4200],['Parking',3600],
+      ['Licenses',5400],['Other items',6200]];
+    indirect.forEach(([lbl,v],k)=>put(19+k,lbl,flat(v)));
+    put(34,'Total indirect costs',null,'=SUM({C}19:{C}33)');
+
+    put(37,'Operating result (EBIT)',null,'={C}4-{C}7-{C}16-{C}34');
+    put(38,'Investment',[0,0,0,120000,0,0,0]);
+    put(39,'Net result',null,'={C}37+{C}38');
+
+    return {
+      key:'pl', name:'P&L', nRows:41, nCols:9, headerRow:1,
+      colW:[248,108,108,108,108,108,108,108,122],
+      defFmt:'kr', textCol:0, ruleBottom:[39], ruleTop:[], bodyRows:39, bodyCols:9,
+      cells,
+      comments:{
+        'A7':{author:this.t('Import · oversettelse','Import · translation'),text:this.t('Antakelse: kun én varekostnadslinje finnes i dette eksempelet, så delsummen speiler den. Legg til flere linjer over hvis det finnes flere kostnadstyper.','Assumption: only one cost-of-sales line exists in this example, so the subtotal simply mirrors it. Add more lines above if there are several cost types.')},
+        'A9':{author:this.t('Import · oversettelse','Import · translation'),text:this.t('Originalfilen hadde 7 identiske rader kalt «Lønnskostnader A». Omdøpt til Employee 1–7 som plassholder — bekreft faktisk antall ansatte og navn.','Original file had 7 identical rows named “Lønnskostnader A”. Renamed to Employee 1–7 as a placeholder — confirm actual employee count/names.')},
+        'A29':{author:this.t('Import · oversettelse','Import · translation'),text:this.t('Norsk originaletikett «Lister» — betydning uklar (prislister? abonnentlister?). Beholdt bokstavelig oversettelse; bekreft med kilden før bruk.','Original Norwegian label “Lister” — meaning unclear (price lists? subscriber lists?). Kept literal translation; confirm with source before using.')},
+        'A38':{author:this.t('Import · oversettelse','Import · translation'),text:this.t('Fortegnskonvensjon uklar i kildefilen — bekreft om «Investering» skal legges til eller trekkes fra driftsresultatet.','Sign convention unclear in source file — confirm whether “Investering” should add to or subtract from operating result.')}
+      }
+    };
+  }
+
+  buildMM(){
+    const M=this.MONTHS(), cells={};
+    // the source parks this island at G4:N19; pulled left to A so it opens on-screen
+    cells['A4']={v:'Phonero',s:'title',band:'title',span:8};    // merged across the 8 columns
+    for(let c=2;c<=8;c++) cells[this.colLetter(c-1)+'4']={hidden:true};
+    cells['A5']={v:'Margin Model',s:'b'};
+    M.forEach((m,i)=>{ cells[String.fromCharCode(66+i)+'5']={v:m,s:'head'}; });
+    // rows 6–12 green = input · 13–17 grey = calculated · 18–19 darker grey = 2nd-tier calc
+    const lines=[
+      ['Subscription earnings',1284000,'input'],['Additional revenue',196400,'input'],
+      ['Deduction',-84300,'input'],['Mobile bonus',142000,'input'],
+      ['Additional services',88600,'input'],['Commission cost',-612000,'input'],
+      ['Number of sales (count, not currency)',418,'input'],
+      ['Total earnings',1626700,'calc'],['Total cost',612000,'calc'],
+      ['Cost × 1.2808 (adjustment factor — basis unclear, confirm)',783850,'calc'],
+      ['Margin (NOK)',842850,'calc'],['Margin %',0.518,'calc'],
+      ['Avg. commission per subscription (alt. calc)',1464,'calc2'],
+      ['Avg. commission per subscription',1889,'calc2']];
+    lines.forEach(([lbl,v,band],k)=>{
+      const r=6+k;
+      cells['A'+r]={v:lbl,s:'',band};
+      cells['B'+r]={v:v,s:'',band,n:(r===17?'pct':(r===12?'num':'kr'))};  // only June is populated in the source
+      for(let c=3;c<=8;c++) cells[this.colLetter(c-1)+r]={band};          // July–December: banded but empty
+    });
+    return {
+      key:'mm', name:'Margin Model', nRows:22, nCols:8, headerRow:0,
+      colW:[300,124,124,124,124,124,124,124],
+      defFmt:'kr', textCol:0, ruleBottom:[], ruleTop:[],
+      cells,
+      comments:{
+        'A6':{author:this.t('Import · oversettelse','Import · translation'),text:this.t('Dette arket var statisk i kildefilen (tallene var innskrevne verdier, ikke formler — ingen live beregning). Kun etiketter er oversatt, og bare juni har eksempeltall. Ikke behandle dette som en fungerende modell før Phoneros faktiske provisjonsformler er bekreftet — særlig faktoren 1,2808 i rad 15 og hvordan «Number of sales» inngår i Margin %.','This sheet was static in the source file (numbers were typed values, not formulas — no live calculation). Translated labels only; only June has example figures. Do not treat this as a working model until the actual Phonero commission formulas (esp. row 15’s 1.2808 factor and how “Number of sales” feeds into Margin %) are confirmed.')}
+      }
+    };
+  }
+
+  def(key){ this._defs=this._defs||{};
+    if(!this._defs[key]) this._defs[key]=(key==='mm'?this.buildMM():this.buildPL());
+    return this._defs[key]; }
+
+  // demo ledger: what Tripletex actually booked, so KONTO() can answer budget-vs-actual
+  ledger(){ return {'3000':2712400,'3090':158900,'4000':1248000,'5000':433900,'6300':46000,'6810':2980}; }
+
+  /* ═════════════ formatting ═════════════ */
+  nbn(v){ const s=Math.abs(Math.round(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' '); return (v<0?'-':'')+s; }
+  colLetter(i){ let s='',n=i+1; while(n>0){ const m=(n-1)%26; s=String.fromCharCode(65+m)+s; n=Math.floor((n-1)/26); } return s; }
+  letterCol(t){ let n=0; for(let i=0;i<t.length;i++) n=n*26+(t.charCodeAt(i)-64); return n-1; }
+  parseNum(t){
+    if(typeof t==='number') return isFinite(t)?t:null;
+    let v=String(t==null?'':t).trim().replace(/[\s ]/g,'').replace(/^kr/i,'').replace(/%$/,'');
+    if(v==='') return null;
+    if(!/^-?[0-9]*[,.]?[0-9]+$/.test(v)) return null;
+    const n=parseFloat(v.replace(',','.')); return isFinite(n)?n:null;
+  }
+  numToRaw(v){ if(v===null||v===undefined||v==='') return ''; if(typeof v!=='number') return String(v);
+    const r=Math.round(v*1000)/1000; return String(r).replace('.',','); }
+
+  /* ═════════════ formula engine ═════════════ */
+  fEval(src,ctx){
+    const s=String(src||''); let i=0;
+    const fail=m=>{ const e=new Error(m); e.fx=m; throw e; };
+    const toN=v=>{ if(typeof v==='string'&&v.charAt(0)==='#') fail(v);
+      return (typeof v==='number'&&isFinite(v))?v:0; };
+    const ws=()=>{ while(i<s.length&&(s[i]===' '||s[i]===' ')) i++; };
+    const num=()=>{ const st=i; while(i<s.length&&/[0-9]/.test(s[i])) i++;
+      if((s[i]===','||s[i]==='.')&&/[0-9]/.test(s[i+1]||'')){ i++; while(i<s.length&&/[0-9]/.test(s[i])) i++; }
+      return parseFloat(s.slice(st,i).replace(',','.')); };
+    const ident=()=>{ const st=i; while(i<s.length&&/[A-Za-z0-9_ÆØÅæøå]/.test(s[i])) i++; return s.slice(st,i); };
+    const str=()=>{ i++; const st=i; while(i<s.length&&s[i]!=='"') i++; const v=s.slice(st,i); i++; return v; };
+    const isRef=t=>/^[A-Z]+[0-9]+$/.test(t);
+    const flat=a=>{ const o=[]; a.forEach(x=>{ if(x&&x.range) ctx.range(x.range[0],x.range[1]).forEach(v=>o.push(v)); else o.push(x); }); return o; };
+    const fn=(id,args)=>{
+      if(id==='SUM') return flat(args).reduce((t,v)=>{ if(typeof v==='string'&&v.charAt(0)==='#') fail(v);
+        return t+((typeof v==='number'&&isFinite(v))?v:0); },0);
+      if(id==='ROUND'){ const v=flat(args); const d=v.length>1?toN(v[1]):0; const p=Math.pow(10,d); return Math.round(toN(v[0])*p)/p; }
+      if(id==='KONTO'){ const v=flat(args); return ctx.konto(String(v[0]==null?'':v[0]).trim()); }
+      fail('#NAVN?');
+    };
+    const primary=()=>{ ws(); const ch=s[i];
+      if(ch===undefined) fail('#NAVN?');
+      if(ch==='('){ i++; const v=expr(); ws(); if(s[i]!==')') fail('#NAVN?'); i++; return v; }
+      if(ch==='"') return str();
+      if(/[0-9]/.test(ch)) return num();
+      if(/[A-Za-zÆØÅ]/.test(ch)){
+        const id=ident().toUpperCase(); ws();
+        if(s[i]==='('){ i++; const args=[]; ws();
+          if(s[i]!==')'){ for(;;){ ws();
+            const save=i,a=ident().toUpperCase(); ws();
+            if(isRef(a)&&s[i]===':'){ i++; ws(); const b=ident().toUpperCase(); args.push({range:[a,b]}); }
+            else { i=save; args.push(expr()); }
+            ws(); if(s[i]===';'||s[i]===','){ i++; continue; } break; } }
+          ws(); if(s[i]!==')') fail('#NAVN?'); i++; return fn(id,args); }
+        if(isRef(id)){ const m=/^([A-Z]+)([0-9]+)$/.exec(id); return ctx.cell(this.letterCol(m[1]),parseInt(m[2],10)-1); }
+        fail('#NAVN?');
+      }
+      fail('#NAVN?');
+    };
+    const unary=()=>{ ws();
+      if(s[i]==='-'){ i++; return -toN(unary()); }
+      if(s[i]==='+'){ i++; return unary(); }
+      let v=primary(); ws();
+      if(s[i]==='%'){ i++; v=toN(v)/100; }
+      return v; };
+    const term=()=>{ let v=unary(); for(;;){ ws(); const c=s[i];
+      if(c==='*'){ i++; v=toN(v)*toN(unary()); }
+      else if(c==='/'){ i++; const d=toN(unary()); if(d===0) fail('#DIV/0!'); v=toN(v)/d; }
+      else return v; } };
+    const expr=()=>{ let v=term(); for(;;){ ws(); const c=s[i];
+      if(c==='+'){ i++; v=toN(v)+toN(term()); }
+      else if(c==='-'){ i++; v=toN(v)-toN(term()); }
+      else return v; } };
+    try{ const v=expr(); ws(); if(i<s.length) fail('#NAVN?'); return v; }
+    catch(e){ if(e&&e.fx) return e.fx; return '#NAVN?'; }
+  }
+  shiftRefs(src,d){
+    if(d===0||String(src).charAt(0)!=='=') return src;
+    const s=String(src); let out='',i=0;
+    while(i<s.length){
+      const ch=s[i];
+      if(ch==='"'){ const j=s.indexOf('"',i+1); const end=j<0?s.length:j+1; out+=s.slice(i,end); i=end; continue; }
+      const m=/^([A-Z]+)([0-9]+)/.exec(s.slice(i));
+      if(m&&(i===0||!/[A-Za-z0-9_]/.test(s[i-1]))){ const n=parseInt(m[2],10)+d; out+=m[1]+(n<1?1:n); i+=m[0].length; continue; }
+      out+=ch; i++;
+    }
+    return out;
+  }
+
+  /* ═════════════ mutations ═════════════ */
+  ek(ref){ return this.state.sheet+'!'+ref; }
+  pushUndo(){ this.setState(s=>({undo:(s.undo||[]).concat([s.edits||{}]).slice(-60),redo:[]})); }
+  doUndo(){ this.setState(s=>{ const u=s.undo||[]; if(!u.length) return {};
+    return {edits:u[u.length-1],undo:u.slice(0,-1),redo:(s.redo||[]).concat([s.edits||{}]),editing:null}; }); }
+  doRedo(){ this.setState(s=>{ const r=s.redo||[]; if(!r.length) return {};
+    return {edits:r[r.length-1],redo:r.slice(0,-1),undo:(s.undo||[]).concat([s.edits||{}]),editing:null}; }); }
+  setEdit(ref,val){ this.pushUndo(); const k=this.ek(ref);
+    this.setState(s=>{ const e={...(s.edits||{})};
+      if(val===''||val==null) delete e[k]; else e[k]=String(val); return {edits:e}; }); }
+  startEdit(ref,seed){ this.setState({editing:{ref,draft:seed==null?'':String(seed)}}); }
+  editDraft(v){ this.setState(s=>s.editing?{editing:{...s.editing,draft:v}}:{}); }
+  commitEdit(){ const ed=this.state.editing; if(!ed||this._cmt) return;
+    this._cmt=true; this.setEdit(ed.ref,ed.draft); this.setState({editing:null});
+    setTimeout(()=>{this._cmt=false;},0); }
+  cancelEdit(){ this.setState({editing:null}); }
+  applyTick(ref,v){ const k=this.ek(ref);
+    this.setState(s=>{ const t={...s.ticks}; if(t[k]&&t[k].sym===s.armedTick) delete t[k]; else t[k]={sym:s.armedTick,v:v,who:'DK · nå'}; return {ticks:t}; }); }
+  addUserCol(){
+    const key=this.state.sheet;
+    this.setState(s=>({extraCols:{...s.extraCols,[key]:(s.extraCols[key]||0)+1}}));
+  }
+  copyVal(t){ try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){}
+    clearTimeout(this._cp); this.setState({copied:true}); this._cp=setTimeout(()=>this.setState({copied:false}),1200); }
+
+  /* ═════════════ keyboard ═════════════ */
+  onKeyDown(e,nR,nC,refAt,rawAt){
+    if(this.state.editing) return;
+    const f=this.state.focus||{r:1,c:1}, k=e.key, meta=e.ctrlKey||e.metaKey;
+    let r=f.r,c=f.c,move=false;
+
+    if(meta&&(k==='z'||k==='Z')){ e.preventDefault(); e.shiftKey?this.doRedo():this.doUndo(); return; }
+    if(meta&&(k==='y'||k==='Y')){ e.preventDefault(); this.doRedo(); return; }
+    if(meta&&(k==='d'||k==='D')){ e.preventDefault(); this.fillDown(refAt,rawAt); return; }
+
+    if(k==='ArrowDown'){r=meta?nR-1:Math.min(nR-1,r+1);move=true;}
+    else if(k==='ArrowUp'){r=meta?0:Math.max(0,r-1);move=true;}
+    else if(k==='ArrowRight'){c=meta?nC-1:Math.min(nC-1,c+1);move=true;}
+    else if(k==='ArrowLeft'){c=meta?0:Math.max(0,c-1);move=true;}
+    else if(k==='Home'){c=0;move=true;}
+    else if(k==='End'){c=nC-1;move=true;}
+    else if(k==='PageDown'){r=Math.min(nR-1,r+14);move=true;}
+    else if(k==='PageUp'){r=Math.max(0,r-14);move=true;}
+    else if(k==='Enter'){ if(!e.shiftKey&&!meta){ e.preventDefault(); this.startEdit(refAt(f.r,f.c),rawAt(f.r,f.c)); return; }
+      r=Math.max(0,r-1);move=true; }
+    else if(k==='Tab'){ c=e.shiftKey?Math.max(0,c-1):Math.min(nC-1,c+1);move=true; }
+    else if(k==='Escape'){ e.preventDefault(); this.setState({sel:null,armedTick:null}); return; }
+    else if(k==='F2'){ e.preventDefault(); this.startEdit(refAt(f.r,f.c),rawAt(f.r,f.c)); return; }
+    else if(k==='Delete'||k==='Backspace'){ e.preventDefault(); this.clearRange(refAt); return; }
+    else if(k===' '&&e.shiftKey){ e.preventDefault(); this.setState({sel:{a:{r:f.r,c:0},b:{r:f.r,c:nC-1}}}); return; }
+    else if(k===' '&&meta){ e.preventDefault(); this.setState({sel:{a:{r:0,c:f.c},b:{r:nR-1,c:f.c}}}); return; }
+    else if(k.length===1&&!meta){ e.preventDefault(); this.startEdit(refAt(f.r,f.c),k); return; }
+
+    if(move){ e.preventDefault();
+      this.setState(s=>({focus:{r,c},sel:e.shiftKey&&s.sel?{a:s.sel.a,b:{r,c}}:{a:{r,c},b:{r,c}}})); }
+  }
+  box(){ const s=this.state.sel; if(!s) return null;
+    return {r0:Math.min(s.a.r,s.b.r),r1:Math.max(s.a.r,s.b.r),c0:Math.min(s.a.c,s.b.c),c1:Math.max(s.a.c,s.b.c)}; }
+  clearRange(refAt){ const b=this.box(); if(!b) return; this.pushUndo();
+    this.setState(s=>{ const e={...(s.edits||{})};
+      for(let r=b.r0;r<=b.r1;r++) for(let c=b.c0;c<=b.c1;c++) delete e[s.sheet+'!'+refAt(r,c)];
+      return {edits:e}; }); }
+  fillDown(refAt,rawAt){ const b=this.box(); if(!b||b.r1===b.r0) return; this.pushUndo();
+    this.setState(s=>{ const e={...(s.edits||{})};
+      for(let c=b.c0;c<=b.c1;c++){ const src=rawAt(b.r0,c);
+        for(let r=b.r0+1;r<=b.r1;r++){ const k=s.sheet+'!'+refAt(r,c);
+          if(src==='') delete e[k]; else e[k]=this.shiftRefs(src,r-b.r0); } }
+      return {edits:e}; }); }
+  onPasteEv(e,nR,nC,refAt){
+    const cd=e.clipboardData||window.clipboardData; if(!cd) return;
+    const t=cd.getData('text/plain'); if(!t) return;
+    e.preventDefault();
+    const f=this.state.focus||{r:1,c:1};
+    let lines=t.replace(/\r/g,'').split('\n'); if(lines.length&&lines[lines.length-1]==='') lines.pop();
+    this.pushUndo();
+    this.setState(s=>{ const ed={...(s.edits||{})};
+      lines.forEach((line,dr)=>{ line.split('\t').forEach((txt,dc)=>{
+        const rr=f.r+dr, cc=f.c+dc; if(rr>=nR||cc>=nC) return;
+        const v=String(txt).trim(), k=s.sheet+'!'+refAt(rr,cc);
+        if(v==='') delete ed[k]; else ed[k]=v; }); });
+      return {edits:ed,sel:{a:{r:f.r,c:f.c},b:{r:Math.min(nR-1,f.r+lines.length-1),c:Math.min(nC-1,f.c+(lines[0]||'').split('\t').length-1)}}}; });
+  }
+  onCopyEv(e,textAt){ const b=this.box(); if(!b) return;
+    const out=[];
+    for(let r=b.r0;r<=b.r1;r++){ const line=[]; for(let c=b.c0;c<=b.c1;c++) line.push(textAt(r,c)); out.push(line.join('\t')); }
+    const tsv=out.join('\n');
+    if(e.clipboardData){ e.preventDefault(); e.clipboardData.setData('text/plain',tsv); }
+    else this.copyVal(tsv);
+    clearTimeout(this._cp); this.setState({copied:true}); this._cp=setTimeout(()=>this.setState({copied:false}),1200);
+  }
+
+  componentDidUpdate(){
+    const el=document.querySelector('[data-edit]');
+    if(el&&document.activeElement!==el){ el.focus();
+      try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} }
+    if(!el&&this._wasEd){ const g=document.querySelector('[data-grid]'); if(g) g.focus(); }
+    this._wasEd=!!el;
+    if(this._scrollTo){ const t=document.querySelector('[data-col="'+this._scrollTo+'"]');
+      if(t){ t.scrollIntoView({block:'nearest',inline:'center'}); } this._scrollTo=null; }
+    if(this._jump){ const t=document.querySelector('[data-cell="'+this._jump+'"]');
+      if(t) t.scrollIntoView({block:'center',inline:'center'}); this._jump=null; }
+  }
+  qp(k,d){ try{ const v=new URLSearchParams(location.search).get(k); return v||d; }catch(e){ return d; } }
+
+  /* ═════════════ render ═════════════ */
+  renderVals(){
+    const S=this.state, edits=S.edits||{}, editing=S.editing, sheetKey=S.sheet;
+    const D=this.def(sheetKey);
+    const foc=S.focus, sel=S.sel;
+    const rowH=S.density==='tight'?24:S.density==='mid'?29:34;
+    const extra=(S.extraCols[sheetKey]||0);
+    const BLANK_ROWS=14, BLANK_COLS=4;
+
+    const nCols=D.nCols+extra+BLANK_COLS;
+    const nRows=D.nRows+BLANK_ROWS;
+    const refAt=(r,c)=>this.colLetter(c)+(r+1);
+    const widthOf=c=>S.widths[sheetKey+'|'+c]||(c<D.colW.length?D.colW[c]:118);
+
+    /* ---- resolution ---- */
+    const memo={},stack={};
+    const adjFor=ref=>(S.adj||[]).filter(a=>a.sheet===sheetKey&&a.ref===ref)
+                                 .reduce((t,a)=>t+(+a.amount||0),0);
+    const resolve=(r,c)=>{
+      const ref=refAt(r,c);
+      if(memo[ref]!==undefined) return memo[ref];
+      if(stack[ref]) return '#SIRKEL!';
+      stack[ref]=1;
+      let out=null;
+      const ed=edits[sheetKey+'!'+ref];
+      const src=(ed!==undefined&&ed!==null&&ed!=='')?ed:(D.cells[ref]?(D.cells[ref].f!==undefined?D.cells[ref].f:D.cells[ref].v):undefined);
+      if(src===undefined||src===null||src===''){ out=null; }
+      else if(typeof src==='string'&&src.charAt(0)==='='){
+        out=this.fEval(String(src).slice(1),{
+          cell:(ci,rj)=>{ if(ci<0||ci>=nCols||rj<0||rj>=nRows) return '#REF!'; return resolve(rj,ci); },
+          range:(A,B)=>{ const a=/^([A-Z]+)([0-9]+)$/.exec(A),b=/^([A-Z]+)([0-9]+)$/.exec(B); if(!a||!b) return [];
+            const c0=this.letterCol(a[1]),c1=this.letterCol(b[1]),r0=+a[2]-1,r1=+b[2]-1,acc=[];
+            for(let rj=Math.min(r0,r1);rj<=Math.max(r0,r1);rj++)
+              for(let cj=Math.min(c0,c1);cj<=Math.max(c0,c1);cj++){
+                if(cj<0||cj>=nCols||rj<0||rj>=nRows) continue;
+                acc.push(resolve(rj,cj)); }
+            return acc; },
+          // reads what Tripletex actually booked — budget vs. actual, live
+          konto:code=>{ const L=this.ledger(); return L[code]===undefined?'#REF!':L[code]; }
+        });
+      } else if(typeof src==='number'){ out=src; }
+      else { const n=this.parseNum(src); out=(n===null)?String(src):n; }
+      if(typeof out==='number'){ const a=adjFor(ref); if(a) out=out+a; }
+      delete stack[ref]; memo[ref]=out; return out;
+    };
+
+    const fmtOf=(r,c)=>{ const ref=refAt(r,c); const cd=D.cells[ref];
+      if(cd&&cd.n) return cd.n;
+      if(c===D.textCol) return 'txt';
+      if(r===D.headerRow-1) return 'txt';
+      return D.defFmt; };
+    const disp=(r,c,v)=>{
+      if(v===null||v===undefined||v==='') return '';
+      if(typeof v==='string') return v;
+      const f=fmtOf(r,c);
+      if(f==='pct') return (v*100).toFixed(1).replace('.',',')+' %';
+      if(f==='num') return this.nbn(v);
+      if(f==='txt') return String(v);
+      return 'kr '+this.nbn(v);                       // "kr "#,##0 from the template
+    };
+    const textAt=(r,c)=>disp(r,c,resolve(r,c));
+    const rawAt=(r,c)=>{ const ref=refAt(r,c);
+      const e=edits[sheetKey+'!'+ref]; if(e!==undefined) return String(e);
+      const cd=D.cells[ref];
+      if(cd&&cd.f!==undefined) return cd.f;
+      const v=resolve(r,c);
+      return (typeof v==='number')?this.numToRaw(v):(v==null?'':String(v)); };
+
+    /* ---- geometry ---- */
+    const GUT=46;
+    let tmpl=GUT+'px'; for(let c=0;c<nCols;c++) tmpl+=' '+widthOf(c)+'px';
+    tmpl+=' minmax(40px,1fr)';
+    const lefts=[]; let acc=GUT;
+    for(let c=0;c<nCols;c++){ lefts.push(acc); acc+=widthOf(c); }
+    const frozen=D.textCol+1;                    // freeze through the label column
+
+    const inSel=(r,c)=>{ if(!sel) return false;
+      return r>=Math.min(sel.a.r,sel.b.r)&&r<=Math.max(sel.a.r,sel.b.r)&&c>=Math.min(sel.a.c,sel.b.c)&&c<=Math.max(sel.a.c,sel.b.c); };
+    const setSel=(r,c,ext)=>this.setState(st=>({sel:ext&&st.sel?{a:st.sel.a,b:{r,c}}:{a:{r,c},b:{r,c}},focus:{r,c}}));
+
+    const fbDraftS=S.fbDraft==null?'':String(S.fbDraft);
+    const fxMode=!!(editing&&String(editing.draft||'').charAt(0)==='=')||!!(S.fbFocus&&fbDraftS.charAt(0)==='=');
+
+    /* ---- letter frame ---- */
+    const letters=[];
+    for(let c=0;c<nCols;c++){
+      const on=sel&&c>=Math.min(sel.a.c,sel.b.c)&&c<=Math.max(sel.a.c,sel.b.c);
+      const fz=c<frozen;
+      letters.push({
+        key:'c'+c, ch:this.colLetter(c),
+        pick:()=>this.setState({sel:{a:{r:0,c},b:{r:nRows-1,c}},focus:{r:Math.max(1,D.headerRow),c}}),
+        grab:e=>{ e.stopPropagation(); e.preventDefault(); this._rz={c,x:e.clientX,w:widthOf(c)}; },
+        gripStyle:{position:'absolute',right:'-3px',top:0,width:'6px',height:'100%',cursor:'col-resize',zIndex:4},
+        style:{position:fz?'sticky':'relative',left:fz?lefts[c]+'px':'auto',zIndex:fz?34:32,
+          display:'flex',alignItems:'center',justifyContent:'center',height:'22px',
+          background:on?'var(--frame-on)':'var(--frame)',
+          borderRight:'1px solid '+(c===frozen-1?'var(--freeze)':'var(--grid)'),
+          borderBottom:'1px solid var(--grid)',
+          fontFamily:"'JetBrains Mono',monospace",fontSize:'10px',letterSpacing:'0.06em',
+          color:on?'var(--accent)':'var(--frame-ink)',cursor:'pointer',userSelect:'none'}
+      });
+    }
+
+    /* ---- rows ---- */
+    const outRows=[];
+    for(let r=0;r<nRows;r++){
+      const isHeaderRow=(r===D.headerRow-1);
+      const rowOn=sel&&r>=Math.min(sel.a.r,sel.b.r)&&r<=Math.max(sel.a.r,sel.b.r);
+      const isBold=D.ruleBottom.indexOf(r+1)>-1||['b'].indexOf((D.cells['A'+(r+1)]||{}).s)>-1;
+      const cells=[];
+      for(let c=0;c<nCols;c++){
+        const ref=refAt(r,c);
+        const cd=D.cells[ref]||{};
+        const v=resolve(r,c);
+        const ekey=sheetKey+'!'+ref;
+        const rawEdit=edits[ekey], hasEdit=rawEdit!==undefined;
+        const isFx=(hasEdit?String(rawEdit).charAt(0)==='=':cd.f!==undefined);
+        const isErr=typeof v==='string'&&v.charAt(0)==='#';
+        const isTxt=typeof v==='string'&&!isErr;
+        const tk=S.ticks[ekey];
+        const cmt=D.comments[ref];
+        const adjN=adjFor(ref);
+        const selected=inSel(r,c), isFoc=foc&&foc.r===r&&foc.c===c;
+        const isEd=!!(editing&&editing.ref===ref);
+        const neg=typeof v==='number'&&v<0;
+        const shadow=[];
+        if(hasEdit&&!isFx) shadow.push('inset 2px 0 0 var(--amber)');
+        else if(adjN) shadow.push('inset 2px 0 0 var(--accent)');
+        if(isFoc&&!isEd) shadow.push('inset 0 0 0 2px var(--accent)');
+        const go=(dr,dc)=>{ const nr=Math.max(0,Math.min(nRows-1,r+dr)),nc=Math.max(0,Math.min(nCols-1,c+dc));
+          this.setState({focus:{r:nr,c:nc},sel:{a:{r:nr,c:nc},b:{r:nr,c:nc}}}); };
+        const bold=cd.s==='b'||cd.s==='head'||cd.s==='title';
+        const bandBg=cd.band==='title'?'var(--mm-title)':cd.band==='input'?'var(--mm-input)'
+                    :cd.band==='calc'?'var(--mm-calc)':cd.band==='calc2'?'var(--mm-calc2)':null;
+        const inBody=!!(D.bodyRows&&r<D.bodyRows&&c<D.bodyCols);
+        const spans=!!cd.span;
+        cells.push({
+          ref, band:cd.band||'', text:disp(r,c,v),
+          editing:isEd, notEditing:!isEd, draft:isEd?editing.draft:'',
+          input:e=>this.editDraft(e.target.value),
+          editKey:e=>{ e.stopPropagation(); const k=e.key;
+            if(k==='Enter'){ e.preventDefault(); this.commitEdit(); go(e.shiftKey?-1:1,0); }
+            else if(k==='Tab'){ e.preventDefault(); this.commitEdit(); go(0,e.shiftKey?-1:1); }
+            else if(k==='Escape'){ e.preventDefault(); this.cancelEdit(); } },
+          blur:()=>{ if(this.state.editing) this.commitEdit(); },
+          inputStyle:{position:'absolute',left:0,top:0,width:'100%',height:'100%',border:'none',
+            outline:'2px solid var(--accent)',outlineOffset:'-2px',background:'var(--card)',color:'var(--text)',
+            fontFamily:"'JetBrains Mono',monospace",fontSize:'11.5px',padding:'0 7px',zIndex:8,
+            textAlign:(isEd&&String(editing.draft||'').charAt(0)==='=')?'left':(fmtOf(r,c)==='txt'?'left':'right')},
+          down:e=>{ if(this.state.armedTick){ this.applyTick(ref,v); return; }
+            setSel(r,c,!!(e&&e.shiftKey)); this._drag=true; },
+          enter:()=>{ if(this._fill){ this.setState({sel:{a:{r:this._fill.r0,c:this._fill.c0},b:{r,c:Math.max(c,this._fill.c1)}}}); return; }
+            if(this._drag) this.setState(st=>({sel:{a:st.sel?st.sel.a:{r,c},b:{r,c}},focus:{r,c}})); },
+          dbl:()=>this.startEdit(ref,rawAt(r,c)),
+          handle:!!(sel&&!isEd&&r===Math.max(sel.a.r,sel.b.r)&&c===Math.max(sel.a.c,sel.b.c)),
+          grabFill:e=>{ e.stopPropagation(); e.preventDefault(); const b=this.box(); if(b) this._fill=b; },
+          flag:!!cmt,
+          openFlag:e=>{ e.stopPropagation(); this.setState({drawer:true,focus:{r,c},sel:{a:{r,c},b:{r,c}}}); },
+          tick:tk?tk.sym:'',
+          tickStyle:{position:'absolute',left:'4px',top:'50%',transform:'translateY(-50%)',
+            fontFamily:"'JetBrains Mono',monospace",fontSize:'9px',color:'var(--green)',pointerEvents:'none'},
+          textStyle:{whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',width:'100%',
+            textAlign:(fmtOf(r,c)==='txt'||isTxt)?'left':'right'},
+          style:{position:(c<frozen&&!spans)?'sticky':'relative',left:(c<frozen&&!spans)?lefts[c]+'px':'auto',
+            zIndex:(c<frozen&&!spans)?(isHeaderRow?24:12):(isHeaderRow?20:1),
+            display:cd.hidden?'none':'flex',
+            gridColumn:spans?('span '+cd.span):'auto',
+            alignItems:'center',
+            justifyContent:spans?'center':((fmtOf(r,c)==='txt'||isTxt)?'flex-start':'flex-end'),
+            padding:'0 7px',height:rowH+'px',
+            fontFamily:(fmtOf(r,c)==='txt')?"'DM Sans',sans-serif":"'JetBrains Mono',monospace",
+            fontVariantNumeric:'tabular-nums',
+            fontSize:cd.s==='title'?'13px':(fmtOf(r,c)==='txt'?'12px':'11.5px'),
+            fontWeight:bold?600:400,
+            letterSpacing:cd.s==='head'?'0.02em':'-0.005em',
+            color:isErr?'var(--danger)':neg?'var(--danger)':'var(--text)',   // [RED] negatives, per the template
+            background:selected?'var(--accent-soft)'
+              :bandBg?bandBg
+              :cd.s==='title'?'var(--sheet-title)'
+              :(cd.s==='head'||isHeaderRow)?'var(--sheet-head)'
+              :inBody?'var(--sheet-body)':'var(--card)',
+            boxShadow:shadow.length?shadow.join(', '):'none',
+            borderRight:'1px solid '+(c===frozen-1?'var(--freeze)':'var(--grid)'),
+            borderBottom:(D.ruleBottom.indexOf(r+1)>-1)?'2px solid var(--text)':'1px solid var(--grid)',
+            cursor:this.state.armedTick?'copy':'cell',overflow:'visible'}
+        });
+      }
+      outRows.push({ cells,
+        num:String(r+1),
+        pick:()=>this.setState({sel:{a:{r,c:0},b:{r,c:nCols-1}},focus:{r,c:D.textCol}}),
+        numStyle:{position:'sticky',left:0,zIndex:isHeaderRow?26:14,
+          display:'flex',alignItems:'center',justifyContent:'center',height:rowH+'px',
+          background:rowOn?'var(--frame-on)':'var(--frame)',
+          borderRight:'1px solid var(--grid)',borderBottom:'1px solid var(--grid)',
+          fontFamily:"'JetBrains Mono',monospace",fontSize:'10px',
+          color:rowOn?'var(--accent)':'var(--frame-ink)',cursor:'pointer',userSelect:'none'},
+        fillerStyle:{height:rowH+'px',background:'var(--card)',borderBottom:'1px solid var(--grid)'},
+        style:{display:'grid',gridTemplateColumns:tmpl,
+          position:isHeaderRow?'sticky':'relative',top:isHeaderRow?'22px':'auto',zIndex:isHeaderRow?22:'auto'}
+      });
+    }
+
+    /* ---- stats ---- */
+    let stats=null;
+    if(sel){ const b=this.box(); let n=0,nn=0,sum=0;
+      for(let r=b.r0;r<=b.r1;r++) for(let c=b.c0;c<=b.c1;c++){ n++;
+        const v=resolve(r,c); if(typeof v==='number'&&isFinite(v)){nn++;sum+=v;} }
+      stats={ sum:this.nbn(sum), avg:nn?this.nbn(sum/nn):'0', count:String(n),
+        copySum:()=>this.copyVal(this.nbn(sum)), copyAvg:()=>this.copyVal(this.nbn(nn?sum/nn:0)) };
+    }
+
+    /* ---- controls: real checks against the template's own arithmetic ---- */
+    const N=v=>(typeof v==='number'&&isFinite(v))?v:0;
+    const checks=[];
+    if(sheetKey==='pl'){
+      let rowTotalDiff=0;
+      [2,3,4,6,7,16,34,37,38,39].forEach(rr=>{
+        let s=0; for(let c=1;c<=7;c++) s+=N(resolve(rr-1,c));
+        rowTotalDiff+=Math.abs(s-N(resolve(rr-1,8)));
+      });
+      let netDiff=0; for(let c=1;c<=7;c++) netDiff+=N(resolve(38,c))-(N(resolve(36,c))+N(resolve(37,c)));
+      let revDiff=0; for(let c=1;c<=7;c++) revDiff+=N(resolve(3,c))-(N(resolve(1,c))+N(resolve(2,c)));
+      checks.push({name:this.t('Total = SUM(juni:desember)','Total = SUM(June:December)'),val:this.nbn(rowTotalDiff),ok:Math.round(rowTotalDiff)===0});
+      checks.push({name:this.t('Total revenue = Sales + Bonus','Total revenue = Sales + Bonus'),val:this.nbn(revDiff),ok:Math.round(revDiff)===0});
+      checks.push({name:this.t('Net result = EBIT + Investment','Net result = EBIT + Investment'),val:this.nbn(netDiff),ok:Math.round(netDiff)===0});
+    } else {
+      // the grey bands say "calculated" but the source holds typed numbers, not formulas
+      let calcNoF=0;
+      Object.keys(D.cells).forEach(ref=>{ const cd=D.cells[ref];
+        if((cd.band==='calc'||cd.band==='calc2')&&ref.charAt(0)==='B'&&cd.v!==undefined&&cd.f===undefined) calcNoF++; });
+      checks.push({name:this.t('Grå «beregnet»-rader uten formel','Grey “calculated” rows with no formula'),val:String(calcNoF),ok:calcNoF===0});
+      checks.push({name:this.t('Måneder utfylt','Months filled in'),val:this.t('1 av 7','1 of 7'),ok:false});
+    }
+    const openPts=Object.keys(D.comments).length;
+    checks.push({name:this.t('Åpne punkter fra import','Open points from import'),val:String(openPts),ok:openPts===0});
+    const wchecks=checks.map(c=>({...c,color:c.ok?'var(--green)':'var(--danger)',glyph:c.ok?'✓':'✕'}));
+    const okCount=checks.filter(c=>c.ok).length;
+
+    /* ---- drawer ---- */
+    const fRef=foc?refAt(foc.r,foc.c):null;
+    const fCd=fRef?(D.cells[fRef]||{}):{};
+    const fEdit=fRef?edits[sheetKey+'!'+fRef]:undefined;
+    const fVal=foc?resolve(foc.r,foc.c):null;
+    const fErr=typeof fVal==='string'&&String(fVal).charAt(0)==='#';
+    const fIsFx=(fEdit!==undefined?String(fEdit).charAt(0)==='=':fCd.f!==undefined);
+    const fLabel=(foc&&D.cells[this.colLetter(D.textCol)+(foc.r+1)])?D.cells[this.colLetter(D.textCol)+(foc.r+1)].v:'';
+    const fMonth=(foc&&D.cells[this.colLetter(foc.c)+D.headerRow])?D.cells[this.colLetter(foc.c)+D.headerRow].v:this.colLetter(foc?foc.c:0);
+    const fAdj=(S.adj||[]).filter(a=>a.sheet===sheetKey&&a.ref===fRef);
+    const fCmt=fRef?D.comments[fRef]:null;
+
+    const detail=(foc&&(fCd.v!==undefined||fCd.f!==undefined||fEdit!==undefined))?{
+      title:fLabel||fRef,
+      col:(fLabel?String(fMonth)+' · ':'')+D.name,
+      cell:fRef,
+      raw:fCd.f!==undefined?fCd.f:(fCd.v!==undefined?disp(foc.r,foc.c,fCd.v):'—'),
+      origin:this.t('Importert fra ','Imported from ')+this.qp('file','Phonero_Template_EN.xlsx')+(fCd.f!==undefined?this.t(' · formel bevart',' · formula preserved'):this.t(' · verdi',' · value')),
+      edited:fEdit!==undefined,
+      editTitle:fIsFx?this.t('Formel','Formula'):this.t('Overskrevet','Overwritten'),
+      editRaw:fEdit===undefined?'':String(fEdit),
+      editVal:disp(foc.r,foc.c,fVal),
+      editColor:fErr?'var(--danger)':fIsFx?'var(--accent)':'var(--amber)',
+      editWho:this.t('DK · nå','DK · now'),
+      wasVal:(fCd.v!==undefined&&typeof fCd.v==='number')?disp(foc.r,foc.c,fCd.v):'',
+      editCard:{border:'1px solid '+(fIsFx?'var(--border)':'var(--amber-border)'),borderRadius:'9px',
+        padding:'10px 11px',borderLeft:'2px solid '+(fIsFx?'var(--accent)':'var(--amber)'),
+        background:fIsFx?'transparent':'var(--amber-soft)'},
+      comment:fCmt?{author:fCmt.author,text:fCmt.text}:null,
+      entries:fAdj.map(a=>({no:'AJE #'+a.id.replace('a',''),type:'Justering',narrative:a.reason,author:a.author,
+        amount:(a.amount>=0?'':'-')+this.nbn(Math.abs(a.amount))})),
+      history:[{t:'Importert fra '+this.qp('file','Phonero_Template_EN.xlsx'),w:'Dev · 12. juni 09:41'}]
+        .concat(fCmt?[{t:'Merknad fra import — åpen',w:fCmt.author}]:[])
+        .concat(fAdj.map(a=>({t:'Justering bokført',w:a.author})))
+        .concat(fEdit!==undefined?[{t:fIsFx?'Formel lagt inn':'Verdi overskrevet',w:'DK · nå'}]:[])
+    }:null;
+
+    /* ---- open points list ---- */
+    const openList=Object.keys(D.comments).map(ref=>{
+      const m=/^([A-Z]+)([0-9]+)$/.exec(ref);
+      const rr=+m[2]-1, cc=this.letterCol(m[1]);
+      const lbl=(D.cells[this.colLetter(D.textCol)+m[2]]||{}).v||ref;
+      return { ref, label:lbl, author:D.comments[ref].author, text:D.comments[ref].text,
+        jump:()=>{ this._jump=ref; this.setState({focus:{r:rr,c:cc},sel:{a:{r:rr,c:cc},b:{r:rr,c:cc}}}); } };
+    });
+
+    /* ---- adjustment composer ---- */
+    const comp=S.comp;
+    const cAmt=this.parseNum(comp.amount);
+    const canSave=cAmt!==null&&cAmt!==0&&(comp.reason||'').trim().length>0&&!!comp.ref;
+    const inpBase={width:'100%',fontFamily:"'JetBrains Mono',monospace",fontSize:'11.5px',padding:'6px 8px',
+      border:'1px solid var(--border)',borderRadius:'7px',background:'var(--card)',color:'var(--text)'};
+
+    const tickDefs=[['√','Avstemt mot bilag'],['√GL','Avstemt mot hovedbok'],['F','Summert'],['≈','Kryssummert'],
+                    ['R','Etterberegnet'],['~','Sammenholdt mot fjorår'],['i','Uvesentlig'],['Δ','Avvik — må undersøkes']];
+    const densDef=[['tight','≡',this.t('Tett','Tight')],['mid','☰','Normal'],['airy','☷',this.t('Luftig','Airy')]];
+
+    return {
+      langs:[['no','NO'],['en','EN']].map(([k,l])=>({label:l,
+        pick:()=>{ this._defs=null; this.setState({lang:k}); },
+        style:{padding:'0 9px',height:'24px',display:'flex',alignItems:'center',borderRadius:'6px',
+          fontSize:'10px',fontWeight:600,letterSpacing:'0.06em',cursor:'pointer',
+          color:S.lang===k?'var(--accent)':'var(--muted)',
+          background:S.lang===k?'var(--accent-soft)':'transparent'}})),
+      undoTitle:this.t('Angre  ⌘Z','Undo  ⌘Z'), redoTitle:this.t('Gjenta  ⇧⌘Z','Redo  ⇧⌘Z'),
+      addColLabel:this.t('Kolonne','Column'), tickLabel:'Tickmarks',
+      drawerLabel:this.t('Detaljer','Details'), adjLabel:this.t('Bokfør justering','Post adjustment'),
+      openPtsLabel:this.t('Åpne punkter fra import','Open points from import'),
+      originLabel:this.t('Herkomst','Origin'), noteLabel:this.t('Merknad','Note'),
+      adjustLabel:this.t('Justeringer','Adjustments'), historyLabel:this.t('Historikk','History'),
+      tickHint:this.t('Velg et symbol, klikk deretter en celle.','Pick a symbol, then click a cell.'),
+      emptyTitle:this.t('Ingen celle valgt','No cell selected'),
+      emptyBody:this.t('Merk en celle for herkomst, justeringer og historikk.','Select a cell for origin, adjustments and history.'),
+      closeLabel:this.t('Lukk','Close'), amountLabel:this.t('Beløp (+/−)','Amount (+/−)'),
+      reasonLabel:this.t('Begrunnelse (påkrevd)','Reason (required)'),
+      reasonPh:this.t('Hvorfor justeres denne linjen?','Why is this line being adjusted?'),
+      postLabel:this.t('Bokfør','Post'), cancelLabel:this.t('Avbryt','Cancel'),
+      sumLabel:this.t('Sum','Sum'), avgLabel:this.t('Snitt','Avg'), countLabel:this.t('Antall','Count'),
+      wasLabel:this.t('Var','Was'), wasSuffix:this.t('før overskriving','before overwrite'),
+      fileName:this.qp('file','Phonero_Template_EN.xlsx'),
+      periodLabel:this.qp('period','Juni 2026'),
+      clientLabel:'· '+this.qp('client','Phonero AS'),
+      saveLabel:this.t('Lagret','Saved'),
+      saveStyle:{fontSize:'10.5px',color:'var(--green)',background:'color-mix(in srgb, var(--green) 12%, transparent)',
+        padding:'3px 9px',borderRadius:'9999px',flex:'none'},
+
+      letters, rows:outRows,
+      letterRowStyle:{display:'grid',gridTemplateColumns:tmpl,position:'sticky',top:0,zIndex:30},
+      fillerHeadStyle:{height:'22px',background:'var(--frame)',borderBottom:'1px solid var(--grid)'},
+      cornerStyle:{position:'sticky',left:0,zIndex:36,display:'flex',alignItems:'center',justifyContent:'center',
+        height:'22px',background:'var(--frame)',color:'var(--frame-ink)',
+        borderRight:'1px solid var(--grid)',borderBottom:'1px solid var(--grid)',cursor:'pointer'},
+      selectAll:()=>this.setState({sel:{a:{r:0,c:0},b:{r:nRows-1,c:nCols-1}},focus:{r:Math.max(0,D.headerRow),c:D.textCol}}),
+
+      addr:foc?fRef:'—',
+      addrStyle:{width:'74px',flex:'none',textAlign:'center',fontSize:'11px',color:foc?'var(--text)':'var(--muted2)'},
+      fxStyle:{fontSize:'11px',fontStyle:'italic',padding:'0 12px',flex:'none',color:fxMode?'var(--accent)':'var(--muted2)'},
+      fbValue:editing?String(editing.draft||''):(S.fbFocus?fbDraftS:(foc?rawAt(foc.r,foc.c):'')),
+      fbPlaceholder:foc?this.t('Skriv en verdi, eller = for en formel','Type a value, or = for a formula'):this.t('Merk en celle','Select a cell'),
+      fbStyle:{flex:'1 1 auto',minWidth:0,border:'none',outline:'none',background:'transparent',
+        color:'var(--text)',fontFamily:"'JetBrains Mono',monospace",fontSize:'11.5px',padding:0},
+      fbHelp:fxMode?this.t('SUM · ROUND · KONTO("3000") henter faktisk saldo   ·   ; skiller argumenter','SUM · ROUND · KONTO("3000") pulls the actual balance   ·   ; separates arguments'):'',
+      fbFocus:()=>{ if(foc) this.setState({fbFocus:true,fbDraft:rawAt(foc.r,foc.c)}); },
+      fbBlur:()=>this.setState({fbFocus:false,fbDraft:null}),
+      fbInput:e=>{ const v=e.target.value; if(this.state.editing) this.editDraft(v); else this.setState({fbDraft:v}); },
+      fbKey:e=>{ e.stopPropagation();
+        if(e.key==='Enter'){ e.preventDefault();
+          if(this.state.editing) this.commitEdit();
+          else if(foc) this.setEdit(fRef,this.state.fbDraft==null?'':this.state.fbDraft);
+          this.setState({fbFocus:false,fbDraft:null});
+          const g=document.querySelector('[data-grid]'); if(g) g.focus(); }
+        else if(e.key==='Escape'){ e.preventDefault(); this.cancelEdit(); this.setState({fbFocus:false,fbDraft:null}); } },
+
+      onKey:e=>this.onKeyDown(e,nRows,nCols,refAt,rawAt),
+      onPaste:e=>this.onPasteEv(e,nRows,nCols,refAt),
+      onCopy:e=>this.onCopyEv(e,textAt),
+      endDrag:()=>{ if(this._fill){ this._fill=null; this.fillDown(refAt,rawAt); } this._drag=false; this._rz=null; },
+      onMove:e=>{ if(!this._rz) return;
+        const w=Math.max(56,Math.round(this._rz.w+(e.clientX-this._rz.x)));
+        const k=sheetKey+'|'+this._rz.c;
+        if(this.state.widths[k]!==w) this.setState(st=>({widths:{...st.widths,[k]:w}})); },
+
+      undo:()=>this.doUndo(), redo:()=>this.doRedo(),
+      undoStyle:{width:'26px',height:'24px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'6px',
+        color:(S.undo||[]).length?'var(--text2)':'var(--muted2)',cursor:(S.undo||[]).length?'pointer':'default'},
+      redoStyle:{width:'26px',height:'24px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'6px',
+        color:(S.redo||[]).length?'var(--text2)':'var(--muted2)',cursor:(S.redo||[]).length?'pointer':'default'},
+      addCol:()=>this.addUserCol(),
+      toggleTicks:()=>this.setState(st=>({ticksOpen:!st.ticksOpen,drawer:true,armedTick:null})),
+      tickBtnStyle:{height:'28px',display:'flex',alignItems:'center',padding:'0 10px',borderRadius:'7px',flex:'none',
+        border:'1px solid '+(S.ticksOpen?'var(--accent)':'var(--border)'),fontSize:'12px',cursor:'pointer',
+        color:S.ticksOpen?'var(--accent)':'var(--text2)',background:S.ticksOpen?'var(--accent-soft)':'transparent'},
+      toggleDrawer:()=>this.setState(st=>({drawer:!st.drawer})),
+      drawerBtnStyle:{height:'28px',display:'flex',alignItems:'center',padding:'0 10px',borderRadius:'7px',flex:'none',
+        border:'1px solid '+(S.drawer?'var(--accent)':'var(--border)'),fontSize:'12px',cursor:'pointer',
+        color:S.drawer?'var(--accent)':'var(--text2)',background:S.drawer?'var(--accent-soft)':'transparent'},
+
+      drawerOpen:S.drawer,
+      drawerEmpty:!detail&&!S.ticksOpen&&!comp.open&&!openList.length,
+      detail,
+      ticksOpen:S.ticksOpen,
+      tickPalette:tickDefs.map(d=>({sym:d[0],label:d[1],
+        pick:()=>this.setState(st=>({armedTick:st.armedTick===d[0]?null:d[0]})),
+        style:{display:'flex',alignItems:'center',gap:'8px',padding:'6px 9px',borderRadius:'7px',cursor:'pointer',
+          border:'1px solid '+(S.armedTick===d[0]?'var(--accent)':'transparent'),
+          background:S.armedTick===d[0]?'var(--accent-soft)':'transparent'}})),
+
+      openPoints:openList.length?openList:null,
+      openCount:openList.length,
+
+      compOpen:comp.open,
+      compNo:this.t('Justering · ','Adjustment · ')+(comp.ref||this.t('velg celle','select a cell')),
+      compRef:comp.ref, compAmount:comp.amount, compReason:comp.reason,
+      compInp:inpBase,
+      compInpN:{...inpBase,textAlign:'right',color:'var(--accent)'},
+      setCompAmount:e=>{const v=e.target.value; this.setState(st=>({comp:{...st.comp,amount:v}}));},
+      setCompReason:e=>{const v=e.target.value; this.setState(st=>({comp:{...st.comp,reason:v}}));},
+      compTargetLabel:comp.ref?((D.cells[this.colLetter(D.textCol)+comp.ref.replace(/[A-Z]+/,'')]||{}).v||comp.ref):'',
+      compPreview:(cAmt!==null&&comp.ref)?('Ny verdi: kr '+this.nbn(N(resolve(
+          parseInt(comp.ref.replace(/[A-Z]+/,''),10)-1, this.letterCol(comp.ref.replace(/[0-9]+/,''))))+0)):'',
+      canSaveComp:canSave,
+      saveCompStyle:canSave
+        ?{height:'32px',display:'flex',alignItems:'center',padding:'0 14px',borderRadius:'8px',background:'var(--accent)',color:'#fff',fontSize:'12px',fontWeight:600,cursor:'pointer'}
+        :{height:'32px',display:'flex',alignItems:'center',padding:'0 14px',borderRadius:'8px',background:'var(--surface2)',color:'var(--muted2)',fontSize:'12px',fontWeight:600,cursor:'not-allowed'},
+      saveComp:canSave?()=>this.setState(st=>({
+        adj:st.adj.concat([{id:'a'+st.comp.no,sheet:sheetKey,ref:st.comp.ref,amount:cAmt,reason:st.comp.reason,author:'DK · nå'}]),
+        comp:{open:false,no:st.comp.no+1,ref:'',amount:'',reason:''}})):null,
+      openComp:()=>this.setState(st=>({drawer:true,comp:{...st.comp,open:true,ref:fRef||'',amount:'',reason:''}})),
+      closeComp:()=>this.setState(st=>({comp:{...st.comp,open:false}})),
+
+      tabs:[['pl','P&L'],['mm','Margin Model']].map(([k,l])=>({label:l,
+        pick:()=>this.setState({sheet:k,sel:null,focus:{r:1,c:1},editing:null}),
+        style:{display:'flex',alignItems:'center',padding:'0 15px',fontSize:'11.5px',cursor:'pointer',
+          fontWeight:sheetKey===k?600:400,
+          color:sheetKey===k?'var(--text)':'var(--muted)',
+          background:sheetKey===k?'var(--card)':'transparent',
+          borderTop:'2px solid '+(sheetKey===k?'var(--accent)':'transparent'),
+          borderRight:'1px solid var(--border)'}})),
+      addSheet:()=>{},
+      stats, copied:S.copied,
+      checkSummary:okCount+this.t(' av ',' of ')+wchecks.length+this.t(' kontroller OK',' controls OK'),
+      checkStyle:{fontSize:'11px',cursor:'pointer',color:okCount===wchecks.length?'var(--muted)':'var(--danger)'},
+      checks:wchecks, checksOpen:S.checksOpen,
+      toggleChecks:()=>this.setState(st=>({checksOpen:!st.checksOpen})),
+      dens:densDef.map(([k,g,t])=>({glyph:g,title:t,
+        pick:()=>this.setState({density:k}),
+        style:{width:'22px',height:'20px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'5px',
+          fontSize:'10px',cursor:'pointer',
+          color:S.density===k?'var(--accent)':'var(--muted2)',
+          background:S.density===k?'var(--accent-soft)':'transparent'}})),
+      toggleTheme:()=>this.setState(st=>({dark:!st.dark})),
+      themeAttr:S.dark?'dark':'light',
+    };
+  }
+}
+</script>
+</body>
+</html>

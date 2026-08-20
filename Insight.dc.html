@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#F6F6FB;--card:#fff;--surface2:#F3F2F9;
+    --border:#ECEBF3;--border-soft:#F1F0F8;--hover:#F1F0F8;
+    --text:#191735;--text2:#6C6A85;--muted:#9E9CB4;--muted2:#B9B7CC;
+    --accent:#5B3DF5;--accent-hover:#4A2FE0;--accent-soft:#EEEBFE;--accent-ink:#3B2E7A;
+    --bar-in:#0ECB81;--bar-out:#F6465D;--amber:#B8842A;
+    --danger-soft:#FDEEEE;--danger-border:#F3D9D9;--danger-ink:#8A2F2F;
+    --amber-soft:#FBF4EA;--amber-border:#EAD9C6;--amber-ink:#5C4A2E;
+    --hero:linear-gradient(150deg,#232042,#17152E 60%);
+    --scroll:#DDDBEC;
+  }
+  [data-theme="dark"],:root:has([data-theme="dark"]){
+    --bg:#0B0B14;--card:#101019;--surface2:#181826;
+    --border:rgba(255,255,255,0.08);--border-soft:rgba(255,255,255,0.06);--hover:rgba(255,255,255,0.05);
+    --text:#F2F2F8;--text2:#9C9CB0;--muted:#9C9CB0;--muted2:#5F5F72;
+    --accent:#7B70F5;--accent-hover:#6A5EF0;--accent-soft:rgba(123,112,245,0.16);--accent-ink:#C6BEFF;
+    --bar-in:#2EBD85;--bar-out:#F6465D;--amber:#E0A94A;
+    --danger-soft:rgba(248,113,113,0.12);--danger-border:rgba(248,113,113,0.30);--danger-ink:#FCA5A5;
+    --amber-soft:rgba(224,169,74,0.12);--amber-border:rgba(224,169,74,0.30);--amber-ink:#E8C98A;
+    --hero:linear-gradient(150deg,#1B1B2E,#12121F 60%);
+    --scroll:#2A2A3A;
+  }
+  html,body{height:100%}
+  body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);
+       -webkit-font-smoothing:antialiased;letter-spacing:-0.011em}
+  a{color:var(--accent);text-decoration:none}
+  .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+  .btn{transition:background .15s ease,border-color .15s ease,transform .12s ease}
+  .btn:hover{background:var(--hover)}
+  .btn:active{transform:scale(.98)}
+  .btnk{transition:background .15s ease,box-shadow .2s ease,transform .12s ease}
+  .btnk:hover{background:var(--accent-hover);box-shadow:0 10px 26px -10px rgba(91,61,245,.65)}
+  .btnk:active{transform:scale(.98)}
+  .card{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+  .step:hover{background:var(--hover)}
+  /* the template runtime sets display:block on elements it creates, which stops
+     SVG <text> from painting — force it back to inline */
+  svg text,svg tspan{display:inline !important}
+  ::-webkit-scrollbar{width:11px}
+  ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px;border:3px solid var(--bg)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes drawLine{to{stroke-dashoffset:0}}
+  @keyframes popDot{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+  @keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes sheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(220%)}}
+</style>
+</helmet>
+
+<div data-theme="{{ themeAttr }}" style="min-height:100vh;background:var(--bg)">
+
+  <!-- TOP BAR -->
+  <div style="position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;height:56px;padding:0 22px;background:var(--card);border-bottom:1px solid var(--border)">
+    <a href="{{ backHref }}" class="btn" style="width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text2);flex:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <span class="eyebrow">{{ crumb }}</span>
+    <span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span>
+    <span style="font-size:13.5px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ins.title }}</span>
+    <div style="flex:1"></div>
+    <span class="mono" style="font-size:10px;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:9999px;flex:none">{{ premiumChip }}</span>
+    <div style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
+      <sc-for list="{{ langs }}" as="g" hint-placeholder-count="2">
+        <div onClick="{{ g.pick }}" class="mono" style="{{ g.style }}">{{ g.label }}</div>
+      </sc-for>
+    </div>
+    <div onClick="{{ toggleTheme }}" class="btn" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--muted);cursor:pointer;flex:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:28px 22px 120px;display:flex;flex-direction:column;gap:20px">
+
+    <!-- HERO -->
+    <div style="position:relative;overflow:hidden;border-radius:22px;background:var(--hero);color:#fff;padding:34px 36px;box-shadow:0 2px 6px rgba(25,23,53,.06),0 26px 60px -30px rgba(25,23,53,.6);animation:fadeUp .5s both">
+      <div style="position:absolute;top:0;left:0;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(139,107,255,.16),transparent);animation:sheen 5s 1s ease-in-out infinite"></div>
+      <div style="position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:34px;flex-wrap:wrap">
+        <div style="flex:1 1 420px;min-width:0">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px">
+            <span style="{{ ins.tagStyle }}">{{ ins.tag }}</span>
+            <span class="mono" style="font-size:11px;color:#B9B4E0">{{ ins.date }}</span>
+            <span style="width:3px;height:3px;border-radius:9999px;background:#5A5580"></span>
+            <span class="mono" style="font-size:11px;color:#B9B4E0">{{ ins.rank }}</span>
+          </div>
+          <h1 style="margin:0 0 12px;font-size:30px;line-height:1.14;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">{{ ins.title }}</h1>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:#C9C5E4;max-width:620px;text-wrap:pretty">{{ ins.headline }}</p>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div class="mono" style="font-size:44px;font-weight:700;letter-spacing:-0.045em;color:{{ ins.impactColor }};line-height:1">{{ ins.impact }}</div>
+          <div style="font-size:12.5px;color:#B9B4E0;margin-top:7px">{{ ins.impactLabel }}</div>
+          <div style="display:flex;align-items:center;gap:7px;justify-content:flex-end;margin-top:16px">
+            <span style="width:6px;height:6px;border-radius:9999px;background:{{ ins.impactColor }}"></span>
+            <span class="mono" style="font-size:11px;color:#B9B4E0">{{ ins.confidence }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVIDENCE -->
+    <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .06s both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:16px;flex-wrap:wrap">
+        <div>
+          <h2 style="margin:0;font-size:16.5px;font-weight:700;letter-spacing:-0.02em">{{ T.evidence }}</h2>
+          <p style="margin:5px 0 0;font-size:12.5px;color:var(--muted)">{{ ins.evidenceSub }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:3px;border-radius:2px;background:{{ ins.driverColor }}"></span>{{ ins.driverLabel }}</span>
+          <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:2.5px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--muted2) 0 5px,transparent 5px 9px)"></span>{{ ins.counterLabel }}</span>
+        </div>
+      </div>
+      <div data-chart="ev" style="min-height:270px"></div>
+      <div style="display:flex;gap:12px;margin-top:20px;padding:15px 17px;border-radius:13px;background:var(--accent-soft)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--accent)" style="flex:none;margin-top:1px"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
+        <div style="font-size:13px;line-height:1.6;color:var(--accent-ink);text-wrap:pretty"><b style="color:var(--accent)">Clarex:</b> {{ ins.reading }}</div>
+      </div>
+    </div>
+
+    <!-- NUMBERS + PLAN -->
+    <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:20px">
+      <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .1s both">
+        <h3 style="margin:0 0 3px;font-size:15px;font-weight:700;letter-spacing:-0.02em">{{ T.breakdown }}</h3>
+        <p style="margin:0 0 14px;font-size:12px;color:var(--muted)">{{ ins.breakdownSub }}</p>
+        <sc-for list="{{ ins.rows }}" as="r" hint-placeholder-count="4">
+          <div style="{{ r.wrap }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px">
+              <span style="font-size:13px;font-weight:{{ r.weight }}">{{ r.name }}</span>
+              <span class="mono" style="font-size:12.5px;font-weight:600;color:{{ r.color }}">{{ r.amt }}</span>
+            </div>
+            <div style="height:5px;border-radius:9999px;background:var(--border-soft);overflow:hidden">
+              <div style="{{ r.bar }}"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .14s both">
+        <h3 style="margin:0 0 3px;font-size:15px;font-weight:700;letter-spacing:-0.02em">{{ T.plan }}</h3>
+        <p style="margin:0 0 14px;font-size:12px;color:var(--muted)">{{ T.planSub }}</p>
+        <sc-for list="{{ ins.steps }}" as="s" hint-placeholder-count="3">
+          <div class="step" style="display:flex;gap:13px;padding:13px 12px;border-radius:12px;border-top:1px solid var(--border-soft);cursor:default">
+            <span class="mono" style="width:20px;height:20px;flex:none;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-size:10px;display:flex;align-items:center;justify-content:center;margin-top:1px">{{ s.n }}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;font-weight:600;letter-spacing:-0.01em">{{ s.title }}</div>
+              <div style="font-size:12px;line-height:1.55;color:var(--text2);margin-top:4px">{{ s.body }}</div>
+            </div>
+            <span class="mono" style="font-size:12px;font-weight:600;color:{{ s.color }};flex:none;white-space:nowrap">{{ s.effect }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- OUTCOME -->
+    <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .18s both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:16px;flex-wrap:wrap">
+        <div>
+          <h2 style="margin:0;font-size:16.5px;font-weight:700;letter-spacing:-0.02em">{{ T.outcome }}</h2>
+          <p style="margin:5px 0 0;font-size:12.5px;color:var(--muted)">{{ ins.outcomeSub }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:2.5px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--bar-out) 0 5px,transparent 5px 9px)"></span>{{ T.doNothing }}</span>
+          <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:3px;border-radius:2px;background:var(--bar-in)"></span>{{ T.ifYouAct }}</span>
+        </div>
+      </div>
+      <div data-chart="oc" style="min-height:230px"></div>
+    </div>
+
+    <!-- TRACE -->
+    <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .22s both">
+      <h3 style="margin:0 0 3px;font-size:15px;font-weight:700;letter-spacing:-0.02em">{{ T.trace }}</h3>
+      <p style="margin:0 0 14px;font-size:12px;color:var(--muted)">{{ T.traceSub }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px">
+        <sc-for list="{{ ins.trace }}" as="tr" hint-placeholder-count="3">
+          <div style="border:1px solid var(--border);border-radius:12px;padding:13px 14px">
+            <div class="mono" style="font-size:10.5px;color:var(--accent)">{{ tr.ref }}</div>
+            <div style="font-size:12.5px;margin-top:6px;line-height:1.45">{{ tr.what }}</div>
+            <div style="font-size:10.5px;color:var(--muted);margin-top:6px">{{ tr.when }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--card);border-top:1px solid var(--border);box-shadow:0 -8px 30px -18px rgba(25,23,53,.35)">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:11px;min-width:0">
+        <span style="width:8px;height:8px;border-radius:9999px;background:{{ ins.impactColor }};flex:none"></span>
+        <span style="font-size:13px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ins.actionNote }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex:none">
+        <div class="btn" style="height:40px;display:flex;align-items:center;padding:0 16px;border:1px solid var(--border);border-radius:11px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer">{{ T.snooze }}</div>
+        <div class="btn" style="height:40px;display:flex;align-items:center;padding:0 16px;border:1px solid var(--border);border-radius:11px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer">{{ T.dismiss }}</div>
+        <div onClick="{{ doAct }}" style="{{ actStyle }}">{{ actLabel }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    lang:(function(){try{return new URLSearchParams(location.search).get('lang')||'no';}catch(e){return 'no';}})(),
+    dark:false, acted:false
+  };
+  t(no,en){ return this.state.lang==='no'?no:en; }
+  qp(k,d){ try{ const v=new URLSearchParams(location.search).get(k); return v||d; }catch(e){ return d; } }
+  nbn(v){ const s=Math.abs(Math.round(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' '); return (v<0?'-':'')+s; }
+  html(s){ return { __html:s }; }
+  gid(n){ this._g=(this._g||0)+1; return n+'-'+this._g; }
+  sp(pts,t){
+    if(!pts.length) return '';
+    if(pts.length<2) return 'M'+pts[0][0]+','+pts[0][1];
+    t=(t===undefined)?0.18:t;
+    let d='M'+pts[0][0].toFixed(1)+','+pts[0][1].toFixed(1);
+    for(let i=0;i<pts.length-1;i++){
+      const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+      d+='C'+(p1[0]+(p2[0]-p0[0])*t).toFixed(1)+','+(p1[1]+(p2[1]-p0[1])*t).toFixed(1)
+        +' '+(p2[0]-(p3[0]-p1[0])*t).toFixed(1)+','+(p2[1]-(p3[1]-p1[1])*t).toFixed(1)
+        +' '+p2[0].toFixed(1)+','+p2[1].toFixed(1);
+    }
+    return d;
+  }
+  areaGrad(id,c,a1,a2){ return '<linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1">'
+    +'<stop offset="0%" stop-color="'+c+'" stop-opacity="'+a1+'"/>'
+    +'<stop offset="100%" stop-color="'+c+'" stop-opacity="'+a2+'"/></linearGradient>'; }
+  drawAnim(d){ return 'stroke-dasharray:3000;stroke-dashoffset:3000;animation:drawLine 1.4s '+(d||0)+'s cubic-bezier(.22,1,.36,1) forwards'; }
+  grid(ticks,padL,w){ let g='';
+    ticks.forEach(([y,txt])=>{
+      g+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+w+'" y2="'+y.toFixed(1)+'" stroke="var(--border-soft)" stroke-width="1"/>';
+      g+='<text x="'+(padL-10)+'" y="'+(y+3.5).toFixed(1)+'" font-size="10.5" fill="var(--muted2)" text-anchor="end" font-family="JetBrains Mono,monospace">'+txt+'</text>'; });
+    return g; }
+  xLab(labels,x0,step,y,hi){ let s='';
+    labels.forEach((m,i)=>{ s+='<text x="'+(x0+i*step).toFixed(1)+'" y="'+y+'" font-size="9.5" fill="'+(i===hi?'var(--text)':'var(--muted)')+'" text-anchor="middle" font-family="JetBrains Mono,monospace" letter-spacing="0.06em">'+m+'</text>'; });
+    return s; }
+
+  /* ═══════════ the four insights ═══════════ */
+  data(){
+    const T=(no,en)=>this.t(no,en);
+    const M=[T('JAN','JAN'),T('FEB','FEB'),T('MAR','MAR'),T('APR','APR'),T('MAI','MAY'),T('JUN','JUN')];
+    const F=[T('JUL','JUL'),T('AUG','AUG'),T('SEP','SEP'),T('OKT','OCT'),T('NOV','NOV'),T('DES','DEC')];
+    return {
+      ads:{
+        tag:T('HANDLE NÅ','ACT NOW'), tagCol:'#F6465D', date:T('27. juni 2026','27 June 2026'), rank:'01',
+        title:T('Sett annonsene på pause','Pause paid advertising'),
+        headline:T('Markedsføring steg 34% på én måned til kr 142 000. Omsetningen i samme periode steg 2,1%. Hele økningen ligger på betalt annonsering, og ingen av den kan spores til ny pipeline.','Marketing rose 34% in one month to kr 142 000. Revenue over the same period rose 2.1%. The entire increase sits in paid advertising, and none of it traces to new pipeline.'),
+        impact:'+kr 78k', impactColor:'#0ECB81', impactLabel:T('frigjort per måned','freed per month'),
+        confidence:T('Høy sikkerhet · 6 mnd data','High confidence · 6 mo of data'),
+        driver:[64,71,68,84,96,142], driverLabel:T('Markedsføring (kr k)','Marketing (kr k)'), driverColor:'#F6465D',
+        counter:[2683,2711,2698,2742,2790,2847], counterLabel:T('Omsetning (kr k)','Revenue (kr k)'),
+        months:M, dMax:170, cMin:2600, cMax:2900,
+        evidenceSub:T('Annonsebruk mot omsetning, siste seks måneder','Ad spend against revenue, last six months'),
+        reading:T('De to linjene løp sammen fram til april. Siden da har annonsebruken doblet seg mens omsetningen har fortsatt i samme takt — det er definisjonen av bruk uten avkastning.','The two lines tracked together until April. Since then ad spend has doubled while revenue continued at the same pace — that is spend without return by definition.'),
+        breakdownSub:T('Juni, konto 7320','June, account 7320'),
+        rows:[['Google Ads',41200],['Meta Ads',33800],['LinkedIn Ads',18400],[T('Øvrig markedsføring','Other marketing'),48600]],
+        steps:[
+          [T('Pause betalt sosialt','Pause paid social'),T('Meta og LinkedIn har null attribuerte samtaler siste 90 dager.','Meta and LinkedIn show zero attributed conversations in the last 90 days.'),'+kr 52k','#0ECB81'],
+          [T('Behold merkevaresøk','Keep brand search'),T('Google merkevaresøk konverterer på 11% — den beholdes.','Google brand search converts at 11% — keep it running.'),'kr 0','var(--text2)'],
+          [T('Flytt kr 26k til innhold','Move kr 26k to content'),T('Samme budsjett, kanal med målbar attribusjon.','Same budget, a channel with measurable attribution.'),'+kr 26k','#0ECB81'],
+        ],
+        outcomeSub:T('Markedsføringskostnad de neste seks månedene','Marketing cost over the next six months'),
+        doNothing:[142,152,160,168,174,181], ifAct:[142,88,64,64,66,66], oMax:200, fMonths:F,
+        actionNote:T('Pausing frigjør kr 78 000 per måned fra og med juli.','Pausing frees kr 78 000 per month from July.'),
+        trace:[['7320',T('Markedsføring og annonser — hovedbok','Marketing and advertising — ledger'),T('48 bilag i juni','48 entries in June')],
+               ['P&L!A29',T('Linjen i arbeidspapiret','The line in the workpaper'),T('importert 12. juni','imported 12 June')],
+               [T('Fakturabunke','Invoice batch'),T('Meta, Google og LinkedIn','Meta, Google and LinkedIn'),T('3 leverandører','3 vendors')]],
+      },
+      concentration:{
+        tag:T('PLANLEGG','PLAN'), tagCol:'#B8842A', date:T('26. juni 2026','26 June 2026'), rank:'02',
+        title:T('Reduser kundekonsentrasjonen','Reduce client concentration'),
+        headline:T('Statkraft står for 31% av omsetningen, opp fra 24% i januar. Mister dere dem, går Pixl fra +260k til −124k i måneden, og runway faller fra 15 til 8 måneder.','Statkraft accounts for 31% of revenue, up from 24% in January. Losing them takes Pixl from +260k to −124k a month, and runway from 15 months to 8.'),
+        impact:'31%', impactColor:'#F6465D', impactLabel:T('av omsetningen','of revenue'),
+        confidence:T('Terskel: 25% · overskredet i mars','Threshold: 25% · crossed in March'),
+        driver:[24,26,27,29,30,31], driverLabel:T('Statkrafts andel (%)','Statkraft share (%)'), driverColor:'#F6465D',
+        counter:[9,9,10,10,11,12], counterLabel:T('Antall kunder','Client count'),
+        months:M, dMax:40, cMin:6, cMax:16,
+        evidenceSub:T('Andel av omsetning mot antall kunder','Share of revenue against client count'),
+        reading:T('Dere har fått tre nye kunder i år, men Statkrafts andel har likevel steget — de nye er for små til å flytte balansen. Det er størrelsen på neste kunde som teller, ikke antallet.','You have added three clients this year, yet Statkraft’s share still rose — the new ones are too small to shift the balance. What matters is the size of the next client, not the count.'),
+        breakdownSub:T('Juni, omsetning per kunde','June, revenue by client'),
+        rows:[['Statkraft AS',385000],['Nordlys Studio AS',210000],[T('Retainere (7 kunder)','Retainers (7 clients)'),645000]],
+        steps:[
+          [T('Lås 12 måneders fornyelse','Lock a 12-month renewal'),T('Fjerner ikke risikoen, men flytter den ut av kvartalet.','Does not remove the risk, but moves it out of the quarter.'),T('+7 mnd','+7 mo'),'#0ECB81'],
+          [T('Land én enterprise-kunde til','Land one more enterprise client'),T('kr 340k i måneden bringer Statkraft under 25%.','kr 340k a month brings Statkraft below 25%.'),'+9 mnd','#0ECB81'],
+          [T('Sett en konsentrasjonsgrense','Set a concentration limit'),T('Varsle automatisk når én kunde passerer 25%.','Alert automatically when one client passes 25%.'),'—','var(--text2)'],
+        ],
+        outcomeSub:T('Statkrafts andel av omsetningen framover','Statkraft’s share of revenue going forward'),
+        doNothing:[31,32,32,33,34,34], ifAct:[31,29,27,25,24,22], oMax:40, fMonths:F,
+        actionNote:T('Én kunde til av samme størrelse løser både runway og konsentrasjon.','One more client of the same size fixes both runway and concentration.'),
+        trace:[['P&L!A2',T('Salgsinntekt i arbeidspapiret','Sales revenue in the workpaper'),T('importert 12. juni','imported 12 June')],
+               [T('Kundereskontro','AR ledger'),T('12 aktive kunder','12 active clients'),T('per 30. juni','as at 30 June')],
+               ['3000',T('Salgsinntekt — hovedbok','Sales revenue — ledger'),T('kr 2 712 400 faktisk','kr 2 712 400 actual')]],
+      },
+      cash:{
+        tag:T('MULIGHET','OPPORTUNITY'), tagCol:'#0ECB81', date:T('24. juni 2026','24 June 2026'), rank:'03',
+        title:T('Sett ledig kapital i arbeid','Put idle cash to work'),
+        headline:T('kr 4,82M står på driftskonto til 0,4%. Dere trenger omtrent kr 1,2M i løpende likviditet. Resten kan trappes i 90-dagers innskudd til 4,1% uten at det påvirker driften.','kr 4.82M sits in the operating account at 0.4%. You need roughly kr 1.2M in working liquidity. The rest can be laddered into 90-day deposits at 4.1% without touching operations.'),
+        impact:'+kr 49k', impactColor:'#0ECB81', impactLabel:T('per år','per year'),
+        confidence:T('Lav risiko · bankinnskudd','Low risk · bank deposits'),
+        driver:[3900,4000,4200,4400,4600,4820], driverLabel:T('Ledig saldo (kr k)','Idle balance (kr k)'), driverColor:'#0ECB81',
+        counter:[1180,1190,1200,1210,1220,1240], counterLabel:T('Månedlig behov (kr k)','Monthly need (kr k)'),
+        months:M, dMax:5200, cMin:0, cMax:5200,
+        evidenceSub:T('Saldo mot faktisk likviditetsbehov','Balance against actual liquidity need'),
+        reading:T('Gapet mellom saldo og behov har vokst hver måned i et halvår. Det er ikke buffer lenger — det er kapital som står stille.','The gap between balance and need has widened every month for half a year. That is no longer a buffer — it is capital standing still.'),
+        breakdownSub:T('Fordeling per konto','Split by account'),
+        rows:[[T('Driftskonto','Operating account'),3420000],[T('Skattetrekkskonto','Tax withholding'),980000],[T('Sparekonto','Savings'),420000]],
+        steps:[
+          [T('Behold kr 1,2M likvid','Keep kr 1.2M liquid'),T('Dekker to måneders utbetalinger med margin.','Covers two months of outflows with margin.'),'—','var(--text2)'],
+          [T('Trapp kr 3,6M i tre deler','Ladder kr 3.6M in three tranches'),T('90 dager forskjøvet — én forfaller hver måned.','90 days staggered — one matures each month.'),'+kr 49k','#0ECB81'],
+          [T('La skattetrekk stå urørt','Leave tax withholding alone'),T('Bundet uansett, ikke tilgjengelig for plassering.','Restricted regardless, not available to place.'),'—','var(--text2)'],
+        ],
+        outcomeSub:T('Renteinntekt akkumulert over tolv måneder','Interest earned, cumulative over twelve months'),
+        doNothing:[1.6,3.2,4.8,6.4,8.0,9.6], ifAct:[12,24,37,49,61,74], oMax:85, fMonths:F,
+        actionNote:T('Ingen bindingstid utover 90 dager. Likviditeten er uendret.','No lock-up beyond 90 days. Liquidity is unchanged.'),
+        trace:[[T('Bankkonti','Bank accounts'),T('3 konti hos DNB','3 accounts at DNB'),T('saldo per 30. juni','balance as at 30 June')],
+               [T('Utbetalinger','Outflows'),T('kr 980k snitt per måned','kr 980k average per month'),T('12 måneders snitt','12-month average')],
+               [T('Rentesatser','Rates'),T('4,10% på 90 dager','4.10% at 90 days'),T('hentet 24. juni','fetched 24 June')]],
+      },
+      contractors:{
+        tag:T('FØLG MED','WATCH'), tagCol:'#6C6A85', date:T('21. juni 2026','21 June 2026'), rank:'04',
+        title:T('Innleide krypper oppover','Contractor spend creeping up'),
+        headline:T('Innleide utgjør nå 33% av lønnskostnaden, opp fra 24% i Q1. Ingen enkeltmåned ser dramatisk ut, men kurven har pekt samme vei i seks måneder.','Contractors now make up 33% of payroll cost, up from 24% in Q1. No single month looks dramatic, but the curve has pointed the same way for six months.'),
+        impact:'+9 pt', impactColor:'#F6465D', impactLabel:T('mot Q1','vs Q1'),
+        confidence:T('Middels · trenger gjennomgang','Medium · needs review'),
+        driver:[24,26,27,29,31,33], driverLabel:T('Innleide andel (%)','Contractor share (%)'), driverColor:'#B8842A',
+        counter:[433,435,437,439,441,443], counterLabel:T('Fast lønn (kr k)','Fixed payroll (kr k)'),
+        months:M, dMax:42, cMin:400, cMax:470,
+        evidenceSub:T('Innleide som andel av lønn, mot fast lønn','Contractors as a share of payroll, against fixed payroll'),
+        reading:T('Fast lønn er tilnærmet flat, så økningen kommer utelukkende fra innleide. To av leverandørene har fakturert hver måned i seks måneder — det er i praksis ansatte uten ansettelsesavtale.','Fixed payroll is essentially flat, so the rise comes entirely from contractors. Two vendors have invoiced every month for six months — in practice those are employees without a contract.'),
+        breakdownSub:T('Juni, konto 6790','June, account 6790'),
+        rows:[[T('Utvikler A','Developer A'),68000],[T('Designer B','Designer B'),52000],[T('Øvrige (4)','Others (4)'),48000]],
+        steps:[
+          [T('Gjennomgå de to faste','Review the two recurring'),T('Seks måneder sammenhengende — vurder fast ansettelse.','Six consecutive months — consider permanent hire.'),T('−kr 34k','−kr 34k'),'#0ECB81'],
+          [T('Sett tak per leverandør','Cap per vendor'),T('Krev godkjenning over kr 40k i måneden.','Require approval above kr 40k a month.'),'—','var(--text2)'],
+          [T('Merk arbeid som skal inn','Tag work to bring in-house'),T('Kartlegg hva som er varig og hva som er prosjekt.','Map what is ongoing versus project work.'),'—','var(--text2)'],
+        ],
+        outcomeSub:T('Innleide som andel av lønnskostnaden','Contractors as a share of payroll cost'),
+        doNothing:[33,34,35,36,37,38], ifAct:[33,31,28,26,25,24], oMax:44, fMonths:F,
+        actionNote:T('Ingen hastesak, men kurven bør snus før Q4.','Not urgent, but the curve should turn before Q4.'),
+        trace:[['6790',T('Fremmed tjeneste — hovedbok','Contracted services — ledger'),T('11 bilag i juni','11 entries in June')],
+               ['P&L!A9:A15',T('Lønnslinjene i arbeidspapiret','The payroll rows in the workpaper'),T('7 rader','7 rows')],
+               [T('Leverandører','Vendors'),T('6 aktive innleide','6 active contractors'),T('siste 90 dager','last 90 days')]],
+      },
+    };
+  }
+
+  /* ═══ evidence: driver vs the metric that should have moved with it ═══ */
+  evSvg(d){
+    const n=d.months.length;
+    const w=940,h=270,padT=24,padB=34,padL=72,padR=72;
+    const plot=h-padT-padB, plotW=w-padL-padR;
+    const X=i=>padL+(plotW/(n-1))*i;
+    const Yd=v=>padT+plot-(v/d.dMax)*plot;
+    const Yc=v=>padT+plot-((v-d.cMin)/(d.cMax-d.cMin))*plot;
+    const pD=d.driver.map((v,i)=>[X(i),Yd(v)]);
+    const pC=d.counter.map((v,i)=>[X(i),Yc(v)]);
+    let g='<defs><linearGradient id="evg" x1="0" y1="0" x2="0" y2="1">'
+      +'<stop offset="0%" stop-color="'+d.driverColor+'" stop-opacity=".26"/>'
+      +'<stop offset="100%" stop-color="'+d.driverColor+'" stop-opacity="0"/></linearGradient></defs>';
+    [0.25,0.5,0.75].forEach(f=>{ const y=Yd(d.dMax*f);
+      g+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(w-padR+8)+'" y2="'+y.toFixed(1)+'" stroke="var(--border-soft)" stroke-width="1"/>'
+        +'<text x="'+(padL-10)+'" y="'+(y+3.5).toFixed(1)+'" font-size="10.5" fill="var(--muted2)" text-anchor="end" font-family="JetBrains Mono,monospace">'+this.nbn(Math.round(d.dMax*f))+'</text>'; });
+    g+='<path d="M'+pD[0][0].toFixed(1)+','+(padT+plot)+'L'+this.sp(pD).slice(1)+'L'+pD[n-1][0].toFixed(1)+','+(padT+plot)+'Z" fill="url(#evg)" style="animation:fadeIn 1s .4s both"/>';
+    g+='<path d="'+this.sp(pC)+'" fill="none" stroke="var(--muted2)" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" style="animation:fadeIn .9s .7s both"/>';
+    g+='<path d="'+this.sp(pD)+'" fill="none" stroke="'+d.driverColor+'" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.15)+'"/>';
+    pD.forEach((p,i)=>{ const last=i===n-1;
+      g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(last?6:3.4)+'" fill="'+d.driverColor+'" stroke="var(--card)" stroke-width="2.4" style="opacity:0;animation:popDot .4s '+(0.6+i*0.07)+'s cubic-bezier(.34,1.56,.64,1) forwards"/>'; });
+    g+='<text x="'+(w-padR+10)+'" y="'+(Yd(d.driver[n-1])+4).toFixed(1)+'" font-size="12" font-weight="700" fill="'+d.driverColor+'" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.2s forwards">'+this.nbn(d.driver[n-1])+'</text>';
+    const yGap=Math.abs(Yc(d.counter[n-1])-Yd(d.driver[n-1]))<16?15:4;  // keep the two end labels apart
+    g+='<text x="'+(w-padR+10)+'" y="'+(Yc(d.counter[n-1])+yGap).toFixed(1)+'" font-size="10.5" fill="var(--muted2)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.3s forwards">'+this.nbn(d.counter[n-1])+'</text>';
+    d.months.forEach((m,i)=>{ g+='<text x="'+X(i).toFixed(1)+'" y="'+(h-10)+'" font-size="9.5" fill="'+(i===n-1?'var(--text)':'var(--muted)')+'" text-anchor="middle" font-family="JetBrains Mono,monospace" letter-spacing="0.06em">'+m+'</text>'; });
+    return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+g+'</svg>';
+  }
+
+  /* ═══ outcome: do nothing vs act ═══ */
+  ocSvg(d){
+    const n=d.fMonths.length;
+    const w=940,h=230,padT=22,padB=32,padL=72,padR=72;
+    const plot=h-padT-padB, plotW=w-padL-padR;
+    const X=i=>padL+(plotW/(n-1))*i, Y=v=>padT+plot-(v/d.oMax)*plot;
+    const pN=d.doNothing.map((v,i)=>[X(i),Y(v)]);
+    const pA=d.ifAct.map((v,i)=>[X(i),Y(v)]);
+    let g='<defs><linearGradient id="ocg" x1="0" y1="0" x2="0" y2="1">'
+      +'<stop offset="0%" stop-color="var(--bar-in)" stop-opacity=".22"/>'
+      +'<stop offset="100%" stop-color="var(--bar-in)" stop-opacity="0"/></linearGradient></defs>';
+    [0.33,0.66].forEach(f=>{ const y=Y(d.oMax*f);
+      g+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(w-padR+8)+'" y2="'+y.toFixed(1)+'" stroke="var(--border-soft)" stroke-width="1"/>'
+        +'<text x="'+(padL-10)+'" y="'+(y+3.5).toFixed(1)+'" font-size="10.5" fill="var(--muted2)" text-anchor="end" font-family="JetBrains Mono,monospace">'+this.nbn(Math.round(d.oMax*f))+'</text>'; });
+    g+='<path d="M'+pN.map((p,i)=>(i?'L':'')+p[0].toFixed(1)+','+p[1].toFixed(1)).join('')
+      +'L'+pA.slice().reverse().map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'Z" fill="url(#ocg)" style="opacity:0;animation:fadeIn 1s .7s forwards"/>';
+    g+='<path d="'+this.sp(pN)+'" fill="none" stroke="var(--bar-out)" stroke-width="2.4" stroke-dasharray="6 5" stroke-linecap="round" style="animation:fadeIn .9s .5s both"/>';
+    g+='<path d="'+this.sp(pA)+'" fill="none" stroke="var(--bar-in)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.25)+'"/>';
+    g+='<circle cx="'+X(n-1).toFixed(1)+'" cy="'+Y(d.ifAct[n-1]).toFixed(1)+'" r="5.5" fill="var(--bar-in)" stroke="var(--card)" stroke-width="2.4" style="opacity:0;animation:popDot .4s 1.3s forwards"/>';
+    g+='<text x="'+(w-padR+10)+'" y="'+(Y(d.ifAct[n-1])+4).toFixed(1)+'" font-size="11.5" font-weight="700" fill="var(--bar-in)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.4s forwards">'+this.nbn(d.ifAct[n-1])+'</text>';
+    g+='<text x="'+(w-padR+10)+'" y="'+(Y(d.doNothing[n-1])+4).toFixed(1)+'" font-size="11" fill="var(--bar-out)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.5s forwards">'+this.nbn(d.doNothing[n-1])+'</text>';
+    d.fMonths.forEach((m,i)=>{ g+='<text x="'+X(i).toFixed(1)+'" y="'+(h-10)+'" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="JetBrains Mono,monospace" letter-spacing="0.06em">'+m+'</text>'; });
+    return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+g+'</svg>';
+  }
+
+  // The template runtime wraps {{ }} in an HTML <span>, which SVG cannot render,
+  // and camelCase props are lowercased in a hand-written .dc.html. So the charts
+  // are painted straight into their mount points after each render instead.
+  paintCharts(){
+    const d=this._chart; if(!d) return;
+    const a=document.querySelector('[data-chart="ev"]');
+    if(a&&a.getAttribute('data-k')!==d.key){ a.innerHTML=this.evSvg(d); a.setAttribute('data-k',d.key); }
+    const b=document.querySelector('[data-chart="oc"]');
+    if(b&&b.getAttribute('data-k')!==d.key){ b.innerHTML=this.ocSvg(d); b.setAttribute('data-k',d.key); }
+  }
+  componentDidMount(){ this.paintCharts(); }
+  componentDidUpdate(){ this.paintCharts(); }
+
+  renderVals(){
+    const t=(no,en)=>this.t(no,en);
+    const all=this.data();
+    const id=this.qp('id','ads');
+    const d=all[id]||all.ads;
+    this._chart={...d,key:id+'|'+this.state.lang+'|'+(this.state.dark?'d':'l')};
+    const maxRow=Math.max.apply(null,d.rows.map(r=>r[1]));
+    const total=d.rows.reduce((a,r)=>a+r[1],0);
+
+    return {
+      themeAttr:this.state.dark?'dark':'light',
+      backHref:'./Overview.dc.html?lang='+this.state.lang,
+      crumb:t('Innsikt','Insights'),
+      premiumChip:t('Premium','Premium'),
+      langs:[['no','NO'],['en','EN']].map(([k,l])=>({label:l,
+        pick:()=>this.setState({lang:k}),
+        style:{padding:'0 9px',height:'24px',display:'flex',alignItems:'center',borderRadius:'6px',
+          fontSize:'10px',fontWeight:600,letterSpacing:'0.06em',cursor:'pointer',
+          color:this.state.lang===k?'var(--accent)':'var(--muted)',
+          background:this.state.lang===k?'var(--accent-soft)':'transparent'}})),
+      toggleTheme:()=>this.setState(s=>({dark:!s.dark})),
+
+      ins:{
+        tag:d.tag, date:d.date, rank:d.rank, title:d.title, headline:d.headline,
+        impact:d.impact, impactColor:d.impactColor, impactLabel:d.impactLabel, confidence:d.confidence,
+        tagStyle:{fontFamily:"'JetBrains Mono',monospace",fontSize:'9.5px',letterSpacing:'0.14em',
+          color:'#fff',background:'color-mix(in srgb, '+d.tagCol+' 55%, transparent)',
+          padding:'4px 10px',borderRadius:'9999px'},
+        evidenceSub:d.evidenceSub, reading:d.reading,
+        driverLabel:d.driverLabel, driverColor:d.driverColor, counterLabel:d.counterLabel,
+        breakdownSub:d.breakdownSub,
+        rows:d.rows.map(([name,v],i)=>({name,amt:'kr '+this.nbn(v),
+          weight:i===0?600:400, color:i===0?d.driverColor:'var(--text)',
+          wrap:{padding:'11px 0',borderTop:i?'1px solid var(--border-soft)':'none'},
+          bar:{height:'5px',borderRadius:'9999px',width:Math.round(v/maxRow*100)+'%',
+            background:i===0?d.driverColor:'var(--accent)',opacity:i===0?1:(0.75-i*0.12),
+            transformOrigin:'left',animation:'growX .7s '+(i*0.07)+'s cubic-bezier(.22,1,.36,1) both'}})),
+        steps:d.steps.map(([title,body,effect,color],i)=>({n:'0'+(i+1),title,body,effect,color})),
+        outcomeSub:d.outcomeSub,
+        actionNote:d.actionNote,
+        trace:d.trace.map(([ref,what,when])=>({ref,what,when})),
+      },
+
+
+      T:{
+        evidence:t('Beviset','The evidence'),
+        breakdown:t('Bak tallet','Behind the number'),
+        plan:t('Clarex anbefaler','Clarex recommends'),
+        planSub:t('Tre steg, med forventet effekt per steg','Three steps, with the expected effect of each'),
+        outcome:t('Hva skjer videre','What happens next'),
+        doNothing:t('Gjør ingenting','Do nothing'),
+        ifYouAct:t('Hvis dere handler','If you act'),
+        trace:t('Sporbarhet','Traceability'),
+        traceSub:t('Denne innsikten er utledet av disse kildene','This insight is derived from these sources'),
+        snooze:t('Utsett 30 dager','Snooze 30 days'),
+        dismiss:t('Avvis','Dismiss'),
+      },
+      actLabel:this.state.acted?t('Lagt i planen ✓','Added to the plan ✓'):t('Sett i verk','Act on this'),
+      actStyle:this.state.acted
+        ?{height:'40px',display:'flex',alignItems:'center',padding:'0 20px',borderRadius:'11px',background:'color-mix(in srgb, var(--bar-in) 15%, transparent)',color:'var(--bar-in)',fontSize:'13px',fontWeight:600,cursor:'default'}
+        :{height:'40px',display:'flex',alignItems:'center',padding:'0 20px',borderRadius:'11px',background:'var(--accent)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',boxShadow:'0 10px 26px -10px rgba(91,61,245,.62)'},
+      doAct:()=>this.setState({acted:true}),
+    };
+  }
+}
+</script>
+</body>
+</html>

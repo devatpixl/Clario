@@ -1,0 +1,10 @@
+# Source material from the original design export — the site never loads these.
+# 20 MB of reference video and pasted screenshots.
+uploads/
+
+# Working backups taken before each large edit. Git is the history now.
+*.bak-pre-*
+
+# Design-tool artefacts and OS noise
+.thumbnail
+.DS_Store
