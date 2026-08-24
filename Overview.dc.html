@@ -14,26 +14,30 @@
 <style>
   *{box-sizing:border-box}
   :root{
-    --bg:#F6F6FB;--sidebar:#FFFFFF;--card:#fff;--surface2:#F3F2F9;
-    --border:#ECEBF3;--border-soft:#F1F0F8;--hover:#F1F0F8;
-    --text:#191735;--text2:#6C6A85;--muted:#9E9CB4;--muted2:#B9B7CC;
-    --accent:#5B3DF5;--accent-hover:#4A2FE0;--accent-soft:#EEEBFE;--accent-ink:#3B2E7A;
+    --bg:#FBFCFF;--sidebar:#FFFFFF;--card:#fff;--surface2:#F3F6FC;
+    --border:#E1E8F4;--border-soft:#EDF2FA;--hover:#F2F6FC;
+    --text:#15192B;--text2:#5D6577;--muted:#8B93A6;--muted2:#B0B7C6;
+    --wash:radial-gradient(1150px 540px at 76% -10%,rgba(43,95,224,.055),transparent 62%);
+    --elev:0 1px 2px rgba(16,24,40,.035);
+    --accent:#2B5FE0;--accent-hover:#1E4CC2;--accent-soft:#E7EEFC;--accent-ink:#17337A;
     --green:#12A150;--danger:#E5484D;--amber:#B8842A;
-    --scroll:#DDDBEC;--headerbg:rgba(246,246,251,.82);
-    --hero:linear-gradient(150deg,#232042,#17152E 60%);--hero-ring:0 0 #0000;
+    --scroll:#DCE3F0;--headerbg:rgba(251,252,255,.85);
+    --hero:linear-gradient(150deg,#152449,#0D1730 60%);--hero-ring:0 0 #0000;
     --bar-in:#0ECB81;--bar-out:#F6465D;--bar-in-proj:rgba(14,203,129,0.32);--bar-out-proj:rgba(246,70,93,0.28);
     --danger-soft:#FDEEEE;--danger-border:#F3D9D9;--danger-ink:#8A2F2F;
     --amber-soft:#FBF4EA;--amber-border:#EAD9C6;--amber-ink:#5C4A2E;
     --logo:url(assets/clario-logo.png);
   }
   [data-theme="dark"],:root:has([data-theme="dark"]){
-    --bg:#0B0B14;--sidebar:#101019;--card:#14141F;--surface2:#1A1A28;
-    --border:rgba(255,255,255,0.07);--border-soft:rgba(255,255,255,0.06);--hover:rgba(255,255,255,0.05);
+    --bg:#0D1119;--sidebar:#0F131D;--card:#151A26;--surface2:#1C2130;
+    --wash:radial-gradient(1150px 540px at 76% -10%,rgba(91,140,255,.10),transparent 62%);
+    --elev:0 1px 2px rgba(0,0,0,.25);
+    --border:rgba(255,255,255,0.10);--border-soft:rgba(255,255,255,0.075);--hover:rgba(255,255,255,0.05);
     --text:#F2F2F8;--text2:#9C9CB0;--muted:#9C9CB0;--muted2:#5F5F72;
-    --accent:#7B70F5;--accent-hover:#6A5EF0;--accent-soft:rgba(123,112,245,0.14);--accent-ink:#C6BEFF;
+    --accent:#5B8CFF;--accent-hover:#4A79F0;--accent-soft:rgba(91,140,255,0.14);--accent-ink:#BBD0FF;
     --green:#4ADE80;--danger:#F87171;--amber:#E0A94A;
-    --scroll:#2A2A3A;--headerbg:rgba(11,11,20,.82);
-    --hero:#1B1B2A;--hero-ring:inset 0 0 0 1px rgba(123,112,245,0.35);
+    --scroll:#262C3B;--headerbg:rgba(10,12,21,.80);
+    --hero:#1B1B2A;--hero-ring:inset 0 0 0 1px rgba(91,140,255,0.35);
     --bar-in:#2EBD85;--bar-out:#F6465D;--bar-in-proj:rgba(46,189,133,0.38);--bar-out-proj:rgba(246,70,93,0.34);
     --danger-soft:rgba(248,113,113,0.12);--danger-border:rgba(248,113,113,0.30);--danger-ink:#FCA5A5;
     --amber-soft:rgba(224,169,74,0.12);--amber-border:rgba(224,169,74,0.30);--amber-ink:#E8C98A;
@@ -47,12 +51,12 @@
   .nav{transition:background .18s ease,color .18s ease}
   .nav:hover{background:var(--hover)}
   .card{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease,background .3s ease,border-color .3s ease}
-  .lift:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(25,23,53,.05),0 18px 40px -16px rgba(91,61,245,.28)}
+  .lift:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(25,23,53,.05),0 18px 40px -16px rgba(43,95,224,.28)}
   .btn{transition:background .16s ease,transform .12s ease,border-color .16s ease}
   .btn:hover{background:var(--hover)}
   .btn:active{transform:scale(.97)}
   .btnk{transition:background .16s ease,transform .12s ease,box-shadow .2s ease}
-  .btnk:hover{background:var(--accent-hover);box-shadow:0 8px 22px -8px rgba(91,61,245,.6)}
+  .btnk:hover{background:var(--accent-hover);box-shadow:0 8px 22px -8px rgba(43,95,224,.6)}
   .btnk:active{transform:scale(.97)}
   .rowh{transition:background .15s ease}
   .rowh:hover{background:var(--hover)}
@@ -78,45 +82,247 @@
     [data-wp-panel][data-wp-panel-empty]{display:none} }
   @keyframes countIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
   .count{animation:countIn .55s cubic-bezier(.22,1,.36,1) both}
+  .bento{gap:0 !important;background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:var(--elev)}
+  .bento > .card{border:0 !important;border-radius:0 !important;box-shadow:none !important;background:transparent !important;padding:24px 26px !important}
+  .bento > .card + .card{box-shadow:inset 1px 0 0 var(--border-soft) !important}
+  .bento > .lift:hover{transform:none !important;background:var(--hover) !important}
+  .cw{position:relative}
+  .hbz{position:absolute;inset:0;pointer-events:none;z-index:5}
+  .hb{position:absolute;top:0;bottom:0;pointer-events:auto}
+  .hb::before{content:'';position:absolute;inset:0;border-radius:9px;background:var(--accent);opacity:0;transition:opacity .16s ease}
+  .hb:hover::before{opacity:.06}
+  .tt{position:absolute;width:238px;background:var(--card);border:1px solid var(--border);border-radius:14px;
+      box-shadow:0 20px 46px -14px rgba(16,24,40,.34),0 2px 6px rgba(16,24,40,.06);padding:12px 14px;
+      opacity:0;visibility:hidden;transform:translateY(7px) scale(.97);transform-origin:top center;
+      transition:opacity .17s ease,transform .17s cubic-bezier(.22,1,.36,1),visibility .17s;z-index:30;pointer-events:none}
+  .hb:hover .tt{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+  .ttt{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .tts{font-size:10px;font-weight:600;letter-spacing:.02em;color:var(--muted);margin:7px 0 3px}
+  .ttr{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:11.5px;padding:2.5px 0}
+  .ttk{color:var(--text2);display:flex;align-items:center;gap:6px;min-width:0}
+  .ttv{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ttd{height:1px;background:var(--border-soft);margin:7px 0}
+  .ttdot{width:7px;height:7px;border-radius:9999px;flex:none}
+  .ttf{font-size:9.5px;color:var(--muted2);margin-top:9px;line-height:1.45;border-top:1px solid var(--border-soft);padding-top:7px}
+  .tta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;
+    padding:9px 11px;border-radius:10px;background:var(--accent-soft);color:var(--accent);
+    font-size:11.5px;font-weight:600;text-decoration:none;transition:background .15s ease,color .15s ease}
+  .tta:hover{background:var(--accent);color:#fff}
+  .tta-c{font-size:10px;opacity:.75}
+  .hb{outline:none}
+  .hb:hover .tt,.hb:focus .tt,.hb:focus-within .tt{opacity:1;visibility:visible;
+    transform:translateY(0) scale(1);pointer-events:auto}
+  .ttp{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;
+       padding:1.5px 5px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:1px}
+
+  /* ───────── mobile shell primitives (inert above 768px) ───────── */
+  .burger{display:none}
+  .side-mobile{display:none}
+  .hdr-logo{display:none}
+  .scen-bar,.scen-scrim,.scen-grab{display:none}
+  .scrim{display:none}
+
+  /* ═════════════════ MOBILE (<=768px) — additive only ═════════════════ */
+  @media (max-width:768px){
+    html,body{overflow-x:hidden}
+    .app{display:block !important;min-height:100dvh !important}
+
+    /* sidebar → off-canvas drawer */
+    .side{position:fixed !important;left:0 !important;top:0 !important;bottom:0 !important;
+      height:100dvh !important;width:min(82vw,304px) !important;min-width:0 !important;z-index:90 !important;
+      transform:translateX(-101%);transition:transform .28s cubic-bezier(.22,1,.36,1) !important;
+      box-shadow:0 0 44px rgba(16,24,40,.22);overflow-y:auto;overscroll-behavior:contain}
+    .side-open{transform:translateX(0) !important}
+    .scrim{display:block;position:fixed;inset:0;z-index:85;background:rgba(10,16,32,.45);
+      opacity:0;pointer-events:none;transition:opacity .28s ease}
+    .scrim-on{opacity:1;pointer-events:auto}
+    .side .btn[title]{display:none !important}          /* desktop collapse toggle */
+
+    /* header */
+    .burger{display:flex !important;align-items:center;justify-content:center;width:40px;height:40px;
+      flex:none;border-radius:11px;border:1px solid var(--border);background:var(--card);
+      color:var(--text2);cursor:pointer;-webkit-tap-highlight-color:transparent}
+    header{padding:9px 12px !important;gap:9px !important;
+      padding-top:calc(9px + env(safe-area-inset-top)) !important}
+    .hdr-title{display:none !important}          /* the logo says where you are */
+    .hdr-logo{display:block !important;position:absolute;left:50%;transform:translateX(-50%);
+      height:27px;width:88px;background-image:var(--logo);background-size:contain;
+      background-repeat:no-repeat;background-position:center;pointer-events:none}
+    .hdr-acts{gap:6px !important;flex:none}
+    .hdr-month,.hdr-search,.hdr-lang,.hdr-theme,.hdr-ask{display:none !important}
+    .side-mobile{display:flex !important;gap:8px;padding:0 12px 10px}
+    .hdr-notif,.hdr-theme{width:38px !important;height:38px !important}
+    .hdr-lang{height:38px !important}
+    .hdr-ask{width:38px !important;padding:0 !important;justify-content:center !important;font-size:0 !important}
+    .notifpop{left:12px !important;right:12px !important;width:auto !important;top:56px !important}
+
+    /* content */
+    .mainwrap{padding:14px 12px 96px !important;max-width:100% !important}
+    .m1{grid-template-columns:1fr !important;gap:12px !important}
+    .m2{grid-template-columns:1fr 1fr !important;gap:0 !important}
+    /* grid items default to min-width:auto, so a 600px chart inside would force
+       the track open and push half the card off-screen. */
+    .m1 > *,.m2 > *,.bento > .card,.card,.cw,.chartbox,.tablebox{min-width:0 !important}
+    .card{padding:16px 15px !important}
+    .bento{border-radius:18px !important}
+    .bento > .card{padding:16px 15px !important}
+    .bento > .card + .card{box-shadow:inset 0 1px 0 var(--border-soft) !important}
+    .m2.bento > .card:nth-child(odd) + .card{box-shadow:inset 1px 0 0 var(--border-soft) !important}
+    .m2.bento > .card:nth-child(n+3){box-shadow:inset 0 1px 0 var(--border-soft) !important}
+    .m2.bento > .card:nth-child(4){box-shadow:inset 1px 0 0 var(--border-soft),inset 0 1px 0 var(--border-soft) !important}
+
+    /* most charts fit; the dense 12-18 point series scroll at 1:1 so month
+       labels stay legible instead of collapsing into each other */
+    .cw,.chartbox,.chart-sm{overflow:visible !important}
+    .chartbox > svg,.chart-sm svg{min-width:0 !important;width:100% !important}
+    .chartscroll{overflow-x:auto !important;overflow-y:visible;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;margin:0 -15px;padding:0 15px}
+    .chartscroll::-webkit-scrollbar{display:none}
+    .chartscroll .cw > svg{max-width:none !important}
+    /* tooltips become a tap-and-hold bottom sheet so they escape the scroller */
+    /* `animation:fadeUp ... both` leaves transform:translateY(0) applied forever,
+       which makes the card a containing block for position:fixed. Killing the
+       entrance animation on mobile is what lets the tooltip pin to the viewport. */
+    .card{animation:none !important}
+    /* clears the floating launcher (58px tall, 14px from the bottom) */
+    .hb .tt{position:fixed !important;left:12px !important;right:12px !important;
+      top:auto !important;bottom:calc(86px + env(safe-area-inset-bottom)) !important;
+      width:auto !important;margin:0 !important;transform:translateY(8px) scale(1) !important}
+    .hb:active .tt,.hb:focus .tt{opacity:1 !important;visibility:visible !important;transform:none !important;pointer-events:auto !important}
+    .tablebox{overflow-x:auto !important;-webkit-overflow-scrolling:touch}
+    .tablebox > div{min-width:600px}
+
+    /* floating layer */
+    [style*="position:fixed"][style*="right:28px"]{right:14px !important}
+    .fab{right:14px !important;bottom:calc(14px + env(safe-area-inset-bottom)) !important}
+    .chatpop{right:10px !important;left:10px !important;width:auto !important;
+      bottom:calc(10px + env(safe-area-inset-bottom)) !important;
+      height:min(76dvh,calc(100dvh - 90px)) !important}
+    .toast{display:none !important}   /* the launcher badge already signals it */
+
+    /* banner + KPI tiles */
+    .banner{flex-wrap:wrap !important;padding:16px 15px !important;gap:12px !important}
+    .banner > div:first-child{flex:1 1 100% !important}
+    .banner > div:last-child,.banner .btnk{width:100% !important;justify-content:center !important}
+    .m1 > .card{min-height:0 !important}
+    .m1 > .card [style*="clamp(24px"]{font-size:27px !important}
+    /* KPI row: the dark hero spans, the other two pair up */
+    .kpis{grid-template-columns:1fr 1fr !important;gap:10px !important}
+    .kpis > *{min-width:0}
+    .kpis > *:first-child{grid-column:1 / -1 !important}
+    .kpis > .card{padding:14px 13px !important}
+    .kpis > *:not(:first-child) [style*="clamp(24px"]{font-size:19px !important;letter-spacing:-0.03em !important}
+    /* the card footer is its last child; drop the trailing meta on the paired
+       cards so both footers sit on one line at equal height.
+       NB: attribute selectors on inline styles are unreliable here — the browser
+       re-serialises them as "padding-top: 16px", so match structurally. */
+    .kpis > *:not(:first-child) > div:last-child{padding-top:10px !important}
+    .kpis > *:not(:first-child) > div:last-child > *:last-child{display:none !important}
+
+    /* import column mapping: 5 fixed tracks (558px) become 3 stacked rows */
+    .maphead{display:none !important}
+    .maprow{grid-template-columns:34px 1fr auto !important;gap:8px 10px !important;
+      padding:14px 14px !important;align-items:center !important}
+    .maprow > *:nth-child(1){grid-column:1;grid-row:1}
+    .maprow > *:nth-child(2){grid-column:2 / span 2;grid-row:1;min-width:0}
+    .maprow > *:nth-child(2) .mono{white-space:normal !important;overflow:visible !important}
+    .maprow > *:nth-child(3){grid-column:1 / -1;grid-row:2}
+    .maprow > *:nth-child(4){grid-column:1 / span 2;grid-row:3}
+    .maprow > *:nth-child(5){grid-column:3;grid-row:3;justify-self:end !important}
+
+    /* card header rows: title vs legend/controls must wrap rather than crush the title */
+    .card > div[style*="space-between"]{flex-wrap:wrap !important;gap:10px !important}
+    .card > div[style*="space-between"] > div:first-child{min-width:0}
+    .banner{flex-wrap:wrap !important}
+
+    /* ── scenarios: the lever rail becomes a bottom sheet ── */
+    .scen-bar{display:flex !important;align-items:center;gap:10px;background:var(--card);
+      border:1px solid var(--border);border-radius:16px;padding:12px 14px;cursor:pointer;
+      box-shadow:var(--elev);-webkit-tap-highlight-color:transparent}
+    .scen-bar-t{font-size:15px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis}
+    .scen-scrim{display:block;position:fixed;inset:0;z-index:88;background:rgba(10,16,32,.45);
+      opacity:0;pointer-events:none;transition:opacity .26s ease}
+    .scen-scrim-on{opacity:1;pointer-events:auto}
+    .lever-rail{position:fixed !important;left:0;right:0;bottom:0;top:auto !important;z-index:89;
+      background:var(--card);border-top:1px solid var(--border);border-radius:22px 22px 0 0;
+      padding:8px 14px calc(18px + env(safe-area-inset-bottom));max-height:74dvh;overflow-y:auto;
+      transform:translateY(101%);transition:transform .3s cubic-bezier(.22,1,.36,1) !important;
+      box-shadow:0 -14px 44px rgba(16,24,40,.22);animation:none !important}
+    .lever-rail-open{transform:translateY(0) !important}
+    .scen-grab{display:block;width:38px;height:4px;border-radius:9999px;background:var(--border);
+      margin:2px auto 12px;flex:none}
+    .lever-rail .eyebrow{margin-bottom:10px !important}
+
+    /* ── Clarex: a real messaging surface ── */
+    .chat-wrap{display:flex;flex-direction:column;height:calc(100dvh - 132px);max-width:100% !important}
+    .chat-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;padding-right:2px}
+    .chat-typing{margin:2px 0 10px !important;padding-left:38px !important}
+    .chat-tryl{display:none !important}
+    .chat-chips{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;
+      margin:0 -12px 8px !important;padding:0 12px;flex:none}
+    .chat-chips::-webkit-scrollbar{display:none}
+    .chat-chips > *{flex:none !important}
+    .chat-composer{flex:none;border-radius:9999px !important;padding:6px 6px 6px 18px !important;
+      margin-bottom:calc(4px + env(safe-area-inset-bottom));box-shadow:0 6px 22px -10px rgba(16,24,40,.28) !important}
+    .msg{margin-bottom:12px !important}
+    .msg-bot{gap:9px !important}
+    .msg-bot > div:last-child{max-width:86% !important}
+    .msg-bot > div:last-child > div:first-child{border-radius:6px 18px 18px 18px !important}
+    .msg-user > div{max-width:82% !important;border-radius:18px 18px 6px 18px !important}
+    .app[data-route="Clarex"] .fab{display:none !important}   /* composer owns the bottom */
+
+    /* type + touch targets */
+    h1{letter-spacing:-0.022em}
+    h2{font-size:16px !important}
+    .btn,.btnk{-webkit-tap-highlight-color:transparent}
+    input,textarea,select{font-size:16px !important}
+  }
   ::-webkit-scrollbar{width:9px;height:9px}
   ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:9999px;border:2px solid var(--bg)}
 </style>
 </helmet>
 
-<div class="app" data-theme="{{ theme }}" style="display:flex;min-height:100vh;background:var(--bg)">
+<div class="app" data-route="{{ active }}" data-theme="{{ theme }}" style="display:flex;min-height:100vh;background:var(--bg)">
 
   <!-- SIDEBAR -->
-  <aside style="width:16%;flex:none;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh">
-    <div style="padding:37px 24px 0">
-      <div role="img" aria-label="Clario" style="height:30px;width:91px;background-image:var(--logo);background-size:contain;background-repeat:no-repeat;background-position:left center"></div>
+  <aside class="{{ asideCls }}" style="{{ asideStyle }}">
+    <div style="{{ logoPad }}">
+      <div style="{{ logoRow }}">
+        <div role="img" aria-label="Clario" style="{{ logoStyle }}"></div>
+        <div onClick="{{ toggleNav }}" class="btn" title="{{ navTip }}" style="width:28px;height:28px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;color:var(--muted2)">
+          <span style="width:16px;height:16px;display:flex" dangerouslySetInnerHTML="{{ navIcon }}"></span>
+        </div>
+      </div>
     </div>
     <div style="padding:32px 12px 0">
-      <div class="btn" style="display:flex;align-items:center;gap:9px;padding:4px 12px;border-radius:8px;cursor:pointer">
-        <div style="width:20px;height:20px;flex:none;border-radius:5px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;box-shadow:0 6px 14px -4px rgba(91,61,245,.55)">P</div>
-        <div style="min-width:0;flex:1;font-size:11.5px;font-weight:500;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Pixl Media AS</div>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="1.8"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg>
+      <div class="btn" style="{{ orgStyle }}">
+        <div style="width:20px;height:20px;flex:none;border-radius:5px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;box-shadow:0 6px 14px -4px rgba(43,95,224,.55)">P</div>
+        <div style="{{ orgLbl }}">Pixl Media AS</div>
+        <span style="{{ orgChev }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="1.8"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg></span>
       </div>
     </div>
 
     <nav style="padding:0 12px;display:flex;flex-direction:column;flex:1">
-      <div class="eyebrow" style="padding:0 12px;margin:32px 0 8px;font-size:11px;font-weight:500;letter-spacing:0.08em">Monitor</div>
+      <div class="eyebrow" style="{{ ebMon }}">Monitor</div>
       <div style="display:flex;flex-direction:column;gap:4px">
         <sc-for list="{{ navOverview }}" as="item" hint-placeholder-count="4">
           <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
             <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
-            <span style="flex:1">{{ item.label }}</span>
+            <span style="{{ item.lbl }}">{{ item.label }}</span>
             <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
               <span class="mono" style="font-size:10px;color:#fff;background:var(--accent);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
             </sc-if>
           </div>
         </sc-for>
       </div>
-      <div class="eyebrow" style="padding:0 12px;margin:24px 0 8px;font-size:11px;font-weight:500;letter-spacing:0.08em">Plan</div>
+      <div class="eyebrow" style="{{ ebPlan }}">Plan</div>
       <div style="display:flex;flex-direction:column;gap:4px">
         <sc-for list="{{ navPlan }}" as="item" hint-placeholder-count="3">
           <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
             <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
-            <span style="flex:1">{{ item.label }}</span>
+            <span style="{{ item.lbl }}">{{ item.label }}</span>
             <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
               <span class="mono" style="font-size:10px;color:#fff;background:var(--accent);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
             </sc-if>
@@ -129,62 +335,77 @@
       <sc-for list="{{ navSettings }}" as="item" hint-placeholder-count="1">
         <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
           <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
-          <span style="flex:1">{{ item.label }}</span>
+          <span style="{{ item.lbl }}">{{ item.label }}</span>
         </div>
       </sc-for>
     </div>
 
-    <div style="margin-top:16px;padding:14px 24px;border-top:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px">
-        <span style="position:relative;width:7px;height:7px"><span style="position:absolute;inset:0;border-radius:9999px;background:var(--green)"></span><span style="position:absolute;inset:0;border-radius:9999px;background:var(--green);animation:pulseRing 2.4s ease-out infinite"></span></span>
-        <span style="font-size:12px;color:var(--muted);font-weight:500">Tripletex · Live</span>
+    <div class="side-mobile">
+      <div style="display:flex;align-items:center;gap:2px;height:38px;padding:3px;border:1px solid var(--border);background:var(--card);border-radius:10px">
+        <sc-for list="{{ langs }}" as="g" hint-placeholder-count="2">
+          <div onClick="{{ g.pick }}" class="mono" style="{{ g.style }}">{{ g.label }}</div>
+        </sc-for>
       </div>
-      <div class="btn" style="display:flex;align-items:center;gap:10px;padding:6px 6px 6px 0;border-radius:11px;cursor:pointer">
-        <div style="width:26px;height:26px;flex:none;border-radius:9999px;background:linear-gradient(135deg,var(--accent),#8B6BFF);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">KV</div>
-        <div style="flex:1;min-width:0">
+      <div onClick="{{ toggleTheme }}" class="btn" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
+        <span style="width:17px;height:17px;display:flex;color:var(--text2)" dangerouslySetInnerHTML="{{ themeIcon }}"></span>
+      </div>
+    </div>
+    <div style="{{ footPad }}">
+      <div style="{{ liveRow }}">
+        <span style="position:relative;width:7px;height:7px"><span style="position:absolute;inset:0;border-radius:9999px;background:var(--green)"></span><span style="position:absolute;inset:0;border-radius:9999px;background:var(--green);animation:pulseRing 2.4s ease-out infinite"></span></span>
+        <span style="{{ liveLbl }}">Tripletex · Live</span>
+      </div>
+      <div class="btn" style="{{ userRow }}">
+        <div style="width:26px;height:26px;flex:none;border-radius:9999px;background:linear-gradient(135deg,var(--accent),#5B8CFF);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">KV</div>
+        <div style="{{ userLbl }}">
           <div style="font-size:11.5px;font-weight:500">Kian Vestby</div>
           <div style="font-size:10px;color:var(--muted)">CFO</div>
         </div>
       </div>
     </div>
   </aside>
+  <div class="{{ scrimCls }}" onClick="{{ closeNav }}"></div>
 
   <!-- MAIN -->
   <div style="flex:1;min-width:0;display:flex;flex-direction:column">
 
     <!-- HEADER -->
-    <header style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 40px;border-bottom:1px solid var(--border);background:var(--headerbg);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20">
-      <div>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 38px;border-bottom:1px solid var(--border);background:var(--headerbg);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20">
+      <div class="burger" onClick="{{ openNav }}" aria-label="Meny">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </div>
+      <div class="hdr-logo" role="img" aria-label="Clario"></div>
+      <div class="hdr-title">
         <div class="eyebrow" style="margin-bottom:6px">{{ pageEyebrow }}</div>
         <h1 style="margin:0;font-size:23px;line-height:1.05;font-weight:700;letter-spacing:-0.035em">{{ pageTitle }}</h1>
       </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="btn" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer">
+      <div class="hdr-acts" style="display:flex;align-items:center;gap:10px">
+        <div class="btn hdr-month" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           June 2026
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2"><path d="M7 9l5 5 5-5"/></svg>
         </div>
-        <div class="btn" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
+        <div class="btn hdr-search" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         </div>
-        <div onClick="{{ toggleNotif }}" class="btn" style="position:relative;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
+        <div onClick="{{ toggleNotif }}" class="btn hdr-notif" style="position:relative;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
           <span class="mono" style="position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;font-size:9px;font-weight:600;min-width:16px;height:16px;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);animation:badgePop .4s .3s both">3</span>
         </div>
-        <div style="display:flex;align-items:center;gap:2px;height:38px;padding:3px;border:1px solid var(--border);background:var(--card);border-radius:10px">
+        <div class="hdr-lang" style="display:flex;align-items:center;gap:2px;height:38px;padding:3px;border:1px solid var(--border);background:var(--card);border-radius:10px">
           <sc-for list="{{ langs }}" as="g" hint-placeholder-count="2">
             <div onClick="{{ g.pick }}" class="mono" style="{{ g.style }}">{{ g.label }}</div>
           </sc-for>
         </div>
-        <div onClick="{{ toggleTheme }}" class="btn" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer"><span style="width:17px;height:17px;display:flex;color:var(--text2)" dangerouslySetInnerHTML="{{ themeIcon }}"></span></div>
-        <div onClick="{{ openClarex }}" class="btnk" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 15px;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px -8px rgba(91,61,245,.6)">
+        <div onClick="{{ toggleTheme }}" class="btn hdr-theme" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer"><span style="width:17px;height:17px;display:flex;color:var(--text2)" dangerouslySetInnerHTML="{{ themeIcon }}"></span></div>
+        <div onClick="{{ openClarex }}" class="btnk hdr-ask" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 15px;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px -8px rgba(43,95,224,.6)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
           Ask Clarex
         </div>
 
         <!-- NOTIFICATIONS DROPDOWN -->
         <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
-          <div style="position:absolute;top:64px;right:40px;width:340px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.35);overflow:hidden;z-index:40;animation:popIn .22s cubic-bezier(.22,1,.36,1) both;transform-origin:top right">
+          <div class="notifpop" style="position:absolute;top:64px;right:38px;width:340px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.35);overflow:hidden;z-index:40;animation:popIn .22s cubic-bezier(.22,1,.36,1) both;transform-origin:top right">
             <div style="padding:14px 16px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between">
               <span style="font-size:13.5px;font-weight:600">Notifications</span>
               <span class="eyebrow">3 new</span>
@@ -203,15 +424,15 @@
       </div>
     </header>
 
-    <div style="flex:1;overflow:auto">
-      <div style="max-width:1180px;margin:0 auto;padding:28px 40px 90px">
+    <div style="flex:1;overflow:auto;background:var(--wash)">
+      <div class="mainwrap" style="max-width:1400px;margin:0 auto;padding:26px 38px 84px">
 
         <!-- ===================== OVERVIEW ===================== -->
         <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
-          <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:28px">
 
             <!-- BOOKS BANNER -->
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 22px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both">
+            <div class="banner" style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 22px;box-shadow:var(--elev);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:center;gap:14px">
                 <div style="width:40px;height:40px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:none">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.9"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -225,23 +446,23 @@
             </div>
 
             <!-- HERO + KPI TILES -->
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+            <div class="m1 kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
               <!-- dark hero -->
-              <div class="card lift" style="position:relative;overflow:hidden;background:var(--hero);border-radius:20px;padding:24px;color:#fff;box-shadow:var(--hero-ring),0 1px 2px rgba(25,23,53,.05),0 14px 34px -18px rgba(25,23,53,.5);animation:fadeUp .55s .04s cubic-bezier(.22,1,.36,1) both;display:flex;flex-direction:column;min-height:168px">
-                <div style="position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(139,107,255,.14),transparent);animation:sheen 4.5s 1s ease-in-out infinite"></div>
+              <div class="card lift" style="position:relative;overflow:hidden;background:var(--hero);border-radius:22px;padding:24px;color:#fff;box-shadow:var(--hero-ring),0 1px 2px rgba(25,23,53,.05),0 14px 34px -18px rgba(25,23,53,.5);animation:fadeUp .55s .04s cubic-bezier(.22,1,.36,1) both;display:flex;flex-direction:column;min-height:168px">
+                <div style="position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(120,160,255,.16),transparent);animation:sheen 4.5s 1s ease-in-out infinite"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;position:relative">
-                  <span style="font-size:12.5px;color:#B9B4E0">{{ L.availBalance }}</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6BFF" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
+                  <span style="font-size:12.5px;color:#AEBEE0">{{ L.availBalance }}</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B8CFF" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
                 </div>
                 <div class="mono count" data-to="4820000" data-prefix="kr " data-suffix="" style="font-size:clamp(24px,3vw,33px);font-weight:600;letter-spacing:-0.045em;margin-top:16px;position:relative">{{ hero.balance }}</div>
                 <div style="display:flex;align-items:center;gap:8px;margin-top:10px;position:relative">
                   <span class="mono" style="display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:500;color:#4ADE80"><span dangerouslySetInnerHTML="{{ arrowUpG }}"></span>6.1%</span>
-                  <span style="font-size:12px;color:#B9B4E0">{{ L.vsMay }}</span>
+                  <span style="font-size:12px;color:#AEBEE0">{{ L.vsMay }}</span>
                 </div>
                 <div style="margin-top:14px;position:relative;opacity:.95" dangerouslySetInnerHTML="{{ hero.spark }}"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:20px;position:relative">
                   <span onClick="{{ goCashflow }}" style="font-size:12.5px;font-weight:500;color:#fff;cursor:pointer">{{ L.viewAccounts }}</span>
-                  <span class="mono" style="font-size:12px;color:#8B85B8">{{ L.accounts }}</span>
+                  <span class="mono" style="font-size:12px;color:#8496B8">{{ L.accounts }}</span>
                 </div>
               </div>
 
@@ -266,7 +487,7 @@
             </div>
 
             <!-- BUDGET vs ACTUAL -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;flex-wrap:wrap">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ D.baTitle }} <span style="font-weight:400;color:var(--muted);font-size:13px">{{ D.baSrc }}</span></h2>
@@ -283,11 +504,11 @@
                   </div>
                 </div>
               </div>
-              <div dangerouslySetInnerHTML="{{ budgetActual }}"></div>
+              <div class="chartbox" dangerouslySetInnerHTML="{{ budgetActual }}"></div>
             </div>
 
             <!-- CASH FLOW CHART -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .6s .12s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .6s .12s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.cashFlow }} <span style="font-weight:400;color:var(--muted);font-size:13px">{{ L.last12 }}</span></h2>
@@ -298,17 +519,17 @@
                   <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:2.5px;border-radius:2px;background:var(--accent)"></span>{{ L.net }}</span>
                 </div>
               </div>
-              <div dangerouslySetInnerHTML="{{ flowBars }}"></div>
+              <div class="chartscroll" dangerouslySetInnerHTML="{{ flowBars }}"></div>
             </div>
 
             <!-- RESULT BRIDGE + MARGIN -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+            <div class="m1 bento" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev)">
                 <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;letter-spacing:-0.02em">{{ D.bridgeTitle }}</h3>
                 <p style="margin:0 0 10px;font-size:12px;color:var(--muted)">{{ D.bridgeSub }}</p>
                 <div dangerouslySetInnerHTML="{{ resultBridge }}"></div>
               </div>
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev)">
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
                   <div>
                     <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;letter-spacing:-0.02em">{{ D.rateTitle }}</h3>
@@ -319,13 +540,13 @@
                     <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:13px;height:2.5px;border-radius:2px;background:#EA9E1F"></span>{{ D.payrollLbl }}</span>
                   </div>
                 </div>
-                <div dangerouslySetInnerHTML="{{ marginTrend }}"></div>
+                <div class="chartbox" dangerouslySetInnerHTML="{{ marginTrend }}"></div>
               </div>
             </div>
 
             <!-- PAYROLL + UNIT ECONOMICS -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+            <div class="m1 bento" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev)">
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:8px">
                   <div>
                     <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;letter-spacing:-0.02em">{{ D.payTitle }}</h3>
@@ -338,7 +559,7 @@
                 </div>
                 <div dangerouslySetInnerHTML="{{ payrollSpread }}"></div>
               </div>
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);display:flex;flex-direction:column">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev);display:flex;flex-direction:column">
                 <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;letter-spacing:-0.02em">{{ D.ueTitle }}</h3>
                 <p style="margin:0 0 18px;font-size:12px;color:var(--muted)">{{ D.ueSub }}</p>
                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px">
@@ -368,7 +589,7 @@
             </div>
 
             <!-- BALANCE TREND + FORECAST -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .6s .16s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .6s .16s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.balTitle }} <span style="font-weight:400;color:var(--muted);font-size:13px">{{ L.balSub }}</span></h2>
@@ -379,11 +600,11 @@
                   <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:16px;height:2.5px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 5px,transparent 5px 9px);opacity:.7"></span>{{ L.forecast }}</span>
                 </div>
               </div>
-              <div dangerouslySetInnerHTML="{{ balanceTrend }}"></div>
+              <div class="chartscroll" dangerouslySetInnerHTML="{{ balanceTrend }}"></div>
             </div>
 
             <!-- CLAREX FLUX INSIGHTS -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 26px 8px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .6s .18s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 26px 8px;box-shadow:var(--elev);animation:fadeUp .6s .18s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
                 <div style="display:flex;align-items:center;gap:9px">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
@@ -391,16 +612,16 @@
                 </div>
                 <span class="eyebrow">by Clarex</span>
               </div>
-              <div dangerouslySetInnerHTML="{{ fluxRows }}"></div>
+              <div class="tablebox" dangerouslySetInnerHTML="{{ fluxRows }}"></div>
             </div>
 
             <!-- RECENT ACTIVITY -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .6s .24s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 26px;box-shadow:var(--elev);animation:fadeUp .6s .24s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
                 <h2 style="margin:0;font-size:16px;font-weight:700;letter-spacing:-0.02em">Recent activity</h2>
                 <a href="#" style="font-size:12.5px;font-weight:600">View all →</a>
               </div>
-              <div dangerouslySetInnerHTML="{{ txnTable }}"></div>
+              <div class="tablebox" dangerouslySetInnerHTML="{{ txnTable }}"></div>
             </div>
           </div>
         </sc-if>
@@ -459,13 +680,13 @@
 
         <!-- ===================== IMPORT ===================== -->
         <sc-if value="{{ isImport }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:28px">
             <p style="margin:-6px 0 0;font-size:13.5px;color:var(--muted);max-width:640px">Bring spreadsheet work into Clario. Mappings are confirmed once, then remembered.</p>
 
             <!-- STATE A -->
             <sc-if value="{{ stepA }}" hint-placeholder-val="{{ true }}">
-              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start">
-                <div class="card" style="background:var(--card);border:1px dashed var(--border);border-radius:20px;padding:56px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;animation:fadeUp .5s both">
+              <div class="m1" style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start">
+                <div class="card" style="background:var(--card);border:1px dashed var(--border);border-radius:22px;padding:56px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;animation:fadeUp .5s both">
                   <div style="width:48px;height:48px;border-radius:13px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
                     <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M8 9l4-4 4 4M12 5v11"/></svg>
                   </div>
@@ -481,7 +702,7 @@
                 </div>
 
                 <div style="display:flex;flex-direction:column;gap:20px">
-                  <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .06s both">
+                  <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev);animation:fadeUp .5s .06s both">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
                       <h2 style="margin:0;font-size:15px;font-weight:700;letter-spacing:-0.02em">Recognised templates</h2>
                       <span class="mono" style="font-size:11px;color:var(--muted)">3</span>
@@ -503,7 +724,7 @@
                     </div>
                   </div>
 
-                  <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .5s .12s both">
+                  <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev);animation:fadeUp .5s .12s both">
                     <h2 style="margin:0 0 6px;font-size:15px;font-weight:700;letter-spacing:-0.02em">Recent imports</h2>
                     <sc-for list="{{ recent }}" as="r" hint-placeholder-count="4">
                       <div style="{{ r.cell }}">
@@ -521,7 +742,7 @@
 
             <!-- STATE B -->
             <sc-if value="{{ stepB }}" hint-placeholder-val="{{ false }}">
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px 28px;max-width:720px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .45s both">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:26px 28px;max-width:720px;box-shadow:var(--elev);animation:fadeUp .45s both">
                 <div style="display:flex;align-items:center;gap:11px;margin-bottom:20px">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
                   <span style="font-size:14px;font-weight:600">Phonero_Template_EN.xlsx</span>
@@ -550,7 +771,7 @@
               <div style="display:flex;flex-direction:column;gap:20px;animation:fadeUp .5s both">
 
                 <!-- FILE + SHEET TABS -->
-                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px 0;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px 0;box-shadow:var(--elev)">
                   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap">
                     <div style="display:flex;align-items:flex-start;gap:13px">
                       <div style="width:38px;height:38px;flex:none;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--muted)">
@@ -576,7 +797,7 @@
                 </div>
 
                 <!-- COLUMNS -->
-                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--elev)">
                   <div style="padding:20px 22px 14px;border-bottom:1px solid var(--border)">
                     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap">
                       <div>
@@ -587,7 +808,7 @@
                     </div>
                   </div>
 
-                  <div style="display:grid;grid-template-columns:44px 1fr 190px 150px 74px;gap:14px;padding:11px 22px;border-bottom:1px solid var(--border-soft);background:var(--surface2)">
+                  <div class="maphead" style="display:grid;grid-template-columns:44px 1fr 190px 150px 74px;gap:14px;padding:11px 22px;border-bottom:1px solid var(--border-soft);background:var(--surface2)">
                     <span class="eyebrow">{{ IM.hCol }}</span>
                     <span class="eyebrow">{{ IM.hSample }}</span>
                     <span class="eyebrow">{{ IM.hName }}</span>
@@ -596,7 +817,7 @@
                   </div>
 
                   <sc-for list="{{ IM.cols }}" as="c" hint-placeholder-count="9">
-                    <div style="{{ c.row }}">
+                    <div class="maprow" style="{{ c.row }}">
                       <div style="display:flex;flex-direction:column;gap:3px">
                         <span class="mono" style="{{ c.letterStyle }}">{{ c.letter }}</span>
                       </div>
@@ -626,7 +847,7 @@
                 </div>
 
                 <!-- PREVIEW -->
-                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 1px 2px rgba(25,23,53,.04);overflow:hidden">
+                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--elev);overflow:hidden">
                   <div style="padding:20px 22px 14px">
                     <h2 style="margin:0;font-size:16px;font-weight:700;letter-spacing:-0.02em">{{ IM.prevTitle }}</h2>
                     <p style="margin:5px 0 0;font-size:12.5px;color:var(--muted)">{{ IM.prevSub }}</p>
@@ -655,7 +876,7 @@
                   <span style="font-size:13px;color:var(--muted)">{{ IM.gate }}</span>
                   <div style="display:flex;align-items:center;gap:12px">
                     <div class="btn" style="height:40px;display:flex;align-items:center;padding:0 18px;border:1px solid var(--border);border-radius:11px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer">{{ IM.later }}</div>
-                    <div onClick="{{ goD }}" class="btnk" style="height:40px;display:flex;align-items:center;padding:0 22px;border-radius:11px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px -10px rgba(91,61,245,.6)">{{ IM.cta }}</div>
+                    <div onClick="{{ goD }}" class="btnk" style="height:40px;display:flex;align-items:center;padding:0 22px;border-radius:11px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px -10px rgba(43,95,224,.6)">{{ IM.cta }}</div>
                   </div>
                 </div>
               </div>
@@ -706,7 +927,7 @@
                   <span class="mono" style="font-size:11.5px;color:var(--muted)">41 rows · 2 sheets · 37 fields</span>
                 </div>
 
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+                <div class="m2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
                   <sc-for list="{{ resultTiles }}" as="t" hint-placeholder-count="4">
                     <div class="card lift" style="{{ t.wrap }}">
                       <span style="font-size:12.5px;color:var(--text2);font-weight:500">{{ t.label }}</span>
@@ -724,12 +945,12 @@
                   </sc-for>
                 </div>
 
-                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev)">
                   <h2 style="margin:0 0 20px;font-size:16px;font-weight:700;letter-spacing:-0.02em">Margin % by month</h2>
-                  <div dangerouslySetInnerHTML="{{ marginChart }}"></div>
+                  <div class="chartbox" dangerouslySetInnerHTML="{{ marginChart }}"></div>
                 </div>
 
-                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+                <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 26px;box-shadow:var(--elev)">
                   <h2 style="margin:0 0 4px;font-size:15px;font-weight:700;letter-spacing:-0.02em">Not calculated</h2>
                   <p style="margin:0 0 12px;font-size:12.5px;color:var(--muted)">Three figures need a source Clario does not have yet.</p>
                   <sc-for list="{{ limits }}" as="l" hint-placeholder-count="3">
@@ -775,9 +996,9 @@
 
         <!-- ===================== CASHFLOW ===================== -->
         <sc-if value="{{ isCashflow }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:28px">
 
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+            <div class="m2 bento" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
               <sc-for list="{{ flowStats }}" as="k" hint-placeholder-count="4">
                 <div class="card lift" style="{{ k.wrap }}">
                   <span style="font-size:12.5px;color:var(--text2);font-weight:500">{{ k.label }}</span>
@@ -789,7 +1010,7 @@
             </div>
 
             <!-- WATERFALL -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .55s .08s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .55s .08s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.wfTitle }}</h2>
@@ -828,18 +1049,18 @@
             </div>
 
             <!-- NET CASH + RUNWAY -->
-            <div style="display:grid;grid-template-columns:1fr 300px;gap:20px">
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .55s .12s cubic-bezier(.22,1,.36,1) both">
+            <div class="m1 bento" style="display:grid;grid-template-columns:1fr 300px;gap:18px">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .55s .12s cubic-bezier(.22,1,.36,1) both">
                 <div style="margin-bottom:16px">
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.netTitle }}</h2>
                   <p style="margin:5px 0 0;font-size:12.5px;color:var(--muted)">{{ L.netSub }}</p>
                 </div>
-                <div dangerouslySetInnerHTML="{{ netDiverge }}"></div>
+                <div class="chartscroll" dangerouslySetInnerHTML="{{ netDiverge }}"></div>
               </div>
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);display:flex;flex-direction:column;animation:fadeUp .55s .16s cubic-bezier(.22,1,.36,1) both">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);display:flex;flex-direction:column;animation:fadeUp .55s .16s cubic-bezier(.22,1,.36,1) both">
                 <h2 style="margin:0 0 2px;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.runway }}</h2>
                 <p style="margin:0 0 8px;font-size:12.5px;color:var(--muted)">{{ L.runwaySub }}</p>
-                <div style="margin:auto 0" dangerouslySetInnerHTML="{{ runwayArc }}"></div>
+                <div class="chart-sm" style="margin:auto 0" dangerouslySetInnerHTML="{{ runwayArc }}"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border-soft)">
                   <span style="font-size:11.5px;color:var(--muted)">{{ L.runwayTarget }}</span>
                   <span class="mono" style="font-size:11.5px;color:var(--bar-in)">{{ L.runwayOver }}</span>
@@ -848,7 +1069,7 @@
             </div>
 
             <!-- EXPENSE COMPOSITION -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .55s .2s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .55s .2s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:24px;flex-wrap:wrap">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.expTitle }} <span style="font-weight:400;color:var(--muted);font-size:13px">{{ L.expSub12 }}</span></h2>
@@ -863,12 +1084,12 @@
                   </sc-for>
                 </div>
               </div>
-              <div dangerouslySetInnerHTML="{{ expenseStack }}"></div>
+              <div class="chartscroll" dangerouslySetInnerHTML="{{ expenseStack }}"></div>
             </div>
 
             <!-- IN / OUT LISTS -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+            <div class="m1 bento" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev)">
                 <div class="eyebrow" style="margin-bottom:14px">{{ L.inflowsJune }}</div>
                 <sc-for list="{{ inflows }}" as="e" hint-placeholder-count="3">
                   <div class="rowh" style="padding:12px 6px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between">
@@ -877,7 +1098,7 @@
                   </div>
                 </sc-for>
               </div>
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev)">
                 <div class="eyebrow" style="margin-bottom:14px">{{ L.outflowsJune }}</div>
                 <sc-for list="{{ expenses }}" as="e" hint-placeholder-count="5">
                   <div style="padding:10px 0;border-top:1px solid var(--border-soft)">
@@ -920,7 +1141,7 @@
 
             <div style="position:relative">
               <div style="{{ insVeil }}">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+                <div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
                   <sc-for list="{{ insights }}" as="i" hint-placeholder-count="4">
                     <a href="{{ i.href }}" class="card lift" style="{{ i.wrap }}">
                       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px">
@@ -954,9 +1175,9 @@
               <!-- PREMIUM GATE -->
               <sc-if value="{{ insLocked }}" hint-placeholder-val="{{ true }}">
                 <div style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:flex-start;justify-content:center;padding-top:52px">
-                  <div class="card" style="width:min(520px,92%);background:var(--card);border:1px solid var(--border);border-radius:22px;padding:34px 36px;box-shadow:0 2px 6px rgba(25,23,53,.06),0 30px 70px -28px rgba(91,61,245,.42);animation:fadeUp .5s .05s cubic-bezier(.22,1,.36,1) both">
+                  <div class="card" style="width:min(520px,92%);background:var(--card);border:1px solid var(--border);border-radius:22px;padding:34px 36px;box-shadow:0 2px 6px rgba(25,23,53,.06),0 30px 70px -28px rgba(43,95,224,.42);animation:fadeUp .5s .05s cubic-bezier(.22,1,.36,1) both">
                     <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
-                      <div style="width:40px;height:40px;flex:none;border-radius:12px;background:var(--hero);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -10px rgba(91,61,245,.7)">
+                      <div style="width:40px;height:40px;flex:none;border-radius:12px;background:var(--hero);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -10px rgba(43,95,224,.7)">
                         <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
                       </div>
                       <div>
@@ -981,7 +1202,7 @@
                         <div class="mono" style="font-size:20px;font-weight:700;letter-spacing:-0.03em">{{ I.premPrice }}</div>
                         <div style="font-size:11.5px;color:var(--muted);margin-top:2px">{{ I.premPriceSub }}</div>
                       </div>
-                      <div onClick="{{ goPremium }}" class="btnk" style="height:44px;display:flex;align-items:center;padding:0 24px;border-radius:12px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 12px 28px -10px rgba(91,61,245,.72)">{{ I.premCta }}</div>
+                      <div onClick="{{ goPremium }}" class="btnk" style="height:44px;display:flex;align-items:center;padding:0 24px;border-radius:12px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 12px 28px -10px rgba(43,95,224,.72)">{{ I.premCta }}</div>
                     </div>
                     <div style="margin-top:15px;font-size:11px;color:var(--muted2);text-align:center">{{ I.premDemo }}</div>
                   </div>
@@ -994,10 +1215,20 @@
         <!-- ===================== SCENARIOS ===================== -->
         <sc-if value="{{ isScenarios }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;flex-direction:column;gap:22px">
-            <div style="display:grid;grid-template-columns:288px 1fr;gap:22px;align-items:start">
+            <div class="m1" style="display:grid;grid-template-columns:288px 1fr;gap:22px;align-items:start">
 
               <!-- LEVERS -->
-              <div style="animation:fadeUp .5s both;position:sticky;top:16px">
+              <div class="scen-bar" onClick="{{ openScen }}">
+                <div style="min-width:0;flex:1">
+                  <div class="eyebrow" style="margin-bottom:3px">{{ L.chooseLever }}</div>
+                  <div class="scen-bar-t">{{ activeLever.title }}</div>
+                </div>
+                <span style="{{ activeLever.impactStyle }}">{{ activeLever.impact }}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2" style="flex:none"><path d="M7 9l5 5 5-5"/></svg>
+              </div>
+              <div class="{{ scenScrimCls }}" onClick="{{ closeScen }}"></div>
+              <div class="{{ railCls }}" style="animation:fadeUp .5s both;position:sticky;top:16px">
+                <div class="scen-grab"></div>
                 <div class="eyebrow" style="margin-bottom:12px">{{ L.chooseLever }}</div>
                 <div style="display:flex;flex-direction:column;gap:8px">
                   <sc-for list="{{ levers }}" as="l" hint-placeholder-count="6">
@@ -1013,7 +1244,7 @@
               </div>
 
               <!-- DETAIL -->
-              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px 32px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:30px 32px;box-shadow:var(--elev)">
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
                   <span style="{{ activeLever.tagStyle }}">{{ activeLever.tag }}</span>
                   <span class="mono" style="font-size:10.5px;color:var(--muted2)">{{ activeLever.cat }}</span>
@@ -1021,7 +1252,7 @@
                 <div style="font-size:22px;font-weight:700;letter-spacing:-0.03em;line-height:1.25;margin-bottom:26px;max-width:740px;text-wrap:pretty">{{ activeLever.headline }}</div>
 
                 <!-- two numbers that matter -->
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
+                <div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
                   <sc-for list="{{ activeLever.stats }}" as="s" hint-placeholder-count="2">
                     <div style="border:1px solid var(--border);border-radius:15px;padding:18px 20px;background:var(--surface2)">
                       <div class="eyebrow" style="margin-bottom:12px">{{ s.label }}</div>
@@ -1053,7 +1284,7 @@
                     <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:15px;height:2.5px;border-radius:2px;background:var(--accent)"></span>{{ L.withLever }}</span>
                   </div>
                 </div>
-                <div dangerouslySetInnerHTML="{{ scenarioProjection }}"></div>
+                <div class="chartbox" dangerouslySetInnerHTML="{{ scenarioProjection }}"></div>
 
                 <div style="display:flex;gap:12px;margin-top:22px;padding:16px 18px;border-radius:14px;background:var(--accent-soft)">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" style="flex:none;margin-top:1px"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
@@ -1063,7 +1294,7 @@
             </div>
 
             <!-- COMPARE -->
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04);animation:fadeUp .55s .14s cubic-bezier(.22,1,.36,1) both">
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .55s .14s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:16px;flex-wrap:wrap">
                 <div>
                   <h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em">{{ L.allLevers }} <span style="font-weight:400;color:var(--muted);font-size:13px">{{ L.allLeversSub }}</span></h2>
@@ -1074,16 +1305,16 @@
                   <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)"><span style="width:9px;height:9px;border-radius:3px;background:var(--bar-out)"></span>{{ L.shortens }}</span>
                 </div>
               </div>
-              <div dangerouslySetInnerHTML="{{ tornado }}"></div>
+              <div class="chartbox" dangerouslySetInnerHTML="{{ tornado }}"></div>
             </div>
           </div>
         </sc-if>
 
         <!-- ===================== CLAREX (full chat) ===================== -->
         <sc-if value="{{ isClarex }}" hint-placeholder-val="{{ false }}">
-          <div style="max-width:720px;margin:0 auto">
-            <div dangerouslySetInnerHTML="{{ chatThread }}"></div>
-            <div style="display:flex;gap:11px;align-items:center;margin:10px 0 22px;padding-left:41px;animation:fadeIn .4s 1.1s both">
+          <div class="chat-wrap" style="max-width:720px;margin:0 auto">
+            <div class="chat-thread" dangerouslySetInnerHTML="{{ chatThread }}"></div>
+            <div class="chat-typing" style="display:flex;gap:11px;align-items:center;margin:10px 0 22px;padding-left:41px;animation:fadeIn .4s 1.1s both">
               <div style="display:flex;gap:4px">
                 <span style="width:6px;height:6px;border-radius:9999px;background:var(--accent);animation:typing 1.2s infinite"></span>
                 <span style="width:6px;height:6px;border-radius:9999px;background:var(--accent);animation:typing 1.2s .15s infinite"></span>
@@ -1091,13 +1322,13 @@
               </div>
               <span style="font-size:12px;color:var(--muted)">Clarex is reviewing your ledger…</span>
             </div>
-            <div class="eyebrow" style="margin-bottom:12px">Try asking</div>
-            <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px">
+            <div class="eyebrow chat-tryl" style="margin-bottom:12px">Try asking</div>
+            <div class="chat-chips" style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px">
               <sc-for list="{{ prompts }}" as="p" hint-placeholder-count="3">
                 <div class="btn" style="height:34px;display:flex;align-items:center;padding:0 14px;border:1px solid var(--border);background:var(--card);border-radius:9999px;font-size:12.5px;color:var(--text2);cursor:pointer">{{ p }}</div>
               </sc-for>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:9px 9px 9px 16px;box-shadow:0 8px 24px -16px rgba(25,23,53,.3);position:sticky;bottom:20px">
+            <div class="chat-composer" style="display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:9px 9px 9px 16px;box-shadow:0 8px 24px -16px rgba(25,23,53,.3);position:sticky;bottom:20px">
               <div style="flex:1;font-size:14px;color:var(--muted2)">Ask Clarex about your numbers…</div>
               <div class="btnk" style="width:36px;height:36px;flex:none;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1108,13 +1339,13 @@
 
         <!-- ===================== CLIENTS ===================== -->
         <sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:28px">
             <div style="display:flex;gap:14px;align-items:flex-start;border:1px solid var(--danger-border);background:var(--danger-soft);border-radius:16px;padding:18px 20px;animation:fadeUp .5s both">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.8" style="margin-top:1px;flex:none"><path d="M12 9v4M12 17h.01M10.3 3.9L2 18a2 2 0 0 0 1.7 3h16.6A2 2 0 0 0 22 18L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
               <div style="font-size:13.5px;line-height:1.6;color:var(--danger-ink);text-wrap:pretty"><b>Statkraft AS</b> is 31% of revenue — above the 25% concentration threshold Clarex flags. Landing one more enterprise account brings it under 20%.</div>
             </div>
-            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 26px;box-shadow:0 1px 2px rgba(25,23,53,.04)">
-              <div dangerouslySetInnerHTML="{{ clientTable }}"></div>
+            <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 26px;box-shadow:var(--elev)">
+              <div class="tablebox" dangerouslySetInnerHTML="{{ clientTable }}"></div>
             </div>
           </div>
         </sc-if>
@@ -1124,7 +1355,7 @@
           <div style="display:flex;flex-direction:column;gap:40px;max-width:780px">
             <div style="animation:fadeUp .5s both">
               <div class="eyebrow" style="margin-bottom:16px">Data sources</div>
-              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--elev)">
                 <sc-for list="{{ integrations }}" as="g" hint-placeholder-count="3">
                   <div style="{{ g.cell }}">
                     <div style="display:flex;align-items:center;gap:14px">
@@ -1141,7 +1372,7 @@
             </div>
             <div style="animation:fadeUp .5s .08s both">
               <div class="eyebrow" style="margin-bottom:16px">Workspace</div>
-              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--elev)">
                 <sc-for list="{{ workspaceRows }}" as="r" hint-placeholder-count="4">
                   <div style="{{ r.cell }}">
                     <span style="font-size:13px;color:var(--muted)">{{ r.label }}</span>
@@ -1152,7 +1383,7 @@
             </div>
             <div style="animation:fadeUp .5s .16s both">
               <div class="eyebrow" style="margin-bottom:16px">Team</div>
-              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 1px 2px rgba(25,23,53,.04)">
+              <div class="card" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--elev)">
                 <sc-for list="{{ team }}" as="t" hint-placeholder-count="3">
                   <div style="{{ t.cell }}">
                     <div style="display:flex;align-items:center;gap:12px">
@@ -1176,11 +1407,11 @@
 
   <!-- FLOATING CLAREX LAUNCHER -->
   <sc-if value="{{ launcherVisible }}" hint-placeholder-val="{{ true }}">
-    <div onClick="{{ togglePop }}" style="position:fixed;right:28px;bottom:28px;z-index:60;cursor:pointer">
+    <div class="fab" onClick="{{ togglePop }}" style="position:fixed;right:28px;bottom:28px;z-index:60;cursor:pointer">
       <div style="position:relative;width:58px;height:58px;animation:floatY 3.4s ease-in-out infinite">
         <span style="position:absolute;inset:0;border-radius:9999px;background:var(--accent);opacity:.45;animation:pulseRing 2.6s ease-out infinite"></span>
-        <div class="btnk" style="position:relative;width:58px;height:58px;border-radius:9999px;background:linear-gradient(140deg,#6D4BFF,var(--accent));display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(91,61,245,.65)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
+        <div class="btnk" style="position:relative;width:58px;height:58px;border-radius:9999px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(43,95,224,.55),0 0 0 1px rgba(43,95,224,.15)">
+          <img src="assets/clario-o.png" alt="Clarex" style="display:block;width:31px;height:31px"/>
         </div>
         <span class="mono" style="position:absolute;top:-3px;right:-3px;background:var(--danger);color:#fff;font-size:10px;font-weight:600;min-width:19px;height:19px;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bg);animation:badgePop .4s .6s both">3</span>
       </div>
@@ -1189,10 +1420,10 @@
 
   <!-- FLOATING CHAT POPOVER -->
   <sc-if value="{{ popOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;right:28px;bottom:28px;z-index:70;width:396px;max-width:calc(100vw - 40px);height:min(620px,calc(100vh - 56px));background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:0 30px 70px -20px rgba(25,23,53,.5);display:flex;flex-direction:column;overflow:hidden;animation:popIn .28s cubic-bezier(.22,1,.36,1) both;transform-origin:bottom right">
+    <div class="chatpop" style="position:fixed;right:28px;bottom:28px;z-index:70;width:396px;max-width:calc(100vw - 40px);height:min(620px,calc(100vh - 56px));background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:0 30px 70px -20px rgba(25,23,53,.5);display:flex;flex-direction:column;overflow:hidden;animation:popIn .28s cubic-bezier(.22,1,.36,1) both;transform-origin:bottom right">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-soft)">
         <div style="display:flex;align-items:center;gap:11px">
-          <div style="position:relative;width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,#6D4BFF,var(--accent));display:flex;align-items:center;justify-content:center">
+          <div style="position:relative;width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,#2B5FE0,var(--accent));display:flex;align-items:center;justify-content:center">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
             <span style="position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-radius:9999px;background:var(--green);border:2px solid #fff"></span>
           </div>
@@ -1219,8 +1450,8 @@
 
   <!-- TOAST -->
   <sc-if value="{{ toastVisible }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ openClarex }}" style="position:fixed;right:28px;bottom:100px;z-index:65;width:320px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.4);padding:15px 16px;display:flex;gap:12px;cursor:pointer;animation:slideInRight .5s cubic-bezier(.22,1,.36,1) both">
-      <div style="width:34px;height:34px;flex:none;border-radius:10px;background:linear-gradient(140deg,#6D4BFF,var(--accent));display:flex;align-items:center;justify-content:center">
+    <div class="toast" onClick="{{ openClarex }}" style="position:fixed;right:28px;bottom:100px;z-index:65;width:320px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.4);padding:15px 16px;display:flex;gap:12px;cursor:pointer;animation:slideInRight .5s cubic-bezier(.22,1,.36,1) both">
+      <div style="width:34px;height:34px;flex:none;border-radius:10px;background:linear-gradient(140deg,#2B5FE0,var(--accent));display:flex;align-items:center;justify-content:center">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
       </div>
       <div style="flex:1">
@@ -1233,7 +1464,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940}}">
 class Component extends DCLogic {
-  state = { lang:'no', premium:false, settledOpen:false, impSheet:'pl', impCols:{}, wfMonth:5, wfOpen:false, active:'Overview', lever:0, notifOpen:false, popOpen:false, toastVisible:false, dark:false, importStep:'A', resolved:{},
+  state = { lang:'no', navMin:false, navOpen:false, scenPick:false, premium:false, settledOpen:false, impSheet:'pl', impCols:{}, wfMonth:5, wfOpen:false, active:'Overview', lever:0, notifOpen:false, popOpen:false, toastVisible:false, dark:false, importStep:'A', resolved:{},
     wpMode:'arb', density:'condensed', sel:null, focus:null, armedTick:null, paletteOpen:false, idxOpen:true, panelMode:'detail', hint:null, copied:false, reviewed:{}, notes:{},
     wpGridW:0, wpMidW:0, detailOpen:true, panelDismissed:false,
     edits:{}, userCols:[], editing:null, hEdit:null, undo:[], redo:[], fbFocus:false, fbDraft:null, fillPrev:null,
@@ -1460,7 +1691,13 @@ class Component extends DCLogic {
     this._cp=setTimeout(()=>this.setState({copied:false}),1200);
   }
 
-  componentDidMount(){ this.play(); this._tt=setTimeout(()=>this.setState({toastVisible:true}),1400); this._th=setTimeout(()=>this.setState({toastVisible:false}),8000); }
+  mq(){ return typeof window!=='undefined' && window.innerWidth<=768; }
+  componentDidMount(){ this.play(); this._tt=setTimeout(()=>this.setState({toastVisible:true}),1400); this._th=setTimeout(()=>this.setState({toastVisible:false}),8000);
+    this._mqW=this.mq();
+    this._onRz=()=>{ const m=this.mq(); if(m!==this._mqW){ this._mqW=m; this._c={}; this.forceUpdate(); } };
+    window.addEventListener('resize',this._onRz,{passive:true});
+    window.addEventListener('orientationchange',this._onRz,{passive:true}); }
+  componentWillUnmount(){ if(this._onRz){ window.removeEventListener('resize',this._onRz); window.removeEventListener('orientationchange',this._onRz); } }
   componentDidUpdate(){
     if(this._lastActive!==this.state.active||this._lastStep!==this.state.importStep){
       this._lastActive=this.state.active; this._lastStep=this.state.importStep; this.play();
@@ -1505,13 +1742,55 @@ class Component extends DCLogic {
       Insights:['Innsikt','Insights'],Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
       Scenarios:['Scenarier','Scenarios'],Clarex:['Clarex','Clarex'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
+    const navMin=!!this.state.navMin;
     const nav=navDefs.map(([label,path,badge])=>{
       const on=active===label;
-      return { label:t.apply(null,NAVLBL[label]||[label,label]),badge,select:()=>this.setState({active:label,notifOpen:false}),
-        style:{display:'flex',alignItems:'center',gap:'10px',padding:'8px 12px',borderRadius:'10px',cursor:'pointer',fontSize:'13.5px',fontWeight:on?500:400,color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent',letterSpacing:'-0.01em'},
+      return { label:t.apply(null,NAVLBL[label]||[label,label]),badge:navMin?null:badge,select:()=>this.setState({active:label,notifOpen:false,navOpen:false}),
+        lbl:navMin?{display:'none'}:{flex:1},
+        style:navMin
+          ?{display:'flex',alignItems:'center',justifyContent:'center',padding:'10px 0',borderRadius:'10px',cursor:'pointer',color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent'}
+          :{display:'flex',alignItems:'center',gap:'10px',padding:'8px 12px',borderRadius:'10px',cursor:'pointer',fontSize:'13.5px',fontWeight:on?500:400,color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent',letterSpacing:'-0.01em'},
         icon:on?'var(--accent)':'var(--muted2)', svg:this.icon(path) };
     });
     const navOverview=nav.slice(0,5), navPlan=nav.slice(5,8), navSettings=nav.slice(8);
+    const SCEN={
+      openScen:()=>this.setState({scenPick:true}),
+      closeScen:()=>this.setState({scenPick:false}),
+      railCls:'lever-rail'+(this.state.scenPick?' lever-rail-open':''),
+      scenScrimCls:'scen-scrim'+(this.state.scenPick?' scen-scrim-on':''),
+    };
+    const ebBase={padding:'0 12px',fontSize:'11px',fontWeight:500,letterSpacing:'0.08em'};
+    const ebHid={height:'1px',background:'var(--border-soft)',fontSize:0,overflow:'hidden'};
+    const SB={
+      toggleNav:()=>this.setState({navMin:!this.state.navMin}),
+      openNav:()=>this.setState({navOpen:true}),
+      closeNav:()=>this.setState({navOpen:false}),
+      asideCls:'side'+(this.state.navOpen?' side-open':''),
+      scrimCls:'scrim'+(this.state.navOpen?' scrim-on':''),
+      navTip:navMin?t('Utvid menyen','Expand menu'):t('Minimer menyen','Collapse menu'),
+      navIcon:this.icon(navMin?'<path d="M10 7l5 5-5 5"/>':'<path d="M14 7l-5 5 5 5"/>'),
+      asideStyle:{width:navMin?'74px':'16%',minWidth:navMin?'74px':'198px',flex:'none',background:'var(--sidebar)',
+        borderRight:'1px solid var(--border)',display:'flex',flexDirection:'column',position:'sticky',top:0,height:'100vh',
+        transition:'width .24s cubic-bezier(.22,1,.36,1),min-width .24s cubic-bezier(.22,1,.36,1)'},
+      logoPad:navMin?{padding:'30px 0 0'}:{padding:'37px 24px 0'},
+      logoRow:navMin?{display:'flex',flexDirection:'column',alignItems:'center',gap:'16px'}
+                    :{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'10px'},
+      logoStyle:navMin?{height:'30px',width:'30px',backgroundImage:'url(assets/clario-o.png)',backgroundSize:'contain',backgroundRepeat:'no-repeat',backgroundPosition:'center'}
+                      :{height:'30px',width:'91px',backgroundImage:'var(--logo)',backgroundSize:'contain',backgroundRepeat:'no-repeat',backgroundPosition:'left center'},
+      orgStyle:navMin?{display:'flex',alignItems:'center',justifyContent:'center',padding:'6px 0',borderRadius:'8px',cursor:'pointer'}
+                     :{display:'flex',alignItems:'center',gap:'9px',padding:'4px 12px',borderRadius:'8px',cursor:'pointer'},
+      orgLbl:navMin?{display:'none'}:{minWidth:0,flex:1,fontSize:'11.5px',fontWeight:500,letterSpacing:'-0.02em',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
+      orgChev:navMin?{display:'none'}:{display:'flex',flex:'none'},
+      ebMon:navMin?Object.assign({margin:'26px 14px 12px'},ebHid):Object.assign({margin:'32px 0 8px'},ebBase),
+      ebPlan:navMin?Object.assign({margin:'18px 14px 12px'},ebHid):Object.assign({margin:'24px 0 8px'},ebBase),
+      footPad:{marginTop:'16px',padding:navMin?'14px 8px':'14px 24px',borderTop:'1px solid var(--border)'},
+      liveRow:navMin?{display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'13px'}
+                    :{display:'flex',alignItems:'center',gap:'8px',marginBottom:'13px'},
+      liveLbl:navMin?{display:'none'}:{fontSize:'12px',color:'var(--muted)',fontWeight:500},
+      userRow:navMin?{display:'flex',alignItems:'center',justifyContent:'center',padding:'6px 0',borderRadius:'11px',cursor:'pointer'}
+                    :{display:'flex',alignItems:'center',gap:'10px',padding:'6px 6px 6px 0',borderRadius:'11px',cursor:'pointer'},
+      userLbl:navMin?{display:'none'}:{flex:1,minWidth:0},
+    };
     const headers={
       Overview:[t('Velkommen tilbake, Kian','Welcome back, Kian'),t('Oversikt','Overview')],
       Cashflow:[t('Juni 2026','June 2026'),t('Kontantstrøm','Cash flow')],
@@ -1528,7 +1807,7 @@ class Component extends DCLogic {
     const downR={__html:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M18 13l-6 6-6-6"/></svg>'};
 
     const tile=(d)=>({wrap:{display:'flex',flexDirection:'column',background:'var(--card)',border:'1px solid var(--border)',borderRadius:'20px',padding:'24px',minHeight:'168px',boxShadow:'0 1px 2px rgba(25,23,53,.04)',animation:'fadeUp .55s '+d+'s cubic-bezier(.22,1,.36,1) both'}});
-    const hero={ balance:this.kr(4820000), spark:this.spark(this.flowSeries().bal,'#8B7BFF',true) };
+    const hero={ balance:this.kr(4820000), spark:this.spark(this.flowSeries().bal,'#7FA8FF',true) };
     const kpis=[
       {label:t('Netto resultat','Net income'),to:260000,prefix:'kr ',suffix:'',value:this.kr(260000),delta:t('10,2%','10.2%'),sub:t('mot forrige mnd','MoM'),arrow:upG,dc:'var(--green)',icon:this.icon('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),link:t('Se resultat','View P&L'),meta:t('juni 2026','June 2026'),d:'.08'},
       {label:'Runway',to:15,prefix:'',suffix:t(' mnd',' mo'),value:t('15 mnd','15 mo'),delta:t('+2 mnd','+2 mo'),sub:t('ved burn','at burn'),arrow:upG,dc:'var(--green)',icon:this.icon('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'),link:t('Se prognose','See projection'),meta:t('ved dagens burn','at current burn'),d:'.12'},
@@ -1615,10 +1894,10 @@ class Component extends DCLogic {
           color:up?'var(--bar-in)':dn?'var(--bar-out)':'var(--muted2)',
           background:up?'color-mix(in srgb, var(--bar-in) 12%, transparent)':dn?'color-mix(in srgb, var(--bar-out) 12%, transparent)':'var(--surface2)',
           padding:'3px 8px',borderRadius:'9999px',flex:'none'},
-        select:()=>this.setState({lever:i}),
+        select:()=>this.setState({lever:i,scenPick:false}),
         style:{padding:'14px 15px',border:'1px solid '+(on?'var(--accent)':'var(--border)'),borderRadius:'14px',cursor:'pointer',
           background:'var(--card)',
-          boxShadow:on?'0 8px 22px -12px rgba(91,61,245,.5)':'0 1px 2px rgba(25,23,53,.04)'}};
+          boxShadow:on?'0 8px 22px -12px rgba(43,95,224,.5)':'0 1px 2px rgba(25,23,53,.04)'}};
     }).sort((a,b)=>catOrder.indexOf(a.cat)-catOrder.indexOf(b.cat));
 
     // four headline stats, each as from → to with a percentage move
@@ -1661,7 +1940,7 @@ class Component extends DCLogic {
       {name:'PowerOffice Go',desc:'Accounting · not connected',mark:'P',logoBg:'var(--surface2)',logoFg:'var(--muted)',statusText:'Connect',status:{fontSize:'12px',fontWeight:600,color:'var(--text2)',border:'1px solid var(--border)',padding:'6px 14px',borderRadius:'8px',cursor:'pointer'}},
     ].map((g,i)=>({...g,cell:scell(i)}));
     const workspaceRows=[{label:'Legal name',value:'Pixl Media AS'},{label:'Org. number',value:'924 118 507'},{label:'Fiscal year',value:'Jan – Dec'},{label:'Base currency',value:'NOK'}].map((r,i)=>({...r,cell:scell(i)}));
-    const team=[{name:'Kian Vestby',email:'kian@pixlmedia.no',initials:'KV',role:'Owner',av:'linear-gradient(135deg,var(--accent),#8B6BFF)'},{name:'Ingrid Solheim',email:'ingrid@pixlmedia.no',initials:'IS',role:'Admin',av:'var(--green)'},{name:'Clarex',email:'AI coworker · read-only',initials:'R',role:'Viewer',av:'linear-gradient(135deg,#6D4BFF,var(--accent))'}].map((t,i)=>({...t,cell:scell(i)}));
+    const team=[{name:'Kian Vestby',email:'kian@pixlmedia.no',initials:'KV',role:'Owner',av:'linear-gradient(135deg,var(--accent),#5B8CFF)'},{name:'Ingrid Solheim',email:'ingrid@pixlmedia.no',initials:'IS',role:'Admin',av:'var(--green)'},{name:'Clarex',email:'AI coworker · read-only',initials:'R',role:'Viewer',av:'linear-gradient(135deg,#2B5FE0,var(--accent))'}].map((t,i)=>({...t,cell:scell(i)}));
 
     const notifs=[
       {title:'June books closed & reconciled',time:'2 minutes ago',bg:'#E7F6ED',fg:'var(--green)',icon:this.icon('<path d="M20 6L9 17l-5-5"/>')},
@@ -2171,7 +2450,7 @@ class Component extends DCLogic {
     const go=s=>()=>this.setState({importStep:s});
 
     return {
-      nav, navOverview, navPlan, navSettings, pageEyebrow, pageTitle, arrowUpG:upG,
+      nav, navOverview, navPlan, navSettings, ...SB, ...SCEN, activeLever:levers[li], pageEyebrow, pageTitle, arrowUpG:upG,
       /* ---- Insights + the premium gate ---- */
       premiumOn:this.state.premium,
       insLocked:!this.state.premium,
@@ -2521,7 +2800,7 @@ class Component extends DCLogic {
       onContinue:openCount===0?go('D'):null,
       footerNote:openCount===0?'All fields mapped. Ready to import.':openCount===1?'1 field needs review before this can be imported.':openCount+' fields need review before this can be imported.',
       marginChart:this.once('margin',()=>this.buildMarginChart()),
-      isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isScenarios:active==='Scenarios',isClarex:active==='Clarex',isClients:active==='Clients',isSettings:active==='Settings',
+      active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isScenarios:active==='Scenarios',isClarex:active==='Clarex',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Insights'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
       openClarex:()=>this.setState({popOpen:true,toastVisible:false}),
       toggleNotif:()=>this.setState(s=>({notifOpen:!s.notifOpen})), notifOpen:this.state.notifOpen, notifs,
@@ -2539,13 +2818,13 @@ class Component extends DCLogic {
           textTransform:'uppercase',color:al.tagColor,
           background:'color-mix(in srgb, '+al.tagColor+' 12%, transparent)',
           padding:'4px 10px',borderRadius:'9999px'}},
-      flowBars:this.once('flow',()=>this.buildFlowCombo()),
-      balanceTrend:this.once('bal',()=>this.buildBalanceTrend()),
-      netDiverge:this.once('nd',()=>this.buildNetDiverge()),
+      flowBars:this.once('flow'+LANG,()=>this.buildFlowCombo()),
+      balanceTrend:this.once('bal'+LANG,()=>this.buildBalanceTrend()),
+      netDiverge:this.once('nd'+LANG,()=>this.buildNetDiverge()),
       waterfall:this.buildWaterfall(),   // depends on the selected month, so never cached
-      expenseStack:this.once('es',()=>this.buildExpenseStack()),
+      expenseStack:this.once('es'+LANG,()=>this.buildExpenseStack()),
       stackLegend:this.stackLegend(),
-      runwayArc:this.once('ra',()=>this.buildRunwayArc()),
+      runwayArc:this.once('ra'+LANG,()=>this.buildRunwayArc()),
       txnTable:this.once('txn',()=>this.buildTxnTable()),
       fluxRows:this.once('flux',()=>this.buildFlux()),
       scenarioProjection:this.buildScenarioProjection(al),
@@ -2663,20 +2942,79 @@ class Component extends DCLogic {
 
   /* ── shared series ───────────────────────────────────── */
   flowSeries(){
-    return {
-      months:['JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB','MAR','APR','MAY','JUN'],
-      cin:[1.05,1.02,1.10,0.82,1.12,1.15,1.18,1.14,1.22,1.20,1.19,1.24],
-      cout:[0.86,0.90,0.94,1.02,0.92,0.95,0.97,0.93,0.99,0.96,0.94,0.98],
-      bal:[3.62,3.71,3.88,3.79,3.95,4.08,4.21,4.34,4.42,4.58,4.66,4.82],
+    if(this._fs) return this._fs;
+    const months=['JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB','MAR','APR','MAY','JUN'];
+    const cin =[1.05,1.02,1.10,0.82,1.12,1.15,1.18,1.14,1.22,1.20,1.19,1.24];
+    const cout=[0.86,0.90,0.94,1.02,0.92,0.95,0.97,0.93,0.99,0.96,0.94,0.98];
+    const net=cin.map((v,i)=>v-cout[i]);
+    // Closing balance is DERIVED from the cash series, not typed independently —
+    // otherwise the cashflow chart and the balance chart contradict each other on
+    // every month. Anchored on the kr 4,82M June figure the dashboard quotes.
+    const bal=new Array(12); let b=4.82;
+    for(let i=11;i>=0;i--){ bal[i]=Math.round(b*100)/100; b=Math.round((b-net[i])*100)/100; }
+    this._fs={ months, cin, cout, net, bal,
       fwd:[4.94,5.09,5.21,5.36,5.48,5.63],
-      fwdM:['JUL','AUG','SEP','OCT','NOV','DES']
-    };
+      fwdM:['JUL','AUG','SEP','OCT','NOV','DES'],
+      yr:['2025','2025','2025','2025','2025','2025','2026','2026','2026','2026','2026','2026'],
+      full:[[6,'Juli','July'],[7,'August','August'],[8,'September','September'],[9,'Oktober','October'],
+            [10,'November','November'],[11,'Desember','December'],[0,'Januar','January'],[1,'Februar','February'],
+            [2,'Mars','March'],[3,'April','April'],[4,'Mai','May'],[5,'Juni','June']] };
+    return this._fs;
   }
+
+  /* ── hover tooltip toolkit ──────────────────────────────────────
+     Charts are injected as HTML strings, so React handlers cannot be
+     attached. The hover layer is plain CSS: an absolutely positioned
+     band per data point, each holding its own tooltip card.          */
+  sheetHref(cell,sheet){
+    const p=new URLSearchParams({file:'Phonero_Template_EN.xlsx',
+      period:this.t('Juni 2026','June 2026'), client:'Phonero AS',
+      lang:this.state.lang, sheet:sheet||'pl', cell:cell});
+    return './Sheet.dc.html?'+p.toString();
+  }
+  ttHTML(title,rows,foot,act){
+    let h='<div class="ttt">'+title+'</div>';
+    rows.forEach(r=>{
+      if(r==='-'){ h+='<div class="ttd"></div>'; return; }
+      if(r[0]==='##'){ h+='<div class="tts">'+r[1]+'</div>'; return; }
+      const dot=r[2]?'<span class="ttdot" style="background:'+r[2]+'"></span>':'';
+      const vc=r[3]?' style="color:'+r[3]+'"':'';
+      h+='<div class="ttr"><span class="ttk">'+dot+r[0]+'</span><span class="ttv"'+vc+'>'+r[1]+'</span></div>';
+    });
+    if(act) h+='<a class="tta" href="'+this.sheetHref(act.cell,act.sheet)+'">'
+      +'<span>'+(act.label||this.t('Endre i arket','Edit in the sheet'))+'</span>'
+      +'<span class="tta-c mono">'+act.cell+' \u2192</span></a>';
+    if(foot) h+='<div class="ttf">'+foot+'</div>';
+    return h;
+  }
+  /* bands: [{x0,x1,html}] in viewBox units; vbW = viewBox width */
+  hoverZone(bands,vbW,top){
+    const n=bands.length; let h='<div class="hbz">';
+    bands.forEach((b,i)=>{
+      const L=(b.x0/vbW*100), W=((b.x1-b.x0)/vbW*100);
+      const pos = i<=1 ? 'left:0' : (i>=n-2 ? 'right:0' : 'left:50%;margin-left:-119px');
+      h+='<div class="hb" tabindex="0" style="left:'+L.toFixed(3)+'%;width:'+W.toFixed(3)+'%">'
+        +'<div class="tt" style="'+pos+';top:'+(top||8)+'px">'+b.html+'</div></div>';
+    });
+    return h+'</div>';
+  }
+  hoverRows(bands,vbH,left){
+    const n=bands.length; let h='<div class="hbz">';
+    bands.forEach((b,i)=>{
+      const T=(b.y0/vbH*100), H=((b.y1-b.y0)/vbH*100);
+      h+='<div class="hb" tabindex="0" style="left:0;right:0;bottom:auto;top:'+T.toFixed(3)+'%;height:'+H.toFixed(3)+'%">'
+        +'<div class="tt" style="'+(left||'left:36%')+';'+(i<n/2?'top:0':'bottom:0')+'">'+b.html+'</div></div>';
+    });
+    return h+'</div>';
+  }
+  cw(svg,zone){ return '<div class="cw">'+svg+zone+'</div>'; }
+  krM(v){ return this.kr(Math.round(v*1000000)); }
 
   /* ═══ 1 · CASH FLOW COMBO — in/out bars + net trend line ═══ */
   buildFlowCombo(){
     const S=this.flowSeries(), n=S.months.length;
-    const w=940,h=270,padT=18,padB=34,padL=68,padR=54;
+    const M=this.mq();
+    const w=M?520:940,h=M?250:270,padT=18,padB=M?30:34,padL=M?44:68,padR=M?44:54;
     const plot=h-padT-padB, plotW=w-padL-padR, maxV=1.35;
     const group=plotW/n, bw=Math.min(15,group*0.30), gap=3;
     const gIn=this.gid('gin'), gOut=this.gid('gout'), gNet=this.gid('gnet'), gGlow=this.gid('glow');
@@ -2725,7 +3063,34 @@ class Component extends DCLogic {
     line+='<text x="'+(w-padR+10)+'" y="'+(npts[n-1][1]+3.5).toFixed(1)+'" font-size="10.5" fill="var(--accent)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.1s forwards">+'+Math.round(lastNet*1000)+'k</text>';
 
     const lab=this.xLabels(S.months,padL+group/2,group,h-12,n-1);
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+bars+line+lab+'</svg>');
+
+    // Breakdown shares come from the P&L sheet's own June composition — the
+    // cash series itself is only in/out totals, so the split is stated as modelled.
+    const W=this.wb(), cT=W.cogs[0]+W.payroll[0]+W.indirect[0];
+    const shIn=[[this.t('Abonnement og salg','Subscriptions & sales'),W.sales[0]/W.revenue[0]],
+                [this.t('Bonus','Bonus'),W.bonus[0]/W.revenue[0]]];
+    const shOut=[[this.t('Varekost','Cost of sales'),W.cogs[0]/cT],
+                 [this.t('Lønn','Payroll'),W.payroll[0]/cT],
+                 [this.t('Indirekte','Indirect'),W.indirect[0]/cT]];
+    const bands=S.months.map((m,i)=>{
+      const nv=net[i], cur=i===n-1;
+      const rows=[[this.t('Inn','In'),this.krM(S.cin[i]),'var(--bar-in)'],
+                  [this.t('Ut','Out'),this.krM(S.cout[i]),'var(--bar-out)'],'-',
+                  [this.t('Netto','Net'),(nv>=0?'+':'−')+this.krM(Math.abs(nv)),null,nv>=0?'var(--bar-in)':'var(--bar-out)'],'-',
+                  ['##',this.t('Inn fordelt','In, split')]];
+      shIn.forEach(([nm,p])=>rows.push([nm,this.pctN(p*100)]));
+      rows.push(['##',this.t('Ut fordelt','Out, split')]);
+      shOut.forEach(([nm,p])=>rows.push([nm,this.pctN(p*100)]));
+      rows.push('-',[this.t('Saldo ved månedsslutt','Closing balance'),this.krM(S.bal[i])]);
+      const ttl=this.t(S.full[i][1],S.full[i][2])+' '+S.yr[i]
+        +(cur?'<span class="ttp">'+this.t('INNEVÆRENDE','CURRENT')+'</span>':'');
+      return {x0:padL+group*i, x1:padL+group*(i+1),
+        html:this.ttHTML(ttl,rows,this.t('Inn/ut er banktall. Andelene er arkets egen sammensetning for juni — bankbeløp og arkets kronebeløp har ulikt grunnlag.',
+                                         'In/out are bank totals. The shares are the sheet\'s own June composition — bank amounts and sheet amounts sit on different bases.'),
+          {cell:'B4',label:this.t('Åpne juni i arket','Open June in the sheet')})};
+    });
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="'+(M?w:'100%')+'" style="display:block;overflow:visible">'+defs+grid+bars+line+lab+'</svg>',
+      this.hoverZone(bands,w,6)));
   }
 
   /* ═══ 2 · BALANCE TREND + PROJECTION ═══ */
@@ -2733,9 +3098,10 @@ class Component extends DCLogic {
     const S=this.flowSeries();
     const all=S.bal.concat(S.fwd), labels=S.months.concat(S.fwdM);
     const n=all.length, cut=S.bal.length;
-    const w=940,h=250,padT=22,padB=32,padL=70,padR=64;
+    const M=this.mq();
+    const w=M?690:940,h=M?238:250,padT=22,padB=M?28:32,padL=M?46:70,padR=M?42:64;
     const plot=h-padT-padB, plotW=w-padL-padR;
-    const lo=3.2, hi=6.0;
+    const lo=2.8, hi=5.9;
     const X=i=>padL+(plotW/(n-1))*i;
     const Y=v=>padT+plot-((v-lo)/(hi-lo))*plot;
     const gA=this.gid('bal'), gF=this.gid('balf'), gl=this.gid('bglow');
@@ -2746,7 +3112,7 @@ class Component extends DCLogic {
     let defs='<defs>'+this.areaGrad(gA,'var(--accent)',0.30,0)+this.areaGrad(gF,'var(--accent)',0.12,0)
       +'<filter id="'+gl+'" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
 
-    const ticks=[3.5,4.5,5.5].map(v=>[Y(v),'kr '+v.toFixed(1)+'M']);
+    const ticks=[3.0,4.0,5.0].map(v=>[Y(v),'kr '+v.toFixed(1)+'M']);
     let grid=this.gridLines(ticks,padL,w-padR+10);
 
     const areaA='M'+ptsA[0][0].toFixed(1)+','+(padT+plot)+'L'+this.sp(ptsA).slice(1)+'L'+ptsA[cut-1][0].toFixed(1)+','+(padT+plot)+'Z';
@@ -2767,14 +3133,36 @@ class Component extends DCLogic {
 
     const step=plotW/(n-1);
     const lab=this.xLabels(labels,padL,step,h-10,cut-1);
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+g+lab+'</svg>');
+
+    const bands=all.map((v,i)=>{
+      const fc=i>=cut, prev=i?all[i-1]:null, d=prev===null?null:v-prev;
+      const rows=[[fc?this.t('Saldo (prognose)','Balance (forecast)'):this.t('Saldo ved månedsslutt','Closing balance'),this.krM(v)]];
+      if(d!==null) rows.push([this.t('Endring i måneden','Change in month'),(d>=0?'+':'−')+this.krM(Math.abs(d)),null,d>=0?'var(--bar-in)':'var(--bar-out)']);
+      if(!fc){
+        rows.push('-',[this.t('Inn','In'),this.krM(S.cin[i]),'var(--bar-in)'],
+                      [this.t('Ut','Out'),this.krM(S.cout[i]),'var(--bar-out)']);
+        if(i===cut-1) rows.push('-',[this.t('Rekkevidde ved dagens burn','Runway at current burn'),'15 '+this.t('mnd','mo')]);
+      }
+      const FN=['Juli','August','September','Oktober','November','Desember'];
+      const FE=['July','August','September','October','November','December'];
+      const ttl=(fc? this.t(FN[i-cut],FE[i-cut])+' 2026'
+                   : this.t(S.full[i][1],S.full[i][2])+' '+S.yr[i])
+        +(fc?'<span class="ttp">'+this.t('PROGNOSE','FORECAST')+'</span>':'');
+      const x=X(i);
+      return {x0:Math.max(padL,x-step/2), x1:Math.min(w-padR,x+step/2),
+        html:this.ttHTML(ttl,rows,fc?this.t('Framskrevet ved dagens burn — ikke bokførte tall.','Projected at current burn — not booked figures.')
+                                   :this.t('Saldo er avledet: forrige saldo + netto for måneden.','Balance is derived: prior balance + net for the month.'))};
+    });
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="'+(M?w:'100%')+'" style="display:block;overflow:visible">'+defs+grid+g+lab+'</svg>',
+      this.hoverZone(bands,w,6)));
   }
 
   /* ═══ 3 · NET CASH — one area, gradient flips at zero ═══ */
   buildNetDiverge(){
     const S=this.flowSeries(), n=S.months.length;
     const net=S.cin.map((v,i)=>v-S.cout[i]);
-    const w=940,h=220,padT=20,padB=30,padL=68,padR=20;
+    const M=this.mq();
+    const w=M?470:940,h=M?210:220,padT=20,padB=M?28:30,padL=M?44:68,padR=M?12:20;
     const plot=h-padT-padB, plotW=w-padL-padR;
     const lo=-0.30, hi=0.34;
     const X=i=>padL+(plotW/(n-1))*i;
@@ -2804,7 +3192,19 @@ class Component extends DCLogic {
       if(neg) g+='<text x="'+p[0].toFixed(1)+'" y="'+(p[1]+18).toFixed(1)+'" font-size="10" fill="var(--bar-out)" text-anchor="middle" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1s forwards">−'+Math.abs(Math.round(net[i]*1000))+'k</text>';
     });
     const lab=this.xLabels(S.months,padL,plotW/(n-1),h-8);
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+g+lab+'</svg>');
+    const step=plotW/(n-1);
+    const bands=net.map((v,i)=>({x0:Math.max(padL,X(i)-step/2), x1:Math.min(w-padR,X(i)+step/2),
+      html:this.ttHTML(this.t(S.full[i][1],S.full[i][2])+' '+S.yr[i],
+        [[this.t('Netto','Net'),(v>=0?'+':'−')+this.krM(Math.abs(v)),null,v>=0?'var(--bar-in)':'var(--bar-out)'],'-',
+         [this.t('Inn','In'),this.krM(S.cin[i]),'var(--bar-in)'],
+         [this.t('Ut','Out'),this.krM(S.cout[i]),'var(--bar-out)'],'-',
+         [this.t('Saldo ved månedsslutt','Closing balance'),this.krM(S.bal[i])]],
+        v<0?this.t('Eneste negative måned i perioden — utbetalingene passerte innbetalingene.',
+                   'The only negative month in the period — outflows exceeded inflows.')
+           :this.t('Netto = inn − ut. Saldoen bygger videre på forrige måned.',
+                   'Net = in − out. The balance builds on the prior month.'))}));
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="'+(M?w:'100%')+'" style="display:block;overflow:visible">'+defs+g+lab+'</svg>',
+      this.hoverZone(bands,w,6)));
   }
 
   /* ═══ 4 · WATERFALL — opening → in → out → closing ═══ */
@@ -2827,14 +3227,16 @@ class Component extends DCLogic {
   }
   buildWaterfall(){
     const M=this.wfMonths()[Math.min(this.state.wfMonth,5)];
-    const L=[this.t('Retainers','Retainers'),this.t('Prosjekter','Projects'),this.t('Lønn','Payroll'),
-             this.t('Innleide','Contractors'),this.t('Markedsf.','Marketing'),this.t('Øvrig','Other')];
-    const steps=[{label:this.t('Inngående','Opening'),v:M.open,type:'total'}]
+    const _m=this.mq();
+    const L=_m?['Ret.','Prosj.',this.t('Lønn','Lønn'),'Innl.','Mark.',this.t('Øvrig','Other')]
+              :[this.t('Retainers','Retainers'),this.t('Prosjekter','Projects'),this.t('Lønn','Payroll'),
+                this.t('Innleide','Contractors'),this.t('Markedsf.','Marketing'),this.t('Øvrig','Other')];
+    const steps=[{label:_m?'Inng.':this.t('Inngående','Opening'),v:M.open,type:'total'}]
       .concat(M.mv.map((v,i)=>({label:L[i],v:v,type:v>=0?'in':'out'})))
-      .concat([{label:this.t('Utgående','Closing'),v:M.close,type:'total'}]);
+      .concat([{label:_m?'Utg.':this.t('Utgående','Closing'),v:M.close,type:'total'}]);
     const _unused=[
     ];
-    const w=940,h=280,padT=24,padB=46,padL=72,padR=16;
+    const w=_m?372:940,h=_m?268:280,padT=24,padB=_m?40:46,padL=_m?44:72,padR=_m?8:16;
     const plot=h-padT-padB, plotW=w-padL-padR;
     const n=steps.length, group=plotW/n, bw=Math.min(58,group*0.56);
     let run0=M.open, peak=M.open, trough=M.open;
@@ -2870,20 +3272,51 @@ class Component extends DCLogic {
       }
       g+='<text x="'+cx.toFixed(1)+'" y="'+(h-16)+'" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="JetBrains Mono,monospace" letter-spacing="0.05em">'+s.label.toUpperCase()+'</text>';
     });
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+conn+g+'</svg>');
+
+    const inTot=M.mv.filter(v=>v>0).reduce((a,b)=>a+b,0);
+    const outTot=-M.mv.filter(v=>v<0).reduce((a,b)=>a+b,0);
+    const mName=this.t(M.no,M.en);
+    let bRun=M.open;
+    const bands=steps.map((st,i)=>{
+      let rows,foot;
+      if(i===0){
+        rows=[[this.t('Inngående balanse','Opening balance'),this.kr(M.open*1000)]];
+        foot=this.t('Utgående balanse fra forrige måned.','Closing balance carried from the prior month.');
+      } else if(i===steps.length-1){
+        rows=[[this.t('Sum innbetalinger','Total in'),this.kr(inTot*1000),'var(--bar-in)'],
+              [this.t('Sum utbetalinger','Total out'),this.kr(outTot*1000),'var(--bar-out)'],'-',
+              [this.t('Netto i måneden','Net for the month'),(M.net>=0?'+':'−')+this.kr(Math.abs(M.net)*1000),null,M.net>=0?'var(--bar-in)':'var(--bar-out)'],
+              [this.t('Utgående balanse','Closing balance'),this.kr(M.close*1000)]];
+        foot=this.t('Inngående + netto = utgående. Kjeden går videre til neste måned.',
+                    'Opening + net = closing. The chain carries into the next month.');
+      } else {
+        const v=st.v, into=v>0; bRun+=v;
+        rows=[[this.t('Bevegelse','Movement'),(into?'+':'−')+this.kr(Math.abs(v)*1000),null,into?'var(--bar-in)':'var(--bar-out)'],
+              [into?this.t('Andel av innbetalinger','Share of inflows'):this.t('Andel av utbetalinger','Share of outflows'),
+               this.pctN((Math.abs(v)/(into?inTot:outTot))*100)],'-',
+              [this.t('Løpende saldo','Running balance'),this.kr(bRun*1000)]];
+        foot=this.t('Bevegelse i '+mName.toLowerCase()+'. Rekkefølgen er inn først, så ut.',
+                    'Movement in '+mName+'. Inflows are ordered first, then outflows.');
+      }
+      return {x0:padL+group*i, x1:padL+group*(i+1),
+        html:this.ttHTML(st.label.toUpperCase()+' · '+mName.toUpperCase(),rows,foot)};
+    });
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+conn+g+'</svg>',
+      this.hoverZone(bands,w,6)));
   }
 
   /* ═══ 5 · EXPENSE COMPOSITION — stacked area over 12 months ═══ */
   buildExpenseStack(){
     const S=this.flowSeries(), n=12;
     const cats=[
-      {name:this.t('Lønn','Payroll'),base:512,drift:6,c:'#4F46E5'},
+      {name:this.t('Lønn','Payroll'),base:512,drift:6,c:'#3557D8'},
       {name:this.t('Innleide','Contractors'),base:168,drift:4,c:'#0D9488'},
       {name:this.t('Markedsføring','Marketing'),base:142,drift:9,c:'#EA9E1F'},
       {name:this.t('Programvare','Software'),base:88,drift:2,c:'#DB5FA8'},
       {name:this.t('Kontor & annet','Office & other'),base:70,drift:1,c:'#5AC8FA'},
     ].map(c=>({...c,series:Array.from({length:n},(_,i)=>Math.round(c.base-c.drift*(n-1-i)+((i%3)-1)*c.drift*0.6))}));
-    const w=940,h=250,padT=18,padB=30,padL=70,padR=16;
+    const M=this.mq();
+    const w=M?470:940,h=M?238:250,padT=18,padB=M?28:30,padL=M?46:70,padR=M?10:16;
     const plot=h-padT-padB, plotW=w-padL-padR;
     const totals=Array.from({length:n},(_,i)=>cats.reduce((a,c)=>a+c.series[i],0));
     const hi=Math.max.apply(null,totals)*1.12;
@@ -2911,7 +3344,20 @@ class Component extends DCLogic {
     const lab=this.xLabels(S.months,padL,plotW/(n-1),h-8);
     const legend=cats.map(c=>({name:c.name,c:c.c,amt:'kr '+c.series[n-1]+'k'}));
     this._stackLegend=legend;
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+body+lab+'</svg>');
+    const step=plotW/(n-1);
+    const bands=Array.from({length:n},(_,i)=>{
+      const rows=cats.map(c=>[c.name,this.kr(c.series[i]*1000),c.c]);
+      rows.push('-',[this.t('Sum kostnader','Total costs'),this.kr(totals[i]*1000)]);
+      if(i>0){ const d=totals[i]-totals[i-1];
+        rows.push([this.t('Mot forrige måned','vs prior month'),(d>=0?'+':'−')+this.kr(Math.abs(d)*1000),null,d>=0?'var(--bar-out)':'var(--bar-in)']); }
+      const big=cats.reduce((a,c)=>c.series[i]>a.series[i]?c:a,cats[0]);
+      return {x0:Math.max(padL,X(i)-step/2), x1:Math.min(w-padR,X(i)+step/2),
+        html:this.ttHTML(this.t(S.full[i][1],S.full[i][2])+' '+S.yr[i],rows,
+          this.t('Største post: '+big.name.toLowerCase()+', '+this.pctN((big.series[i]/totals[i])*100)+' av kostnadsbasen.',
+                 'Largest line: '+big.name.toLowerCase()+', '+this.pctN((big.series[i]/totals[i])*100)+' of the cost base.'))};
+    });
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="'+(M?w:'100%')+'" style="display:block;overflow:visible">'+defs+grid+body+lab+'</svg>',
+      this.hoverZone(bands,w,6)));
   }
   stackLegend(){ if(!this._stackLegend) this.buildExpenseStack();
     return this._stackLegend.map(l=>({name:l.name,amt:l.amt,
@@ -2955,7 +3401,16 @@ class Component extends DCLogic {
     s+='<text x="'+cx+'" y="'+(cy-8)+'" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('MÅNEDER','MONTHS')+'</text>';
     s+='<text x="'+(cx-r)+'" y="'+(cy+16)+'" font-size="9" fill="var(--muted2)" text-anchor="middle" font-family="JetBrains Mono,monospace">0</text>';
     s+='<text x="'+(cx+r)+'" y="'+(cy+16)+'" font-size="9" fill="var(--muted2)" text-anchor="middle" font-family="JetBrains Mono,monospace">24</text>';
-    return this.html(s+'</svg>');
+    const bal=this.flowSeries().bal[11]*1000000, burn=bal/months;
+    const zone=this.hoverZone([{x0:0,x1:w,html:this.ttHTML(this.t('RUNWAY · JUNI 2026','RUNWAY · JUNE 2026'),
+      [[this.t('Rekkevidde','Runway'),months+' '+this.t('mnd','mo')],
+       [this.t('Mål','Target'),'12 '+this.t('mnd','mo')],
+       [this.t('Over mål','Above target'),'+3 '+this.t('mnd','mo'),null,'var(--bar-in)'],'-',
+       [this.t('Saldo i dag','Balance today'),this.kr(bal)],
+       [this.t('Implisitt forbruk / mnd','Implied burn / mo'),this.kr(burn)]],
+      this.t('Saldo ÷ rekkevidde gir forbruket. Forutsetter at inntekten faller bort og faste kostnader fortsetter — bør bekreftes med Phonero.',
+             'Balance ÷ runway gives the burn. Assumes revenue stops while fixed costs continue — worth confirming with Phonero.'))}],w,4);
+    return this.html(this.cw(s+'</svg>',zone));
   }
 
   /* ═══════════════════ SCENARIO MODEL ═══════════════════
@@ -3033,7 +3488,8 @@ class Component extends DCLogic {
     const hist=[4.21,4.34,4.42,4.58,4.66,4.82], H=hist.length, F=12;
     const baseF=Array.from({length:F},(_,i)=>4.82+(B.net/1000)*(i+1));
     const scF  =Array.from({length:F},(_,i)=>4.82+(sc.net/1000)*(i+1));
-    const w=940,h=250,padT=22,padB=32,padL=72,padR=74;
+    const M=this.mq();
+    const w=M?372:940,h=M?238:250,padT=22,padB=M?28:32,padL=M?44:72,padR=M?46:74;
     const plot=h-padT-padB, plotW=w-padL-padR, n=H+F;
     const all=hist.concat(baseF,scF);
     const lo=Math.min.apply(null,all)-0.4, hi=Math.max.apply(null,all)+0.4;
@@ -3327,7 +3783,8 @@ class Component extends DCLogic {
   /* ═══ 1 · BUDGET vs ACTUAL — the chart only we can draw ═══ */
   buildBudgetActual(){
     const W=this.wb(), n=W.M.length, C=W.closed;
-    const w=940,h=272,padT=26,padB=34,padL=76,padR=86;
+    const M=this.mq();
+    const w=M?372:940,h=M?250:272,padT=26,padB=M?30:34,padL=M?46:76,padR=M?48:86;
     const plot=h-padT-padB, plotW=w-padL-padR;
     const all=W.revenue.concat(W.actRev);
     const lo=Math.min.apply(null,all)*0.92, hi=Math.max.apply(null,all)*1.05;
@@ -3380,7 +3837,8 @@ class Component extends DCLogic {
       {name:this.t('Indirekte','Indirect'),v:-W.indirect[0],type:'out'},
       {name:'EBIT',v:W.ebit[0],type:'total'},
     ];
-    const w=460,h=236,padT=24,padB=44,padL=56,padR=10;
+    const M=this.mq();
+    const w=M?372:460,h=M?226:236,padT=24,padB=M?40:44,padL=M?42:56,padR=M?8:10;
     const plot=h-padT-padB, plotW=w-padL-padR, n=steps.length;
     const group=plotW/n, bw=Math.min(52,group*0.56);
     const hi=W.revenue[0]*1.1;
@@ -3402,13 +3860,48 @@ class Component extends DCLogic {
       if(i<n-1){ const nx=padL+group*(i+1)+group/2;
         conn+='<line x1="'+(cx+bw/2).toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+(nx-bw/2).toFixed(1)+'" y2="'+y1.toFixed(1)+'" stroke="var(--muted2)" stroke-width="1" stroke-dasharray="3 3" opacity=".5" style="opacity:0;animation:fadeIn .3s '+(0.45+i*0.08)+'s forwards"/>'; }
     });
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+conn+g+'</svg>');
+
+    // every line here is a real P&L row for June — nothing modelled
+    const rev=W.revenue[0], FAK=1.2808;
+    const pOf=v=>this.pctN((v/rev)*100);
+    const det=[
+      { rows:[[this.t('Abonnement og salg','Subscriptions & sales'),this.kr(W.sales[0])],
+              [this.t('Bonus','Bonus'),this.kr(W.bonus[0])],'-',
+              [this.t('Sum inntekter','Total revenue'),this.kr(rev)]],
+        foot:this.t('Inntektslinjene i P&L-arket for juni.','The revenue rows in the P&L sheet for June.') },
+      { rows:[[this.t('Varekost','Cost of sales'),this.kr(W.cogs[0]),'var(--bar-out)'],
+              [this.t('Andel av inntekt','Share of revenue'),pOf(W.cogs[0])],'-',
+              [this.t('Bruttoresultat','Gross profit'),this.kr(rev-W.cogs[0]),null,'var(--bar-in)']],
+        foot:this.t('Varekostlinjen i arket.','The cost-of-sales row in the sheet.') },
+      { rows:[[this.t('Lønn','Payroll'),this.kr(W.payroll[0]),'var(--bar-out)'],
+              [this.t('Antall lønnslinjer','Payroll lines'),String(W.empBase.length)],
+              [this.t('Andel av inntekt','Share of revenue'),pOf(W.payroll[0])],'-',
+              [this.t('Med sosial faktor 1,2808','With social factor 1.2808'),this.kr(W.payroll[0]*FAK)]],
+        foot:this.t('Sju lønnslinjer i arket. Faktoren er den samme som i Margin Model.',
+                    'Seven payroll rows in the sheet. Same factor as in Margin Model.') },
+      { rows:[[this.t('Indirekte kostnad','Indirect cost'),this.kr(W.indirect[0]),'var(--bar-out)'],
+              [this.t('Andel av inntekt','Share of revenue'),pOf(W.indirect[0])]],
+        foot:this.t('Juni bærer Tripletex-avsetningen, derfor litt lavere enn resten av året.',
+                    'June carries the Tripletex accrual, so it sits slightly below the rest of the year.') },
+      { rows:[[this.t('Inntekter','Revenue'),this.kr(rev)],
+              [this.t('− Kostnader','− Costs'),this.kr(W.cost[0]),null,'var(--bar-out)'],'-',
+              ['EBIT',this.kr(W.ebit[0]),null,'var(--accent)'],
+              [this.t('EBIT-margin','EBIT margin'),this.pctN(W.margin[0])]],
+        foot:this.t('Inntekter − varekost − lønn − indirekte.','Revenue − cost of sales − payroll − indirect.') },
+    ];
+    const CELL=['B4','B7','B16','B34','B37'];   // revenue · cost of sales · payroll · indirect · EBIT
+    const bands=steps.map((st,i)=>({x0:padL+group*i, x1:padL+group*(i+1),
+      html:this.ttHTML(st.name.toUpperCase()+' · '+this.t('JUNI 2026','JUNE 2026'),det[i].rows,det[i].foot,
+        {cell:CELL[i]})}));
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+conn+g+'</svg>',
+      this.hoverZone(bands,w,4)));
   }
 
   /* ═══ 3 · MARGIN vs PAYROLL LOAD — two rates, one story ═══ */
   buildMarginTrend(){
     const W=this.wb(), n=W.M.length;
-    const w=460,h=236,padT=24,padB=40,padL=44,padR=44;
+    const M=this.mq();
+    const w=M?372:460,h=M?226:236,padT=24,padB=M?36:40,padL=M?40:44,padR=M?38:44;
     const plot=h-padT-padB, plotW=w-padL-padR;
     const lo=10, hi=42;
     const X=i=>padL+(plotW/(n-1))*i, Y=v=>padT+plot-((v-lo)/(hi-lo))*plot;
@@ -3436,7 +3929,8 @@ class Component extends DCLogic {
     const W=this.wb();
     const rows=W.empBase.map((b,i)=>({i:i+1,v:W.emp[i][0]})).sort((a,b)=>b.v-a.v);
     const max=rows[0].v;
-    const w=460,rowH=26,padT=18,padL=86,padR=76;
+    const M=this.mq();
+    const w=M?372:460,rowH=M?28:26,padT=18,padL=M?66:86,padR=M?54:76;
     const h=padT+rows.length*rowH+10, plotW=w-padL-padR;
     let g='';
     rows.forEach((r,i)=>{
@@ -3447,13 +3941,26 @@ class Component extends DCLogic {
       g+='<text x="'+(padL+len+9).toFixed(1)+'" y="'+(y+15)+'" font-size="10" fill="var(--text)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .4s '+(0.3+i*0.05)+'s forwards">'+this.nbn(Math.round(r.v/1000))+'k</text>';
       g+='<text x="'+(w-6)+'" y="'+(y+15)+'" font-size="9.5" fill="var(--muted)" text-anchor="end" font-family="JetBrains Mono,monospace">'+share.toFixed(0)+'%</text>';
     });
-    return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+g+'</svg>');
+    const FAK=1.2808;
+    const bands=rows.map((r,i)=>({y0:padT+i*rowH, y1:padT+(i+1)*rowH,
+      html:this.ttHTML(this.t('Ansatt ','Employee ')+r.i+' · '+this.t('JUNI 2026','JUNE 2026'),
+        [[this.t('Månedskostnad','Monthly cost'),this.kr(r.v)],
+         [this.t('Andel av lønn','Share of payroll'),this.pctN((r.v/W.payroll[0])*100)],
+         [this.t('Andel av inntekt','Share of revenue'),this.pctN((r.v/W.revenue[0])*100)],'-',
+         [this.t('Med sosial faktor 1,2808','With social factor 1.2808'),this.kr(r.v*FAK)],
+         [this.t('Årlig (× 12)','Annualised (× 12)'),this.kr(r.v*12)]],
+        this.t('Lønnslinje i P&L-arket for juni. Faktoren er den samme som i Margin Model.',
+               'A payroll row in the P&L sheet for June. Same factor as in Margin Model.'),
+        {cell:'B'+(8+r.i)})}));
+    return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+g+'</svg>',
+      this.hoverRows(bands,h,'left:34%')));
   }
 
   buildMarginChart(){
     const months=['JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
     const pct=[54.2,55.1,56.8,57.4,49.6,58.2,59.1];
-    const w=940,h=240,padT=14,padB=30,padL=66,maxV=70,groupGap=26;
+    const M=this.mq();
+    const w=M?372:940,h=M?226:240,padT=14,padB=M?28:30,padL=M?44:66,maxV=70,groupGap=M?8:26;
     const plot=h-padT-padB, plotW=w-padL, n=months.length;
     const bw=(plotW-groupGap*(n-1))/n;
     let grid='';
@@ -3504,7 +4011,7 @@ class Component extends DCLogic {
       {title:'Software & tools down by kr 9 000',bullets:['Cancelled 2 unused SaaS seats'],spark:spark([97,99,101,100,96,88],'var(--accent)'),from:'kr 97 000',to:'kr 88 000',pct:'▼ 9%',pc:'var(--green)'},
     ];
     let out='';
-    items.forEach((it,i)=>{ out+='<div style="display:grid;grid-template-columns:1fr 90px 120px 120px;gap:20px;align-items:center;padding:20px 4px;border-top:1px solid var(--border-soft);animation:fadeUp .5s '+(i*0.08)+'s cubic-bezier(.22,1,.36,1) both">'
+    items.forEach((it,i)=>{ out+='<div style="display:grid;grid-template-columns:1fr 90px 120px 120px;gap:18px;align-items:center;padding:20px 4px;border-top:1px solid var(--border-soft);animation:fadeUp .5s '+(i*0.08)+'s cubic-bezier(.22,1,.36,1) both">'
       +'<div><div style="font-size:14px;font-weight:600;margin-bottom:7px;letter-spacing:-0.015em">'+it.title+'</div><ul style="margin:0;padding-left:16px;color:var(--text2);font-size:12.5px;line-height:1.7">'+it.bullets.map(b=>'<li>'+b+'</li>').join('')+'</ul></div>'
       +'<div>'+it.spark+'</div>'
       +'<div class="mono" style="font-size:12.5px;color:var(--muted);text-align:right">'+it.from+'</div>'
@@ -3527,12 +4034,12 @@ class Component extends DCLogic {
   }
 
   buildThread(compact){
-    const uw=compact?'88%':'78%', card='background:var(--card);border:1px solid var(--border);border-radius:4px 15px 15px 15px;padding:12px 15px;font-size:'+(compact?'13px':'14px')+';line-height:1.55;color:var(--text);box-shadow:0 1px 2px rgba(25,23,53,.04)';
+    const uw=compact?'88%':'78%', card='background:var(--card);border:1px solid var(--border);border-radius:4px 15px 15px 15px;padding:12px 15px;font-size:'+(compact?'13px':'14px')+';line-height:1.55;color:var(--text);box-shadow:var(--elev)';
     const num='font-family:JetBrains Mono,monospace;font-weight:600';
-    const avatar='<div style="width:29px;height:29px;flex:none;border-radius:9px;background:linear-gradient(140deg,#6D4BFF,var(--accent));display:flex;align-items:center;justify-content:center;margin-top:2px"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg></div>';
+    const avatar='<div style="width:29px;height:29px;flex:none;border-radius:9px;background:linear-gradient(140deg,#2B5FE0,var(--accent));display:flex;align-items:center;justify-content:center;margin-top:2px"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg></div>';
     const sources='<div style="display:flex;align-items:center;gap:10px;margin-top:4px"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);border:1px solid var(--border);background:var(--card);padding:3px 10px;border-radius:9999px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>{S} sources</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="1.8"><path d="M7 10v12M15 5.88L14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="1.8"><path d="M17 14V2M9 18.12L10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"/></svg></div>';
-    const user=(t,d)=>'<div style="display:flex;justify-content:flex-end;margin-bottom:16px;animation:fadeUp .45s '+d+'s cubic-bezier(.22,1,.36,1) both"><div style="max-width:'+uw+';background:var(--accent);color:#fff;border-radius:15px 15px 4px 15px;padding:12px 15px;font-size:'+(compact?'13px':'14px')+';line-height:1.5;box-shadow:0 6px 16px -8px rgba(91,61,245,.5)">'+t+'</div></div>';
-    const bot=(inner,src,d)=>'<div style="display:flex;gap:11px;margin-bottom:16px;animation:fadeUp .45s '+d+'s cubic-bezier(.22,1,.36,1) both">'+avatar+'<div style="max-width:'+(compact?'100%':'92%')+';display:flex;flex-direction:column;gap:9px"><div style="'+card+'">'+inner+'</div>'+(src?sources.replace('{S}',src):'')+'</div></div>';
+    const user=(t,d)=>'<div class="msg msg-user" style="display:flex;justify-content:flex-end;margin-bottom:16px;animation:fadeUp .45s '+d+'s cubic-bezier(.22,1,.36,1) both"><div style="max-width:'+uw+';background:var(--accent);color:#fff;border-radius:15px 15px 4px 15px;padding:12px 15px;font-size:'+(compact?'13px':'14px')+';line-height:1.5;box-shadow:0 6px 16px -8px rgba(43,95,224,.5)">'+t+'</div></div>';
+    const bot=(inner,src,d)=>'<div class="msg msg-bot" style="display:flex;gap:11px;margin-bottom:16px;animation:fadeUp .45s '+d+'s cubic-bezier(.22,1,.36,1) both">'+avatar+'<div style="max-width:'+(compact?'100%':'92%')+';display:flex;flex-direction:column;gap:9px"><div style="'+card+'">'+inner+'</div>'+(src?sources.replace('{S}',src):'')+'</div></div>';
     let out=bot('Morning, Kian 👋 June closed with cash at <span style="'+num+'">kr 4.82M</span> — up 6.1% on May. Net held at <span style="'+num+';color:var(--green)">+kr 260 000</span>.',null,0);
     out+=user('Why did spend jump this month?',0.15);
     out+=bot('It\'s almost entirely <b>Marketing &amp; ads</b> — up <span style="'+num+'">34%</span> to kr 142 000. Payroll and software were flat, and there\'s no matching revenue lift yet.<div style="margin-top:9px;border-left:2px solid var(--accent);padding-left:13px;color:var(--accent-ink);font-size:'+(compact?'12.5px':'13.5px')+'">Pausing the paid-ads line frees ~kr 78 000 next month.</div>','3',0.3);

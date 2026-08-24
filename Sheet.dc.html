@@ -14,10 +14,12 @@
 <style>
   *{box-sizing:border-box}
   :root{
-    --bg:#F6F6FB;--card:#fff;--surface2:#F3F2F9;
-    --border:#ECEBF3;--border-soft:#F1F0F8;--hover:#F1F0F8;
-    --text:#191735;--text2:#6C6A85;--muted:#9E9CB4;--muted2:#B9B7CC;
-    --accent:#5B3DF5;--accent-hover:#4A2FE0;--accent-soft:#EEEBFE;--accent-ink:#3B2E7A;
+    --bg:#F7F9FD;--card:#fff;--surface2:#F2F5FB;
+    --border:#E7ECF6;--border-soft:#EFF3FA;--hover:#EFF3FA;
+    --text:#15192B;--text2:#5D6577;--muted:#8B93A6;--muted2:#B0B7C6;
+    --wash:radial-gradient(1150px 540px at 76% -10%,rgba(43,95,224,.055),transparent 62%);
+    --elev:0 1px 2px rgba(16,24,40,.03),0 10px 28px -14px rgba(16,24,40,.16);
+    --accent:#2B5FE0;--accent-hover:#1E4CC2;--accent-soft:#E7EEFC;--accent-ink:#17337A;
     --green:#12A150;--danger:#E5484D;--amber:#B8842A;
     --danger-soft:#FDEEEE;--danger-border:#F3D9D9;--danger-ink:#8A2F2F;
     --amber-soft:#FBF4EA;--amber-border:#EAD9C6;--amber-ink:#5C4A2E;
@@ -25,8 +27,8 @@
     --grid:#E4E3EF;          /* cell rules */
     --frame:#F4F3F9;         /* letter / number frame */
     --frame-ink:#8E8CA6;
-    --frame-on:#E3DEFD;      /* frame cell for the active row/col */
-    --freeze:#C9C5E6;        /* frozen-pane divider */
+    --frame-on:#DEE7FB;      /* frame cell for the active row/col */
+    --freeze:#B9C8E8;        /* frozen-pane divider */
     --sheet-title:#DFF3C6;   /* A1 fill carried over from the workbook */
     --sheet-head:#FCEDE3;    /* month header band carried over from the workbook */
     --sheet-body:#FEF8F4;    /* the peach used-range fill, lightened for legibility */
@@ -34,21 +36,23 @@
     --mm-input:#E4F7E7;      /* Margin Model: green  = you type here (C1F0C8) */
     --mm-calc:#EDEDF2;       /* Margin Model: grey   = calculated  (D0D0D0) */
     --mm-calc2:#E0E0E8;      /* Margin Model: darker grey = 2nd-tier calc (ADADAD) */
-    --scroll:#DDDBEC;
+    --scroll:#D9E0EE;
   }
   [data-theme="dark"],:root:has([data-theme="dark"]){
-    --bg:#0B0B14;--card:#101019;--surface2:#181826;
+    --bg:#0A0C15;--card:#0F131D;--surface2:#1A1F2D;
+    --wash:radial-gradient(1150px 540px at 76% -10%,rgba(91,140,255,.10),transparent 62%);
+    --elev:0 1px 2px rgba(0,0,0,.22),0 12px 30px -14px rgba(0,0,0,.55);
     --border:rgba(255,255,255,0.08);--border-soft:rgba(255,255,255,0.06);--hover:rgba(255,255,255,0.05);
     --text:#F2F2F8;--text2:#9C9CB0;--muted:#9C9CB0;--muted2:#5F5F72;
-    --accent:#7B70F5;--accent-hover:#6A5EF0;--accent-soft:rgba(123,112,245,0.16);--accent-ink:#C6BEFF;
+    --accent:#5B8CFF;--accent-hover:#4A79F0;--accent-soft:rgba(91,140,255,0.16);--accent-ink:#BBD0FF;
     --green:#4ADE80;--danger:#F87171;--amber:#E0A94A;
     --danger-soft:rgba(248,113,113,0.12);--danger-border:rgba(248,113,113,0.30);--danger-ink:#FCA5A5;
     --amber-soft:rgba(224,169,74,0.12);--amber-border:rgba(224,169,74,0.30);--amber-ink:#E8C98A;
     --grid:rgba(255,255,255,0.075);
     --frame:#16161F;
     --frame-ink:#7B7A90;
-    --frame-on:rgba(123,112,245,0.22);
-    --freeze:rgba(123,112,245,0.45);
+    --frame-on:rgba(91,140,255,0.22);
+    --freeze:rgba(91,140,255,0.45);
     --sheet-title:rgba(146,208,80,0.16);
     --sheet-head:rgba(251,226,213,0.10);
     --sheet-body:rgba(251,226,213,0.035);
@@ -56,7 +60,7 @@
     --mm-input:rgba(74,222,128,0.11);
     --mm-calc:rgba(255,255,255,0.05);
     --mm-calc2:rgba(255,255,255,0.09);
-    --scroll:#2A2A3A;
+    --scroll:#262C3B;
   }
   html,body{height:100%}
   body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--card);color:var(--text);
@@ -71,6 +75,41 @@
   .tab{transition:background .14s ease,color .14s ease}
   .tab:hover{background:var(--hover)}
   .fcell:hover{background:var(--frame-on)}
+
+  /* a linked-to cell announces itself for a couple of seconds */
+  @keyframes cellPulse{
+    0%,100%{box-shadow:inset 0 0 0 0 rgba(43,95,224,0);background:transparent}
+    12%{box-shadow:inset 0 0 0 2.5px var(--accent);background:var(--accent-soft)}
+    50%{box-shadow:inset 0 0 0 2.5px var(--accent);background:transparent}
+    62%{box-shadow:inset 0 0 0 2.5px var(--accent);background:var(--accent-soft)}
+  }
+  .cellpulse{animation:cellPulse 1.35s ease-in-out 2;z-index:9}
+  .sscrim{display:none}
+  /* ═════════════════ MOBILE (<=768px) — additive only ═════════════════ */
+  @media (max-width:768px){
+    .shell{height:100dvh !important}
+    .tbar{height:auto !important;min-height:46px !important;gap:8px !important;
+      padding:6px 10px calc(6px) 8px !important;flex-wrap:wrap !important}
+    .tb-save,.tb-hist,.tb-addcol,.tb-ticks{display:none !important}
+    .tb-file{order:9;flex:1 1 100% !important;gap:6px !important;padding-bottom:2px}
+    .tb-file > span:first-child{font-size:12px !important;overflow:hidden;text-overflow:ellipsis;min-width:0}
+    .tbar a.btn{width:36px !important;height:36px !important}
+    .tb-drawer,.tbar .btnk{height:34px !important}
+    .fbar{height:40px !important}
+    .fb-addr{width:54px !important}
+    .fb-help{display:none !important}          /* 450px of nowrap help text */
+    .sdrawer{position:fixed !important;right:0 !important;top:0 !important;bottom:0 !important;
+      width:min(90vw,344px) !important;height:100dvh !important;z-index:80 !important;
+      box-shadow:-10px 0 44px rgba(16,24,40,.26)}
+    .sscrim{display:block;position:fixed;inset:0;z-index:75;background:rgba(10,16,32,.45)}
+    .sbar{height:auto !important;min-height:38px !important;overflow-x:auto;scrollbar-width:none}
+    .sbar .tab{white-space:nowrap !important}
+    .sbar::-webkit-scrollbar{display:none}
+    /* stop iOS hijacking taps on the grid with text-selection and double-tap zoom */
+    [data-grid="1"]{-webkit-user-select:none;user-select:none;
+      -webkit-touch-callout:none;touch-action:manipulation}
+    input,textarea,select{font-size:16px !important}
+  }
   ::-webkit-scrollbar{width:12px;height:12px}
   ::-webkit-scrollbar-track{background:var(--card)}
   ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px;border:3px solid var(--card)}
@@ -79,14 +118,14 @@
 </style>
 </helmet>
 
-<div data-theme="{{ themeAttr }}" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--card)">
+<div class="shell" data-theme="{{ themeAttr }}" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--card)">
 
   <!-- ══════════ TOP BAR ══════════ -->
-  <div style="flex:none;height:44px;display:flex;align-items:center;gap:14px;padding:0 12px 0 10px;border-bottom:1px solid var(--border);background:var(--card)">
+  <div class="tbar" style="flex:none;height:44px;display:flex;align-items:center;gap:14px;padding:0 12px 0 10px;border-bottom:1px solid var(--border);background:var(--card)">
     <a href="./Overview.dc.html" class="btn" style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:7px;color:var(--text2);flex:none" title="Tilbake til arbeidspapirer">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     </a>
-    <div style="display:flex;align-items:baseline;gap:9px;min-width:0">
+    <div class="tb-file" style="display:flex;align-items:baseline;gap:9px;min-width:0">
       <span style="font-size:13.5px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap">{{ fileName }}</span>
       <span style="color:var(--muted2);font-size:12px">/</span>
       <span class="mono" style="font-size:11.5px;color:var(--accent)">{{ periodLabel }}</span>
@@ -95,9 +134,9 @@
 
     <div style="flex:1"></div>
 
-    <span class="mono" style="{{ saveStyle }}">{{ saveLabel }}</span>
+    <span class="mono tb-save" style="{{ saveStyle }}">{{ saveLabel }}</span>
 
-    <div style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
+    <div class="tb-hist" style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
       <div onClick="{{ undo }}" title="{{ undoTitle }}" style="{{ undoStyle }}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
       </div>
@@ -106,7 +145,7 @@
       </div>
     </div>
 
-    <div onClick="{{ addCol }}" class="btn" style="height:28px;display:flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--text2);cursor:pointer;flex:none">
+    <div onClick="{{ addCol }}" class="btn tb-addcol" style="height:28px;display:flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--text2);cursor:pointer;flex:none">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>{{ addColLabel }}
     </div>
     <div style="display:flex;align-items:center;gap:1px;background:var(--surface2);padding:2px;border-radius:8px;flex:none">
@@ -114,24 +153,24 @@
         <div onClick="{{ g.pick }}" class="mono" style="{{ g.style }}">{{ g.label }}</div>
       </sc-for>
     </div>
-    <div onClick="{{ toggleTicks }}" style="{{ tickBtnStyle }}">Tickmarks</div>
-    <div onClick="{{ toggleDrawer }}" style="{{ drawerBtnStyle }}">{{ drawerLabel }}</div>
+    <div class="tb-ticks" onClick="{{ toggleTicks }}" style="{{ tickBtnStyle }}">Tickmarks</div>
+    <div class="tb-drawer" onClick="{{ toggleDrawer }}" style="{{ drawerBtnStyle }}">{{ drawerLabel }}</div>
     <div onClick="{{ openComp }}" class="btnk" style="height:28px;display:flex;align-items:center;padding:0 12px;border-radius:7px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;cursor:pointer;flex:none">{{ adjLabel }}</div>
   </div>
 
   <!-- ══════════ FORMULA BAR ══════════ -->
-  <div style="flex:none;height:34px;display:flex;align-items:center;border-bottom:1px solid var(--border);background:var(--card)">
-    <div class="mono" style="{{ addrStyle }}">{{ addr }}</div>
+  <div class="fbar" style="flex:none;height:34px;display:flex;align-items:center;border-bottom:1px solid var(--border);background:var(--card)">
+    <div class="mono fb-addr" style="{{ addrStyle }}">{{ addr }}</div>
     <div style="width:1px;height:16px;background:var(--border);flex:none"></div>
     <span class="mono" style="{{ fxStyle }}">fx</span>
     <input data-fb="1" value="{{ fbValue }}" onChange="{{ fbInput }}" onKeyDown="{{ fbKey }}" onFocus="{{ fbFocus }}" onBlur="{{ fbBlur }}" placeholder="{{ fbPlaceholder }}" style="{{ fbStyle }}" />
     <sc-if value="{{ fbHelp }}" hint-placeholder-val="{{ false }}">
-      <span class="mono" style="font-size:10.5px;color:var(--muted);flex:none;padding:0 14px;white-space:nowrap">{{ fbHelp }}</span>
+      <span class="mono fb-help" style="font-size:10.5px;color:var(--muted);flex:none;padding:0 14px;white-space:nowrap">{{ fbHelp }}</span>
     </sc-if>
   </div>
 
   <!-- ══════════ BODY ══════════ -->
-  <div style="flex:1;display:flex;min-height:0">
+  <div class="body" style="flex:1;display:flex;min-height:0">
 
     <!-- ─── THE SHEET ─── -->
     <div data-grid="1" tabIndex="0"
@@ -159,7 +198,7 @@
           <div style="{{ row.style }}">
             <div onMouseDown="{{ row.pick }}" class="fcell" style="{{ row.numStyle }}">{{ row.num }}</div>
             <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="7">
-              <div onMouseDown="{{ c.down }}" onMouseEnter="{{ c.enter }}" onDoubleClick="{{ c.dbl }}" data-cell="{{ c.ref }}" data-band="{{ c.band }}" style="{{ c.style }}">
+              <div class="{{ c.cls }}" onMouseDown="{{ c.down }}" onMouseEnter="{{ c.enter }}" onDoubleClick="{{ c.dbl }}" data-cell="{{ c.ref }}" data-band="{{ c.band }}" style="{{ c.style }}">
                 <sc-if value="{{ c.editing }}" hint-placeholder-val="{{ false }}">
                   <input data-edit="1" value="{{ c.draft }}" onChange="{{ c.input }}" onKeyDown="{{ c.editKey }}" onBlur="{{ c.blur }}" style="{{ c.inputStyle }}" />
                 </sc-if>
@@ -185,7 +224,8 @@
 
     <!-- ─── DRAWER ─── -->
     <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ true }}">
-      <div style="width:318px;flex:none;border-left:1px solid var(--border);background:var(--card);overflow:auto">
+      <div class="sscrim" onClick="{{ toggleDrawer }}"></div>
+      <div class="sdrawer" style="width:318px;flex:none;border-left:1px solid var(--border);background:var(--card);overflow:auto">
 
         <!-- sheet variables -->
         <sc-if value="{{ varsOn }}" hint-placeholder-val="{{ false }}">
@@ -386,7 +426,7 @@
   </div>
 
   <!-- ══════════ SHEET TABS + STATUS ══════════ -->
-  <div style="flex:none;height:32px;display:flex;align-items:stretch;border-top:1px solid var(--border);background:var(--surface2)">
+  <div class="sbar" style="flex:none;height:32px;display:flex;align-items:stretch;border-top:1px solid var(--border);background:var(--surface2)">
     <div style="display:flex;align-items:stretch;padding-left:6px;overflow:auto">
       <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
         <div onClick="{{ t.pick }}" class="tab" style="{{ t.style }}">{{ t.label }}</div>
@@ -436,12 +476,12 @@ class Component extends DCLogic {
   state = {
     lang:(function(){try{return new URLSearchParams(location.search).get('lang')||'no';}catch(e){return 'no';}})(),
     // 1,2808 is not one number — it is feriepenger x arbeidsgiveravgift x øvrig.
-    factor:1.2808, factorMode:'composed', vFer:12, vAga:14.1, vOvr:0.225, vDraft:{},
+    factor:1.2808, factorMode:'direct', vFer:12, vAga:14.1, vOvr:0.225, vDraft:{},
     sheet:'pl', density:'tight', dark:false,
     edits:{}, extraCols:{}, widths:{},
-    sel:null, focus:{r:1,c:1}, editing:null,
+    sel:null, focus:{r:1,c:1}, editing:null, pulse:null,
     undo:[], redo:[], fbFocus:false, fbDraft:null,
-    drawer:true, ticksOpen:false, checksOpen:false, copied:false, armedTick:null,
+    drawer:(typeof window==='undefined'||window.innerWidth>768), ticksOpen:false, checksOpen:false, copied:false, armedTick:null,
     ticks:{'pl!C2':{sym:'√',who:'DK · 13. juni'},'pl!C7':{sym:'√GL',who:'DK · 13. juni'}},
     resolved:{},
     adj:[{id:'a1',sheet:'pl',ref:'B27',amount:-1490,reason:'Tripletex fakturert kvartalsvis — juni-andel periodisert.',author:'DK · 13. juni'}],
@@ -748,6 +788,22 @@ class Component extends DCLogic {
     clearTimeout(this._cp); this.setState({copied:true}); this._cp=setTimeout(()=>this.setState({copied:false}),1200);
   }
 
+  componentDidMount(){
+    // Deep link from a dashboard tooltip: ?cell=B16&sheet=pl lands on the exact
+    // figure that produced the number the user was looking at.
+    const ref=(this.qp('cell','')||'').toUpperCase().trim();
+    const sh=this.qp('sheet','');
+    if(!/^[A-Z]\d{1,3}$/.test(ref)) return;
+    const c=ref.charCodeAt(0)-65, r=parseInt(ref.slice(1),10)-1;
+    if(!(c>=0&&r>=0)) return;
+    const next={focus:{r,c}, sel:{a:{r,c},b:{r,c}}, pulse:ref};
+    if(sh && sh!==this.state.sheet) next.sheet=sh;
+    this._jump=ref;
+    this.setState(next);
+    clearTimeout(this._pl);
+    this._pl=setTimeout(()=>this.setState({pulse:null}),2800);
+  }
+  componentWillUnmount(){ clearTimeout(this._pl); }
   componentDidUpdate(){
     const el=document.querySelector('[data-edit]');
     if(el&&document.activeElement!==el){ el.focus();
@@ -762,18 +818,28 @@ class Component extends DCLogic {
   qp(k,d){ try{ const v=new URLSearchParams(location.search).get(k); return v||d; }catch(e){ return d; } }
 
   /* ═════════════ render ═════════════ */
+  mq(){ return typeof window!=='undefined' && window.innerWidth<=768; }
   renderVals(){
     const S=this.state, edits=S.edits||{}, editing=S.editing, sheetKey=S.sheet;
     const D=this.def(sheetKey);
     const foc=S.focus, sel=S.sel;
-    const rowH=S.density==='tight'?24:S.density==='mid'?29:34;
+    let rowH=S.density==='tight'?24:S.density==='mid'?29:34;
+    if(this.mq()) rowH=Math.max(rowH,30);   // finger-sized rows
     const extra=(S.extraCols[sheetKey]||0);
-    const BLANK_ROWS=14, BLANK_COLS=4;
+    const BLANK_ROWS=14, BLANK_COLS=this.mq()?1:4;
 
     const nCols=D.nCols+extra+BLANK_COLS;
     const nRows=D.nRows+BLANK_ROWS;
     const refAt=(r,c)=>this.colLetter(c)+(r+1);
-    const widthOf=c=>S.widths[sheetKey+'|'+c]||(c<D.colW.length?D.colW[c]:118);
+    const widthOf=c=>{
+      const w=S.widths[sheetKey+'|'+c]||(c<D.colW.length?D.colW[c]:118);
+      // The frozen label column plus the gutter would otherwise eat 75-89% of a
+      // 390px screen, leaving no room for a single data column.
+      if(!MOB) return w;
+      // the label column keeps enough room for a full row name, but is capped so a
+      // data column still fits beside it
+      return c===0 ? Math.min(150,Math.round(w*0.58)) : Math.max(76,Math.round(w*0.95));
+    };
 
     /* ---- resolution ---- */
     const memo={},stack={};
@@ -831,7 +897,8 @@ class Component extends DCLogic {
       return (typeof v==='number')?this.numToRaw(v):(v==null?'':String(v)); };
 
     /* ---- geometry ---- */
-    const GUT=46;
+    const MOB=this.mq();
+    const GUT=MOB?30:46;
     let tmpl=GUT+'px'; for(let c=0;c<nCols;c++) tmpl+=' '+widthOf(c)+'px';
     tmpl+=' minmax(40px,1fr)';
     const lefts=[]; let acc=GUT;
@@ -899,7 +966,7 @@ class Component extends DCLogic {
         const inBody=!!(D.bodyRows&&r<D.bodyRows&&c<D.bodyCols);
         const spans=!!cd.span;
         cells.push({
-          ref, band:cd.band||'', text:disp(r,c,v),
+          ref, band:cd.band||'', text:disp(r,c,v), cls:(S.pulse===ref?'cellpulse':''),
           editing:isEd, notEditing:!isEd, draft:isEd?editing.draft:'',
           input:e=>this.editDraft(e.target.value),
           editKey:e=>{ e.stopPropagation(); const k=e.key;
@@ -1100,7 +1167,7 @@ class Component extends DCLogic {
           title:self.t('Variabler i arket','Variables in this sheet'),
           label:self.t('Sosial faktor','Social factor'),
           isDirect:!composed, isComposed:composed,
-          modes:[['composed',self.t('Sammensatt','Composed')],['direct',self.t('Direkte','Direct')]]
+          modes:[['direct',self.t('Direkte','Direct')],['composed',self.t('Sammensatt','Composed')]]
             .map(([k,l])=>({label:l,
               pick:()=>self.setState({factorMode:k,vDraft:{}}),
               style:{padding:'4px 9px',borderRadius:'5px',fontSize:'10.5px',fontWeight:600,cursor:'pointer',
