@@ -3298,8 +3298,24 @@ class Component extends DCLogic {
         foot=this.t('Bevegelse i '+mName.toLowerCase()+'. Rekkefølgen er inn først, så ut.',
                     'Movement in '+mName+'. Inflows are ordered first, then outflows.');
       }
+      // Waterfall categories are bank movements, so only Lønn has its own row in
+      // the workbook. Each action names the line it actually opens rather than
+      // pretending every category maps one-to-one.
+      const WF=[
+        {cell:'B4', label:this.t('Åpne juni i arket','Open June in the sheet')},   // opening balance
+        {cell:'B2', label:this.t('Se inntektslinjen','Open the revenue line')},    // retainers
+        {cell:'B3', label:this.t('Se inntektslinjen','Open the revenue line')},    // projects
+        {cell:'B16',label:this.t('Endre i arket','Edit in the sheet')},            // payroll — exact
+        {cell:'B7', label:this.t('Se varekostlinjen','Open the cost-of-sales line')},
+        {cell:'B34',label:this.t('Se kostnadsblokken','Open the cost block')},
+        {cell:'B34',label:this.t('Se kostnadsblokken','Open the cost block')},
+        {cell:'B37',label:this.t('Se resultatlinjen','Open the result line')},     // closing balance
+      ][i];
+      // the workbook starts in June, so other months open June's column
+      const act=WF && (M.key==='jun' ? WF
+        : {cell:WF.cell, label:WF.label+' · '+this.t('juni','June')});
       return {x0:padL+group*i, x1:padL+group*(i+1),
-        html:this.ttHTML(st.label.toUpperCase()+' · '+mName.toUpperCase(),rows,foot)};
+        html:this.ttHTML(st.label.toUpperCase()+' · '+mName.toUpperCase(),rows,foot,act)};
     });
     return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+grid+conn+g+'</svg>',
       this.hoverZone(bands,w,6)));
