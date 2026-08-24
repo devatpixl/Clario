@@ -86,6 +86,41 @@
     input,textarea,select{font-size:16px !important}
   }
   @media (max-width:360px){ .tb-title{font-size:12.5px !important} }
+  /* ── hybrid: deterministic rule vs Clarex interpretation ── */
+  .secbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .secbadge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.13em;
+    padding:4px 9px;border-radius:6px;flex:none;font-weight:600}
+  .secbadge-rule{background:var(--accent-soft);color:var(--accent)}
+  .secbadge-ai{background:color-mix(in srgb, var(--amber) 14%, transparent);color:var(--amber-ink)}
+  .secid{font-size:11.5px;color:var(--muted);flex:1;min-width:0}
+  .secbar-ai{margin:22px 0 2px;padding:12px 14px;border:1px dashed var(--border);
+    border-radius:12px;background:var(--surface2)}
+  .rulecond{font-size:11.5px;color:var(--text2);background:var(--surface2);
+    border-radius:9px;padding:9px 12px;margin-bottom:12px;line-height:1.5}
+  .rulerow{display:flex;align-items:center;gap:10px;padding:8px 2px;
+    border-top:1px solid var(--border-soft);font-size:12.5px}
+  .rulelbl{flex:1;min-width:0;color:var(--text2)}
+  .ruleval{font-weight:700;font-size:12.5px}
+  .ruleop{color:var(--muted2);font-size:11px}
+  .rulethr{color:var(--muted);font-size:12px}
+  .rulefoot{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    flex-wrap:wrap;margin-top:14px;padding-top:13px;border-top:1px solid var(--border-soft)}
+  .rulethrbox{display:flex;align-items:center;gap:8px;min-width:0}
+  .rulethrlbl{font-size:11.5px;color:var(--muted)}
+  .rulethrin{width:64px;text-align:right;font-size:13px;font-weight:600;color:var(--text);
+    padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--card)}
+  .rulethrin:focus{outline:none;border-color:var(--accent)}
+  .rulethrun{font-size:12px;color:var(--muted)}
+  .rulereset{font-size:10.5px;color:var(--accent);cursor:pointer;text-decoration:underline}
+  .rulelink{font-size:11.5px;color:var(--accent);text-decoration:none;flex:none}
+  .rulelink:hover{text-decoration:underline}
+  .rulesrc{font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.45}
+  @media (max-width:768px){
+    .rulerow{flex-wrap:wrap;gap:6px}
+    .rulelbl{flex:1 1 100%}
+    .rulefoot{gap:10px}
+    .rulethrin{width:72px}
+  }
   ::-webkit-scrollbar{width:11px}
   ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px;border:3px solid var(--bg)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -131,6 +166,7 @@
             <span class="mono" style="font-size:11px;color:#AEBEE0">{{ ins.date }}</span>
             <span style="width:3px;height:3px;border-radius:9999px;background:#54648A"></span>
             <span class="mono" style="font-size:11px;color:#AEBEE0">{{ ins.rank }}</span>
+            <span class="mono" style="{{ R.badgeStyle }}">{{ R.badge }}</span>
           </div>
           <h1 class="hero-h1" style="margin:0 0 12px;font-size:30px;line-height:1.14;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">{{ ins.title }}</h1>
           <p style="margin:0;font-size:14.5px;line-height:1.65;color:#C0CDE6;max-width:620px;text-wrap:pretty">{{ ins.headline }}</p>
@@ -144,6 +180,43 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- ═══════════ DETERMINISTIC · the rule that flagged this ═══════════ -->
+    <div class="card rulecard" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:var(--elev);animation:fadeUp .5s .04s both">
+      <div class="secbar">
+        <span class="secbadge secbadge-rule">{{ T.ruleBadge }}</span>
+        <span class="secid mono">{{ R.id }} · {{ R.name }}</span>
+        <span class="mono" style="{{ R.verdictStyle }}">{{ R.verdict }}</span>
+      </div>
+      <div class="rulecond mono">{{ R.cond }}</div>
+      <sc-for list="{{ R.checks }}" as="c" hint-placeholder-count="2">
+        <div class="rulerow">
+          <span class="rulelbl">{{ c.label }}</span>
+          <span class="ruleval mono">{{ c.val }}</span>
+          <span class="ruleop mono">{{ c.op }}</span>
+          <span class="rulethr mono">{{ c.thr }}</span>
+          <span class="mono" style="{{ c.chipStyle }}">{{ c.chip }}</span>
+        </div>
+      </sc-for>
+      <div class="rulefoot">
+        <div class="rulethrbox">
+          <span class="rulethrlbl">{{ R.thrLabel }}</span>
+          <input value="{{ R.thrVal }}" onChange="{{ R.setThr }}" class="mono rulethrin"/>
+          <span class="mono rulethrun">{{ R.unit }}</span>
+          <sc-if value="{{ R.showReset }}" hint-placeholder-val="{{ false }}">
+            <span class="rulereset" onClick="{{ R.resetThr }}">{{ T.reset }}</span>
+          </sc-if>
+        </div>
+        <a class="rulelink mono" href="{{ R.href }}">{{ T.openSheet }}</a>
+      </div>
+      <div class="rulesrc">{{ R.src }}</div>
+    </div>
+
+    <!-- ═══════════ INTERPRETIVE · everything below is Clarex ═══════════ -->
+    <div class="secbar secbar-ai">
+      <span class="secbadge secbadge-ai">{{ T.aiBadge }}</span>
+      <span class="secid">{{ R.note }}</span>
     </div>
 
     <!-- EVIDENCE -->
@@ -249,10 +322,18 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
 class Component extends DCLogic {
   state = {
+    thr:{},
     lang:(function(){try{return new URLSearchParams(location.search).get('lang')||'no';}catch(e){return 'no';}})(),
     dark:false, acted:false
   };
   t(no,en){ return this.state.lang==='no'?no:en; }
+  n2(v){ const x=(Math.round(v*10)/10).toString(); return this.state.lang==='no'?x.replace('.',','):x; }
+  sheetHref(cell){
+    const p=new URLSearchParams({file:'Phonero_Template_EN.xlsx',
+      period:this.t('Juni 2026','June 2026'), client:'Phonero AS',
+      lang:this.state.lang, sheet:'pl', cell:cell});
+    return './Sheet.dc.html?'+p.toString();
+  }
   qp(k,d){ try{ const v=new URLSearchParams(location.search).get(k); return v||d; }catch(e){ return d; } }
   nbn(v){ const s=Math.abs(Math.round(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' '); return (v<0?'-':'')+s; }
   html(s){ return { __html:s }; }
@@ -295,8 +376,8 @@ class Component extends DCLogic {
         headline:T('Markedsføring steg 34% på én måned til kr 142 000. Omsetningen i samme periode steg 2,1%. Hele økningen ligger på betalt annonsering, og ingen av den kan spores til ny pipeline.','Marketing rose 34% in one month to kr 142 000. Revenue over the same period rose 2.1%. The entire increase sits in paid advertising, and none of it traces to new pipeline.'),
         impact:'+kr 78k', impactColor:'#0ECB81', impactLabel:T('frigjort per måned','freed per month'),
         confidence:T('Høy sikkerhet · 6 mnd data','High confidence · 6 mo of data'),
-        driver:[64,71,68,84,96,142], driverLabel:T('Markedsføring (kr k)','Marketing (kr k)'), driverColor:'#F6465D',
-        counter:[2683,2711,2698,2742,2790,2847], counterLabel:T('Omsetning (kr k)','Revenue (kr k)'),
+        driver:[64,71,68,84,106,142], driverLabel:T('Markedsføring (kr k)','Marketing (kr k)'), driverColor:'#F6465D',
+        counter:[2683,2711,2698,2742,2788,2847], counterLabel:T('Omsetning (kr k)','Revenue (kr k)'),
         months:M, dMax:170, cMin:2600, cMax:2900,
         evidenceSub:T('Annonsebruk mot omsetning, siste seks måneder','Ad spend against revenue, last six months'),
         reading:T('De to linjene løp sammen fram til april. Siden da har annonsebruken doblet seg mens omsetningen har fortsatt i samme takt — det er definisjonen av bruk uten avkastning.','The two lines tracked together until April. Since then ad spend has doubled while revenue continued at the same pace — that is spend without return by definition.'),
@@ -458,6 +539,62 @@ class Component extends DCLogic {
     if(b&&b.getAttribute('data-k')!==d.key){ b.innerHTML=this.ocSvg(d); b.setAttribute('data-k',d.key); }
   }
   mq(){ return typeof window!=='undefined' && window.innerWidth<=768; }
+
+  /* ══════════ deterministic layer ══════════
+     Each insight is gated by a named rule with an explicit threshold, evaluated
+     from the same series the chart draws. Clarex only ever interprets what the
+     rule found — it never decides on its own whether something is flagged.      */
+  ruleDefs(){
+    const T=(no,en)=>this.t(no,en);
+    return {
+      ads:{id:'R-04', name:T('Kostnadsvekst uten inntektsvekst','Cost growth without revenue growth'),
+        thr:25, unit:'%', thrLabel:T('Terskel for kostnadsvekst','Cost-growth threshold'),
+        cond:T('kostnadslinje ↑ > T mot forrige måned  OG  omsetning ↑ < 5 %',
+               'cost line ↑ > T month-on-month  AND  revenue ↑ < 5 %'),
+        src:T('Konto 7320 · hovedbok, juni mot mai · omsetning fra P&L','Account 7320 · ledger, June vs May · revenue from the P&L'),
+        cell:'B4'},
+      concentration:{id:'R-01', name:T('Kundekonsentrasjon','Client concentration'),
+        thr:25, unit:'%', thrLabel:T('Terskel for konsentrasjon','Concentration threshold'),
+        cond:T('største kunde > T av omsetningen','largest client > T of revenue'),
+        src:T('Kundereskontro · salgsinntekt i P&L','Sales ledger · revenue line in the P&L'),
+        cell:'B2'},
+      cash:{id:'R-12', name:T('Ledig likviditet','Idle liquidity'),
+        thr:3, unit:'×', thrLabel:T('Terskel, ganger månedsbehov','Threshold, months of need'),
+        cond:T('ledig saldo > T månedlig likviditetsbehov','idle balance > T monthly liquidity need'),
+        src:T('Bankkonti · driftskostnad i P&L','Bank accounts · operating costs in the P&L'),
+        cell:'B34'},
+      contractors:{id:'R-07', name:T('Innleid andel av lønn','Contractor share of payroll'),
+        thr:40, unit:'%', thrLabel:T('Terskel for innleid andel','Contractor-share threshold'),
+        cond:T('innleid andel > T i én enkelt måned','contractor share > T in any single month'),
+        src:T('Konto 6790 · hovedbok · lønn fra P&L','Account 6790 · ledger · payroll from the P&L'),
+        cell:'B16'},
+    };
+  }
+  evalRule(key,ins,thr){
+    const T=(no,en)=>this.t(no,en);
+    const n1=v=>{ const x=v.toFixed(1); return this.state.lang==='no'?x.replace('.',','):x; };
+    const mom=(a,b)=>(b/a-1)*100;
+    if(key==='ads'){
+      const m=mom(ins.driver[4],ins.driver[5]), r=mom(ins.counter[4],ins.counter[5]);
+      return [{label:T('Markedsføring, juni mot mai','Marketing, June vs May'), val:'+'+n1(m)+' %',
+               op:'>', thr:n1(thr)+' %', pass:m>thr},
+              {label:T('Omsetning, samme periode','Revenue, same period'), val:'+'+n1(r)+' %',
+               op:'<', thr:'5,0 %', pass:r<5}];
+    }
+    if(key==='concentration'){
+      const v=ins.driver[5];
+      return [{label:T('Statkraft AS, andel av omsetning','Statkraft AS, share of revenue'), val:n1(v)+' %',
+               op:'>', thr:n1(thr)+' %', pass:v>thr}];
+    }
+    if(key==='cash'){
+      const ratio=ins.driver[5]/ins.counter[5];
+      return [{label:T('Ledig saldo mot månedlig behov','Idle balance against monthly need'), val:n1(ratio)+' ×',
+               op:'>', thr:n1(thr)+' ×', pass:ratio>thr}];
+    }
+    const v=Math.max.apply(null,ins.driver);
+    return [{label:T('Høyeste innleide andel, siste 6 mnd','Highest contractor share, last 6 mo'), val:n1(v)+' %',
+             op:'>', thr:n1(thr)+' %', pass:v>thr}];
+  }
   componentDidMount(){
     this.paintCharts();
     this._mqW=this.mq();
@@ -478,7 +615,41 @@ class Component extends DCLogic {
     const maxRow=Math.max.apply(null,d.rows.map(r=>r[1]));
     const total=d.rows.reduce((a,r)=>a+r[1],0);
 
+    // ── the deterministic half ──────────────────────────────────────────
+    const rd=this.ruleDefs()[id];
+    const thr=(this.state.thr&&this.state.thr[id]!==undefined)?this.state.thr[id]:rd.thr;
+    const checks=this.evalRule(id,d,thr);
+    const fired=checks.every(c=>c.pass);
+    const chip=(ok)=>({fontFamily:"'JetBrains Mono',monospace",fontSize:'9.5px',fontWeight:600,
+      padding:'2px 7px',borderRadius:'9999px',flex:'none',
+      color:ok?'var(--bar-in)':'var(--muted)',
+      background:ok?'color-mix(in srgb, var(--bar-in) 13%, transparent)':'var(--surface2)'});
+    const R={
+      id:rd.id, name:rd.name, cond:rd.cond.replace('T',this.n2(thr)+' '+rd.unit),
+      src:rd.src, href:this.sheetHref(rd.cell),
+      thrLabel:rd.thrLabel, thrVal:this.n2(thr), unit:rd.unit,
+      setThr:e=>{ const v=parseFloat(String(e.target.value).replace(',','.'));
+        this.setState({thr:{...(this.state.thr||{}),[id]:isNaN(v)?rd.thr:v}}); },
+      resetThr:()=>{ const n={...(this.state.thr||{})}; delete n[id]; this.setState({thr:n}); },
+      showReset:thr!==rd.thr,
+      verdict:fired?t('REGELEN UTLØSES','RULE FIRES'):t('REGELEN UTLØSES IKKE','RULE DOES NOT FIRE'),
+      verdictStyle:{fontFamily:"'JetBrains Mono',monospace",fontSize:'9.5px',fontWeight:600,
+        letterSpacing:'0.1em',padding:'3px 9px',borderRadius:'9999px',flex:'none',
+        color:fired?'#fff':'var(--muted)',background:fired?'var(--accent)':'var(--surface2)'},
+      checks:checks.map(c=>({...c, chip:c.pass?t('oppfylt','met'):t('ikke oppfylt','not met'),
+        chipStyle:chip(c.pass)})),
+      note:fired?t('Clarex er ikke med på å avgjøre dette — regelen over gjør det. Tolkningen under er Clarex sin.',
+                   'Clarex plays no part in deciding this — the rule above does. The reading below is Clarex\'s.')
+                :t('Ingen enkeltmåned bryter terskelen. Clarex flagget dette på trend, ikke på regel.',
+                   'No single month breaks the threshold. Clarex raised this on trend, not on the rule.'),
+      badge:fired?t('REGEL + CLAREX','RULE + CLAREX'):t('KUN CLAREX','CLAREX ONLY'),
+      badgeStyle:{fontFamily:"'JetBrains Mono',monospace",fontSize:'9px',letterSpacing:'0.13em',
+        padding:'3px 8px',borderRadius:'6px',flex:'none',
+        color:fired?'#BBD0FF':'#AEBEE0',background:'rgba(255,255,255,0.10)'},
+    };
+
     return {
+      R,
       themeAttr:this.state.dark?'dark':'light',
       backHref:'./Overview.dc.html?lang='+this.state.lang,
       crumb:t('Innsikt','Insights'),
@@ -514,6 +685,10 @@ class Component extends DCLogic {
 
 
       T:{
+        ruleBadge:t('FRA ARKET · REGEL','FROM THE SHEET · RULE'),
+        aiBadge:t('CLAREX · TOLKNING','CLAREX · INTERPRETATION'),
+        reset:t('Tilbakestill','Reset'),
+        openSheet:t('Åpne linjen i arket →','Open the line in the sheet →'),
         evidence:t('Beviset','The evidence'),
         breakdown:t('Bak tallet','Behind the number'),
         plan:t('Clarex anbefaler','Clarex recommends'),

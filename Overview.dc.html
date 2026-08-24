@@ -201,9 +201,7 @@
     .toast{display:none !important}   /* the launcher badge already signals it */
 
     /* banner + KPI tiles */
-    .banner{flex-wrap:wrap !important;padding:16px 15px !important;gap:12px !important}
-    .banner > div:first-child{flex:1 1 100% !important}
-    .banner > div:last-child,.banner .btnk{width:100% !important;justify-content:center !important}
+    .banner{display:none !important}   /* the closed-books notice is desktop-only */
     .m1 > .card{min-height:0 !important}
     .m1 > .card [style*="clamp(24px"]{font-size:27px !important}
     /* KPI row: the dark hero spans, the other two pair up */
@@ -233,7 +231,6 @@
     /* card header rows: title vs legend/controls must wrap rather than crush the title */
     .card > div[style*="space-between"]{flex-wrap:wrap !important;gap:10px !important}
     .card > div[style*="space-between"] > div:first-child{min-width:0}
-    .banner{flex-wrap:wrap !important}
 
     /* ── scenarios: the lever rail becomes a bottom sheet ── */
     .scen-bar{display:flex !important;align-items:center;gap:10px;background:var(--card);
@@ -3330,7 +3327,10 @@ class Component extends DCLogic {
       {name:this.t('Markedsføring','Marketing'),base:142,drift:9,c:'#EA9E1F'},
       {name:this.t('Programvare','Software'),base:88,drift:2,c:'#DB5FA8'},
       {name:this.t('Kontor & annet','Office & other'),base:70,drift:1,c:'#5AC8FA'},
-    ].map(c=>({...c,series:Array.from({length:n},(_,i)=>Math.round(c.base-c.drift*(n-1-i)+((i%3)-1)*c.drift*0.6))}));
+    ].map(c=>({...c,series:Array.from({length:n},(_,i)=>
+      // the closing month carries no jitter, so the categories sum to June's
+      // actual cash out (980k) and marketing agrees with the ads insight
+      Math.round(c.base-c.drift*(n-1-i)+(i===n-1?0:((i%3)-1)*c.drift*0.6)))}));
     const M=this.mq();
     const w=M?470:940,h=M?238:250,padT=18,padB=M?28:30,padL=M?46:70,padR=M?10:16;
     const plot=h-padT-padB, plotW=w-padL-padR;
