@@ -187,6 +187,78 @@
     <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ true }}">
       <div style="width:318px;flex:none;border-left:1px solid var(--border);background:var(--card);overflow:auto">
 
+        <!-- sheet variables -->
+        <sc-if value="{{ varsOn }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:15px 17px;border-bottom:1px solid var(--border)">
+            <div class="eyebrow" style="margin-bottom:11px">{{ V.title }}</div>
+            <div style="border:1px solid var(--accent-soft);border-left:2px solid var(--accent);border-radius:11px;padding:13px 14px;background:var(--accent-soft)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px">
+                <span style="font-size:12px;font-weight:600;color:var(--accent-ink)">{{ V.label }}</span>
+                <div style="display:flex;gap:2px;background:var(--card);padding:2px;border-radius:7px">
+                  <sc-for list="{{ V.modes }}" as="m" hint-placeholder-count="2">
+                    <div onClick="{{ m.pick }}" style="{{ m.style }}">{{ m.label }}</div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <sc-if value="{{ V.isDirect }}" hint-placeholder-val="{{ false }}">
+                <input value="{{ V.value }}" onChange="{{ V.set }}" onBlur="{{ V.blur }}" placeholder="1,2808" style="{{ V.inputStyle }}" />
+                <div style="display:flex;gap:6px;margin-top:9px">
+                  <sc-for list="{{ V.presets }}" as="p" hint-placeholder-count="3">
+                    <div onClick="{{ p.pick }}" class="mono" style="{{ p.style }}">{{ p.label }}</div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ V.isComposed }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <sc-for list="{{ V.parts }}" as="c" hint-placeholder-count="3">
+                    <div style="display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center">
+                      <div style="min-width:0">
+                        <div style="font-size:11.5px;color:var(--accent-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
+                        <sc-if value="{{ c.warn }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size:10px;color:var(--amber);margin-top:2px">{{ c.warn }}</div>
+                        </sc-if>
+                        <div class="mono" style="{{ c.origStyle }}">{{ c.orig }}</div>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:4px">
+                        <input value="{{ c.value }}" onChange="{{ c.set }}" onBlur="{{ c.blur }}" style="{{ c.inputStyle }}" />
+                        <span class="mono" style="font-size:11px;color:var(--muted)">%</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:11px;padding-top:10px;border-top:1px solid var(--accent-soft)">
+                  <span class="mono" style="font-size:10.5px;color:var(--muted)">{{ V.mathText }}</span>
+                  <span class="mono" style="font-size:17px;font-weight:700;color:var(--accent);letter-spacing:-0.02em">{{ V.eff }}</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px">
+                  <span class="mono" style="{{ V.origEffStyle }}">{{ V.origEff }}</span>
+                  <sc-if value="{{ V.dirty }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ V.reset }}" class="mono" style="font-size:10.5px;color:var(--accent);cursor:pointer;text-decoration:underline">{{ V.resetLabel }}</span>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <div style="font-size:11px;line-height:1.5;color:var(--accent-ink);margin-top:11px;opacity:.85">{{ V.help }}</div>
+            </div>
+            <div style="margin-top:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px">
+              <div class="eyebrow" style="font-size:9px;margin-bottom:5px">{{ V.origLabelTitle }}</div>
+              <div class="mono" style="font-size:10.5px;line-height:1.45;color:var(--muted);word-break:break-word">{{ V.origLabel }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:11px">
+              <span style="font-size:11px;color:var(--muted)">{{ V.usedIn }}</span>
+              <sc-for list="{{ V.refs }}" as="r" hint-placeholder-count="4">
+                <span onClick="{{ r.jump }}" class="mono" style="{{ r.style }}">{{ r.ref }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;padding-top:12px;border-top:1px solid var(--border-soft)">
+              <span style="font-size:11.5px;color:var(--text2)">{{ V.resultLabel }}</span>
+              <span class="mono" style="font-size:13px;font-weight:700;color:var(--bar-in)">{{ V.result }}</span>
+            </div>
+          </div>
+        </sc-if>
+
         <!-- adjustment composer -->
         <sc-if value="{{ compOpen }}" hint-placeholder-val="{{ false }}">
           <div style="padding:15px 17px;border-bottom:1px solid var(--border)">
@@ -363,6 +435,8 @@
 class Component extends DCLogic {
   state = {
     lang:(function(){try{return new URLSearchParams(location.search).get('lang')||'no';}catch(e){return 'no';}})(),
+    // 1,2808 is not one number — it is feriepenger x arbeidsgiveravgift x øvrig.
+    factor:1.2808, factorMode:'composed', vFer:12, vAga:14.1, vOvr:0.225, vDraft:{},
     sheet:'pl', density:'tight', dark:false,
     edits:{}, extraCols:{}, widths:{},
     sel:null, focus:{r:1,c:1}, editing:null,
@@ -458,15 +532,17 @@ class Component extends DCLogic {
       ['Deduction',-84300,'input'],['Mobile bonus',142000,'input'],
       ['Additional services',88600,'input'],['Commission cost',-612000,'input'],
       ['Number of sales (count, not currency)',418,'input'],
-      ['Total earnings',1626700,'calc'],['Total cost',612000,'calc'],
-      ['Cost × 1.2808 (adjustment factor — basis unclear, confirm)',783850,'calc'],
-      ['Margin (NOK)',842850,'calc'],['Margin %',0.518,'calc'],
-      ['Avg. commission per subscription (alt. calc)',1464,'calc2'],
-      ['Avg. commission per subscription',1889,'calc2']];
+      ['Total earnings','=SUM(B6:B10)','calc'],['Total cost','=-B11','calc'],
+      [this.t('Kostnad × sosial faktor','Cost × social factor'),'=B14*FAKTOR','calc'],
+      ['Margin (NOK)','=B13-B15','calc'],['Margin %','=B16/B13','calc'],
+      ['Avg. commission per subscription (alt. calc)','=B14/B12','calc2'],
+      ['Avg. commission per subscription','=B15/B12','calc2']];
     lines.forEach(([lbl,v,band],k)=>{
       const r=6+k;
       cells['A'+r]={v:lbl,s:'',band};
-      cells['B'+r]={v:v,s:'',band,n:(r===17?'pct':(r===12?'num':'kr'))};  // only June is populated in the source
+      const isF=typeof v==='string'&&v.charAt(0)==='=';
+      cells['B'+r]=isF?{f:v,s:'',band,n:(r===17?'pct':'kr')}
+                      :{v:v,s:'',band,n:(r===12?'num':'kr')};
       for(let c=3;c<=8;c++) cells[this.colLetter(c-1)+r]={band};          // July–December: banded but empty
     });
     return {
@@ -500,6 +576,15 @@ class Component extends DCLogic {
   }
   numToRaw(v){ if(v===null||v===undefined||v==='') return ''; if(typeof v!=='number') return String(v);
     const r=Math.round(v*1000)/1000; return String(r).replace('.',','); }
+  // factors carry 4 decimals — never round them for display
+  // what the workbook actually shipped, kept as the reference to compare against
+  imported(){ return {vFer:12, vAga:14.1, vOvr:0.225, factor:1.2808,
+    label:'Cost × 1.2808 (adjustment factor — basis unclear, confirm)'}; }
+  effFactor(){ const S=this.state;
+    return S.factorMode==='direct' ? S.factor
+      : (1+S.vFer/100)*(1+S.vAga/100)*(1+S.vOvr/100); }
+  fmtFactor(v){ const t=v.toFixed(4).replace(/0+$/,'').replace(/[.]$/,'');
+    return this.t(t.replace('.',','),t); }
 
   /* ═════════════ formula engine ═════════════ */
   fEval(src,ctx){
@@ -537,6 +622,7 @@ class Component extends DCLogic {
             ws(); if(s[i]===';'||s[i]===','){ i++; continue; } break; } }
           ws(); if(s[i]!==')') fail('#NAVN?'); i++; return fn(id,args); }
         if(isRef(id)){ const m=/^([A-Z]+)([0-9]+)$/.exec(id); return ctx.cell(this.letterCol(m[1]),parseInt(m[2],10)-1); }
+        if(ctx.vars&&ctx.vars[id]!==undefined) return ctx.vars[id];   // named variable, e.g. FAKTOR
         fail('#NAVN?');
       }
       fail('#NAVN?');
@@ -713,6 +799,7 @@ class Component extends DCLogic {
                 acc.push(resolve(rj,cj)); }
             return acc; },
           // reads what Tripletex actually booked — budget vs. actual, live
+          vars:{FAKTOR:this.effFactor()},
           konto:code=>{ const L=this.ledger(); return L[code]===undefined?'#REF!':L[code]; }
         });
       } else if(typeof src==='number'){ out=src; }
@@ -730,7 +817,7 @@ class Component extends DCLogic {
       if(v===null||v===undefined||v==='') return '';
       if(typeof v==='string') return v;
       const f=fmtOf(r,c);
-      if(f==='pct') return (v*100).toFixed(1).replace('.',',')+' %';
+      if(f==='pct'){ const n=(v*100).toFixed(1); return this.t(n.replace('.',','),n)+' %'; }
       if(f==='num') return this.nbn(v);
       if(f==='txt') return String(v);
       return 'kr '+this.nbn(v);                       // "kr "#,##0 from the template
@@ -977,6 +1064,83 @@ class Component extends DCLogic {
           fontSize:'10px',fontWeight:600,letterSpacing:'0.06em',cursor:'pointer',
           color:S.lang===k?'var(--accent)':'var(--muted)',
           background:S.lang===k?'var(--accent-soft)':'transparent'}})),
+      varsOn:sheetKey==='mm',
+      V:(function(self,S){
+        const eff=self.effFactor(), composed=S.factorMode==='composed';
+        const D=S.vDraft||{};
+        // one generic numeric field: raw text while typing, formatted once you leave it
+        const field=(key,val,min,max,dec)=>({
+          value:D[key]!==undefined?D[key]:self.t(String(val).replace('.',','),String(val)),
+          set:e=>{ const raw=e.target.value, n=self.parseNum(raw);
+            self.setState(st=>({vDraft:{...st.vDraft,[key]:raw},
+              ...((n!==null&&n>=min&&n<=max)?{[key]:n}:{})})); },
+          blur:()=>self.setState(st=>{ const d={...st.vDraft}; delete d[key]; return {vDraft:d}; }),
+        });
+        const num=v=>self.t(String(v).replace('.',','),String(v));
+        const IMP=self.imported();
+        const parts=[
+          {key:'vFer',label:self.t('Feriepenger','Holiday pay'),val:S.vFer,warn:''},
+          {key:'vAga',label:self.t('Arbeidsgiveravgift','Employer’s NI'),val:S.vAga,
+           warn:self.t('Sone 1 — Phonero er i sone 5','Sone 1 — Phonero is in sone 5')},
+          {key:'vOvr',label:self.t('Yrkesskade og øvrig','Injury cover and other'),val:S.vOvr,warn:''},
+        ].map(c=>({label:c.label,warn:c.warn,
+          orig:self.t('Fra import: ','From import: ')+num(IMP[c.key])+' %',
+          changed:Math.abs(c.val-IMP[c.key])>1e-9,
+          origStyle:{fontSize:'10px',marginTop:'2px',
+            color:Math.abs(c.val-IMP[c.key])>1e-9?'var(--amber)':'var(--muted2)'},
+          ...field(c.key,c.val,0,100),
+          inputStyle:{width:'100%',fontFamily:"'JetBrains Mono',monospace",fontSize:'12.5px',fontWeight:600,
+            textAlign:'right',padding:'6px 8px',borderRadius:'7px',background:'var(--card)',
+            border:'1px solid '+(c.warn?'var(--amber-border)':'var(--border)'),
+            color:c.warn?'var(--amber-ink)':'var(--text)'}}));
+
+        const earn=1626700, cost=612000;
+        const margin=earn-cost*eff, pct=(margin/earn)*100;
+        return {
+          title:self.t('Variabler i arket','Variables in this sheet'),
+          label:self.t('Sosial faktor','Social factor'),
+          isDirect:!composed, isComposed:composed,
+          modes:[['composed',self.t('Sammensatt','Composed')],['direct',self.t('Direkte','Direct')]]
+            .map(([k,l])=>({label:l,
+              pick:()=>self.setState({factorMode:k,vDraft:{}}),
+              style:{padding:'4px 9px',borderRadius:'5px',fontSize:'10.5px',fontWeight:600,cursor:'pointer',
+                color:S.factorMode===k?'var(--accent)':'var(--muted)',
+                background:S.factorMode===k?'var(--accent-soft)':'transparent'}})),
+          parts,
+          eff:self.fmtFactor(eff),
+          origEff:self.t('Fra import: ','From import: ')+self.fmtFactor(IMP.factor),
+          origEffStyle:{fontSize:'10.5px',
+            color:self.fmtFactor(eff)!==self.fmtFactor(IMP.factor)?'var(--amber)':'var(--muted2)'},
+          dirty:self.fmtFactor(eff)!==self.fmtFactor(IMP.factor),
+          reset:()=>self.setState({vFer:IMP.vFer,vAga:IMP.vAga,vOvr:IMP.vOvr,
+            factor:IMP.factor,vDraft:{}}),
+          resetLabel:self.t('Tilbakestill','Reset'),
+          origLabelTitle:self.t('Opprinnelig i filen','Originally in the file'),
+          origLabel:IMP.label,
+          mathText:num((1+S.vFer/100).toFixed(2))+' × '+num((1+S.vAga/100).toFixed(3))+' × '+num((1+S.vOvr/100).toFixed(5))+' =',
+          ...field('factor',S.factor,0.01,10),
+          inputStyle:{width:'100%',fontFamily:"'JetBrains Mono',monospace",fontSize:'19px',fontWeight:700,
+            letterSpacing:'-0.02em',padding:'9px 11px',border:'1px solid var(--accent)',borderRadius:'9px',
+            background:'var(--card)',color:'var(--accent)'},
+          presets:[1,1.12,1.2808].map(v=>({label:self.fmtFactor(v),
+            pick:()=>self.setState({factor:v,vDraft:{}}),
+            style:{flex:1,textAlign:'center',padding:'6px 0',borderRadius:'7px',fontSize:'11px',cursor:'pointer',
+              border:'1px solid '+(Math.abs(S.factor-v)<1e-9?'var(--accent)':'var(--border)'),
+              color:Math.abs(S.factor-v)<1e-9?'var(--accent)':'var(--muted)',
+              background:Math.abs(S.factor-v)<1e-9?'var(--card)':'transparent'}})),
+          help:composed
+            ? self.t('1,2808 er ikke ett tall — det er feriepenger, arbeidsgiveravgift og øvrige sosiale kostnader ganget sammen. Endre en sats, så regnes radene under om med én gang.','1.2808 is not one number — it is holiday pay, employer’s NI and other social costs multiplied together. Change a rate and the rows below recalculate immediately.')
+            : self.t('Skriv den effektive faktoren direkte hvis du allerede vet den.','Type the effective factor directly if you already know it.'),
+          usedIn:self.t('Brukt i','Used in'),
+          refs:['B15','B16','B17','B19'].map(r=>({ref:r,
+            jump:()=>{ const m=/^([A-Z]+)([0-9]+)$/.exec(r);
+              self._jump=r; self.setState({focus:{r:+m[2]-1,c:self.letterCol(m[1])},sel:{a:{r:+m[2]-1,c:self.letterCol(m[1])},b:{r:+m[2]-1,c:self.letterCol(m[1])}}}); },
+            style:{fontSize:'10px',color:'var(--accent)',background:'var(--accent-soft)',
+              padding:'3px 7px',borderRadius:'6px',cursor:'pointer'}})),
+          resultLabel:self.t('Margin med denne faktoren','Margin at this factor'),
+          result:'kr '+self.nbn(margin)+'  ·  '+pct.toFixed(1).replace('.',self.t(',','.'))+' %',
+        };
+      })(this,this.state),
       undoTitle:this.t('Angre  ⌘Z','Undo  ⌘Z'), redoTitle:this.t('Gjenta  ⇧⌘Z','Redo  ⇧⌘Z'),
       addColLabel:this.t('Kolonne','Column'), tickLabel:'Tickmarks',
       drawerLabel:this.t('Detaljer','Details'), adjLabel:this.t('Bokfør justering','Post adjustment'),
