@@ -86,7 +86,7 @@
     input,textarea,select{font-size:16px !important}
   }
   @media (max-width:360px){ .tb-title{font-size:12.5px !important} }
-  /* ── hybrid: deterministic rule vs Clarex interpretation ── */
+  /* ── hybrid: deterministic rule vs Thor interpretation ── */
   .secbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
   .secbadge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.13em;
     padding:4px 9px;border-radius:6px;flex:none;font-weight:600}
@@ -213,7 +213,7 @@
       <div class="rulesrc">{{ R.src }}</div>
     </div>
 
-    <!-- ═══════════ INTERPRETIVE · everything below is Clarex ═══════════ -->
+    <!-- ═══════════ INTERPRETIVE · everything below is Thor ═══════════ -->
     <div class="secbar secbar-ai">
       <span class="secbadge secbadge-ai">{{ T.aiBadge }}</span>
       <span class="secid">{{ R.note }}</span>
@@ -234,7 +234,7 @@
       <div data-chart="ev" style="min-height:270px"></div>
       <div style="display:flex;gap:12px;margin-top:20px;padding:15px 17px;border-radius:13px;background:var(--accent-soft)">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--accent)" style="flex:none;margin-top:1px"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
-        <div style="font-size:13px;line-height:1.6;color:var(--accent-ink);text-wrap:pretty"><b style="color:var(--accent)">Clarex:</b> {{ ins.reading }}</div>
+        <div style="font-size:13px;line-height:1.6;color:var(--accent-ink);text-wrap:pretty"><b style="color:var(--accent)">Thor:</b> {{ ins.reading }}</div>
       </div>
     </div>
 
@@ -542,7 +542,7 @@ class Component extends DCLogic {
 
   /* ══════════ deterministic layer ══════════
      Each insight is gated by a named rule with an explicit threshold, evaluated
-     from the same series the chart draws. Clarex only ever interprets what the
+     from the same series the chart draws. Thor only ever interprets what the
      rule found — it never decides on its own whether something is flagged.      */
   ruleDefs(){
     const T=(no,en)=>this.t(no,en);
@@ -638,11 +638,11 @@ class Component extends DCLogic {
         color:fired?'#fff':'var(--muted)',background:fired?'var(--accent)':'var(--surface2)'},
       checks:checks.map(c=>({...c, chip:c.pass?t('oppfylt','met'):t('ikke oppfylt','not met'),
         chipStyle:chip(c.pass)})),
-      note:fired?t('Clarex er ikke med på å avgjøre dette — regelen over gjør det. Tolkningen under er Clarex sin.',
-                   'Clarex plays no part in deciding this — the rule above does. The reading below is Clarex\'s.')
-                :t('Ingen enkeltmåned bryter terskelen. Clarex flagget dette på trend, ikke på regel.',
-                   'No single month breaks the threshold. Clarex raised this on trend, not on the rule.'),
-      badge:fired?t('REGEL + CLAREX','RULE + CLAREX'):t('KUN CLAREX','CLAREX ONLY'),
+      note:fired?t('Thor er ikke med på å avgjøre dette — regelen over gjør det. Tolkningen under er Thor sin.',
+                   'Thor plays no part in deciding this — the rule above does. The reading below is Thor\'s.')
+                :t('Ingen enkeltmåned bryter terskelen. Thor flagget dette på trend, ikke på regel.',
+                   'No single month breaks the threshold. Thor raised this on trend, not on the rule.'),
+      badge:fired?t('REGEL + THOR','RULE + THOR'):t('KUN THOR','THOR ONLY'),
       badgeStyle:{fontFamily:"'JetBrains Mono',monospace",fontSize:'9px',letterSpacing:'0.13em',
         padding:'3px 8px',borderRadius:'6px',flex:'none',
         color:fired?'#BBD0FF':'#AEBEE0',background:'rgba(255,255,255,0.10)'},
@@ -652,7 +652,7 @@ class Component extends DCLogic {
       R,
       themeAttr:this.state.dark?'dark':'light',
       backHref:'./Overview.dc.html?lang='+this.state.lang,
-      crumb:t('Innsikt','Insights'),
+      crumb:t('Anbefalinger','Recommendations'),
       premiumChip:t('Premium','Premium'),
       langs:[['no','NO'],['en','EN']].map(([k,l])=>({label:l,
         pick:()=>this.setState({lang:k}),
@@ -686,18 +686,18 @@ class Component extends DCLogic {
 
       T:{
         ruleBadge:t('FRA ARKET · REGEL','FROM THE SHEET · RULE'),
-        aiBadge:t('CLAREX · TOLKNING','CLAREX · INTERPRETATION'),
+        aiBadge:t('THOR · TOLKNING','THOR · INTERPRETATION'),
         reset:t('Tilbakestill','Reset'),
         openSheet:t('Åpne linjen i arket →','Open the line in the sheet →'),
         evidence:t('Beviset','The evidence'),
         breakdown:t('Bak tallet','Behind the number'),
-        plan:t('Clarex anbefaler','Clarex recommends'),
+        plan:t('Thor anbefaler','Thor recommends'),
         planSub:t('Tre steg, med forventet effekt per steg','Three steps, with the expected effect of each'),
         outcome:t('Hva skjer videre','What happens next'),
         doNothing:t('Gjør ingenting','Do nothing'),
         ifYouAct:t('Hvis dere handler','If you act'),
         trace:t('Sporbarhet','Traceability'),
-        traceSub:t('Denne innsikten er utledet av disse kildene','This insight is derived from these sources'),
+        traceSub:t('Denne anbefalingen er utledet av disse kildene','This recommendation is derived from these sources'),
         snooze:t('Utsett 30 dager','Snooze 30 days'),
         dismiss:t('Avvis','Dismiss'),
       },
