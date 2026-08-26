@@ -280,52 +280,118 @@
   ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:9999px;border:2px solid var(--bg)}
 
     /* ── Insights / key numbers ── */
-    .kn-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
-    .kn-tile{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 18px 12px;min-width:0;overflow:hidden}
-    .kn-tl{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .kn-tv{font-size:24px;font-weight:700;letter-spacing:-0.03em;white-space:nowrap;line-height:1.1}
-    .kn-td{font-size:11.5px;font-weight:600;margin-top:5px}
-    .kn-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 24px;min-width:0;margin-bottom:18px}
+    .kn-sec{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:28px 0 10px}
+    .kn-sec-s{font-size:12px;color:var(--muted)}
+    .kn-pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:9999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+    /* hero metric cards */
+    .kn-tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .kn-t{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:17px 19px 0;overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease}
+    .kn-t:hover{border-color:color-mix(in srgb,var(--accent) 32%,var(--border));box-shadow:0 16px 34px -26px rgba(25,23,53,.5)}
+    .kn-t-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+    .kn-t-l{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kn-t-v{font-size:27px;font-weight:700;letter-spacing:-0.035em;line-height:1.05;white-space:nowrap}
+    .kn-t-s{font-size:11.5px;color:var(--muted2);margin-top:5px}
+    .kn-t-c{margin:auto -19px 0;padding-top:12px}
+    .kn-spark{display:block;width:100%;height:64px}
+    .kn-dchip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:9999px;white-space:nowrap;font-family:'JetBrains Mono',monospace}
+    .kn-dchip.pos{color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent)}
+    .kn-dchip.neg{color:#D98B1E;background:rgba(217,139,30,.13)}
+    /* operating-profit ladder */
+    .kn-t-lad{padding-bottom:17px}
+    .kn-lad{display:grid;gap:11px;margin-top:3px}
+    .kn-lad-row{display:grid;grid-template-columns:52px 1fr auto auto;align-items:center;gap:10px}
+    .kn-lad-l{font-size:11.5px;font-weight:600;color:var(--text2)}
+    .kn-lad-t{height:9px;border-radius:9999px;background:var(--surface2);overflow:hidden}
+    .kn-lad-b{height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--accent),#7C5CFF);transform-origin:left;animation:growBarX .7s cubic-bezier(.22,1,.36,1) both}
+    .kn-lad-v{font-size:12.5px;font-weight:700;white-space:nowrap}
+    .kn-lad-m{font-size:11px;color:var(--muted);white-space:nowrap;min-width:42px;text-align:right}
+    .kn-lad-f{margin-top:12px}
+    /* ratio list */
+    .kn-rrs{margin-top:8px}
+    .kn-rr{display:grid;grid-template-columns:1.1fr 78px 1.4fr 118px auto;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--border-soft)}
+    .kn-rr:first-child{border-top:0}
+    .kn-rr-l{font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kn-rr-v{font-size:15px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap}
+    .kn-rr-t{position:relative;height:8px;border-radius:9999px;background:var(--surface2)}
+    .kn-rr-b{position:absolute;left:0;top:0;bottom:0;border-radius:9999px;background:linear-gradient(90deg,var(--accent),#7C5CFF);transform-origin:left;animation:growBarX .7s cubic-bezier(.22,1,.36,1) both}
+    .kn-rr-tick{position:absolute;top:-4px;bottom:-4px;width:2px;border-radius:2px;background:var(--muted2);opacity:.75}
+    .kn-rr-tl{font-size:11px;color:var(--muted2);white-space:nowrap;font-family:'JetBrains Mono',monospace}
+    /* flat hairline grid (health meters) */
+    .kn-grid{display:grid;gap:1px;background:var(--border-soft);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    .kn-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .kn-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .kn-cell{background:var(--card);padding:17px 19px 13px;min-width:0}
+    .kn-fill{padding:0}
+    .kn-tl{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kn-tv{font-size:23px;font-weight:700;letter-spacing:-0.03em;white-space:nowrap;line-height:1.1}
+    .kn-td{font-size:11.5px;font-weight:600;margin-top:4px}
+    /* panels (bridge, flags, reps) */
+    .kn-card,.kn-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px;min-width:0;margin-bottom:0}
+    .kn-panel-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:2px}
     .kn-ch{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
-    .kn-ct{font-size:15px;font-weight:700;letter-spacing:-0.02em}
+    .kn-ct{font-size:14.5px;font-weight:700;letter-spacing:-0.02em}
     .kn-cs{font-size:12.5px;color:var(--muted);margin-top:3px}
-    .kn-note{margin-top:auto;padding-top:14px;border-top:1px solid var(--border-soft);font-size:13px;line-height:1.55;color:var(--accent-ink);text-wrap:pretty}
-    .kn-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:22px}
-    .kn-two .kn-card{margin-bottom:0}
-    .kn-det{border:1px solid var(--border);border-radius:18px;background:var(--card);overflow:hidden;transition:box-shadow .25s ease,border-color .25s ease}
-    .kn-det[open]{box-shadow:0 18px 40px -28px rgba(43,95,224,.45);border-color:color-mix(in srgb,var(--accent) 35%,var(--border))}
-    .kn-det summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:16px 18px}
+    .kn-note{margin-top:14px;padding-top:13px;border-top:1px solid var(--border-soft);font-size:12.5px;line-height:1.55;color:var(--text2);text-wrap:pretty}
+    .kn-note b{color:var(--accent)}
+    .kn-card{margin:14px 0 0}
+    /* flag feed */
+    .kn-panel-flag{padding:20px 22px 8px}
+    .kn-flags{margin-top:6px}
+    .kn-flag{display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--border-soft);text-decoration:none;color:inherit}
+    .kn-flag:first-child{border-top:0}
+    a.kn-flag:hover .kn-flag-t{color:var(--accent)}
+    .kn-dot{width:8px;height:8px;border-radius:9999px;flex:none}
+    .kn-flag-t{font-size:13.5px;font-weight:600;letter-spacing:-0.01em;transition:color .2s ease}
+    .kn-flag-w{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted2);font-weight:400;margin-left:9px}
+    .kn-flag-b{font-size:12.5px;line-height:1.5;color:var(--text2);margin-top:3px;text-wrap:pretty}
+    .kn-sev{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:9999px;flex:none}
+    /* rep list */
+    .kn-reps{margin-top:12px}
+    .kn-rep{display:grid;grid-template-columns:26px 1fr 2fr 90px 58px;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--border-soft)}
+    .kn-rep:first-child{border-top:0}
+    .kn-av{width:26px;height:26px;border-radius:9999px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .kn-rep-n{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kn-rep-t{height:8px;border-radius:9999px;background:var(--surface2);overflow:hidden}
+    .kn-rep-b{height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--accent),#7C5CFF);transform-origin:left;animation:growBarX .7s cubic-bezier(.22,1,.36,1) both}
+    .kn-rep-v{font-size:12.5px;font-weight:600;text-align:right}
+    .kn-rep-c{font-size:11.5px;color:var(--muted);text-align:right}
+    /* formula list — one surface */
+    .kn-flist{border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+    .kn-det{border-top:1px solid var(--border-soft)}
+    .kn-det:first-child{border-top:0}
+    .kn-det summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:15px 20px}
     .kn-det summary::-webkit-details-marker{display:none}
     .kn-det summary:hover{background:var(--surface2)}
-    .kn-fi{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#7C5CFF);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:none;box-shadow:0 8px 16px -10px rgba(43,95,224,.8)}
-    .kn-fn{font-size:14px;font-weight:600;letter-spacing:-0.01em}
+    .kn-det[open]{background:var(--surface2)}
+    .kn-det[open] summary{background:transparent}
+    .kn-fn{font-size:13.5px;font-weight:600;letter-spacing:-0.01em}
     .kn-ff{font-size:11.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .kn-fv{font-size:16px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap}
+    .kn-fv{font-size:15px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap}
     .kn-chev{transition:transform .25s cubic-bezier(.22,1,.36,1);color:var(--muted2);flex:none}
     .kn-det[open] .kn-chev{transform:rotate(180deg)}
-    .kn-body{padding:18px 18px 20px;border-top:1px solid var(--border-soft);animation:fadeUp .35s cubic-bezier(.22,1,.36,1) both}
+    .kn-body{padding:2px 20px 20px;animation:fadeUp .3s cubic-bezier(.22,1,.36,1) both}
     /* equation flow */
-    .kn-flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-    .kn-chip{flex:1 1 150px;min-width:140px;border-radius:14px;padding:13px 15px;border:1px solid var(--border);background:var(--card);position:relative;overflow:hidden}
+    .kn-flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+    .kn-flow-res{margin-top:-6px}.kn-flow-res .kn-chip-res{flex:1 1 100%}
+    .kn-chip{flex:1 1 150px;min-width:140px;border-radius:12px;padding:12px 14px;border:1px solid var(--border);background:var(--card);position:relative;overflow:hidden}
     .kn-chip::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.9}
     .kn-chip-minus::before{background:var(--danger)}
-    .kn-chip-res{background:linear-gradient(135deg,var(--accent) 0%,#5B7BFF 60%,#7C5CFF 100%);border-color:transparent;color:#fff;box-shadow:0 14px 28px -14px rgba(43,95,224,.8);flex:1.3 1 180px}
+    .kn-chip-res{background:linear-gradient(135deg,var(--accent) 0%,#5B7BFF 60%,#7C5CFF 100%);border-color:transparent;color:#fff;box-shadow:0 12px 26px -16px rgba(43,95,224,.8);flex:1.3 1 180px}
     .kn-chip-res::before{display:none}
     .kn-chip-res::after{content:'';position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:9999px;background:rgba(255,255,255,.14)}
     .kn-chip-l{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .kn-chip-res .kn-chip-l{color:rgba(255,255,255,.8)}
-    .kn-chip-v{font-size:18px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap}
-    .kn-chip-res .kn-chip-v{font-size:22px}
+    .kn-chip-v{font-size:17px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap}
+    .kn-chip-res .kn-chip-v{font-size:21px}
     .kn-chip-s{font-size:10.5px;color:var(--muted2);margin-top:3px}
     .kn-chip-res .kn-chip-s{color:rgba(255,255,255,.75)}
-    .kn-flow-res{margin-top:-10px}.kn-flow-res .kn-chip-res{flex:1 1 100%}
-    .kn-opb{display:flex;align-items:center;justify-content:center;flex:none;width:30px}
-    .kn-opb span{width:26px;height:26px;border-radius:9999px;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text2);font-weight:500}
-    /* visuals */
-    .kn-viz{border-radius:14px;background:var(--surface2);padding:14px 16px;margin-bottom:14px}
+    .kn-opb{display:flex;align-items:center;justify-content:center;flex:none;width:28px}
+    .kn-opb span{width:24px;height:24px;border-radius:9999px;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text2)}
+    /* formula visuals */
+    .kn-viz{border-radius:12px;background:var(--card);border:1px solid var(--border-soft);padding:14px 16px;margin-bottom:12px}
     .kn-viz-t{font-size:12px;color:var(--muted);margin-bottom:9px}
     .kn-viz-t b{color:var(--text);font-weight:600}
-    .kn-split{display:flex;height:34px;border-radius:9px;overflow:hidden;gap:2px}
+    .kn-split{display:flex;height:32px;border-radius:8px;overflow:hidden;gap:2px}
     .kn-seg{height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;transform-origin:left;animation:growBarX .7s cubic-bezier(.22,1,.36,1) both;min-width:3px}
     .kn-lgs{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
     .kn-lg{display:inline-flex;align-items:center;gap:6px}.kn-lg i{width:10px;height:10px;border-radius:3px;display:inline-block}.kn-lg b{color:var(--text);font-weight:600}
@@ -334,12 +400,83 @@
     .kn-mb{display:grid;gap:8px}
     .kn-mb-row{display:grid;grid-template-columns:120px 1fr 88px;align-items:center;gap:12px}
     .kn-mb-l{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .kn-mb-t{position:relative;height:16px;border-radius:6px;background:var(--card);overflow:visible}
+    .kn-mb-t{position:relative;height:16px;border-radius:6px;background:var(--surface2);overflow:visible}
     .kn-mb-b{position:absolute;top:0;bottom:0;border-radius:6px;transform-origin:left;animation:growBarX .7s cubic-bezier(.22,1,.36,1) both}
     .kn-mb-v{font-size:12px;font-weight:600;text-align:right;white-space:nowrap}
     .kn-mark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--text);opacity:.55}
     .kn-mark span{position:absolute;top:-16px;left:-20px;font-size:10px;color:var(--muted);white-space:nowrap;font-family:'JetBrains Mono',monospace}
-    .kn-fnote{font-size:13px;line-height:1.6;color:var(--text2);text-wrap:pretty}
+    .kn-fnote{font-size:12.5px;line-height:1.6;color:var(--muted);text-wrap:pretty}
+    /* invoices */
+    .inv-head,.inv-row{display:grid;grid-template-columns:1fr 90px 150px 120px 70px;gap:12px;align-items:center}
+    .inv-head{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);font-family:'JetBrains Mono',monospace;padding:14px 10px 8px;border-bottom:1px solid var(--border-soft)}
+    .inv-row{padding:13px 10px;border-top:1px solid var(--border-soft);border-radius:8px}
+    .inv-b{font-size:11px;font-weight:600;padding:4px 9px;border-radius:9999px;white-space:nowrap}
+    .inv-step{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--card);opacity:.7}
+    .inv-step.on{opacity:1;border-color:color-mix(in srgb,var(--green) 40%,var(--border))}
+    .inv-step-n{width:22px;height:22px;border-radius:9999px;background:var(--surface2);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-family:'JetBrains Mono',monospace}
+    .inv-step.on .inv-step-n{background:var(--green);color:#fff}
+    .inv-step-t{font-size:12.5px;font-weight:600}.inv-step-s{font-size:11px;color:var(--muted);margin-top:2px}
+    .kn-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+    .kn-tiles-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .kn-tile{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+    @media(max-width:1100px){
+      .kn-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kn-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kn-tiles,.kn-tiles-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kn-rep{grid-template-columns:26px 1fr 90px 52px}.kn-rep-t{display:none}
+    }
+    @media(max-width:768px){
+      .kn-sec{margin:22px 0 8px}
+      .kn-grid{border-radius:14px}.kn-cell{padding:14px 15px 11px}.kn-tv{font-size:19px}.kn-tl{font-size:11px}
+      .kn-card,.kn-panel{padding:16px 15px;border-radius:14px}.kn-panel-flag{padding:16px 15px 6px}
+      .kn-flag{gap:10px;align-items:flex-start}.kn-flag svg{display:none}.kn-dot{margin-top:5px}
+      .kn-flag-w{display:block;margin:2px 0 0}
+      .kn-sev{align-self:flex-start}
+      .kn-det summary{padding:13px 15px;gap:10px}.kn-fn{font-size:13px}.kn-fv{font-size:13.5px}
+      .kn-body{padding:2px 15px 16px}
+      .kn-flow{gap:6px;margin-bottom:12px}
+      .kn-chip{flex:1 1 calc(50% - 38px);min-width:0;padding:11px 12px}
+      .kn-chip-res{flex:1 1 100%}
+      .kn-chip-v{font-size:15px}.kn-chip-res .kn-chip-v{font-size:19px}
+      .kn-opb{width:22px}.kn-opb span{width:20px;height:20px;font-size:12px}
+      .kn-viz{padding:12px}
+      .kn-gauge{flex-direction:column;align-items:flex-start;gap:10px}
+      .kn-mb-row{grid-template-columns:84px 1fr 70px;gap:8px}.kn-mb-l,.kn-mb-v{font-size:11.5px}
+      .kn-rep{grid-template-columns:26px 1fr 84px;gap:10px}.kn-rep-c{display:none}
+      .inv-head{display:none}.inv-row{grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:6px 12px;padding:12px 4px}
+      .inv-row .inv-due,.inv-row .inv-act{display:none}.inv-row>div:nth-child(3){grid-row:2}.inv-row>div:nth-child(4){grid-row:1;grid-column:2}
+      .inv-steps{grid-template-columns:1fr !important}
+    }
+    @media(max-width:360px){.kn-grid-3,.kn-grid-4,.kn-tiles,.kn-tiles-3{grid-template-columns:1fr}.kn-fill{display:none}}
+    /* health meters */
+    .kn-hpanel{padding-bottom:0;overflow:hidden}
+    .kn-health{border:0;border-radius:0;margin:16px -22px 0;background:var(--border-soft)}
+    .kn-hcell{padding:18px 20px 20px;text-align:center}
+    .kn-hk{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    .kn-meter{stroke-dashoffset:0;animation:knMeter 1s cubic-bezier(.22,1,.36,1) both}
+    @keyframes knMeter{from{stroke-dasharray:0 999}}
+    .kn-hverd{margin-top:-6px}
+    .kn-hbadge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:9999px}
+    .kn-hbadge.z2{color:var(--accent);background:var(--accent-soft)}
+    .kn-hbadge.z1{color:#D98B1E;background:rgba(217,139,30,.13)}
+    .kn-hbadge.z0{color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,transparent)}
+    .kn-hh{font-size:11px;color:var(--muted);margin-top:8px}
+    .kn-calc{font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap}
+    .kn-calc:hover{text-decoration:underline}
+    @media(max-width:1100px){
+      .kn-tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kn-health{grid-template-columns:1fr}
+      .kn-rr{grid-template-columns:1fr 76px 1.2fr auto;gap:10px}.kn-rr-tl{display:none}
+    }
+    @media(max-width:768px){
+      .kn-tgrid{grid-template-columns:1fr;gap:12px}
+      .kn-t{padding:15px 16px 0}.kn-t-c{margin:auto -16px 0}.kn-t-v{font-size:24px}
+      .kn-health{margin:12px -15px 0}.kn-hcell{padding:16px 15px 18px}
+      .kn-rr{grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:6px 10px;padding:13px 0}
+      .kn-rr-v{grid-column:2;grid-row:1;text-align:right}
+      .kn-rr-t{grid-column:1/-1;grid-row:2}
+      .kn-rr .kn-dchip{display:none}
+    }
     @keyframes growBarX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
     @media(max-width:1100px){.kn-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.kn-two{grid-template-columns:1fr}}
     @media(max-width:768px){
@@ -1193,6 +1330,10 @@
         </sc-if>
 
         <!-- ===================== INSIGHTS ===================== -->
+        <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ invoicesPage }}"></div>
+        </sc-if>
+
         <sc-if value="{{ isInsights }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ keyNumbers }}"></div>
         </sc-if>
@@ -1813,6 +1954,7 @@ class Component extends DCLogic {
       ['Cashflow','<path d="M3 3v18h18"/><path d="M7 13l4-4 3 3 5-6"/>',null],
       ['Insights','<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7" rx="1"/><rect x="12" y="7" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/>',null],
       ['Recommendations','<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>','3'],
+      ['Invoices','<path d="M4 3h16v18l-3-2-3 2-2-2-2 2-3-2-3 2z"/><path d="M8 8h8M8 12h8M8 16h5"/>','4'],
       ['Import','<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M8 9l4-4 4 4M12 5v11"/>',null],
       ['Workpapers','<path d="M4 3h10l6 6v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',null],
       ['Scenarios','<path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 5-7" stroke-dasharray="2.5 2.5"/>',null],
@@ -1821,7 +1963,7 @@ class Component extends DCLogic {
       ['Settings','<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',null],
     ];
     const NAVLBL={Overview:['Oversikt','Overview'],Cashflow:['Kontantstrøm','Cashflow'],
-      Insights:['Innsikt','Insights'],Recommendations:['Anbefalinger','Recommendations'],Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
+      Insights:['Innsikt','Insights'],Recommendations:['Anbefalinger','Recommendations'],Invoices:['Fakturaer','Invoices'],Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
       Scenarios:['Scenarier','Scenarios'],Thor:['Thor','Thor'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
@@ -1834,7 +1976,7 @@ class Component extends DCLogic {
           :{display:'flex',alignItems:'center',gap:'10px',padding:'8px 12px',borderRadius:'10px',cursor:'pointer',fontSize:'13.5px',fontWeight:on?500:400,color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent',letterSpacing:'-0.01em'},
         icon:on?'var(--accent)':'var(--muted2)', svg:this.icon(path) };
     });
-    const navOverview=nav.slice(0,6), navPlan=nav.slice(6,9), navSettings=nav.slice(9);
+    const navOverview=nav.slice(0,7), navPlan=nav.slice(7,10), navSettings=nav.slice(10);
     const SCEN={
       openScen:()=>this.setState({scenPick:true}),
       closeScen:()=>this.setState({scenPick:false}),
@@ -1878,6 +2020,7 @@ class Component extends DCLogic {
       Cashflow:[t('Juni 2026','June 2026'),t('Kontantstrøm','Cash flow')],
       Insights:[t('Nøkkeltall · juni 2026','Key numbers · June 2026'),t('Innsikt','Insights')],
       Recommendations:[t('3 åpne · juni 2026','3 open · June 2026'),t('Anbefalinger','Recommendations')],
+      Invoices:[t('4 forfalt · leverandørgjeld','4 overdue · accounts payable'),t('Fakturaer','Invoices')],
       Import:[t('Regnearklaget','Spreadsheet layer'),'Import'],
       Workpapers:[t('Arbeidspapir · beløp i NOK','Workpaper · amounts in NOK'),t('Arbeidspapirer','Workpapers')],
       Scenarios:[t('Planlegging','Planning'),t('Scenarier','Scenarios')],
@@ -2884,7 +3027,8 @@ class Component extends DCLogic {
       footerNote:openCount===0?'All fields mapped. Ready to import.':openCount===1?'1 field needs review before this can be imported.':openCount+' fields need review before this can be imported.',
       marginChart:this.once('margin',()=>this.buildMarginChart()),
       keyNumbers:this.once('kn'+LANG+(this.mq()?'m':'d'),()=>this.buildKeyNumbers(t)),
-      active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isScenarios:active==='Scenarios',isThor:active==='Thor',isClients:active==='Clients',isSettings:active==='Settings',
+      invoicesPage:this.once('inv'+LANG,()=>this.buildInvoices(t)),
+      active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',isScenarios:active==='Scenarios',isThor:active==='Thor',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Recommendations'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
       openThor:()=>this.setState({popOpen:true,toastVisible:false}),
       toggleNotif:()=>this.setState(s=>({notifOpen:!s.notifOpen})), notifOpen:this.state.notifOpen, notifs,
@@ -4060,8 +4204,55 @@ class Component extends DCLogic {
   }
 
 
+  buildInvoices(t){
+    const NO=t(true,false), mono="font-family:'JetBrains Mono',monospace";
+    const kr=v=>'kr '+String(Math.round(v)).replace(/\B(?=(\d{3})+$)/g,' ');
+    const today=new Date('2026-06-30');
+    const rows=[
+      {sup:'Telenor Norge AS',no:'INV-88213',acc:'6900',amt:18400,due:'2026-06-04'},
+      {sup:'Nordlys Studio AS',no:'2026-0417',acc:'4500',amt:96500,due:'2026-06-12'},
+      {sup:'Bring / Posten',no:'7731902',acc:'6100',amt:6240,due:'2026-06-19'},
+      {sup:'Adobe Systems',no:'ADB-2260612',acc:'6810',amt:18400,due:'2026-06-27'},
+      {sup:'Grenseveien 107 Eiendom AS',no:'H-2026-07',acc:'6300',amt:64000,due:'2026-07-01'},
+      {sup:'Tripletex AS',no:'TX-1149823',acc:'6810',amt:14900,due:'2026-07-05'},
+      {sup:'Meta Platforms Ireland',no:'FB-3390188',acc:'7320',amt:41200,due:'2026-07-07'},
+      {sup:'If Skadeforsikring',no:'P-55021',acc:'7500',amt:22750,due:'2026-07-15'},
+      {sup:'Elkjøp Bedrift',no:'EB-901223',acc:'6540',amt:12990,due:'2026-07-28'},
+    ].map(r=>{ const d=new Date(r.due); r.days=Math.round((today-d)/864e5); r.dueF=d.toLocaleDateString(NO?'nb-NO':'en-GB',{day:'numeric',month:'short'}); return r; });
+    const overdue=rows.filter(r=>r.days>0), soon=rows.filter(r=>r.days<=0&&r.days>=-7), later=rows.filter(r=>r.days<-7);
+    const sum=a=>a.reduce((x,r)=>x+r.amt,0);
+    const stat=(l,v,sub,c)=>'<div class="kn-tile"><div class="kn-tl">'+l+'</div><div class="kn-tv" style="'+mono+';color:'+(c||'var(--text)')+'">'+v+'</div><div class="kn-td" style="color:var(--muted)">'+sub+'</div></div>';
+    const stats='<div class="kn-tiles kn-tiles-3" style="margin-bottom:18px">'
+      +stat(t('Forfalt, ikke betalt','Overdue, unpaid'),kr(sum(overdue)),overdue.length+' '+t('fakturaer','invoices'),'var(--danger)')
+      +stat(t('Forfaller neste 7 dager','Due in the next 7 days'),kr(sum(soon)),soon.length+' '+t('fakturaer','invoices'),'#D98B1E')
+      +stat(t('Åpen leverandørgjeld totalt','Total open payables'),kr(sum(rows)),rows.length+' '+t('fakturaer · konto 2400','invoices · account 2400'))+'</div>';
+    const badge=r=>{ if(r.days>0) return '<span class="inv-b" style="color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,transparent)">'+t('Forfalt','Overdue')+' '+r.days+' '+t('d','d')+'</span>';
+      if(r.days>=-7) return '<span class="inv-b" style="color:#D98B1E;background:rgba(217,139,30,.12)">'+t('Forfaller om','Due in')+' '+(-r.days)+' '+t('d','d')+'</span>';
+      return '<span class="inv-b" style="color:var(--muted);background:var(--surface2)">'+t('Åpen','Open')+'</span>'; };
+    let tb='';
+    rows.sort((a,b)=>b.days-a.days).forEach((r,i)=>{ tb+='<div class="inv-row rowh" style="animation:fadeUp .45s '+(i*.04)+'s cubic-bezier(.22,1,.36,1) both">'
+      +'<div style="min-width:0"><div style="font-size:13.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+r.sup+'</div><div class="mono" style="font-size:11px;color:var(--muted2);margin-top:2px">'+r.no+' · '+r.acc+'</div></div>'
+      +'<div class="mono inv-due" style="font-size:12.5px;color:'+(r.days>0?'var(--danger)':'var(--text2)')+'">'+r.dueF+'</div>'
+      +'<div>'+badge(r)+'</div>'
+      +'<div class="mono" style="font-size:13px;font-weight:600;text-align:right;white-space:nowrap">'+kr(r.amt)+'</div>'
+      +'<div class="inv-act"><span class="btnk" style="font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:8px;cursor:pointer;white-space:nowrap">'+t('Betal','Pay')+'</span></div></div>'; });
+    const apCard='<div class="kn-card"><div class="kn-ch"><div><div class="kn-ct">'+t('Aldri betalt — leverandørgjeld','Never paid — accounts payable')+'</div><div class="kn-cs">'+t('Hentet direkte fra reskontro med forfallsdato. Forfalte først.','Pulled straight from the AP ledger with due dates. Overdue first.')+'</div></div><span class="kn-pill" style="color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent)">'+t('Live · Tripletex','Live · Tripletex')+'</span></div>'
+      +'<div class="inv-head"><div>'+t('Leverandør','Supplier')+'</div><div class="inv-due">'+t('Forfall','Due')+'</div><div>'+t('Status','Status')+'</div><div style="text-align:right">'+t('Beløp','Amount')+'</div><div class="inv-act"></div></div>'+tb
+      +'<div class="kn-note"><b style="color:var(--accent)">Thor:</b> '+t('Nordlys Studio (kr 96 500) er 18 dager forfalt og leverandøren har 2 % purregebyr i avtalen. Betal denne først — resten forfaller etter lønnskjøring 5. juli.','Nordlys Studio (kr 96 500) is 18 days overdue and the contract carries a 2 % late fee. Pay this one first — the rest fall due after payroll on 5 July.')+'</div></div>';
+    const leak='<div class="kn-card" style="border-style:dashed;background:var(--surface2)"><div class="kn-ch"><div><div class="kn-ct">'+t('Aldri sendt — inntektslekkasje','Never sent — revenue leakage')+'</div><div class="kn-cs">'+t('Arbeid som er levert, men aldri fakturert','Work delivered but never invoiced')+'</div></div><span class="kn-pill" style="color:#D98B1E;background:rgba(217,139,30,.12)">'+t('Blokkert · mangler kilde','Blocked · missing source')+'</span></div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 16px" class="inv-steps">'
+      +'<div class="inv-step on"><div class="inv-step-n">1</div><div><div class="inv-step-t">'+t('Fakturert omsetning','Invoiced revenue')+'</div><div class="inv-step-s">'+t('Har vi · Tripletex konto 3000–3900','Have it · Tripletex 3000–3900')+'</div></div></div>'
+      +'<div class="inv-step"><div class="inv-step-n">2</div><div><div class="inv-step-t">'+t('Avtalt omsetning','Contracted revenue')+'</div><div class="inv-step-s">'+t('Mangler · CRM / kontraktsliste','Missing · CRM / contract list')+'</div></div></div>'
+      +'<div class="inv-step"><div class="inv-step-n">3</div><div><div class="inv-step-t">'+t('Differanse = aldri sendt','Gap = never sent')+'</div><div class="inv-step-s">'+t('Thor sammenligner per kunde og måned','Thor compares per customer and month')+'</div></div></div></div>'
+      +'<div style="font-size:13px;line-height:1.6;color:var(--text2);text-wrap:pretty;margin-bottom:14px">'+t('Regnskapet vet bare hva som er fakturert — ikke hva som skulle vært fakturert. For å finne fakturaer som aldri ble sendt trenger Thor en ekstern referanse: en kontraktsliste, CRM-eksport eller timeregistrering med avtalte satser. Uten den kilden kan ikke sammenligningen bygges.','The ledger only knows what was invoiced — not what should have been. To find invoices that were never sent, Thor needs an external reference: a contract list, a CRM export or time tracking with agreed rates. Without that source the comparison cannot be built.')+'</div>'
+      +'<div style="display:flex;gap:8px;flex-wrap:wrap"><span class="btnk" style="height:36px;display:inline-flex;align-items:center;padding:0 16px;border-radius:10px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">'+t('Koble til HubSpot','Connect HubSpot')+'</span><span class="btnk" style="height:36px;display:inline-flex;align-items:center;padding:0 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-size:12.5px;font-weight:600;cursor:pointer">'+t('Last opp kontraktsliste (.xlsx)','Upload contract list (.xlsx)')+'</span></div></div>';
+    const head='<div style="margin-bottom:20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap"><span class="eyebrow">'+t('Manglende fakturaer','Missing invoices')+'</span><span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span><span class="mono" style="font-size:10.5px;color:var(--muted2)">'+t('per 30. juni 2026','as of 30 June 2026')+'</span></div>'
+      +'<p style="margin:0;max-width:640px;font-size:14px;line-height:1.6;color:var(--text2);text-wrap:pretty">'+t('To forskjellige problemer: regninger dere ikke har betalt, og arbeid dere aldri har fakturert. Det første kan Thor se i dag. Det andre trenger en kilde utenfor regnskapet.','Two different problems: bills you have not paid, and work you never invoiced. Thor can see the first today. The second needs a source outside the ledger.')+'</p></div>';
+    return this.html(head+stats+apCard+leak);
+  }
+
   buildKeyNumbers(t){
-    const NO=t(true,false), MB=this.mq();
+    const NO=t(true,false), MB=this.mq(), LANG=NO?'no':'en';
     const M=v=>{ const a=Math.abs(v); let out=a>=1000?(a/1000).toFixed(2).replace(/\.?0+$/,'')+' M':a.toFixed(0)+' k'; if(NO)out=out.replace('.',','); return (v<0?'−':'')+'kr '+out; };
     const P=v=>(NO?String(v).replace('.',','):String(v))+' %';
     const th=n=>String(n).replace(/\B(?=(\d{3})+$)/g,' ');
@@ -4074,33 +4265,43 @@ class Component extends DCLogic {
 
     /* ---- dummy data, Phonero-ish, YTD June 2026 (kNOK) ---- */
     const D={rev:12480,cogs:4120,opex:5890,amort:210,dep:380,interest:140,taxRate:22,
-      custStart:1240,custLost:38,mrrStart:1040,mrrExp:128,mrrContr:22,mrrChurn:25,arpu:839,cac:8400,ar:1640};
+      custStart:1240,custLost:38,ar:1640};
     D.gp=D.rev-D.cogs; D.ebitda=D.gp-D.opex; D.ebita=D.ebitda-D.amort; D.ebit=D.ebita-D.dep; D.ebt=D.ebit-D.interest; D.tax=Math.round(D.ebt*D.taxRate/100); D.net=D.ebt-D.tax;
     const pct=(a,b)=>Math.round(a/b*1000)/10;
     D.gm=pct(D.gp,D.rev); D.ebitdaM=pct(D.ebitda,D.rev); D.ebitaM=pct(D.ebita,D.rev); D.ebitM=pct(D.ebit,D.rev);
-    D.churn=pct(D.custLost,D.custStart); D.nrr=Math.round((D.mrrStart+D.mrrExp-D.mrrContr-D.mrrChurn)/D.mrrStart*100);
-    D.ltv=Math.round(D.arpu*(D.gm/100)/(D.churn/100)); D.ltvcac=Math.round(D.ltv/D.cac*10)/10; D.dso=Math.round(D.ar/D.rev*181);
-    const ltvcacS=(NO?String(D.ltvcac).replace('.',','):D.ltvcac)+'×';
+    D.churn=pct(D.custLost,D.custStart); D.dso=Math.round(D.ar/D.rev*181);
 
-    /* ---- KPI tiles ---- */
+    /* ---- hero metric cards ---- */
     const up='var(--green)', warn='#D98B1E';
-    const tiles=[
-      {l:t('Omsetning YTD','Revenue YTD'),v:M(D.rev),d:'+12,4 %',good:true,s:[9.1,9.6,10.2,10.9,11.6,12.48]},
-      {l:t('Bruttomargin','Gross margin'),v:P(D.gm),d:'+1,8 pp',good:true,s:[63.1,64.0,64.8,65.5,66.2,67.0]},
-      {l:'EBITDA',v:M(D.ebitda),d:P(D.ebitdaM)+' margin',good:true,s:[1.6,1.8,1.9,2.1,2.3,2.47]},
-      {l:'EBITA',v:M(D.ebita),d:P(D.ebitaM)+' margin',good:true,s:[1.4,1.6,1.7,1.9,2.1,2.26]},
-      {l:'EBIT',v:M(D.ebit),d:P(D.ebitM)+' margin',good:true,s:[1.1,1.3,1.4,1.6,1.7,1.88]},
-      {l:t('Kundechurn / mnd','Customer churn / mo'),v:P(D.churn),d:'−0,7 pp',good:true,s:[3.8,3.5,3.4,3.0,3.3,3.1]},
-      {l:t('Netto inntektsretensjon','Net revenue retention'),v:D.nrr+' %',d:'+3 pp',good:true,s:[101,103,104,106,107,108]},
-      {l:'LTV / CAC',v:ltvcacS,d:t('mål ≥ 3×','target ≥ 3×'),good:false,s:[1.7,1.8,1.9,2.0,2.1,2.2]},
+    const area=(a2,color)=>{ const w=300,h=64,min=Math.min(...a2),max=Math.max(...a2),r=(max-min)||1,id=uid();
+      const P_=a2.map((v,i)=>[i*(w/(a2.length-1)),h-6-((v-min)/r)*(h-16)]);
+      const d='M'+P_.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' L');
+      return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" class="kn-spark"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1">'
+        +'<stop offset="0" stop-color="'+color+'" stop-opacity=".26"/><stop offset="1" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs>'
+        +'<path d="'+d+' L'+w+','+h+' L0,'+h+'Z" fill="url(#'+id+')"/>'
+        +'<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>'; };
+    /* arrow follows the sign of the change; colour follows whether it is good news */
+    const dchip=(txt,good)=>'<span class="kn-dchip '+(good?'pos':'neg')+'">'+(/^[−-]/.test(txt)?'↘':'↗')+' '+txt+'</span>';
+    const heroCard=(o,i)=>'<div class="kn-t" style="animation:fadeUp .45s '+(i*.06)+'s cubic-bezier(.22,1,.36,1) both">'
+      +'<div class="kn-t-h"><span class="kn-t-l">'+o.l+'</span>'+dchip(o.d,o.good)+'</div>'
+      +'<div class="kn-t-v" style="'+mono+'">'+o.v+'</div><div class="kn-t-s">'+o.s+'</div>'
+      +'<div class="kn-t-c">'+area(o.spark,o.good?'var(--accent)':warn)+'</div></div>';
+
+    /* operating-profit ladder — EBITDA / EBITA / EBIT in one card instead of three lookalike tiles */
+    const ladder=[{l:'EBITDA',v:D.ebitda,m:D.ebitdaM},{l:'EBITA',v:D.ebita,m:D.ebitaM},{l:'EBIT',v:D.ebit,m:D.ebitM}];
+    let ladH='';
+    ladder.forEach((x,i)=>{ ladH+='<div class="kn-lad-row"><span class="kn-lad-l">'+x.l+'</span>'
+      +'<div class="kn-lad-t"><div class="kn-lad-b" style="width:'+(x.v/D.gp*100).toFixed(1)+'%;animation-delay:'+(i*.08)+'s"></div></div>'
+      +'<span class="kn-lad-v" style="'+mono+'">'+M(x.v)+'</span><span class="kn-lad-m" style="'+mono+'">'+P(x.m)+'</span></div>'; });
+    const ladderCard='<div class="kn-t kn-t-lad" style="animation:fadeUp .45s .18s cubic-bezier(.22,1,.36,1) both">'
+      +'<div class="kn-t-h"><span class="kn-t-l">'+t('Driftsresultat','Operating profit')+'</span>'+dchip('+2,7 pp',true)+'</div>'
+      +'<div class="kn-lad">'+ladH+'</div>'
+      +'<div class="kn-t-s kn-lad-f">'+t('andel av bruttofortjeneste','share of gross profit')+' · '+M(D.gp)+'</div></div>';
+
+    const g1=[
+      {l:t('Omsetning YTD','Revenue YTD'),v:M(D.rev),s:t('hittil i år','year to date'),d:'+12,4 %',good:true,spark:[9.1,9.6,10.2,10.9,11.6,12.48]},
+      {l:t('Bruttomargin','Gross margin'),v:P(D.gm),s:t('dekningsgrad','contribution margin'),d:'+1,8 pp',good:true,spark:[63.1,64.0,64.8,65.5,66.2,67.0]},
     ];
-    let tilesH='';
-    tiles.forEach((k,i)=>{ const c=k.good?'var(--accent)':warn;
-      tilesH+='<div class="kn-tile" style="animation:fadeUp .45s '+(i*.05)+'s cubic-bezier(.22,1,.36,1) both">'
-        +'<div class="kn-tl">'+k.l+'</div>'
-        +'<div class="kn-tv" style="'+mono+'">'+k.v+'</div>'
-        +'<div class="kn-td" style="color:'+(k.good?up:warn)+'">'+k.d+'</div>'
-        +spark(k.s,c)+'</div>'; });
 
     /* ---- P&L bridge ---- */
     const steps=[
@@ -4138,30 +4339,6 @@ class Component extends DCLogic {
     const bridge='<div class="kn-card"><div class="kn-ch"><div><div class="kn-ct">'+t('Resultatbro — fra omsetning til resultat','P&L bridge — from revenue to net profit')+'</div><div class="kn-cs">'+t('Hittil i år · NOK · hver søyle sporer til en linje i hovedboken','Year to date · NOK · every bar traces to a ledger line')+'</div></div>'
       +'<div style="display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap">'+leg('var(--accent)',t('Delsum','Subtotal'))+leg('var(--danger)',t('Kostnad','Cost'),.8)+leg('var(--green)',t('Resultat','Net'))+'</div></div>'+bridgeBody+'</div>';
 
-    /* ---- line chart helper (churn + margins) ---- */
-    const months=['JAN','FEB','MAR','APR',NO?'MAI':'MAY','JUN'];
-    const lineChart=(series,yMax,yTicks,fmtY)=>{
-      const cw=MB?360:560,chh=MB?220:260,cT=16,cB=30,cL=MB?38:46,cR=8,cPlot=chh-cT-cB,cx=i=>cL+i*((cw-cL-cR)/(months.length-1)),cy=v=>cT+cPlot-(v/yMax)*cPlot;
-      let c='';
-      yTicks.forEach(v=>{ c+='<line x1="'+cL+'" y1="'+cy(v).toFixed(1)+'" x2="'+cw+'" y2="'+cy(v).toFixed(1)+'" stroke="var(--border-soft)"/><text x="'+(cL-8)+'" y="'+(cy(v)+4).toFixed(1)+'" font-size="11.5" fill="var(--muted2)" text-anchor="end" font-family="JetBrains Mono,monospace">'+fmtY(v)+'</text>'; });
-      const path=a=>a.map((v,i)=>(i?'L':'M')+cx(i).toFixed(1)+' '+cy(v).toFixed(1)).join(' ');
-      series.forEach((sr,si)=>{ const id=uid();
-        if(sr.area) c+='<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+sr.color+'" stop-opacity=".18"/><stop offset="1" stop-color="'+sr.color+'" stop-opacity="0"/></linearGradient></defs><path d="'+path(sr.d)+' L'+cx(5).toFixed(1)+' '+cy(0)+' L'+cL+' '+cy(0)+'Z" fill="url(#'+id+')"/>';
-        c+='<path d="'+path(sr.d)+'" fill="none" stroke="'+sr.color+'" stroke-width="'+(sr.dash?1.6:2.6)+'" '+(sr.dash?'stroke-dasharray="5 4"':'')+' stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:'+(sr.dash?'5 4':'1200')+';'+(sr.dash?'':'stroke-dashoffset:1200;animation:draw 1.2s '+(si*.15+.1)+'s cubic-bezier(.5,0,.2,1) forwards')+'"/>';
-        if(!sr.dash) sr.d.forEach((v,i)=>{ c+='<circle cx="'+cx(i).toFixed(1)+'" cy="'+cy(v).toFixed(1)+'" r="3.5" fill="var(--card)" stroke="'+sr.color+'" stroke-width="2"/>'; }); });
-      months.forEach((m,i)=>{ c+='<text x="'+cx(i).toFixed(1)+'" y="'+(chh-8)+'" font-size="11" fill="var(--muted)" text-anchor="middle" font-family="JetBrains Mono,monospace">'+m+'</text>'; });
-      return '<svg viewBox="0 0 '+cw+' '+chh+'" width="100%" style="display:block;overflow:visible;margin-top:8px">'+c+'</svg>'; };
-
-    const churnCard='<div class="kn-card" style="display:flex;flex-direction:column"><div class="kn-ch"><div><div class="kn-ct">'+t('Churn siste 6 måneder','Churn, last 6 months')+'</div><div class="kn-cs">'+t('Kundechurn mot inntektschurn','Customer churn vs revenue churn')+'</div></div>'
-      +'<div style="display:flex;gap:14px;font-size:12px;color:var(--muted)">'+leg('var(--accent)',t('Kunder','Customers'))+leg('#B9B7CC',t('Inntekt','Revenue'))+'</div></div>'
-      +lineChart([{d:[2.9,2.8,2.6,2.3,2.5,2.4],color:'#B9B7CC',dash:true},{d:[3.8,3.5,3.4,3.0,3.3,3.1],color:'var(--accent)',area:true}],5,[0,1,2,3,4,5],v=>v+' %')
-      +'<div class="kn-note"><b style="color:var(--accent)">Thor:</b> '+t('Churn faller for tredje måned på rad, men inntektschurn faller saktere — det er små kunder som forsvinner, ikke store.','Churn is down for the third month, but revenue churn falls slower — you are losing small accounts, not large ones.')+'</div></div>';
-
-    const marginCard='<div class="kn-card" style="display:flex;flex-direction:column"><div class="kn-ch"><div><div class="kn-ct">'+t('Marginutvikling','Margin trend')+'</div><div class="kn-cs">'+t('Andel av omsetning, per måned','Share of revenue, monthly')+'</div></div>'
-      +'<div style="display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap">'+leg('var(--accent)',t('Brutto','Gross'))+leg('#7C5CFF','EBITDA')+leg('var(--green)','EBIT')+'</div></div>'
-      +lineChart([{d:[63.1,64.0,64.8,65.5,66.2,67.0],color:'var(--accent)'},{d:[17.6,18.2,18.6,19.1,19.5,19.8],color:'#7C5CFF'},{d:[12.4,13.1,13.6,14.2,14.7,15.1],color:'var(--green)'}],80,[0,20,40,60,80],v=>v+' %')
-      +'<div class="kn-note"><b style="color:var(--accent)">Thor:</b> '+t('Bruttomarginen løfter EBIT nesten 1:1 — kostnadsbasen er flat. Fortsetter dette, passerer EBIT-margin 16 % i Q3.','Gross margin is lifting EBIT almost 1:1 — the cost base is flat. On this trend EBIT margin passes 16 % in Q3.')+'</div></div>';
-
     /* ---- formula cards ---- */
     const T=(l,v,sub,kind)=>({l,v,sub,kind});   /* kind: 'in' | 'minus' | 'res' */
     const chip=x=>'<div class="kn-chip kn-chip-'+(x.kind||'in')+'"><div class="kn-chip-l">'+x.l+'</div><div class="kn-chip-v" style="'+mono+'">'+x.v+'</div>'+(x.sub?'<div class="kn-chip-s" style="'+mono+'">'+x.sub+'</div>':'')+'</div>';
@@ -4179,10 +4356,6 @@ class Component extends DCLogic {
       return '<div class="kn-viz"><div class="kn-viz-t">'+totalLbl+' <b style="'+mono+'">'+M(total)+'</b> = 100 %</div><div class="kn-split">'+segs+'</div><div class="kn-lgs">'+lg+'</div></div>'; };
     const gauge=(val,max,big,small,cap,color)=>{ const r=44,c=2*Math.PI*r,f=Math.min(1,val/max),id=uid();
       return '<div class="kn-viz kn-gauge"><svg viewBox="0 0 120 120" width="120" height="120" style="flex:none"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+color+'"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs><circle cx="60" cy="60" r="'+r+'" fill="none" stroke="var(--surface2)" stroke-width="11"/><circle cx="60" cy="60" r="'+r+'" fill="none" stroke="url(#'+id+')" stroke-width="11" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-f)).toFixed(1)+'" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1s cubic-bezier(.22,1,.36,1)"/><text x="60" y="58" text-anchor="middle" font-size="20" font-weight="700" fill="var(--text)" font-family="JetBrains Mono,monospace">'+big+'</text><text x="60" y="76" text-anchor="middle" font-size="9.5" fill="var(--muted)">'+small+'</text></svg><div class="kn-gauge-cap">'+cap+'</div></div>'; };
-    const miniBridge=(steps,max)=>{ let run=0,rows='';
-      steps.forEach((st,i)=>{ let a,b,fill; if(st.tot){a=0;b=st.v;run=st.v;fill=i===steps.length-1?'var(--green)':'var(--accent)';} else if(st.v>0){a=run;b=run+st.v;run=b;fill='#7C5CFF';} else {a=run+st.v;b=run;run=a;fill='var(--danger)';}
-        rows+='<div class="kn-mb-row"><div class="kn-mb-l">'+st.l+'</div><div class="kn-mb-t"><div class="kn-mb-b" style="left:'+(a/max*100).toFixed(2)+'%;width:'+Math.max(.8,(b-a)/max*100).toFixed(2)+'%;background:'+fill+';animation-delay:'+(i*.06)+'s"></div></div><div class="kn-mb-v" style="'+mono+';color:'+(st.tot?'var(--text)':fill)+'">'+(st.v>0&&!st.tot?'+':'')+M(st.v).replace('kr ','')+'</div></div>'; });
-      return '<div class="kn-viz"><div class="kn-mb">'+rows+'</div></div>'; };
     const compare=(rows,max,marker)=>{ let h='';
       rows.forEach((r,i)=>{ h+='<div class="kn-mb-row"><div class="kn-mb-l">'+r.l+'</div><div class="kn-mb-t"><div class="kn-mb-b" style="left:0;width:'+(r.v/max*100).toFixed(2)+'%;background:'+r.c+';animation-delay:'+(i*.08)+'s"></div>'+(marker&&i===0?'<div class="kn-mark" style="left:'+(marker.v/max*100).toFixed(2)+'%"><span>'+marker.l+'</span></div>':'')+'</div><div class="kn-mb-v" style="'+mono+'">'+r.s+'</div></div>'; });
       return '<div class="kn-viz"><div class="kn-mb">'+h+'</div></div>'; };
@@ -4208,35 +4381,173 @@ class Component extends DCLogic {
        eq:flow([T(t('Tapte kunder i juni','Customers lost in June'),D.custLost,'','minus'),'÷',T(t('Kunder 1. juni','Customers 1 June'),th(D.custStart)),'=',T(t('Kundechurn','Customer churn'),P(D.churn),t('per måned','per month'),'res')]),
        viz:gauge(D.churn,6,P(D.churn),t('per måned','per month'),t('<b>'+D.custLost+'</b> av <b>'+th(D.custStart)+'</b> kunder sa opp i juni. Grønn sone er under 3 %.','<b>'+D.custLost+'</b> of <b>'+th(D.custStart)+'</b> customers cancelled in June. Green zone is under 3 %.'),'var(--accent)'),
        note:t('Andelen kunder som sa opp. Under 3 % månedlig er bra for et B2B-abonnement.','Share of customers who cancelled. Under 3 % monthly is healthy for B2B subscriptions.')},
-      {name:t('Netto inntektsretensjon (NRR)','Net revenue retention (NRR)'),f:'(MRR₀ + '+t('Oppsalg','Expansion')+' − '+t('Nedsalg','Contraction')+' − Churn) ÷ MRR₀',val:D.nrr+' %',
-       eq:flow([T('MRR 1. juni',M(D.mrrStart)),'+',T(t('Oppsalg','Expansion'),M(D.mrrExp)),'−',T(t('Nedsalg','Contraction'),M(D.mrrContr),'','minus'),'−',T(t('Churnet MRR','Churned MRR'),M(D.mrrChurn),'','minus'),'÷',T('MRR 1. juni',M(D.mrrStart)),'=',T('NRR',D.nrr+' %','','res')]),
-       viz:miniBridge([{l:'MRR 1. juni',v:D.mrrStart,tot:true},{l:t('Oppsalg','Expansion'),v:D.mrrExp},{l:t('Nedsalg','Contraction'),v:-D.mrrContr},{l:t('Churn','Churn'),v:-D.mrrChurn},{l:'MRR 30. juni',v:D.mrrStart+D.mrrExp-D.mrrContr-D.mrrChurn,tot:true}],1250),
-       note:t('Over 100 % betyr at eksisterende kunder vokser mer enn du mister — du ville vokst uten å selge til én ny kunde.','Above 100 % means existing customers grow faster than you lose them — you would grow without a single new customer.')},
-      {name:'LTV / CAC',f:'(ARPU × '+t('Bruttomargin','Gross margin')+' ÷ Churn) ÷ CAC',val:ltvcacS,
-       eq:flow([T('ARPU / '+t('mnd','mo'),'kr '+D.arpu),'×',T(t('Bruttomargin','Gross margin'),P(D.gm)),'÷',T('Churn',P(D.churn),'','minus'),'=',T('LTV','kr '+th(D.ltv),t('livstidsverdi per kunde','lifetime value per customer')),'÷',T('CAC','kr '+th(D.cac),t('kost per ny kunde','cost per new customer'),'minus'),'=',T('LTV / CAC',ltvcacS,t('mål ≥ 3×','target ≥ 3×'),'res')]),
-       viz:compare([{l:'LTV',v:D.ltv,c:'linear-gradient(90deg,var(--accent),#7C5CFF)',s:'kr '+th(D.ltv)},{l:'CAC',v:D.cac,c:'var(--danger)',s:'kr '+th(D.cac)}],D.cac*3.4,{v:D.cac*3,l:t('mål 3×','target 3×')}),
-       note:t('Hver krone brukt på å skaffe en kunde gir 2,2 kroner tilbake over kundens levetid. Under 3× — enten må CAC ned eller churn ned.','Every krone spent acquiring a customer returns 2.2 over its lifetime. Below 3× — either CAC has to come down or churn does.')},
       {name:'DSO',f:t('Kundefordringer ÷ Omsetning × Dager','Receivables ÷ Revenue × Days'),val:D.dso+' '+t('dager','days'),
        eq:flow([T(t('Kundefordringer','Receivables'),M(D.ar),'1500'),'÷',T(t('Omsetning YTD','Revenue YTD'),M(D.rev)),'×',T(t('Dager','Days'),'181'),'=',T('DSO',D.dso+' '+t('dager','days'),t('gj.snitt betalingstid','avg. days to get paid'),'res')]),
        viz:gauge(D.dso,30,D.dso,t('av 30 dager','of 30 days'),t('Kundene betaler i snitt <b>'+D.dso+' dager</b> etter faktura — <b>6 dager</b> før forfall på 30.','Customers pay on average <b>'+D.dso+' days</b> after invoice — <b>6 days</b> ahead of net-30 terms.'),'var(--green)'),
        note:t('Hvor mange dager det tar før kundene betaler. 24 dager er bra — betalingsbetingelsene er 30.','How many days it takes customers to pay. 24 is good — terms are net 30.')},
     ];
-    let fh='';
-    F.forEach((f,i)=>{ fh+='<details class="kn-det" style="animation:fadeUp .45s '+(i*.05+.1)+'s cubic-bezier(.22,1,.36,1) both"'+(i===0?' open':'')+'><summary>'
-      +'<div class="kn-fi" style="'+mono+'">ƒ</div>'
+    const fRow=(f,i)=>'<details class="kn-det"><summary>'
       +'<div style="flex:1;min-width:0"><div class="kn-fn">'+f.name+'</div><div class="kn-ff" style="'+mono+'">'+f.f+'</div></div>'
       +'<div class="kn-fv" style="'+mono+'">'+f.val+'</div>'
-      +'<svg class="kn-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>'
-      +'<div class="kn-body">'+f.eq+f.viz+'<div class="kn-fnote">'+f.note+'</div></div></details>'; });
+      +'<svg class="kn-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>'
+      +'<div class="kn-body">'+f.eq+f.viz+'<div class="kn-fnote">'+f.note+'</div></div></details>';
+    const fh=F.map(fRow).join('');
 
-    const head='<div style="margin-bottom:20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap"><span class="eyebrow">'+t('Nøkkeltall','Key numbers')+'</span><span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span><span class="mono" style="font-size:10.5px;color:var(--muted2)">'+t('hittil i år · per 30. juni 2026','year to date · as of 30 June 2026')+'</span></div>'
-      +'<p style="margin:0;max-width:640px;font-size:14px;line-height:1.6;color:var(--text2);text-wrap:pretty">'+t('Tallene styret spør om, regnet ut direkte fra hovedboken. Åpne en formel for å se hvordan tallet er satt sammen — og hvilke kontoer det kommer fra.','The numbers the board asks for, computed straight from the ledger. Open a formula to see how it is built — and which accounts it draws on.')+'</p></div>';
+    /* ===== 6. Thor pattern flags (auto-surfaced) ===== */
+    const flagSpark=(a,color)=>{ const w=120,h=32,min=Math.min(...a),max=Math.max(...a),r=(max-min)||1;
+      const d='M'+a.map((v,i)=>(i*(w/(a.length-1))).toFixed(1)+','+(h-3-((v-min)/r)*(h-8)).toFixed(1)).join(' L');
+      return '<svg viewBox="0 0 '+w+' '+h+'" width="120" height="32" style="overflow:visible;flex:none"><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="'+w+'" cy="'+(h-3-((a[a.length-1]-min)/r)*(h-8)).toFixed(1)+'" r="3" fill="'+color+'"/></svg>'; };
+    const flags=[
+      {sev:'high',title:t('Kostnadsavvik mot sesongnormal','Cost anomaly vs. seasonal baseline'),who:t('Meta Ads · 7320 Annonser','Meta Ads · 7320 Advertising'),
+       body:t('Markedsføring i juni er kr 41 200 — 34 % over sesongjustert normal (kr 30 700 ± 12 %). Ingen tilsvarende løft i omsetning.','June marketing spend is kr 41 200 — 34 % above the seasonal baseline (kr 30 700 ± 12 %). No matching lift in revenue.'),
+       s:[29,31,30,28,32,41],href:'./Insight.dc.html?id=ads&lang='+LANG},
+      {sev:'high',title:t('Økende kundekonsentrasjon','Rising customer concentration'),who:t('Statkraft AS · 31 % av omsetning','Statkraft AS · 31 % of revenue'),
+       body:t('Største kunde har gått fra 22 % til 31 % av omsetningen på fem måneder. Terskel: 25 %.','Largest customer has gone from 22 % to 31 % of revenue in five months. Threshold: 25 %.'),
+       s:[22,24,25,27,29,31],href:'./Insight.dc.html?id=concentration&lang='+LANG},
+      {sev:'med',title:t('Dekningsgrad glir nedover','Margin erosion trend'),who:t('Prosjekt · Nordlys Studio','Project · Nordlys Studio'),
+       body:t('Dekningsgrad på prosjektleveranser har falt 4 av de siste 5 månedene: 71 % → 64 %. Underleverandører øker raskere enn pris.','Contribution margin on project work has fallen 4 of the last 5 months: 71 % → 64 %. Subcontractor cost is rising faster than price.'),
+       s:[71,70,68,67,65,64],href:'./Insight.dc.html?id=contractors&lang='+LANG},
+      {sev:'med',title:t('DSO kryper oppover','DSO creeping up'),who:t('Kundefordringer · 1500','Receivables · 1500'),
+       body:t('Gjennomsnittlig betalingstid er 24 dager, opp fra 18 i januar. To kunder står for 80 % av økningen.','Average days to get paid is 24, up from 18 in January. Two customers account for 80 % of the increase.'),
+       s:[18,19,20,21,23,24],href:null},
+      {sev:'low',title:t('Churn-topp mot normal','Churn spike vs. normal'),who:t('Kunder · mai','Customers · May'),
+       body:t('Mai hadde 3,3 % churn mot glidende normal 3,0 %. Juni er tilbake på 3,1 % — overvåkes, ingen handling nå.','May churn was 3.3 % against a rolling normal of 3.0 %. June is back at 3.1 % — monitoring, no action needed.'),
+       s:[3.8,3.5,3.4,3.0,3.3,3.1],href:null},
+    ];
+    const sevC={high:'var(--danger)',med:'#D98B1E',low:'var(--green)'}, sevL={high:t('Høy','High'),med:t('Middels','Medium'),low:t('Lav','Low')};
+    let flagsH='';
+    flags.forEach((f,i)=>{ const c=sevC[f.sev];
+      flagsH+='<'+(f.href?'a href="'+f.href+'"':'div')+' class="kn-flag" style="animation:fadeUp .4s '+(i*.04)+'s cubic-bezier(.22,1,.36,1) both">'
+        +'<span class="kn-dot" style="background:'+c+'"></span>'
+        +'<div style="flex:1;min-width:0"><div class="kn-flag-t">'+f.title+'<span class="kn-flag-w">'+f.who+'</span></div>'
+        +'<div class="kn-flag-b">'+f.body+'</div></div>'
+        +flagSpark(f.s,c)
+        +'<span class="kn-sev" style="color:'+c+';background:color-mix(in srgb,'+c+' 12%,transparent)">'+sevL[f.sev]+'</span>'
+        +'</'+(f.href?'a':'div')+'>'; });
+    const flagsSec='<div class="kn-panel kn-panel-flag"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Thor har flagget','Thor flagged')+'</div><div class="kn-cs">'+t('mønstre funnet automatisk i bank- og regnskapsdata','patterns detected automatically in bank and ledger data')+'</div></div><span class="kn-pill">'+flags.length+' '+t('aktive','active')+'</span></div><div class="kn-flags">'+flagsH+'</div></div>';
 
-    return this.html(head+'<div class="kn-tiles">'+tilesH+'</div>'
+    /* ===== 4. Key ratios with trend ===== */
+    const R={assets:19600,equity:8230,curA:6120,inv:980,curL:3260,debt:11370,fixed:5890};
+    R.eqR=pct(R.equity,R.assets); R.cur=Math.round(R.curA/R.curL*100)/100; R.quick=Math.round((R.curA-R.inv)/R.curL*100)/100; R.debtR=Math.round(R.debt/R.equity*100)/100;
+    R.dg=D.gm; R.be=Math.round(R.fixed/(R.dg/100)); R.roa=Math.round(D.ebit*2/R.assets*1000)/10; R.wc=R.curA-R.curL;
+    const dec=v=>NO?String(v).replace('.',','):String(v);
+    const g2=[
+      {l:t('Egenkapitalandel (soliditet)','Equity ratio (soliditet)'),v:P(R.eqR),d:'+4 pp',good:true,s:[38,39,39.5,40.5,41.2,42]},
+      {l:t('Likviditetsgrad 1','Current ratio'),v:dec(R.cur),d:t('mål ≥ 1,5','target ≥ 1.5'),good:true,s:[1.6,1.65,1.7,1.75,1.82,1.88]},
+      {l:t('Likviditetsgrad 2','Quick ratio'),v:dec(R.quick),d:t('mål ≥ 1,0','target ≥ 1.0'),good:true,s:[1.3,1.35,1.4,1.45,1.52,1.58]},
+      {l:t('Gjeldsgrad','Debt ratio'),v:dec(R.debtR),d:'−0,2',good:true,s:[1.6,1.56,1.52,1.48,1.42,1.38]},
+      {l:t('Dekningspunkt','Break-even point'),v:M(R.be),d:t('omsetning YTD kr 12,48 M','revenue YTD kr 12.48 M'),good:true,s:[9.4,9.3,9.1,9.0,8.9,8.79]},
+      {l:'ROA',v:P(R.roa),d:t('annualisert · mål ≥ 8 %','annualised · target ≥ 8 %'),good:true,s:[15.8,16.6,17.3,18.0,18.6,19.2]},
+      {l:t('Arbeidskapital','Working capital'),v:M(R.wc),d:'+kr 0,7 M',good:true,s:[2.1,2.2,2.35,2.5,2.7,2.86]},
+    ];
+
+    /* ===== financial health meters (Likviditet / Lønnsomhet / Soliditet) ===== */
+    const health=[
+      {k:t('Likviditet','Liquidity'),sub:t('Likviditetsgrad 1','Current ratio'),v:R.cur,prev:1.52,max:3,t1:1,t2:1.5,fmt:v=>dec(Math.round(v*100)/100)},
+      {k:t('Lønnsomhet','Profitability'),sub:t('Driftsmargin','Operating margin'),v:D.ebitM,prev:12.4,max:25,t1:3,t2:10,fmt:v=>P(Math.round(v*10)/10)},
+      {k:t('Soliditet','Solidity'),sub:t('Egenkapitalandel','Equity ratio'),v:R.eqR,prev:38,max:50,t1:10,t2:20,fmt:v=>P(Math.round(v*10)/10)},
+    ];
+    const VERD=[t('Svak','Weak'),t('Tilfredsstillende','Satisfactory'),t('God','Good')];
+    let healthH='';
+    health.forEach((g,gi)=>{
+      const cx=100, cy=94, r=64, id=uid();
+      const pt=(f,rad)=>{ const a2=Math.PI-Math.max(0,Math.min(1,f))*Math.PI; return [(cx+rad*Math.cos(a2)).toFixed(2),(cy-rad*Math.sin(a2)).toFixed(2)]; };
+      const arc=(f0,f1,rad,stroke,extra)=>{ const p0=pt(f0,rad),p1=pt(f1,rad);
+        return '<path d="M'+p0[0]+' '+p0[1]+' A'+rad+' '+rad+' 0 0 1 '+p1[0]+' '+p1[1]+'" fill="none" stroke="'+stroke+'" stroke-width="11" stroke-linecap="round" '+(extra||'')+'/>'; };
+      const f1=g.t1/g.max, f2=g.t2/g.max, fv=Math.max(0.02,Math.min(1,g.v/g.max));
+      const zi=g.v<g.t1?0:(g.v<g.t2?1:2);
+      const grad=[['#E5484D','#F0796B'],['#D98B1E','#E8B24A'],['var(--accent)','#7C5CFF']][zi];
+      const len=Math.PI*r, dash=(len*fv).toFixed(1);
+      let body='<defs><linearGradient id="'+id+'" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="'+grad[0]+'"/><stop offset="1" stop-color="'+grad[1]+'"/></linearGradient></defs>';
+      body+=arc(0,1,r,'var(--surface2)');
+      body+=arc(0,1,r,'url(#'+id+')','stroke-dasharray="'+dash+' '+len.toFixed(1)+'" class="kn-meter" style="animation-delay:'+(gi*.08)+'s"');
+      [f1,f2].forEach(f=>{ const p=pt(f,r);
+        body+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2" fill="var(--card)" opacity=".85"/>'; });
+      const vs=g.fmt(g.v), fs=vs.length>5?23:28;
+      body+='<text x="'+cx+'" y="'+(cy-13)+'" text-anchor="middle" font-size="'+fs+'" font-weight="700" fill="var(--text)" font-family="JetBrains Mono,monospace" letter-spacing="-1">'+vs+'</text>';
+      const svg='<svg viewBox="24 18 152 84" width="100%" style="display:block;max-width:210px;margin:0 auto">'+body+'</svg>';
+      const better=g.v>g.prev;
+      healthH+='<div class="kn-cell kn-hcell" style="animation:fadeUp .45s '+(gi*.06)+'s cubic-bezier(.22,1,.36,1) both">'
+        +'<div class="kn-hk">'+g.k+'</div>'+svg
+        +'<div class="kn-hverd"><span class="kn-hbadge z'+zi+'">'+VERD[zi]+'</span></div>'
+        +'<div class="kn-hh">'+g.sub+' · 2025: '+g.fmt(g.prev)+' <span style="color:'+(better?up:'var(--danger)')+'">'+(better?'↗':'↘')+'</span></div></div>';
+    });
+    const healthPanel='<div class="kn-panel kn-hpanel"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Finansiell helse','Financial health')+'</div><div class="kn-cs">'+t('vurdert mot bransjenormer · sammenliknet med 2025','scored against industry norms · compared with 2025')+'</div></div><a href="#kn-formler" class="kn-calc">'+t('Beregning','Calculation')+' →</a></div><div class="kn-grid kn-grid-3 kn-health">'+healthH+'</div></div>';
+
+    /* ===== ratio list — value against its benchmark, not another sparkline ===== */
+    const ratios=[
+      {l:t('Likviditetsgrad 2','Quick ratio'),v:dec(R.quick),f:R.quick/2.5,tgt:1/2.5,tl:t('mål ≥ 1,0','target ≥ 1.0'),d:'+0,06',good:true},
+      {l:t('Gjeldsgrad','Debt ratio'),v:dec(R.debtR),f:R.debtR/3,tgt:2/3,tl:t('mål ≤ 2,0','target ≤ 2.0'),d:'−0,2',good:true},
+      {l:'ROA',v:P(R.roa),f:R.roa/25,tgt:8/25,tl:t('mål ≥ 8 %','target ≥ 8 %'),d:'+0,6 pp',good:true},
+      {l:t('Dekningspunkt','Break-even point'),v:M(R.be),f:R.be/D.rev,tgt:1,tl:t('av omsetning YTD','of revenue YTD'),d:'−0,6 M',good:true},
+      {l:t('Arbeidskapital','Working capital'),v:M(R.wc),f:R.wc/4000,tgt:0,tl:t('ingen terskel','no threshold'),d:'+kr 0,7 M',good:true},
+    ];
+    let ratH='';
+    ratios.forEach((k,i)=>{ ratH+='<div class="kn-rr" style="animation:fadeUp .4s '+(i*.05)+'s cubic-bezier(.22,1,.36,1) both">'
+      +'<span class="kn-rr-l">'+k.l+'</span>'
+      +'<span class="kn-rr-v" style="'+mono+'">'+k.v+'</span>'
+      +'<div class="kn-rr-t"><div class="kn-rr-b" style="width:'+Math.min(100,k.f*100).toFixed(1)+'%;animation-delay:'+(i*.05)+'s"></div>'
+      +(k.tgt?'<span class="kn-rr-tick" style="left:'+Math.min(100,k.tgt*100).toFixed(1)+'%"></span>':'')+'</div>'
+      +'<span class="kn-rr-tl">'+k.tl+'</span>'+dchip(k.d,k.good)+'</div>'; });
+    const ratioPanel='<div class="kn-panel"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Øvrige nøkkeltall','Other key ratios')+'</div><div class="kn-cs">'+t('målt mot terskelen som gjelder for hvert tall','measured against the threshold that applies to each')+'</div></div></div><div class="kn-rrs">'+ratH+'</div></div>';
+
+    /* ===== 5. Sales agency KPIs ===== */
+    const reps=[{n:'Mari Solberg',v:3120,c:9.5},{n:'Jonas Lie',v:2740,c:10.2},{n:'Aisha Rahman',v:2480,c:9.1},{n:'Petter Aas',v:2210,c:11.4},{n:'Sofie Berg',v:1930,c:8.8}];
+    const totC=reps.reduce((a,r)=>a+r.v*r.c/100,0), commPct=Math.round(totC/D.rev*1000)/10;
+    const g3=[
+      {l:t('Provisjon av omsetning','Commission of revenue'),v:P(commPct),s:t('samlet provisjonskost','total commission cost'),d:'−0,4 pp',good:true,spark:[10.6,10.5,10.4,10.3,10.2,commPct]},
+      {l:t('Kundechurn / mnd','Customer churn / mo'),v:P(D.churn),s:t('38 av 1 240 kunder','38 of 1,240 customers'),d:'−0,7 pp',good:true,spark:[3.8,3.5,3.4,3.0,3.3,3.1]},
+      {l:'DSO',v:D.dso+' '+t('dager','days'),s:t('gj.snitt betalingstid','avg. days to get paid'),d:'+6 '+t('dager','days'),good:false,spark:[18,19,20,21,23,24]},
+    ];
+    let repsH='';
+    reps.forEach((r,i)=>{ repsH+='<div class="kn-rep"><span class="kn-av">'+r.n.split(' ').map(x=>x[0]).join('')+'</span><span class="kn-rep-n">'+r.n+'</span>'
+      +'<div class="kn-rep-t"><div class="kn-rep-b" style="width:'+(r.v/3400*100).toFixed(1)+'%;animation-delay:'+(i*.06)+'s"></div></div>'
+      +'<span class="kn-rep-v" style="'+mono+'">'+M(r.v)+'</span><span class="kn-rep-c" style="'+mono+'">'+dec(r.c)+' %</span></div>'; });
+    const repBlock='<div class="kn-panel"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Omsetning per selger','Revenue per salesperson')+'</div><div class="kn-cs">'+t('hittil i år · siste kolonne er provisjonssats','year to date · last column is commission rate')+'</div></div></div>'
+      +'<div class="kn-reps">'+repsH+'</div>'
+      +'<div class="kn-note">'+t('<b>Thor:</b> Topp 2 selgere står for 47 % av omsetningen. Petter har høyest provisjonssats (11,4 %) men lavest omsetning per krone provisjon.','<b>Thor:</b> Top 2 reps deliver 47 % of revenue. Petter has the highest commission rate (11.4 %) but the lowest revenue per commission krone.')+'</div></div>';
+
+    /* ===== ratio formulas ===== */
+    const F2=[
+      {name:t('Egenkapitalandel (soliditet)','Equity ratio (soliditet)'),f:t('Egenkapital ÷ Sum eiendeler','Equity ÷ Total assets'),val:P(R.eqR),
+       eq:flow([T(t('Egenkapital','Equity'),M(R.equity),'2000–2099'),'÷',T(t('Sum eiendeler','Total assets'),M(R.assets),'1000–1999'),'=',T(t('Soliditet','Equity ratio'),P(R.eqR),t('mål ≥ 35 %','target ≥ 35 %'),'res')]),
+       viz:splitBar(R.assets,[{l:t('Egenkapital','Equity'),v:R.equity,c:'var(--accent)'},{l:t('Gjeld','Debt'),v:R.debt,c:'var(--danger)'}],t('Sum eiendeler','Total assets')),
+       note:t('Hvor stor del av selskapet som er finansiert med egne penger. Over 35 % regnes som solid; banker liker over 30 %.','How much of the company is financed with its own money. Above 35 % is considered solid; banks like to see over 30 %.')},
+      {name:t('Likviditetsgrad 1 & 2','Current & quick ratio'),f:t('Omløpsmidler ÷ Kortsiktig gjeld · (− varelager)','Current assets ÷ Current liabilities · (− inventory)'),val:dec(R.cur)+' / '+dec(R.quick),
+       eq:flow([T(t('Omløpsmidler','Current assets'),M(R.curA),'1400–1999'),'÷',T(t('Kortsiktig gjeld','Current liabilities'),M(R.curL),'2300–2999','minus'),'=',T(t('Likviditetsgrad 1','Current ratio'),dec(R.cur),t('Likviditetsgrad 2: ','Quick ratio: ')+dec(R.quick),'res')]),
+       viz:compare([{l:t('Omløpsmidler','Current assets'),v:R.curA,c:'linear-gradient(90deg,var(--accent),#7C5CFF)',s:M(R.curA)},{l:t('− varelager','− inventory'),v:R.curA-R.inv,c:'#7C5CFF',s:M(R.curA-R.inv)},{l:t('Kortsiktig gjeld','Current liabilities'),v:R.curL,c:'var(--danger)',s:M(R.curL)}],7000,{v:R.curL*1.5,l:t('1,5×','1.5×')}),
+       note:t('Kan du betale det som forfaller neste 12 måneder? Over 1,5 (grad 1) og over 1,0 (grad 2) er god likviditet.','Can you pay what falls due in the next 12 months? Above 1.5 (current) and above 1.0 (quick) is healthy liquidity.')},
+      {name:t('Gjeldsgrad','Debt ratio'),f:t('Gjeld ÷ Egenkapital','Debt ÷ Equity'),val:dec(R.debtR),
+       eq:flow([T(t('Sum gjeld','Total debt'),M(R.debt),'','minus'),'÷',T(t('Egenkapital','Equity'),M(R.equity)),'=',T(t('Gjeldsgrad','Debt ratio'),dec(R.debtR),t('kr gjeld per kr egenkapital','kr debt per kr equity'),'res')]),
+       viz:compare([{l:t('Gjeld','Debt'),v:R.debt,c:'var(--danger)',s:M(R.debt)},{l:t('Egenkapital','Equity'),v:R.equity,c:'linear-gradient(90deg,var(--accent),#7C5CFF)',s:M(R.equity)}],13000,null),
+       note:t('Hvor mange kroner gjeld per krone egenkapital. Faller fra 1,6 til 1,4 — riktig retning.','Kroner of debt per krone of equity. Falling from 1.6 to 1.4 — the right direction.')},
+      {name:t('Dekningsgrad & dekningspunkt','Contribution margin & break-even'),f:t('(Omsetning − Variable kost) ÷ Omsetning · Faste kost ÷ DG','(Revenue − Variable costs) ÷ Revenue · Fixed costs ÷ CM'),val:P(R.dg)+' · '+M(R.be),
+       eq:flow([T(t('Faste kostnader','Fixed costs'),M(R.fixed),t('lønn, husleie, lisenser','payroll, rent, licences'),'minus'),'÷',T(t('Dekningsgrad','Contribution margin'),P(R.dg),t('(omsetning − varekost) ÷ omsetning','(revenue − COGS) ÷ revenue')),'=',T(t('Dekningspunkt','Break-even'),M(R.be),t('omsetning som trengs for null i resultat','revenue needed to break even'),'res')]),
+       viz:compare([{l:t('Omsetning YTD','Revenue YTD'),v:D.rev,c:'linear-gradient(90deg,var(--accent),#7C5CFF)',s:M(D.rev)},{l:t('Dekningspunkt','Break-even'),v:R.be,c:'var(--danger)',s:M(R.be)}],13500,{v:R.be,l:t('nullpunkt','break-even')}),
+       note:t('Du må omsette for kr 8,79 M for å dekke faste kostnader. Alt over det gir 67 øre per krone rett på bunnlinjen.','You need kr 8.79 M of revenue to cover fixed costs. Everything above that drops 67 øre per krone straight to the bottom line.')},
+      {name:t('Totalkapitalrentabilitet (ROA)','Return on assets (ROA)'),f:t('EBIT (annualisert) ÷ Sum eiendeler','EBIT (annualised) ÷ Total assets'),val:P(R.roa),
+       eq:flow([T('EBIT × 2',M(D.ebit*2),t('annualisert fra H1','annualised from H1')),'÷',T(t('Sum eiendeler','Total assets'),M(R.assets)),'=',T('ROA',P(R.roa),t('mål ≥ 8 %','target ≥ 8 %'),'res')]),
+       viz:gauge(R.roa,25,P(R.roa),t('av 25 %','of 25 %'),t('Hver krone bundet i selskapet gir <b>19,2 øre</b> driftsresultat i året. Over 8 % er bra for tjenestebedrifter.','Every krone tied up in the business returns <b>19.2 øre</b> of operating profit a year. Above 8 % is good for a services business.'),'var(--accent)'),
+       note:t('Hvor godt selskapet utnytter alt det eier — uavhengig av hvordan det er finansiert.','How well the company uses everything it owns — regardless of how it is financed.')},
+      {name:t('Arbeidskapital','Working capital'),f:t('Omløpsmidler − Kortsiktig gjeld','Current assets − Current liabilities'),val:M(R.wc),
+       eq:flow([T(t('Omløpsmidler','Current assets'),M(R.curA)),'−',T(t('Kortsiktig gjeld','Current liabilities'),M(R.curL),'','minus'),'=',T(t('Arbeidskapital','Working capital'),M(R.wc),'+kr 0,7 M '+t('siden jan','since Jan'),'res')]),
+       viz:splitBar(R.curA,[{l:t('Arbeidskapital','Working capital'),v:R.wc,c:'var(--accent)'},{l:t('Kortsiktig gjeld','Current liabilities'),v:R.curL,c:'var(--danger)'}],t('Omløpsmidler','Current assets')),
+       note:t('Pengene som er tilgjengelige til daglig drift etter at kortsiktig gjeld er dekket.','The money available for day-to-day operations after short-term debt is covered.')},
+    ];
+    const fh2=F2.map(fRow).join('');
+
+    const head='<div style="margin-bottom:18px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap"><span class="eyebrow">'+t('Nøkkeltall','Key numbers')+'</span><span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span><span class="mono" style="font-size:10.5px;color:var(--muted2)">'+t('hittil i år · per 30. juni 2026','year to date · as of 30 June 2026')+'</span></div>'
+      +'<p style="margin:0;max-width:640px;font-size:14px;line-height:1.6;color:var(--text2);text-wrap:pretty">'+t('Tallene styret spør om, regnet ut direkte fra hovedboken. Åpne en formel for å se hvordan tallet er satt sammen.','The numbers the board asks for, computed straight from the ledger. Open a formula to see how it is built.')+'</p></div>';
+    const sec=(title,sub)=>'<div class="kn-sec"><span class="eyebrow">'+title+'</span>'+(sub?'<span class="kn-sec-s">'+sub+'</span>':'')+'</div>';
+    return this.html(head+flagsSec
+      +sec(t('Resultat','Profit & loss'),t('hittil i år · trend siste 6 måneder','year to date · 6-month trend'))
+      +'<div class="kn-tgrid">'+g1.map(heroCard).join('')+ladderCard+'</div>'
       +bridge
-      +'<div class="kn-two">'+churnCard+marginCard+'</div>'
-      +'<div style="display:flex;align-items:center;gap:10px;margin:0 0 12px"><span class="eyebrow">'+t('Formler','Formulas')+'</span><span style="font-size:12px;color:var(--muted)">'+t('trykk for å folde ut','tap to expand')+'</span></div>'
-      +'<div style="display:grid;gap:10px">'+fh+'</div>');
+      +sec(t('Balanse & nøkkeltall','Balance sheet & ratios'))+healthPanel+ratioPanel
+      +sec(t('Salg & kunder','Sales & customers'))
+      +'<div class="kn-tgrid">'+g3.map(heroCard).join('')+'</div>'+repBlock
+      +sec(t('Formler','Formulas'),t('trykk for å folde ut','tap to expand'))
+      +'<div class="kn-flist" id="kn-formler">'+fh+fh2+'</div>');
   }
 
   buildMarginChart(){
