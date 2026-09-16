@@ -4676,8 +4676,17 @@ class Component extends DCLogic {
     if(S&&!S.model&&window.VENDITUS_RAW){ try{ S.init(); }catch(e){ console.error('Venditus init',e); } }
     return S; }
   vdModel(){ const s=this.vdStore(); return s?s.model:null; }
+  /* Adding a row for next month creates that month before it holds anything.
+     The dashboard must not follow it there and report kr 0 across the board —
+     default to the newest month that actually has figures. */
   vdMonth(){ const M=this.vdModel(); if(!M||!M.months.length) return '';
-    const m=this.state.vdMonth; return (m&&M.byMonth[m])?m:M.months[M.months.length-1]; }
+    const m=this.state.vdMonth;
+    if(m&&M.byMonth[m]) return m;
+    for(let i=M.months.length-1;i>=0;i--){
+      const t=M.byMonth[M.months[i]].total;
+      if(t&&(t.revenue||t.totalCostAll)) return M.months[i];
+    }
+    return M.months[M.months.length-1]; }
 
   /* ── formatting ─────────────────────────────────────────────────────── */
   vkr(v){ return 'kr '+this.nbn(Math.round(v||0)); }
