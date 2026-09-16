@@ -1453,7 +1453,7 @@
 
                   <div style="display:flex;flex-wrap:wrap;gap:8px">
                     <sc-for list="{{ f.periods }}" as="p" hint-placeholder-count="7">
-                      <a href="{{ p.href }}" class="btn lift" style="{{ p.style }}">
+                      <a href="#" data-vd-act="gosheet" data-vd-val="{{ p.sheet }}" class="btn lift" style="{{ p.style }}">
                         <span class="mono" style="{{ p.monthStyle }}">{{ p.month }}</span>
                         <span style="{{ p.glyphStyle }}">{{ p.glyph }}</span>
                       </a>
@@ -3450,7 +3450,7 @@ class Component extends DCLogic {
                 'Venditus AS · 8 sheets · loaded into the Workbook · formulas reimplemented in Clario'),
          rowsLabel:t('8 ark · 34 beregnede kolonner','8 sheets · 34 computed columns'),
          openLabel:t('PHONERO RAPPORT er tom','PHONERO RAPPORT is empty'),
-         periods:[['Jan','ok'],['Feb','ok'],['Mar','ok'],['Apr','ok'],['Mai','ok'],['Jun','ok']]},
+         periods:(this.vdModel()?this.vdModel().months:[]).map(m=>[this.vmonthShort(m),'ok'])},
       ].map(f=>({...f,
         periods:f.periods.map(([m,st])=>{
           const col=st==='ok'?'var(--green)':st==='warn'?'var(--amber)':'var(--muted2)';
@@ -3458,7 +3458,7 @@ class Component extends DCLogic {
           const live=st!=='none';
           return {
             month:m.toUpperCase(), glyph,
-            href:'./Sheet.dc.html?file='+encodeURIComponent(f.name)+'&period='+encodeURIComponent(m+' 2026')+'&client='+encodeURIComponent(f.client)+'&lang='+LANG,
+            sheet:'phonero',
             monthStyle:{fontSize:'10px',letterSpacing:'0.12em',color:live?'var(--text)':'var(--muted)'},
             glyphStyle:{fontSize:'12px',lineHeight:1,color:col},
             style:{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'5px',
@@ -3842,13 +3842,6 @@ class Component extends DCLogic {
      Charts are injected as HTML strings, so React handlers cannot be
      attached. The hover layer is plain CSS: an absolutely positioned
      band per data point, each holding its own tooltip card.          */
-  sheetHref(cell,sheet){
-    const p=new URLSearchParams({file:this.vdStore()&&this.vdStore().sourceName||'Venditus_v2_Mikro_final.xlsx',
-      period:this.vdModel()?this.vmonthLbl(this.vdMonth()):this.t('Juni 2026','June 2026'),
-      client:'Venditus AS',
-      lang:this.state.lang, sheet:sheet||'pl', cell:cell});
-    return './Sheet.dc.html?'+p.toString();
-  }
   ttHTML(title,rows,foot,act){
     let h='<div class="ttt">'+title+'</div>';
     rows.forEach(r=>{
@@ -3864,9 +3857,7 @@ class Component extends DCLogic {
       h+='<a class="tta" href="#" data-vd-act="cell" data-vd-val="'+window.VenditusTrace.encode(T)+'">'
         +'<span>'+(act.label||this.t('Åpne i arbeidsboken','Open in the workbook'))+'</span>'
         +'<span class="tta-c mono">'+this.vesc(T.ref)+' \u2192</span></a>';
-    } else if(act) h+='<a class="tta" href="'+this.sheetHref(act.cell,act.sheet)+'">'
-      +'<span>'+(act.label||this.t('Endre i arket','Edit in the sheet'))+'</span>'
-      +'<span class="tta-c mono">'+act.cell+' \u2192</span></a>';
+    }
     if(foot) h+='<div class="ttf">'+foot+'</div>';
     return h;
   }
@@ -3971,7 +3962,7 @@ class Component extends DCLogic {
       return {x0:padL+group*i, x1:padL+group*(i+1),
         html:this.ttHTML(ttl,rows,this.t('Inn/ut er banktall. Andelene er arkets egen sammensetning for juni — bankbeløp og arkets kronebeløp har ulikt grunnlag.',
                                          'In/out are bank totals. The shares are the sheet\'s own June composition — bank amounts and sheet amounts sit on different bases.'),
-          {cell:'B4',label:this.t('Åpne juni i arket','Open June in the sheet')})};
+  this.vdRowAttrs('revenue',{seller:this.vdFocused(),month:this.vdMonth()}).act)};
     });
     return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="'+(M?w:'100%')+'" style="display:block;overflow:visible">'+defs+grid+bars+line+lab+'</svg>',
       this.hoverZone(bands,w,6)));
@@ -4192,22 +4183,13 @@ class Component extends DCLogic {
         foot=this.t('Bevegelse i '+mName.toLowerCase()+'. Rekkefølgen er inn først, så ut.',
                     'Movement in '+mName+'. Inflows are ordered first, then outflows.');
       }
-      // Waterfall categories are bank movements, so only Lønn has its own row in
-      // the workbook. Each action names the line it actually opens rather than
-      // pretending every category maps one-to-one.
-      const WF=[
-        {cell:'B4', label:this.t('Åpne juni i arket','Open June in the sheet')},   // opening balance
-        {cell:'B2', label:this.t('Se inntektslinjen','Open the revenue line')},    // retainers
-        {cell:'B3', label:this.t('Se inntektslinjen','Open the revenue line')},    // projects
-        {cell:'B16',label:this.t('Endre i arket','Edit in the sheet')},            // payroll — exact
-        {cell:'B7', label:this.t('Se varekostlinjen','Open the cost-of-sales line')},
-        {cell:'B34',label:this.t('Se kostnadsblokken','Open the cost block')},
-        {cell:'B34',label:this.t('Se kostnadsblokken','Open the cost block')},
-        {cell:'B37',label:this.t('Se resultatlinjen','Open the result line')},     // closing balance
-      ][i];
-      // the workbook starts in June, so other months open June's column
-      const act=WF && (M.key==='jun' ? WF
-        : {cell:WF.cell, label:WF.label+' · '+this.t('juni','June')});
+      // Each movement names the Venditus cell it comes from, for the month the
+      // bar belongs to. START and NETTO are sums — no single cell owns them.
+      const WFM=[null,'revenue','navReceived','commission','employerCost',
+                 'absencePct','listCost',null][i];
+      const act=WFM
+        ? this.vdRowAttrs(WFM,{seller:this.vdFocused(),month:M.key}).act
+        : null;
       return {x0:padL+group*i, x1:padL+group*(i+1),
         html:this.ttHTML(st.label.toUpperCase()+' · '+mName.toUpperCase(),rows,foot,act)};
     });
@@ -8104,6 +8086,8 @@ class Component extends DCLogic {
   /* ═══ 2 · RESULT BRIDGE — revenue to EBIT, straight off the P&L ═══ */
   buildResultBridge(){
     const W=this.wb();
+    // one Venditus metric per bar; the totals at either end own no single cell
+    const BRIDGE=['revenue','commission','employerCost','listCost',null];
     const steps=[
       {name:this.t('Inntekter','Revenue'),v:W.revenue[0],type:'total'},
       {name:this.t('Varekost','Cost of sales'),v:-W.cogs[0],type:'out'},
@@ -8166,7 +8150,7 @@ class Component extends DCLogic {
     const CELL=['B4','B7','B16','B34','B37'];   // revenue · cost of sales · payroll · indirect · EBIT
     const bands=steps.map((st,i)=>({x0:padL+group*i, x1:padL+group*(i+1),
       html:this.ttHTML(st.name.toUpperCase()+' · '+this.t('JUNI 2026','JUNE 2026'),det[i].rows,det[i].foot,
-        {cell:CELL[i]})}));
+        this.vdRowAttrs(BRIDGE[i],{seller:this.vdFocused(),month:this.vdMonth()}).act)}));
     return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+conn+g+'</svg>',
       this.hoverZone(bands,w,4)));
   }
@@ -8233,7 +8217,7 @@ class Component extends DCLogic {
          [this.t('Årlig (× 12)','Annualised (× 12)'),this.kr(r.v*12)]],
         this.t('Lønnslinje i P&L-arket for juni. Faktoren er den samme som i Margin Model.',
                'A payroll row in the P&L sheet for June. Same factor as in Margin Model.'),
-        {cell:'B'+(8+r.i)})}));
+        this.vdRowAttrs('employerCost',{seller:r.name,month:this.vdMonth()}).act)}));
     return this.html(this.cw('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+g+'</svg>',
       this.hoverRows(bands,h,'left:34%')));
   }
