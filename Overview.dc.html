@@ -7,7 +7,7 @@
 <script src="./venditus/demo.js?h=0de88225"></script>
 <script src="./venditus/mapping.js?h=6e299dd5"></script>
 <script src="./venditus/parse.js?h=a4e5a20b"></script>
-<script src="./venditus/model.js?h=26a4d9dc"></script>
+<script src="./venditus/model.js?h=560c8f6a"></script>
 <script src="./venditus/trace.js?h=3e1778ba"></script>
 <script src="./venditus/store.js?h=1fbecfb1"></script>
 <script src="./support.js"></script>
@@ -257,6 +257,22 @@
   .vd-rkc-note{font-size:12px;color:var(--muted);line-height:1.6;padding:13px 0 12px}
   /* ── the sheet shelf ─────────────────────────────────────────────────── */
   .vd-scs{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+  /* who owns the numbers — three buckets on the shelf */
+  .vd-bk{margin-bottom:30px}
+  .vd-bk-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;
+    padding-bottom:9px;border-bottom:1px solid var(--border-soft)}
+  .vd-bk-dot{width:9px;height:9px;border-radius:3px;flex:none;align-self:center}
+  .vd-bk-dot-manual{background:var(--vd-in-bg);border:1.5px solid var(--vd-in-edge)}
+  .vd-bk-dot-imported{background:var(--vd-ext-bg);border:1.5px solid var(--vd-ext-edge)}
+  .vd-bk-dot-computed{background:var(--card);border:1.5px solid var(--vd-calc-edge)}
+  .vd-bk-l{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.12em;
+    font-weight:600;color:var(--text)}
+  .vd-bk-n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted2)}
+  .vd-bk-b{font-size:11.5px;color:var(--muted);margin-left:auto;text-align:right}
+  .vd-sc-ic-manual{background:var(--vd-in-bg);color:var(--vd-in-edge)}
+  .vd-sc-ic-imported{background:var(--vd-ext-bg);color:var(--vd-ext-edge)}
+  .vd-sc-ic-computed{background:var(--surface2);color:var(--muted)}
+  @media(max-width:768px){ .vd-bk-b{margin-left:0;text-align:left;width:100%} }
   .vd-sc{display:flex;flex-direction:column;gap:9px;text-align:left;font:inherit;color:inherit;
     padding:17px 18px 15px;border-radius:16px;border:1px solid var(--border);background:var(--card);
     box-shadow:var(--elev);cursor:pointer;transition:transform .18s cubic-bezier(.22,1,.36,1),
@@ -380,6 +396,38 @@
   .vd-f-ed{background-image:linear-gradient(225deg,var(--accent) 6px,transparent 6px)}
   .vt-chips-m{margin-left:auto}
   .vt-chip-sm{height:26px;padding:0 10px;font-size:11px;font-weight:600}
+  /* the locked Varsler page */
+  .vd-blur{filter:blur(9px);user-select:none;pointer-events:none}
+  .vd-al-lock{cursor:default}
+  .vd-al-lock:hover{transform:none;border-color:var(--border);box-shadow:var(--elev)}
+  .vd-al-found{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--al);background:color-mix(in srgb,var(--al) 12%,transparent);
+    padding:3px 9px;border-radius:9999px;align-self:flex-start;margin-top:2px}
+  .vd-lock-chip{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;
+    color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);
+    padding:3px 9px;border-radius:9999px}
+  .vd-gate{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;
+    padding:24px 26px;border-radius:20px;border:1px solid var(--border);background:var(--card);
+    box-shadow:0 14px 34px -20px rgba(16,24,40,.30)}
+  .vd-gate-ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;
+    justify-content:center;background:var(--accent);color:#fff;flex:none}
+  .vd-gate-t{min-width:0}
+  .vd-gate-h{font-size:17px;font-weight:700;letter-spacing:-0.02em}
+  .vd-gate-b{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:5px;max-width:52ch}
+  .vd-gate-a{text-align:right;flex:none}
+  .vd-gate-p{font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:700;
+    letter-spacing:-0.03em;white-space:nowrap}
+  .vd-gate-p span{font-size:13px;font-weight:400;color:var(--muted)}
+  .vd-gate-ps{font-size:11px;color:var(--muted2);margin-top:2px}
+  .vd-gate-cta{margin-top:11px;height:38px;padding:0 18px;border-radius:11px;border:none;
+    background:var(--accent);color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+    white-space:nowrap}
+  .vd-gate-cta:hover{background:var(--accent-hover)}
+  .vd-gate-alt{display:block;margin-top:9px;margin-left:auto;border:none;background:none;padding:0;
+    font:inherit;font-size:12px;font-weight:600;color:var(--accent);cursor:pointer}
+  .vd-gate-alt:hover{text-decoration:underline}
+  .vd-gate-demo{font-size:10.5px;color:var(--muted2);margin-top:9px}
+  @media(max-width:768px){ .vd-gate{grid-template-columns:1fr;gap:16px} .vd-gate-a{text-align:left} }
   .vt-off{display:none!important}
   /* cell state: changed, unmatched, still blank */
   .vd-c-ed{background-image:linear-gradient(225deg,var(--accent) 7px,transparent 7px)!important}
@@ -1812,6 +1860,10 @@
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ inndataPage }}"></div>
         </sc-if>
 
+        <sc-if value="{{ isAlerts }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ alertsPage }}"></div>
+        </sc-if>
+
         <!-- ===================== RECOMMENDATIONS ===================== -->
         <sc-if value="{{ isRecommendations }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both">
@@ -2454,6 +2506,10 @@ class Component extends DCLogic {
       ['Overview','<rect x="3" y="3" width="7" height="8" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',null],
       ['Cashflow','<path d="M3 3v18h18"/><path d="M7 13l4-4 3 3 5-6"/>',null],
       ['Insights','<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7" rx="1"/><rect x="12" y="7" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/>',null],
+      ['Alerts','<path d="M12 3a6 6 0 0 0-6 6c0 4-2 5-2 5h16s-2-1-2-5a6 6 0 0 0-6-6z"/><path d="M10.3 20a2 2 0 0 0 3.4 0"/>',(()=>{
+        const R=this.vdRisks(); if(!R) return null;
+        const c=R.margin.length+R.settlement.length+R.nav.length+(R.refundGap||[]).length;
+        return c?String(c):null; })()],
       ['Recommendations','<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',(()=>{
         const R=this.vdRisks(); if(!R) return '3';
         const c=R.margin.length+R.settlement.length+R.nav.length+(R.refundGap||[]).length;
@@ -2478,7 +2534,8 @@ class Component extends DCLogic {
     // hardcoded 2-sheet P&L from the old Phonero demo. Arbeidsbok replaced it.
     const DEMO_ONLY=['Workpapers'];
     const NAVLBL={Overview:['Oversikt','Overview'],Cashflow:['Kontantstrøm','Cashflow'],
-      Insights:['Innsikt','Insights'],Recommendations:['Anbefalinger','Recommendations'],Invoices:['Fakturaer','Invoices'],
+      Insights:['Innsikt','Insights'],Alerts:['Varsler','Alerts'],
+      Recommendations:['Anbefalinger','Recommendations'],Invoices:['Fakturaer','Invoices'],
       Selgere:['Selgere','Sellers'],Fravaer:['Fravær & NAV','Absence & NAV'],
       Onboarding:['Onboarding','Onboarding'],Inndata:['Arbeidsbok','Workbook'],
       Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
@@ -2495,7 +2552,7 @@ class Component extends DCLogic {
         icon:on?'var(--accent)':'var(--muted2)', svg:this.icon(path) };
     });
     // five micro-level routes were inserted after Invoices, so the rails shift
-    const GROUP={monitor:['Overview','Cashflow','Insights','Recommendations','Invoices','Selgere',
+    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Selgere',
                           'Fravaer','Onboarding','Inndata','Import','Workpapers'],
                  plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
@@ -2543,6 +2600,7 @@ class Component extends DCLogic {
       Cashflow:[this.vdModel()?t('Periodisert · ingen bankdata','Accrual · no bank data')
                               :t('Juni 2026','June 2026'),t('Kontantstrøm','Cash flow')],
       Insights:[t('Nøkkeltall · juni 2026','Key numbers · June 2026'),t('Innsikt','Insights')],
+      Alerts:[t('Varsler fra arbeidsboken','Alerts from the workbook'),t('Varsler','Alerts')],
       Recommendations:[t('3 åpne · juni 2026','3 open · June 2026'),t('Anbefalinger','Recommendations')],
       Invoices:[t('4 forfalt · leverandørgjeld','4 overdue · accounts payable'),t('Fakturaer','Invoices')],
       Selgere:[t('Per selger · mikronivå','Per seller · micro level'),t('Selgere','Sellers')],
@@ -3262,15 +3320,15 @@ class Component extends DCLogic {
         activeChip:t('Premium aktiv','Premium active'),
         intro:t('Dara leser hovedboken hver natt og løfter fram det som endret seg — og hva som er verdt å gjøre med det. Hver anbefaling peker tilbake på linjen den kommer fra.','Dara reads the ledger every night and surfaces what changed — and what is worth doing about it. Every recommendation points back to the line it came from.'),
         premEyebrow:t('Clario Premium','Clario Premium'),
-        premTitle:t('Lås opp Dara-anbefalinger','Unlock Dara recommendations'),
-        premBody:t('Anbefalinger er en del av Premium. Dara gjennomgår hovedboken hver natt, sammenlikner mot budsjett og arbeidspapirer, og gir deg konkrete anbefalinger med tallene bak.','Recommendations are part of Premium. Dara reviews the ledger every night, compares it against budget and workpapers, and gives you concrete recommendations with the numbers behind them.'),
+        premTitle:t('Lås opp varsler og anbefalinger','Unlock alerts and recommendations'),
+        premBody:t('Varsler og anbefalinger er begge en del av Premium. Clario leser arbeidsboken hver natt, flagger det som koster penger før regnskapet fanger det opp, og gir deg konkrete forslag med tallene bak.','Alerts and recommendations are both part of Premium. Clario reads the workbook every night, flags what costs money before the books catch it, and gives you concrete suggestions with the numbers behind them.'),
         premPerks:[
-          t('Nattlig gjennomgang av hele hovedboken','Nightly review of the full ledger'),
-          t('Konkrete anbefalinger med beløp og kilde','Concrete recommendations with amounts and source'),
-          t('Varsler når en linje beveger seg unormalt','Alerts when a line moves abnormally'),
-          t('Ubegrensede scenarier og prognoser','Unlimited scenarios and forecasts'),
+          t('Selgere som går i minus — fanget i måneden','Sellers going into the red — caught in-month'),
+          t('Oppgjørseksponering ved en oppsigelse','Settlement exposure if someone resigns'),
+          t('NAV-refusjon og tilskudd dere ikke har fått','NAV refunds and subsidies you never received'),
+          t('Konkrete anbefalinger med beløp og kilde','Concrete recommendations with amount and source'),
         ],
-        premPrice:t('kr 1 490 / mnd','kr 1 490 / mo'),
+        premPrice:t('kr 8 000 / mnd','kr 8 000 / mo'),
         premPriceSub:t('per selskap · si opp når som helst','per company · cancel anytime'),
         premCta:t('Bli premium-medlem','Become a premium member'),
         premDemo:t('Demo — knappen låser opp umiddelbart, ingen betaling','Demo — the button unlocks immediately, no payment'),
@@ -3631,6 +3689,7 @@ class Component extends DCLogic {
       keyNumbers:this.once('kn'+LANG+(this.mq()?'m':'d'),()=>this.buildKeyNumbers(t)),
       invoicesPage:this.once('inv'+LANG,()=>this.buildInvoices(t)),
       active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',
+      isAlerts:active==='Alerts',
       isSelgere:active==='Selgere',isFravaer:active==='Fravaer',
       isOnboarding:active==='Onboarding',isInndata:active==='Inndata',
       isScenarios:active==='Scenarios',isDara:active==='Dara',isClients:active==='Clients',isSettings:active==='Settings',
@@ -3662,6 +3721,7 @@ class Component extends DCLogic {
       onboardingPage:this.buildOnboarding(),
       inndataPage:this.buildArbeidsbok(),
       risksPage:this.buildRisks(),
+      alertsPage:this.buildAlertsPage(),
       vdMonthPopHtml:this.html(this.vdMonthPop()),
       vdGlobalPopHtml:this.html(this.vdGlobalPop()),
       venditusOverview:this.buildVenditusOverview(),
@@ -5739,18 +5799,24 @@ class Component extends DCLogic {
       : def.kind==='keyvalue'
         ? Object.keys(S.edits).filter(k=>k.indexOf('config.')===0).length : 0;
     const empty=def.table&&(def.rows||[]).length===0;
-    return { rows, yours, edits, empty, fromExt,
+    // Which bucket the sheet belongs in, from the roles the workbook declared
+    const group = def.kind==='computed' ? 'computed'
+                : def.kind==='keyvalue' ? 'manual'
+                : def.kind==='nav'      ? 'computed'
+                : fromExt>yours         ? 'imported'
+                : yours>0               ? 'manual' : 'computed';
+    return { rows, yours, edits, empty, fromExt, group,
       unit: def.kind==='keyvalue'?t('verdier','values'):t('rader','rows') }; }
 
   vdSheetIndex(defs){
-    const t=(a,b)=>this.t(a,b), S=this.vdStore();
-    const cards=defs.map((d,i)=>{
+    const t=(a,b)=>this.t(a,b);
+    const card=(d,i)=>{
       const m=this.vdSheetMeta(d.key), st=this.vdSheetStats(d);
-      const computed=st.yours===0;
+      const computed=st.group==='computed';
       return '<button class="vd-sc" data-vd-act="sheet" data-vd-val="'+d.key+'"'
-        +' style="animation:fadeUp .45s '+(0.03+i*0.045).toFixed(2)+'s both">'
+        +' style="animation:fadeUp .45s '+(0.03+i*0.04).toFixed(2)+'s both">'
         +'<span class="vd-sc-top">'
-        +'<span class="vd-sc-ic'+(computed?' vd-sc-ic-c':'')+'">'+m.icon+'</span>'
+        +'<span class="vd-sc-ic vd-sc-ic-'+st.group+'">'+m.icon+'</span>'
         +'<span class="vd-sc-tx"><span class="vd-sc-nm">'+this.vesc(d.name)+'</span>'
         +'<span class="vd-sc-lb">'+m.label+'</span></span>'
         +(st.edits?'<span class="vd-sc-ed">'+this.vnum(st.edits)+'</span>':'')
@@ -5761,24 +5827,47 @@ class Component extends DCLogic {
         +'<span class="vd-sc-n">'+this.vnum(st.rows)+' '+st.unit+'</span>'
         +(st.empty?'<span class="vd-sc-tag vd-sc-tag-e">'+t('Tom','Empty')+'</span>'
           :computed?'<span class="vd-sc-tag vd-sc-tag-c">'+t('Beregnes','Computed')+'</span>'
-          :st.fromExt&&!st.yours?'<span class="vd-sc-tag vd-sc-tag-x">'
-            +t('Hentes eksternt','From outside')+'</span>'
+          :st.group==='imported'?'<span class="vd-sc-tag vd-sc-tag-x">'
+            +this.vnum(st.fromExt)+' '+t('kolonner hentes inn','columns imported')+'</span>'
           :st.yours?'<span class="vd-sc-tag vd-sc-tag-i">'+this.vnum(st.yours)+' '
             +t('kolonner er dine','columns yours')+'</span>'
           :'<span class="vd-sc-tag vd-sc-tag-i">'+t('Du fyller ut','You fill this in')+'</span>')
-        +'</span></button>'; }).join('');
+        +'</span></button>'; };
+
+    // Three buckets, because the first question about any sheet is who owns it.
+    const BUCKET=[
+      ['manual',   t('DU FYLLER UT','YOU FILL THIS IN'),
+        t('Tallene dere skriver inn selv — satser, ansatte, fravær og bonus.',
+          'The numbers you enter yourselves — rates, people, absence and bonus.')],
+      ['imported', t('HENTES INN','IMPORTED'),
+        t('Kommer fra Phonero, NAV eller Tripletex. Du kan redigere, men kilden er utenfor.',
+          'Comes from Phonero, NAV or Tripletex. Editable, but the source is outside.')],
+      ['computed', t('BEREGNES','COMPUTED'),
+        t('Regnes ut av Clario fra arkene over. Ingenting å fylle inn.',
+          'Computed by Clario from the sheets above. Nothing to fill in.')]
+    ];
+    let n=0;
+    const sections=BUCKET.map(([key,label,blurb])=>{
+      const inB=defs.filter(d=>this.vdSheetStats(d).group===key);
+      if(!inB.length) return '';
+      return '<div class="vd-bk"><div class="vd-bk-h">'
+        +'<span class="vd-bk-dot vd-bk-dot-'+key+'"></span>'
+        +'<span class="vd-bk-l">'+label+'</span>'
+        +'<span class="vd-bk-n">'+this.vnum(inB.length)+' '+t('ark','sheets')+'</span>'
+        +'<span class="vd-bk-b">'+blurb+'</span></div>'
+        +'<div class="vd-scs">'+inB.map(d=>card(d,n++)).join('')+'</div></div>';
+    }).join('');
 
     return this.vdDemoNote()+this.vdEditNote()
-      +'<div style="margin-bottom:20px">'
+      +'<div style="margin-bottom:22px">'
       +'<div style="font-size:23px;font-weight:700;letter-spacing:-0.035em">'
       +t('Arbeidsboken','The workbook')+'</div>'
-      +'<div style="font-size:13.5px;color:var(--text2);margin-top:7px;max-width:640px;line-height:1.6">'
-      +t('Åtte ark fra Venditus_v2_Mikro_final.xlsx. Velg ett for å åpne det — du kan bytte ark '
-        +'nederst på siden, som i Excel.',
-         'Eight sheets from Venditus_v2_Mikro_final.xlsx. Pick one to open it — you can switch '
-        +'sheets along the bottom of the page, like in Excel.')
-      +'</div></div>'
-      +'<div class="vd-scs">'+cards+'</div>'; }
+      +'<div style="font-size:13.5px;color:var(--text2);margin-top:7px;max-width:660px;line-height:1.6">'
+      +t('Åtte ark fra Venditus_v2_Mikro_final.xlsx, gruppert etter hvem som eier tallene. '
+        +'Velg ett for å åpne det — du kan bytte ark øverst på siden, som i Excel.',
+         'Eight sheets from Venditus_v2_Mikro_final.xlsx, grouped by who owns the numbers. '
+        +'Pick one to open it — you can switch sheets at the top of the page, like in Excel.')
+      +'</div></div>'+sections; }
 
   vdSheetView(cur,defs){
     const S=this.vdStore(), t=(a,b)=>this.t(a,b);
@@ -6304,9 +6393,10 @@ class Component extends DCLogic {
   vdRisks(){
     const M=this.vdModel(), S=this.vdStore();
     if(!M||!S) return null;
-    if(!this._rk||this._rkModel!==M){
-      this._rk=window.VenditusModel.risks(M,S.dataset,null);
-      this._rkModel=M;
+    const m=this.vdMonth();
+    if(!this._rk||this._rkModel!==M||this._rkMonth!==m){
+      this._rk=window.VenditusModel.risks(M,S.dataset,null,m);
+      this._rkModel=M; this._rkMonth=m;
     }
     return this._rk; }
 
@@ -6389,6 +6479,81 @@ class Component extends DCLogic {
               : this.vnum(R.nav.length+R.refundGap.length)+' '+t('å følge opp','to chase'),
             T.navAtRisk===0)
       +'</div>'; }
+
+  /* Varsler is a Premium surface. Locked, the three cards still show what they
+     are and how many things they found — the figures are blurred, because the
+     number is the product. Unlocked, it is the full detail. */
+  buildAlertsPage(){
+    const R=this.vdRisks(), t=(a,b)=>this.t(a,b), M=this.vdModel();
+    if(!R||!M) return this.html(this.vdEmpty(t('Ingen data.','No data.')));
+    const on=!!this.state.premium;
+    const T=R.totals, mon=this.vmonthLbl(R.month);
+    const navCount=R.nav.length+R.refundGap.length;
+
+    const head='<div style="display:flex;align-items:center;gap:10px;margin:2px 0 10px;flex-wrap:wrap">'
+      +'<span class="eyebrow">'+t('VARSLER FRA ARBEIDSBOKEN','ALERTS FROM THE WORKBOOK')+'</span>'
+      +'<span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span>'
+      +'<span class="mono" style="font-size:10.5px;color:var(--muted2)">'+mon.toUpperCase()+'</span>'
+      +(on?'<span class="mono" style="font-size:10px;color:var(--accent);background:var(--accent-soft);'
+           +'padding:3px 9px;border-radius:9999px">'+t('Premium aktiv','Premium active')+'</span>'
+          :'<span class="vd-lock-chip">'+t('PREMIUM','PREMIUM')+'</span>')+'</div>'
+      +'<p style="margin:0 0 20px;font-size:13.5px;line-height:1.6;color:var(--text2);max-width:640px">'
+      +t('Tre ting som koster penger før regnskapet fanger dem opp. Hvert varsel viser regnestykket '
+        +'sitt og peker på cellene det kommer fra.',
+         'Three things that cost money before the books catch them. Every alert shows its own '
+        +'arithmetic and points at the cells it came from.')+'</p>';
+
+    if(on) return this.html(head+this.vdMonthBar()+this.vdRiskBand()
+      +'<div style="margin-top:4px">'+this.buildRisks().__html+'</div>');
+
+    const card=(tone,icon,label,value,sub,found)=>
+      '<div class="vd-al vd-al-lock" style="--al:'+tone+'">'
+      +'<span class="vd-al-top"><span class="vd-al-ic">'+icon+'</span>'
+      +'<span class="vd-al-l">'+label+'</span></span>'
+      +'<span class="vd-al-v vd-blur">'+value+'</span>'
+      +'<span class="vd-al-s vd-blur">'+sub+'</span>'
+      +'<span class="vd-al-found">'+found+'</span></div>';
+
+    const I=k=>'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      +' stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+k+'</svg>';
+
+    return this.html(head+this.vdMonthBar()
+      +'<div class="vd-al-wrap">'
+      +card('var(--danger)',I('<path d="M3 7l6 6 4-4 8 8"/><path d="M21 17v-6h-6"/>'),
+            t('Selgere i minus','Sellers in the red'),this.vnum(T.inMinus),
+            t('av 4 selgere','of 4 sellers'),
+            this.vnum(R.margin.length)+' '+t('funn','found'))
+      +card('var(--amber)',I('<rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/>'),
+            t('Oppgjørseksponering','Settlement exposure'),this.vkr(T.exposure),
+            t('ved oppsigelse i dag','if someone left today'),
+            this.vnum(R.settlement.length)+' '+t('selgere','sellers'))
+      +card('var(--amber)',I('<path d="M12 3l8 3.5v5c0 5-3.4 8.6-8 9.5-4.6-.9-8-4.5-8-9.5v-5L12 3z"/>'),
+            t('NAV i faresonen','NAV at risk'),this.vkr(T.navAtRisk),
+            t('forventet mot mottatt','expected vs received'),
+            this.vnum(navCount)+' '+t('funn','found'))
+      +'</div>'
+      +'<div class="vd-gate">'
+      +'<div class="vd-gate-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"'
+      +' stroke="currentColor" stroke-width="1.9"><rect x="4" y="11" width="16" height="9" rx="2"/>'
+      +'<path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>'
+      +'<div class="vd-gate-t"><div class="vd-gate-h">'
+      +t('Lås opp varsler','Unlock alerts')+'</div>'
+      +'<div class="vd-gate-b">'
+      +t('Clario leser arbeidsboken hver natt og flagger selgere som går i minus, beløp som står '
+        +'i spill ved en oppsigelse, og NAV-penger dere ikke har fått. Varsler er en del av Premium.',
+         'Clario reads the workbook every night and flags sellers going into the red, money at stake '
+        +'if someone resigns, and NAV refunds you never received. Alerts are part of Premium.')
+      +'</div></div>'
+      +'<div class="vd-gate-a"><div class="vd-gate-p">kr 8 000 <span>/ '+t('mnd','mo')+'</span></div>'
+      +'<div class="vd-gate-ps">'+t('per selskap · si opp når som helst','per company · cancel anytime')+'</div>'
+      +'<button class="vd-gate-cta" data-vd-act="premium" data-vd-val="1">'
+      +t('Bli premium-medlem','Become a premium member')+'</button>'
+      +'<button class="vd-gate-alt" data-vd-act="goto" data-vd-val="Recommendations">'
+      +t('Se hva Premium gir','See what Premium includes')+' →</button>'
+      +'<div class="vd-gate-demo">'
+      +t('Demo — knappen låser opp umiddelbart, ingen betaling',
+         'Demo — the button unlocks immediately, no payment')+'</div>'
+      +'</div></div>'); }
 
   buildRisks(){
     const R=this.vdRisks(), M=this.vdModel(), t=(a,b)=>this.t(a,b);
@@ -7264,8 +7429,7 @@ class Component extends DCLogic {
   buildVenditusOverview(){
     const M=this.vdModel(); if(!M||!M.months.length) return this.html('');
     const month=this.vdMonth();
-    return this.html(this.vdRiskBand()
-      +this.vdSellerBar(month)
+    return this.html(this.vdSellerBar(month)
       +this.buildCascade(month)
       +'<div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">'
       +this.buildSellerRank(month)+this.buildAbsenceTrend()+'</div>'
@@ -7751,7 +7915,7 @@ class Component extends DCLogic {
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
-    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._c={}; this.forceUpdate(); });
+    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._c={}; this.forceUpdate(); });
 
     const parse=(raw,kind)=>{
       const s=String(raw).replace(/\s| |kr/gi,'').replace(',','.');
@@ -7825,6 +7989,7 @@ class Component extends DCLogic {
         tr.querySelectorAll('.vd-c').forEach(cc=>{ cc.classList.add('vd-pulse');
           setTimeout(()=>cc.classList.remove('vd-pulse'),2700); });
       }
+      else if(act==='premium'){ this._c={}; this.setState({premium:true}); }
       else if(act==='goto'){ this.vdPickClose(); this.setState({active:val}); }
       else if(act==='gosheet'){ this.vdPickClose(); this.setState({active:'Inndata',vdSheet:val}); }
       else if(act==='unfocus'){ this.vdPickClose(); this.setState({vdFocus:{}}); }

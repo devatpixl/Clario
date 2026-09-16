@@ -501,11 +501,12 @@
     return months.slice(Math.max(0, i - count + 1), i + 1);
   }
 
-  function risks(model, dataset, today) {
+  function risks(model, dataset, today, month) {
     var config = model.config || {};
     var months = model.months || [];
-    if (!months.length) return { margin: [], settlement: [], nav: [], totals: {} };
-    var last = months[months.length - 1];
+    if (!months.length) return { margin: [], settlement: [], nav: [], refundGap: [], totals: {} };
+    // the month under inspection, so the page's month picker drives the alerts
+    var last = (month && model.byMonth[month]) ? month : months[months.length - 1];
     var floorPct = n(config.marginAlert) * 100;      // stored as a rate
     var warnDays = n(config.navWarnDays) || 30;
     var window = Math.max(1, Math.round(n(config.deductionPeriod) || 3));
