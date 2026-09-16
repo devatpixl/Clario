@@ -40,15 +40,21 @@ def dump(path):
         cells = {}
         for row in ws.iter_rows():
             for cell in row:
-                if cell.value is None:
+                role = cell_role(cell)
+                # An empty cell that carries a fill is still telling us
+                # something: it is a slot the workbook expects to be filled,
+                # and by whom. PHONERO RAPPORT is entirely empty and entirely
+                # orange — drop those and the sheet loses its own instructions.
+                if cell.value is None and not role:
                     continue
                 entry = {}
                 value = cell.value
-                if isinstance(value, str) and value.startswith('='):
+                if value is None:
+                    pass
+                elif isinstance(value, str) and value.startswith('='):
                     entry['f'] = value
                 else:
                     entry['v'] = value.isoformat() if hasattr(value, 'isoformat') else value
-                role = cell_role(cell)
                 if role:
                     entry['r'] = role
                 fmt = cell.number_format

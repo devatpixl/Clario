@@ -110,6 +110,11 @@
     return (c && c.r) || null;
   };
 
+  Sheet.prototype.hasFormula = function (ref) {
+    var c = this.cells && this.cells[ref];
+    return !!(c && c.f !== undefined);
+  };
+
   /* ── parse ────────────────────────────────────────────────────────────── */
 
   function parse(raw, mapping) {
@@ -138,8 +143,10 @@
 
     var config = parseConfig(raw, mapping, note);
     var tables = {};
+    var colRoles = {};
     Object.keys(mapping.tables).forEach(function (key) {
       tables[key] = parseTable(raw, mapping.tables[key], key, note);
+      colRoles[key] = columnRoles(raw, mapping.tables[key]);
     });
 
     crossCheck(tables, note);
@@ -161,6 +168,7 @@
         navSubsidy: tables.navSubsidy,
         navSickRefund: tables.navSickRefund,
         agaQuarters: tables.agaQuarters,
+        _colRoles: colRoles,
         months: Object.keys(months).sort()
       },
       diagnostics: diagnostics
@@ -242,6 +250,11 @@
         .reduce(function (a, k) { return a + (config[k] || 0); }, 0);
     }
 
+    // Alert thresholds: zero margin is the floor that matters, and a month is
+    // enough notice to reapply for a subsidy. Both editable in KONFIGURASJON.
+    if (config.marginAlert === null || config.marginAlert === undefined) config.marginAlert = 0;
+    if (config.navWarnDays === null || config.navWarnDays === undefined) config.navWarnDays = 30;
+
     // The workbook has no field for what share of the pack revenue a seller
     // keeps, which is why its revenue and commission collapse into one number.
     // Seed defaults per contract type so margin is computable, and flag it.
@@ -252,6 +265,43 @@
       '(65 / 50 / 35 %) — editable in Inndata, and needs Kian\'s confirmation.');
 
     return config;
+  }
+
+  /* Which columns a user may type into is not ours to decide — the workbook
+     says so in the fill colour of every cell, and the legend in KONFIGURASJON
+     spells the code out. Read it per column rather than assuming, so an
+     imported file classifies itself instead of inheriting our guesses.
+
+       yellow  -> input      the user fills this in
+       orange  -> external   comes from Phonero / NAV / Tripletex
+       green   -> computed   a formula owns it
+       pink / navy           BEREGNING's own sub-shades: still computed
+  */
+  var ROLE_FOLD = { input: 'input', external: 'external', computed: 'computed',
+                    absence: 'computed', key: 'computed' };
+
+  function columnRoles(raw, def) {
+    var sheet = new Sheet(raw, def.sheet);
+    var out = {};
+    if (sheet.missing) return out;
+    Object.keys(def.cols).forEach(function (field) {
+      var col = def.cols[field].col;
+      var tally = {}, formulas = 0, seen = 0;
+      for (var r = def.firstRow; r <= def.lastRow; r++) {
+        var ref = col + r;
+        if (sheet.hasFormula(ref)) formulas++;
+        var role = ROLE_FOLD[sheet.role(ref)];
+        if (!role) continue;
+        tally[role] = (tally[role] || 0) + 1;
+        seen++;
+      }
+      // A formula owns its cell whatever colour it wears.
+      if (formulas > seen / 2) { out[field] = 'computed'; return; }
+      var best = null;
+      Object.keys(tally).forEach(function (k) { if (!best || tally[k] > tally[best]) best = k; });
+      if (best) out[field] = best;
+    });
+    return out;
   }
 
   function parseTable(raw, def, key, note) {

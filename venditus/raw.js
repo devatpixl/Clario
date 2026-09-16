@@ -447,6 +447,9 @@ window.VENDITUS_RAW = {
      "v": "JA",
      "r": "input"
     },
+    "F4": {
+     "r": "input"
+    },
     "G4": {
      "v": "Leder",
      "r": "input"
@@ -471,6 +474,12 @@ window.VENDITUS_RAW = {
      "v": "JA",
      "r": "input"
     },
+    "F5": {
+     "r": "input"
+    },
+    "G5": {
+     "r": "input"
+    },
     "A6": {
      "v": "Danish Y",
      "r": "input"
@@ -491,6 +500,12 @@ window.VENDITUS_RAW = {
      "v": "JA",
      "r": "input"
     },
+    "F6": {
+     "r": "input"
+    },
+    "G6": {
+     "r": "input"
+    },
     "A7": {
      "v": "Ansatt 4",
      "r": "input"
@@ -509,6 +524,348 @@ window.VENDITUS_RAW = {
     },
     "E7": {
      "v": "JA",
+     "r": "input"
+    },
+    "F7": {
+     "r": "input"
+    },
+    "G7": {
+     "r": "input"
+    },
+    "A8": {
+     "r": "input"
+    },
+    "B8": {
+     "r": "input"
+    },
+    "C8": {
+     "r": "input"
+    },
+    "D8": {
+     "r": "input"
+    },
+    "E8": {
+     "r": "input"
+    },
+    "F8": {
+     "r": "input"
+    },
+    "G8": {
+     "r": "input"
+    },
+    "A9": {
+     "r": "input"
+    },
+    "B9": {
+     "r": "input"
+    },
+    "C9": {
+     "r": "input"
+    },
+    "D9": {
+     "r": "input"
+    },
+    "E9": {
+     "r": "input"
+    },
+    "F9": {
+     "r": "input"
+    },
+    "G9": {
+     "r": "input"
+    },
+    "A10": {
+     "r": "input"
+    },
+    "B10": {
+     "r": "input"
+    },
+    "C10": {
+     "r": "input"
+    },
+    "D10": {
+     "r": "input"
+    },
+    "E10": {
+     "r": "input"
+    },
+    "F10": {
+     "r": "input"
+    },
+    "G10": {
+     "r": "input"
+    },
+    "A11": {
+     "r": "input"
+    },
+    "B11": {
+     "r": "input"
+    },
+    "C11": {
+     "r": "input"
+    },
+    "D11": {
+     "r": "input"
+    },
+    "E11": {
+     "r": "input"
+    },
+    "F11": {
+     "r": "input"
+    },
+    "G11": {
+     "r": "input"
+    },
+    "A12": {
+     "r": "input"
+    },
+    "B12": {
+     "r": "input"
+    },
+    "C12": {
+     "r": "input"
+    },
+    "D12": {
+     "r": "input"
+    },
+    "E12": {
+     "r": "input"
+    },
+    "F12": {
+     "r": "input"
+    },
+    "G12": {
+     "r": "input"
+    },
+    "A13": {
+     "r": "input"
+    },
+    "B13": {
+     "r": "input"
+    },
+    "C13": {
+     "r": "input"
+    },
+    "D13": {
+     "r": "input"
+    },
+    "E13": {
+     "r": "input"
+    },
+    "F13": {
+     "r": "input"
+    },
+    "G13": {
+     "r": "input"
+    },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
+    },
+    "C14": {
+     "r": "input"
+    },
+    "D14": {
+     "r": "input"
+    },
+    "E14": {
+     "r": "input"
+    },
+    "F14": {
+     "r": "input"
+    },
+    "G14": {
+     "r": "input"
+    },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
+    },
+    "C15": {
+     "r": "input"
+    },
+    "D15": {
+     "r": "input"
+    },
+    "E15": {
+     "r": "input"
+    },
+    "F15": {
+     "r": "input"
+    },
+    "G15": {
+     "r": "input"
+    },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
+    },
+    "C16": {
+     "r": "input"
+    },
+    "D16": {
+     "r": "input"
+    },
+    "E16": {
+     "r": "input"
+    },
+    "F16": {
+     "r": "input"
+    },
+    "G16": {
+     "r": "input"
+    },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
+    },
+    "C17": {
+     "r": "input"
+    },
+    "D17": {
+     "r": "input"
+    },
+    "E17": {
+     "r": "input"
+    },
+    "F17": {
+     "r": "input"
+    },
+    "G17": {
+     "r": "input"
+    },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
+    },
+    "C18": {
+     "r": "input"
+    },
+    "D18": {
+     "r": "input"
+    },
+    "E18": {
+     "r": "input"
+    },
+    "F18": {
+     "r": "input"
+    },
+    "G18": {
+     "r": "input"
+    },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
+    },
+    "C19": {
+     "r": "input"
+    },
+    "D19": {
+     "r": "input"
+    },
+    "E19": {
+     "r": "input"
+    },
+    "F19": {
+     "r": "input"
+    },
+    "G19": {
+     "r": "input"
+    },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
+    },
+    "C20": {
+     "r": "input"
+    },
+    "D20": {
+     "r": "input"
+    },
+    "E20": {
+     "r": "input"
+    },
+    "F20": {
+     "r": "input"
+    },
+    "G20": {
+     "r": "input"
+    },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
+    },
+    "C21": {
+     "r": "input"
+    },
+    "D21": {
+     "r": "input"
+    },
+    "E21": {
+     "r": "input"
+    },
+    "F21": {
+     "r": "input"
+    },
+    "G21": {
+     "r": "input"
+    },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
+    },
+    "C22": {
+     "r": "input"
+    },
+    "D22": {
+     "r": "input"
+    },
+    "E22": {
+     "r": "input"
+    },
+    "F22": {
+     "r": "input"
+    },
+    "G22": {
+     "r": "input"
+    },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
+    },
+    "C23": {
+     "r": "input"
+    },
+    "D23": {
+     "r": "input"
+    },
+    "E23": {
+     "r": "input"
+    },
+    "F23": {
+     "r": "input"
+    },
+    "G23": {
      "r": "input"
     },
     "A25": {
@@ -601,6 +958,2206 @@ window.VENDITUS_RAW = {
     },
     "N4": {
      "v": "Clawback\nreversert (kr)\n← Phonero"
+    },
+    "A5": {
+     "r": "external"
+    },
+    "B5": {
+     "r": "external"
+    },
+    "C5": {
+     "r": "external"
+    },
+    "D5": {
+     "r": "external"
+    },
+    "E5": {
+     "r": "external"
+    },
+    "F5": {
+     "r": "external"
+    },
+    "G5": {
+     "r": "external"
+    },
+    "H5": {
+     "r": "external"
+    },
+    "I5": {
+     "r": "external"
+    },
+    "J5": {
+     "r": "external"
+    },
+    "K5": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L5": {
+     "r": "external"
+    },
+    "M5": {
+     "r": "external"
+    },
+    "N5": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A6": {
+     "r": "external"
+    },
+    "B6": {
+     "r": "external"
+    },
+    "C6": {
+     "r": "external"
+    },
+    "D6": {
+     "r": "external"
+    },
+    "E6": {
+     "r": "external"
+    },
+    "F6": {
+     "r": "external"
+    },
+    "G6": {
+     "r": "external"
+    },
+    "H6": {
+     "r": "external"
+    },
+    "I6": {
+     "r": "external"
+    },
+    "J6": {
+     "r": "external"
+    },
+    "K6": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L6": {
+     "r": "external"
+    },
+    "M6": {
+     "r": "external"
+    },
+    "N6": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A7": {
+     "r": "external"
+    },
+    "B7": {
+     "r": "external"
+    },
+    "C7": {
+     "r": "external"
+    },
+    "D7": {
+     "r": "external"
+    },
+    "E7": {
+     "r": "external"
+    },
+    "F7": {
+     "r": "external"
+    },
+    "G7": {
+     "r": "external"
+    },
+    "H7": {
+     "r": "external"
+    },
+    "I7": {
+     "r": "external"
+    },
+    "J7": {
+     "r": "external"
+    },
+    "K7": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L7": {
+     "r": "external"
+    },
+    "M7": {
+     "r": "external"
+    },
+    "N7": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A8": {
+     "r": "external"
+    },
+    "B8": {
+     "r": "external"
+    },
+    "C8": {
+     "r": "external"
+    },
+    "D8": {
+     "r": "external"
+    },
+    "E8": {
+     "r": "external"
+    },
+    "F8": {
+     "r": "external"
+    },
+    "G8": {
+     "r": "external"
+    },
+    "H8": {
+     "r": "external"
+    },
+    "I8": {
+     "r": "external"
+    },
+    "J8": {
+     "r": "external"
+    },
+    "K8": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L8": {
+     "r": "external"
+    },
+    "M8": {
+     "r": "external"
+    },
+    "N8": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A9": {
+     "r": "external"
+    },
+    "B9": {
+     "r": "external"
+    },
+    "C9": {
+     "r": "external"
+    },
+    "D9": {
+     "r": "external"
+    },
+    "E9": {
+     "r": "external"
+    },
+    "F9": {
+     "r": "external"
+    },
+    "G9": {
+     "r": "external"
+    },
+    "H9": {
+     "r": "external"
+    },
+    "I9": {
+     "r": "external"
+    },
+    "J9": {
+     "r": "external"
+    },
+    "K9": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L9": {
+     "r": "external"
+    },
+    "M9": {
+     "r": "external"
+    },
+    "N9": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A10": {
+     "r": "external"
+    },
+    "B10": {
+     "r": "external"
+    },
+    "C10": {
+     "r": "external"
+    },
+    "D10": {
+     "r": "external"
+    },
+    "E10": {
+     "r": "external"
+    },
+    "F10": {
+     "r": "external"
+    },
+    "G10": {
+     "r": "external"
+    },
+    "H10": {
+     "r": "external"
+    },
+    "I10": {
+     "r": "external"
+    },
+    "J10": {
+     "r": "external"
+    },
+    "K10": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L10": {
+     "r": "external"
+    },
+    "M10": {
+     "r": "external"
+    },
+    "N10": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A11": {
+     "r": "external"
+    },
+    "B11": {
+     "r": "external"
+    },
+    "C11": {
+     "r": "external"
+    },
+    "D11": {
+     "r": "external"
+    },
+    "E11": {
+     "r": "external"
+    },
+    "F11": {
+     "r": "external"
+    },
+    "G11": {
+     "r": "external"
+    },
+    "H11": {
+     "r": "external"
+    },
+    "I11": {
+     "r": "external"
+    },
+    "J11": {
+     "r": "external"
+    },
+    "K11": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L11": {
+     "r": "external"
+    },
+    "M11": {
+     "r": "external"
+    },
+    "N11": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A12": {
+     "r": "external"
+    },
+    "B12": {
+     "r": "external"
+    },
+    "C12": {
+     "r": "external"
+    },
+    "D12": {
+     "r": "external"
+    },
+    "E12": {
+     "r": "external"
+    },
+    "F12": {
+     "r": "external"
+    },
+    "G12": {
+     "r": "external"
+    },
+    "H12": {
+     "r": "external"
+    },
+    "I12": {
+     "r": "external"
+    },
+    "J12": {
+     "r": "external"
+    },
+    "K12": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L12": {
+     "r": "external"
+    },
+    "M12": {
+     "r": "external"
+    },
+    "N12": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A13": {
+     "r": "external"
+    },
+    "B13": {
+     "r": "external"
+    },
+    "C13": {
+     "r": "external"
+    },
+    "D13": {
+     "r": "external"
+    },
+    "E13": {
+     "r": "external"
+    },
+    "F13": {
+     "r": "external"
+    },
+    "G13": {
+     "r": "external"
+    },
+    "H13": {
+     "r": "external"
+    },
+    "I13": {
+     "r": "external"
+    },
+    "J13": {
+     "r": "external"
+    },
+    "K13": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L13": {
+     "r": "external"
+    },
+    "M13": {
+     "r": "external"
+    },
+    "N13": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A14": {
+     "r": "external"
+    },
+    "B14": {
+     "r": "external"
+    },
+    "C14": {
+     "r": "external"
+    },
+    "D14": {
+     "r": "external"
+    },
+    "E14": {
+     "r": "external"
+    },
+    "F14": {
+     "r": "external"
+    },
+    "G14": {
+     "r": "external"
+    },
+    "H14": {
+     "r": "external"
+    },
+    "I14": {
+     "r": "external"
+    },
+    "J14": {
+     "r": "external"
+    },
+    "K14": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L14": {
+     "r": "external"
+    },
+    "M14": {
+     "r": "external"
+    },
+    "N14": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A15": {
+     "r": "external"
+    },
+    "B15": {
+     "r": "external"
+    },
+    "C15": {
+     "r": "external"
+    },
+    "D15": {
+     "r": "external"
+    },
+    "E15": {
+     "r": "external"
+    },
+    "F15": {
+     "r": "external"
+    },
+    "G15": {
+     "r": "external"
+    },
+    "H15": {
+     "r": "external"
+    },
+    "I15": {
+     "r": "external"
+    },
+    "J15": {
+     "r": "external"
+    },
+    "K15": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L15": {
+     "r": "external"
+    },
+    "M15": {
+     "r": "external"
+    },
+    "N15": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A16": {
+     "r": "external"
+    },
+    "B16": {
+     "r": "external"
+    },
+    "C16": {
+     "r": "external"
+    },
+    "D16": {
+     "r": "external"
+    },
+    "E16": {
+     "r": "external"
+    },
+    "F16": {
+     "r": "external"
+    },
+    "G16": {
+     "r": "external"
+    },
+    "H16": {
+     "r": "external"
+    },
+    "I16": {
+     "r": "external"
+    },
+    "J16": {
+     "r": "external"
+    },
+    "K16": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L16": {
+     "r": "external"
+    },
+    "M16": {
+     "r": "external"
+    },
+    "N16": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A17": {
+     "r": "external"
+    },
+    "B17": {
+     "r": "external"
+    },
+    "C17": {
+     "r": "external"
+    },
+    "D17": {
+     "r": "external"
+    },
+    "E17": {
+     "r": "external"
+    },
+    "F17": {
+     "r": "external"
+    },
+    "G17": {
+     "r": "external"
+    },
+    "H17": {
+     "r": "external"
+    },
+    "I17": {
+     "r": "external"
+    },
+    "J17": {
+     "r": "external"
+    },
+    "K17": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L17": {
+     "r": "external"
+    },
+    "M17": {
+     "r": "external"
+    },
+    "N17": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A18": {
+     "r": "external"
+    },
+    "B18": {
+     "r": "external"
+    },
+    "C18": {
+     "r": "external"
+    },
+    "D18": {
+     "r": "external"
+    },
+    "E18": {
+     "r": "external"
+    },
+    "F18": {
+     "r": "external"
+    },
+    "G18": {
+     "r": "external"
+    },
+    "H18": {
+     "r": "external"
+    },
+    "I18": {
+     "r": "external"
+    },
+    "J18": {
+     "r": "external"
+    },
+    "K18": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L18": {
+     "r": "external"
+    },
+    "M18": {
+     "r": "external"
+    },
+    "N18": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A19": {
+     "r": "external"
+    },
+    "B19": {
+     "r": "external"
+    },
+    "C19": {
+     "r": "external"
+    },
+    "D19": {
+     "r": "external"
+    },
+    "E19": {
+     "r": "external"
+    },
+    "F19": {
+     "r": "external"
+    },
+    "G19": {
+     "r": "external"
+    },
+    "H19": {
+     "r": "external"
+    },
+    "I19": {
+     "r": "external"
+    },
+    "J19": {
+     "r": "external"
+    },
+    "K19": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L19": {
+     "r": "external"
+    },
+    "M19": {
+     "r": "external"
+    },
+    "N19": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A20": {
+     "r": "external"
+    },
+    "B20": {
+     "r": "external"
+    },
+    "C20": {
+     "r": "external"
+    },
+    "D20": {
+     "r": "external"
+    },
+    "E20": {
+     "r": "external"
+    },
+    "F20": {
+     "r": "external"
+    },
+    "G20": {
+     "r": "external"
+    },
+    "H20": {
+     "r": "external"
+    },
+    "I20": {
+     "r": "external"
+    },
+    "J20": {
+     "r": "external"
+    },
+    "K20": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L20": {
+     "r": "external"
+    },
+    "M20": {
+     "r": "external"
+    },
+    "N20": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A21": {
+     "r": "external"
+    },
+    "B21": {
+     "r": "external"
+    },
+    "C21": {
+     "r": "external"
+    },
+    "D21": {
+     "r": "external"
+    },
+    "E21": {
+     "r": "external"
+    },
+    "F21": {
+     "r": "external"
+    },
+    "G21": {
+     "r": "external"
+    },
+    "H21": {
+     "r": "external"
+    },
+    "I21": {
+     "r": "external"
+    },
+    "J21": {
+     "r": "external"
+    },
+    "K21": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L21": {
+     "r": "external"
+    },
+    "M21": {
+     "r": "external"
+    },
+    "N21": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A22": {
+     "r": "external"
+    },
+    "B22": {
+     "r": "external"
+    },
+    "C22": {
+     "r": "external"
+    },
+    "D22": {
+     "r": "external"
+    },
+    "E22": {
+     "r": "external"
+    },
+    "F22": {
+     "r": "external"
+    },
+    "G22": {
+     "r": "external"
+    },
+    "H22": {
+     "r": "external"
+    },
+    "I22": {
+     "r": "external"
+    },
+    "J22": {
+     "r": "external"
+    },
+    "K22": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L22": {
+     "r": "external"
+    },
+    "M22": {
+     "r": "external"
+    },
+    "N22": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A23": {
+     "r": "external"
+    },
+    "B23": {
+     "r": "external"
+    },
+    "C23": {
+     "r": "external"
+    },
+    "D23": {
+     "r": "external"
+    },
+    "E23": {
+     "r": "external"
+    },
+    "F23": {
+     "r": "external"
+    },
+    "G23": {
+     "r": "external"
+    },
+    "H23": {
+     "r": "external"
+    },
+    "I23": {
+     "r": "external"
+    },
+    "J23": {
+     "r": "external"
+    },
+    "K23": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L23": {
+     "r": "external"
+    },
+    "M23": {
+     "r": "external"
+    },
+    "N23": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A24": {
+     "r": "external"
+    },
+    "B24": {
+     "r": "external"
+    },
+    "C24": {
+     "r": "external"
+    },
+    "D24": {
+     "r": "external"
+    },
+    "E24": {
+     "r": "external"
+    },
+    "F24": {
+     "r": "external"
+    },
+    "G24": {
+     "r": "external"
+    },
+    "H24": {
+     "r": "external"
+    },
+    "I24": {
+     "r": "external"
+    },
+    "J24": {
+     "r": "external"
+    },
+    "K24": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L24": {
+     "r": "external"
+    },
+    "M24": {
+     "r": "external"
+    },
+    "N24": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A25": {
+     "r": "external"
+    },
+    "B25": {
+     "r": "external"
+    },
+    "C25": {
+     "r": "external"
+    },
+    "D25": {
+     "r": "external"
+    },
+    "E25": {
+     "r": "external"
+    },
+    "F25": {
+     "r": "external"
+    },
+    "G25": {
+     "r": "external"
+    },
+    "H25": {
+     "r": "external"
+    },
+    "I25": {
+     "r": "external"
+    },
+    "J25": {
+     "r": "external"
+    },
+    "K25": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L25": {
+     "r": "external"
+    },
+    "M25": {
+     "r": "external"
+    },
+    "N25": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A26": {
+     "r": "external"
+    },
+    "B26": {
+     "r": "external"
+    },
+    "C26": {
+     "r": "external"
+    },
+    "D26": {
+     "r": "external"
+    },
+    "E26": {
+     "r": "external"
+    },
+    "F26": {
+     "r": "external"
+    },
+    "G26": {
+     "r": "external"
+    },
+    "H26": {
+     "r": "external"
+    },
+    "I26": {
+     "r": "external"
+    },
+    "J26": {
+     "r": "external"
+    },
+    "K26": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L26": {
+     "r": "external"
+    },
+    "M26": {
+     "r": "external"
+    },
+    "N26": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A27": {
+     "r": "external"
+    },
+    "B27": {
+     "r": "external"
+    },
+    "C27": {
+     "r": "external"
+    },
+    "D27": {
+     "r": "external"
+    },
+    "E27": {
+     "r": "external"
+    },
+    "F27": {
+     "r": "external"
+    },
+    "G27": {
+     "r": "external"
+    },
+    "H27": {
+     "r": "external"
+    },
+    "I27": {
+     "r": "external"
+    },
+    "J27": {
+     "r": "external"
+    },
+    "K27": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L27": {
+     "r": "external"
+    },
+    "M27": {
+     "r": "external"
+    },
+    "N27": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A28": {
+     "r": "external"
+    },
+    "B28": {
+     "r": "external"
+    },
+    "C28": {
+     "r": "external"
+    },
+    "D28": {
+     "r": "external"
+    },
+    "E28": {
+     "r": "external"
+    },
+    "F28": {
+     "r": "external"
+    },
+    "G28": {
+     "r": "external"
+    },
+    "H28": {
+     "r": "external"
+    },
+    "I28": {
+     "r": "external"
+    },
+    "J28": {
+     "r": "external"
+    },
+    "K28": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L28": {
+     "r": "external"
+    },
+    "M28": {
+     "r": "external"
+    },
+    "N28": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A29": {
+     "r": "external"
+    },
+    "B29": {
+     "r": "external"
+    },
+    "C29": {
+     "r": "external"
+    },
+    "D29": {
+     "r": "external"
+    },
+    "E29": {
+     "r": "external"
+    },
+    "F29": {
+     "r": "external"
+    },
+    "G29": {
+     "r": "external"
+    },
+    "H29": {
+     "r": "external"
+    },
+    "I29": {
+     "r": "external"
+    },
+    "J29": {
+     "r": "external"
+    },
+    "K29": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L29": {
+     "r": "external"
+    },
+    "M29": {
+     "r": "external"
+    },
+    "N29": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A30": {
+     "r": "external"
+    },
+    "B30": {
+     "r": "external"
+    },
+    "C30": {
+     "r": "external"
+    },
+    "D30": {
+     "r": "external"
+    },
+    "E30": {
+     "r": "external"
+    },
+    "F30": {
+     "r": "external"
+    },
+    "G30": {
+     "r": "external"
+    },
+    "H30": {
+     "r": "external"
+    },
+    "I30": {
+     "r": "external"
+    },
+    "J30": {
+     "r": "external"
+    },
+    "K30": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L30": {
+     "r": "external"
+    },
+    "M30": {
+     "r": "external"
+    },
+    "N30": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A31": {
+     "r": "external"
+    },
+    "B31": {
+     "r": "external"
+    },
+    "C31": {
+     "r": "external"
+    },
+    "D31": {
+     "r": "external"
+    },
+    "E31": {
+     "r": "external"
+    },
+    "F31": {
+     "r": "external"
+    },
+    "G31": {
+     "r": "external"
+    },
+    "H31": {
+     "r": "external"
+    },
+    "I31": {
+     "r": "external"
+    },
+    "J31": {
+     "r": "external"
+    },
+    "K31": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L31": {
+     "r": "external"
+    },
+    "M31": {
+     "r": "external"
+    },
+    "N31": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A32": {
+     "r": "external"
+    },
+    "B32": {
+     "r": "external"
+    },
+    "C32": {
+     "r": "external"
+    },
+    "D32": {
+     "r": "external"
+    },
+    "E32": {
+     "r": "external"
+    },
+    "F32": {
+     "r": "external"
+    },
+    "G32": {
+     "r": "external"
+    },
+    "H32": {
+     "r": "external"
+    },
+    "I32": {
+     "r": "external"
+    },
+    "J32": {
+     "r": "external"
+    },
+    "K32": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L32": {
+     "r": "external"
+    },
+    "M32": {
+     "r": "external"
+    },
+    "N32": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A33": {
+     "r": "external"
+    },
+    "B33": {
+     "r": "external"
+    },
+    "C33": {
+     "r": "external"
+    },
+    "D33": {
+     "r": "external"
+    },
+    "E33": {
+     "r": "external"
+    },
+    "F33": {
+     "r": "external"
+    },
+    "G33": {
+     "r": "external"
+    },
+    "H33": {
+     "r": "external"
+    },
+    "I33": {
+     "r": "external"
+    },
+    "J33": {
+     "r": "external"
+    },
+    "K33": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L33": {
+     "r": "external"
+    },
+    "M33": {
+     "r": "external"
+    },
+    "N33": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A34": {
+     "r": "external"
+    },
+    "B34": {
+     "r": "external"
+    },
+    "C34": {
+     "r": "external"
+    },
+    "D34": {
+     "r": "external"
+    },
+    "E34": {
+     "r": "external"
+    },
+    "F34": {
+     "r": "external"
+    },
+    "G34": {
+     "r": "external"
+    },
+    "H34": {
+     "r": "external"
+    },
+    "I34": {
+     "r": "external"
+    },
+    "J34": {
+     "r": "external"
+    },
+    "K34": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L34": {
+     "r": "external"
+    },
+    "M34": {
+     "r": "external"
+    },
+    "N34": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A35": {
+     "r": "external"
+    },
+    "B35": {
+     "r": "external"
+    },
+    "C35": {
+     "r": "external"
+    },
+    "D35": {
+     "r": "external"
+    },
+    "E35": {
+     "r": "external"
+    },
+    "F35": {
+     "r": "external"
+    },
+    "G35": {
+     "r": "external"
+    },
+    "H35": {
+     "r": "external"
+    },
+    "I35": {
+     "r": "external"
+    },
+    "J35": {
+     "r": "external"
+    },
+    "K35": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L35": {
+     "r": "external"
+    },
+    "M35": {
+     "r": "external"
+    },
+    "N35": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A36": {
+     "r": "external"
+    },
+    "B36": {
+     "r": "external"
+    },
+    "C36": {
+     "r": "external"
+    },
+    "D36": {
+     "r": "external"
+    },
+    "E36": {
+     "r": "external"
+    },
+    "F36": {
+     "r": "external"
+    },
+    "G36": {
+     "r": "external"
+    },
+    "H36": {
+     "r": "external"
+    },
+    "I36": {
+     "r": "external"
+    },
+    "J36": {
+     "r": "external"
+    },
+    "K36": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L36": {
+     "r": "external"
+    },
+    "M36": {
+     "r": "external"
+    },
+    "N36": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A37": {
+     "r": "external"
+    },
+    "B37": {
+     "r": "external"
+    },
+    "C37": {
+     "r": "external"
+    },
+    "D37": {
+     "r": "external"
+    },
+    "E37": {
+     "r": "external"
+    },
+    "F37": {
+     "r": "external"
+    },
+    "G37": {
+     "r": "external"
+    },
+    "H37": {
+     "r": "external"
+    },
+    "I37": {
+     "r": "external"
+    },
+    "J37": {
+     "r": "external"
+    },
+    "K37": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L37": {
+     "r": "external"
+    },
+    "M37": {
+     "r": "external"
+    },
+    "N37": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A38": {
+     "r": "external"
+    },
+    "B38": {
+     "r": "external"
+    },
+    "C38": {
+     "r": "external"
+    },
+    "D38": {
+     "r": "external"
+    },
+    "E38": {
+     "r": "external"
+    },
+    "F38": {
+     "r": "external"
+    },
+    "G38": {
+     "r": "external"
+    },
+    "H38": {
+     "r": "external"
+    },
+    "I38": {
+     "r": "external"
+    },
+    "J38": {
+     "r": "external"
+    },
+    "K38": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L38": {
+     "r": "external"
+    },
+    "M38": {
+     "r": "external"
+    },
+    "N38": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A39": {
+     "r": "external"
+    },
+    "B39": {
+     "r": "external"
+    },
+    "C39": {
+     "r": "external"
+    },
+    "D39": {
+     "r": "external"
+    },
+    "E39": {
+     "r": "external"
+    },
+    "F39": {
+     "r": "external"
+    },
+    "G39": {
+     "r": "external"
+    },
+    "H39": {
+     "r": "external"
+    },
+    "I39": {
+     "r": "external"
+    },
+    "J39": {
+     "r": "external"
+    },
+    "K39": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L39": {
+     "r": "external"
+    },
+    "M39": {
+     "r": "external"
+    },
+    "N39": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A40": {
+     "r": "external"
+    },
+    "B40": {
+     "r": "external"
+    },
+    "C40": {
+     "r": "external"
+    },
+    "D40": {
+     "r": "external"
+    },
+    "E40": {
+     "r": "external"
+    },
+    "F40": {
+     "r": "external"
+    },
+    "G40": {
+     "r": "external"
+    },
+    "H40": {
+     "r": "external"
+    },
+    "I40": {
+     "r": "external"
+    },
+    "J40": {
+     "r": "external"
+    },
+    "K40": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L40": {
+     "r": "external"
+    },
+    "M40": {
+     "r": "external"
+    },
+    "N40": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A41": {
+     "r": "external"
+    },
+    "B41": {
+     "r": "external"
+    },
+    "C41": {
+     "r": "external"
+    },
+    "D41": {
+     "r": "external"
+    },
+    "E41": {
+     "r": "external"
+    },
+    "F41": {
+     "r": "external"
+    },
+    "G41": {
+     "r": "external"
+    },
+    "H41": {
+     "r": "external"
+    },
+    "I41": {
+     "r": "external"
+    },
+    "J41": {
+     "r": "external"
+    },
+    "K41": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L41": {
+     "r": "external"
+    },
+    "M41": {
+     "r": "external"
+    },
+    "N41": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A42": {
+     "r": "external"
+    },
+    "B42": {
+     "r": "external"
+    },
+    "C42": {
+     "r": "external"
+    },
+    "D42": {
+     "r": "external"
+    },
+    "E42": {
+     "r": "external"
+    },
+    "F42": {
+     "r": "external"
+    },
+    "G42": {
+     "r": "external"
+    },
+    "H42": {
+     "r": "external"
+    },
+    "I42": {
+     "r": "external"
+    },
+    "J42": {
+     "r": "external"
+    },
+    "K42": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L42": {
+     "r": "external"
+    },
+    "M42": {
+     "r": "external"
+    },
+    "N42": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A43": {
+     "r": "external"
+    },
+    "B43": {
+     "r": "external"
+    },
+    "C43": {
+     "r": "external"
+    },
+    "D43": {
+     "r": "external"
+    },
+    "E43": {
+     "r": "external"
+    },
+    "F43": {
+     "r": "external"
+    },
+    "G43": {
+     "r": "external"
+    },
+    "H43": {
+     "r": "external"
+    },
+    "I43": {
+     "r": "external"
+    },
+    "J43": {
+     "r": "external"
+    },
+    "K43": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L43": {
+     "r": "external"
+    },
+    "M43": {
+     "r": "external"
+    },
+    "N43": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A44": {
+     "r": "external"
+    },
+    "B44": {
+     "r": "external"
+    },
+    "C44": {
+     "r": "external"
+    },
+    "D44": {
+     "r": "external"
+    },
+    "E44": {
+     "r": "external"
+    },
+    "F44": {
+     "r": "external"
+    },
+    "G44": {
+     "r": "external"
+    },
+    "H44": {
+     "r": "external"
+    },
+    "I44": {
+     "r": "external"
+    },
+    "J44": {
+     "r": "external"
+    },
+    "K44": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L44": {
+     "r": "external"
+    },
+    "M44": {
+     "r": "external"
+    },
+    "N44": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A45": {
+     "r": "external"
+    },
+    "B45": {
+     "r": "external"
+    },
+    "C45": {
+     "r": "external"
+    },
+    "D45": {
+     "r": "external"
+    },
+    "E45": {
+     "r": "external"
+    },
+    "F45": {
+     "r": "external"
+    },
+    "G45": {
+     "r": "external"
+    },
+    "H45": {
+     "r": "external"
+    },
+    "I45": {
+     "r": "external"
+    },
+    "J45": {
+     "r": "external"
+    },
+    "K45": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L45": {
+     "r": "external"
+    },
+    "M45": {
+     "r": "external"
+    },
+    "N45": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A46": {
+     "r": "external"
+    },
+    "B46": {
+     "r": "external"
+    },
+    "C46": {
+     "r": "external"
+    },
+    "D46": {
+     "r": "external"
+    },
+    "E46": {
+     "r": "external"
+    },
+    "F46": {
+     "r": "external"
+    },
+    "G46": {
+     "r": "external"
+    },
+    "H46": {
+     "r": "external"
+    },
+    "I46": {
+     "r": "external"
+    },
+    "J46": {
+     "r": "external"
+    },
+    "K46": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L46": {
+     "r": "external"
+    },
+    "M46": {
+     "r": "external"
+    },
+    "N46": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A47": {
+     "r": "external"
+    },
+    "B47": {
+     "r": "external"
+    },
+    "C47": {
+     "r": "external"
+    },
+    "D47": {
+     "r": "external"
+    },
+    "E47": {
+     "r": "external"
+    },
+    "F47": {
+     "r": "external"
+    },
+    "G47": {
+     "r": "external"
+    },
+    "H47": {
+     "r": "external"
+    },
+    "I47": {
+     "r": "external"
+    },
+    "J47": {
+     "r": "external"
+    },
+    "K47": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L47": {
+     "r": "external"
+    },
+    "M47": {
+     "r": "external"
+    },
+    "N47": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A48": {
+     "r": "external"
+    },
+    "B48": {
+     "r": "external"
+    },
+    "C48": {
+     "r": "external"
+    },
+    "D48": {
+     "r": "external"
+    },
+    "E48": {
+     "r": "external"
+    },
+    "F48": {
+     "r": "external"
+    },
+    "G48": {
+     "r": "external"
+    },
+    "H48": {
+     "r": "external"
+    },
+    "I48": {
+     "r": "external"
+    },
+    "J48": {
+     "r": "external"
+    },
+    "K48": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L48": {
+     "r": "external"
+    },
+    "M48": {
+     "r": "external"
+    },
+    "N48": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A49": {
+     "r": "external"
+    },
+    "B49": {
+     "r": "external"
+    },
+    "C49": {
+     "r": "external"
+    },
+    "D49": {
+     "r": "external"
+    },
+    "E49": {
+     "r": "external"
+    },
+    "F49": {
+     "r": "external"
+    },
+    "G49": {
+     "r": "external"
+    },
+    "H49": {
+     "r": "external"
+    },
+    "I49": {
+     "r": "external"
+    },
+    "J49": {
+     "r": "external"
+    },
+    "K49": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L49": {
+     "r": "external"
+    },
+    "M49": {
+     "r": "external"
+    },
+    "N49": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A50": {
+     "r": "external"
+    },
+    "B50": {
+     "r": "external"
+    },
+    "C50": {
+     "r": "external"
+    },
+    "D50": {
+     "r": "external"
+    },
+    "E50": {
+     "r": "external"
+    },
+    "F50": {
+     "r": "external"
+    },
+    "G50": {
+     "r": "external"
+    },
+    "H50": {
+     "r": "external"
+    },
+    "I50": {
+     "r": "external"
+    },
+    "J50": {
+     "r": "external"
+    },
+    "K50": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L50": {
+     "r": "external"
+    },
+    "M50": {
+     "r": "external"
+    },
+    "N50": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A51": {
+     "r": "external"
+    },
+    "B51": {
+     "r": "external"
+    },
+    "C51": {
+     "r": "external"
+    },
+    "D51": {
+     "r": "external"
+    },
+    "E51": {
+     "r": "external"
+    },
+    "F51": {
+     "r": "external"
+    },
+    "G51": {
+     "r": "external"
+    },
+    "H51": {
+     "r": "external"
+    },
+    "I51": {
+     "r": "external"
+    },
+    "J51": {
+     "r": "external"
+    },
+    "K51": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L51": {
+     "r": "external"
+    },
+    "M51": {
+     "r": "external"
+    },
+    "N51": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A52": {
+     "r": "external"
+    },
+    "B52": {
+     "r": "external"
+    },
+    "C52": {
+     "r": "external"
+    },
+    "D52": {
+     "r": "external"
+    },
+    "E52": {
+     "r": "external"
+    },
+    "F52": {
+     "r": "external"
+    },
+    "G52": {
+     "r": "external"
+    },
+    "H52": {
+     "r": "external"
+    },
+    "I52": {
+     "r": "external"
+    },
+    "J52": {
+     "r": "external"
+    },
+    "K52": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L52": {
+     "r": "external"
+    },
+    "M52": {
+     "r": "external"
+    },
+    "N52": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A53": {
+     "r": "external"
+    },
+    "B53": {
+     "r": "external"
+    },
+    "C53": {
+     "r": "external"
+    },
+    "D53": {
+     "r": "external"
+    },
+    "E53": {
+     "r": "external"
+    },
+    "F53": {
+     "r": "external"
+    },
+    "G53": {
+     "r": "external"
+    },
+    "H53": {
+     "r": "external"
+    },
+    "I53": {
+     "r": "external"
+    },
+    "J53": {
+     "r": "external"
+    },
+    "K53": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L53": {
+     "r": "external"
+    },
+    "M53": {
+     "r": "external"
+    },
+    "N53": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A54": {
+     "r": "external"
+    },
+    "B54": {
+     "r": "external"
+    },
+    "C54": {
+     "r": "external"
+    },
+    "D54": {
+     "r": "external"
+    },
+    "E54": {
+     "r": "external"
+    },
+    "F54": {
+     "r": "external"
+    },
+    "G54": {
+     "r": "external"
+    },
+    "H54": {
+     "r": "external"
+    },
+    "I54": {
+     "r": "external"
+    },
+    "J54": {
+     "r": "external"
+    },
+    "K54": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "L54": {
+     "r": "external"
+    },
+    "M54": {
+     "r": "external"
+    },
+    "N54": {
+     "r": "external",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "A56": {
      "v": "← PHONERO RAPPORT — lim inn månedlig. Provisjon og Clawback-kolonner hentes direkte fra Phonero.",
@@ -787,6 +3344,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A6": {
+     "r": "input"
+    },
+    "B6": {
+     "r": "input"
+    },
+    "C6": {
+     "r": "input"
+    },
+    "D6": {
+     "r": "input"
+    },
+    "E6": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F6": {
+     "r": "input"
+    },
+    "G6": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H6": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I6": {
+     "r": "input"
+    },
     "J6": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A6,'BONUS REGISTER'!B$5:B$58,B6),0)",
      "r": "computed",
@@ -815,6 +3402,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A7": {
+     "r": "input"
+    },
+    "B7": {
+     "r": "input"
+    },
+    "C7": {
+     "r": "input"
+    },
+    "D7": {
+     "r": "input"
+    },
+    "E7": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F7": {
+     "r": "input"
+    },
+    "G7": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H7": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I7": {
+     "r": "input"
     },
     "J7": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A7,'BONUS REGISTER'!B$5:B$58,B7),0)",
@@ -845,6 +3462,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A8": {
+     "r": "input"
+    },
+    "B8": {
+     "r": "input"
+    },
+    "C8": {
+     "r": "input"
+    },
+    "D8": {
+     "r": "input"
+    },
+    "E8": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F8": {
+     "r": "input"
+    },
+    "G8": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H8": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I8": {
+     "r": "input"
+    },
     "J8": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A8,'BONUS REGISTER'!B$5:B$58,B8),0)",
      "r": "computed",
@@ -873,6 +3520,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A9": {
+     "r": "input"
+    },
+    "B9": {
+     "r": "input"
+    },
+    "C9": {
+     "r": "input"
+    },
+    "D9": {
+     "r": "input"
+    },
+    "E9": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F9": {
+     "r": "input"
+    },
+    "G9": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H9": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I9": {
+     "r": "input"
     },
     "J9": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A9,'BONUS REGISTER'!B$5:B$58,B9),0)",
@@ -903,6 +3580,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A10": {
+     "r": "input"
+    },
+    "B10": {
+     "r": "input"
+    },
+    "C10": {
+     "r": "input"
+    },
+    "D10": {
+     "r": "input"
+    },
+    "E10": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F10": {
+     "r": "input"
+    },
+    "G10": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H10": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I10": {
+     "r": "input"
+    },
     "J10": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A10,'BONUS REGISTER'!B$5:B$58,B10),0)",
      "r": "computed",
@@ -931,6 +3638,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A11": {
+     "r": "input"
+    },
+    "B11": {
+     "r": "input"
+    },
+    "C11": {
+     "r": "input"
+    },
+    "D11": {
+     "r": "input"
+    },
+    "E11": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F11": {
+     "r": "input"
+    },
+    "G11": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H11": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I11": {
+     "r": "input"
     },
     "J11": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A11,'BONUS REGISTER'!B$5:B$58,B11),0)",
@@ -961,6 +3698,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A12": {
+     "r": "input"
+    },
+    "B12": {
+     "r": "input"
+    },
+    "C12": {
+     "r": "input"
+    },
+    "D12": {
+     "r": "input"
+    },
+    "E12": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F12": {
+     "r": "input"
+    },
+    "G12": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H12": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I12": {
+     "r": "input"
+    },
     "J12": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A12,'BONUS REGISTER'!B$5:B$58,B12),0)",
      "r": "computed",
@@ -989,6 +3756,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A13": {
+     "r": "input"
+    },
+    "B13": {
+     "r": "input"
+    },
+    "C13": {
+     "r": "input"
+    },
+    "D13": {
+     "r": "input"
+    },
+    "E13": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F13": {
+     "r": "input"
+    },
+    "G13": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H13": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I13": {
+     "r": "input"
     },
     "J13": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A13,'BONUS REGISTER'!B$5:B$58,B13),0)",
@@ -1019,6 +3816,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
+    },
+    "C14": {
+     "r": "input"
+    },
+    "D14": {
+     "r": "input"
+    },
+    "E14": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F14": {
+     "r": "input"
+    },
+    "G14": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H14": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I14": {
+     "r": "input"
+    },
     "J14": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A14,'BONUS REGISTER'!B$5:B$58,B14),0)",
      "r": "computed",
@@ -1047,6 +3874,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
+    },
+    "C15": {
+     "r": "input"
+    },
+    "D15": {
+     "r": "input"
+    },
+    "E15": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F15": {
+     "r": "input"
+    },
+    "G15": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H15": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I15": {
+     "r": "input"
     },
     "J15": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A15,'BONUS REGISTER'!B$5:B$58,B15),0)",
@@ -1077,6 +3934,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
+    },
+    "C16": {
+     "r": "input"
+    },
+    "D16": {
+     "r": "input"
+    },
+    "E16": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F16": {
+     "r": "input"
+    },
+    "G16": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H16": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I16": {
+     "r": "input"
+    },
     "J16": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A16,'BONUS REGISTER'!B$5:B$58,B16),0)",
      "r": "computed",
@@ -1105,6 +3992,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
+    },
+    "C17": {
+     "r": "input"
+    },
+    "D17": {
+     "r": "input"
+    },
+    "E17": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F17": {
+     "r": "input"
+    },
+    "G17": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H17": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I17": {
+     "r": "input"
     },
     "J17": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A17,'BONUS REGISTER'!B$5:B$58,B17),0)",
@@ -1135,6 +4052,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
+    },
+    "C18": {
+     "r": "input"
+    },
+    "D18": {
+     "r": "input"
+    },
+    "E18": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F18": {
+     "r": "input"
+    },
+    "G18": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H18": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I18": {
+     "r": "input"
+    },
     "J18": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A18,'BONUS REGISTER'!B$5:B$58,B18),0)",
      "r": "computed",
@@ -1163,6 +4110,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
+    },
+    "C19": {
+     "r": "input"
+    },
+    "D19": {
+     "r": "input"
+    },
+    "E19": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F19": {
+     "r": "input"
+    },
+    "G19": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H19": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I19": {
+     "r": "input"
     },
     "J19": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A19,'BONUS REGISTER'!B$5:B$58,B19),0)",
@@ -1193,6 +4170,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
+    },
+    "C20": {
+     "r": "input"
+    },
+    "D20": {
+     "r": "input"
+    },
+    "E20": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F20": {
+     "r": "input"
+    },
+    "G20": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H20": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I20": {
+     "r": "input"
+    },
     "J20": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A20,'BONUS REGISTER'!B$5:B$58,B20),0)",
      "r": "computed",
@@ -1221,6 +4228,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
+    },
+    "C21": {
+     "r": "input"
+    },
+    "D21": {
+     "r": "input"
+    },
+    "E21": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F21": {
+     "r": "input"
+    },
+    "G21": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H21": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I21": {
+     "r": "input"
     },
     "J21": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A21,'BONUS REGISTER'!B$5:B$58,B21),0)",
@@ -1251,6 +4288,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
+    },
+    "C22": {
+     "r": "input"
+    },
+    "D22": {
+     "r": "input"
+    },
+    "E22": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F22": {
+     "r": "input"
+    },
+    "G22": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H22": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I22": {
+     "r": "input"
+    },
     "J22": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A22,'BONUS REGISTER'!B$5:B$58,B22),0)",
      "r": "computed",
@@ -1279,6 +4346,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
+    },
+    "C23": {
+     "r": "input"
+    },
+    "D23": {
+     "r": "input"
+    },
+    "E23": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F23": {
+     "r": "input"
+    },
+    "G23": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H23": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I23": {
+     "r": "input"
     },
     "J23": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A23,'BONUS REGISTER'!B$5:B$58,B23),0)",
@@ -1309,6 +4406,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A24": {
+     "r": "input"
+    },
+    "B24": {
+     "r": "input"
+    },
+    "C24": {
+     "r": "input"
+    },
+    "D24": {
+     "r": "input"
+    },
+    "E24": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F24": {
+     "r": "input"
+    },
+    "G24": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H24": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I24": {
+     "r": "input"
+    },
     "J24": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A24,'BONUS REGISTER'!B$5:B$58,B24),0)",
      "r": "computed",
@@ -1337,6 +4464,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A25": {
+     "r": "input"
+    },
+    "B25": {
+     "r": "input"
+    },
+    "C25": {
+     "r": "input"
+    },
+    "D25": {
+     "r": "input"
+    },
+    "E25": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F25": {
+     "r": "input"
+    },
+    "G25": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H25": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I25": {
+     "r": "input"
     },
     "J25": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A25,'BONUS REGISTER'!B$5:B$58,B25),0)",
@@ -1367,6 +4524,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A26": {
+     "r": "input"
+    },
+    "B26": {
+     "r": "input"
+    },
+    "C26": {
+     "r": "input"
+    },
+    "D26": {
+     "r": "input"
+    },
+    "E26": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F26": {
+     "r": "input"
+    },
+    "G26": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H26": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I26": {
+     "r": "input"
+    },
     "J26": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A26,'BONUS REGISTER'!B$5:B$58,B26),0)",
      "r": "computed",
@@ -1395,6 +4582,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A27": {
+     "r": "input"
+    },
+    "B27": {
+     "r": "input"
+    },
+    "C27": {
+     "r": "input"
+    },
+    "D27": {
+     "r": "input"
+    },
+    "E27": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F27": {
+     "r": "input"
+    },
+    "G27": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H27": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I27": {
+     "r": "input"
     },
     "J27": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A27,'BONUS REGISTER'!B$5:B$58,B27),0)",
@@ -1425,6 +4642,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A28": {
+     "r": "input"
+    },
+    "B28": {
+     "r": "input"
+    },
+    "C28": {
+     "r": "input"
+    },
+    "D28": {
+     "r": "input"
+    },
+    "E28": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F28": {
+     "r": "input"
+    },
+    "G28": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H28": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I28": {
+     "r": "input"
+    },
     "J28": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A28,'BONUS REGISTER'!B$5:B$58,B28),0)",
      "r": "computed",
@@ -1453,6 +4700,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A29": {
+     "r": "input"
+    },
+    "B29": {
+     "r": "input"
+    },
+    "C29": {
+     "r": "input"
+    },
+    "D29": {
+     "r": "input"
+    },
+    "E29": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F29": {
+     "r": "input"
+    },
+    "G29": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H29": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I29": {
+     "r": "input"
     },
     "J29": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A29,'BONUS REGISTER'!B$5:B$58,B29),0)",
@@ -1483,6 +4760,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A30": {
+     "r": "input"
+    },
+    "B30": {
+     "r": "input"
+    },
+    "C30": {
+     "r": "input"
+    },
+    "D30": {
+     "r": "input"
+    },
+    "E30": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F30": {
+     "r": "input"
+    },
+    "G30": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H30": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I30": {
+     "r": "input"
+    },
     "J30": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A30,'BONUS REGISTER'!B$5:B$58,B30),0)",
      "r": "computed",
@@ -1511,6 +4818,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A31": {
+     "r": "input"
+    },
+    "B31": {
+     "r": "input"
+    },
+    "C31": {
+     "r": "input"
+    },
+    "D31": {
+     "r": "input"
+    },
+    "E31": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F31": {
+     "r": "input"
+    },
+    "G31": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H31": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I31": {
+     "r": "input"
     },
     "J31": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A31,'BONUS REGISTER'!B$5:B$58,B31),0)",
@@ -1541,6 +4878,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A32": {
+     "r": "input"
+    },
+    "B32": {
+     "r": "input"
+    },
+    "C32": {
+     "r": "input"
+    },
+    "D32": {
+     "r": "input"
+    },
+    "E32": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F32": {
+     "r": "input"
+    },
+    "G32": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H32": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I32": {
+     "r": "input"
+    },
     "J32": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A32,'BONUS REGISTER'!B$5:B$58,B32),0)",
      "r": "computed",
@@ -1569,6 +4936,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A33": {
+     "r": "input"
+    },
+    "B33": {
+     "r": "input"
+    },
+    "C33": {
+     "r": "input"
+    },
+    "D33": {
+     "r": "input"
+    },
+    "E33": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F33": {
+     "r": "input"
+    },
+    "G33": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H33": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I33": {
+     "r": "input"
     },
     "J33": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A33,'BONUS REGISTER'!B$5:B$58,B33),0)",
@@ -1599,6 +4996,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A34": {
+     "r": "input"
+    },
+    "B34": {
+     "r": "input"
+    },
+    "C34": {
+     "r": "input"
+    },
+    "D34": {
+     "r": "input"
+    },
+    "E34": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F34": {
+     "r": "input"
+    },
+    "G34": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H34": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I34": {
+     "r": "input"
+    },
     "J34": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A34,'BONUS REGISTER'!B$5:B$58,B34),0)",
      "r": "computed",
@@ -1627,6 +5054,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A35": {
+     "r": "input"
+    },
+    "B35": {
+     "r": "input"
+    },
+    "C35": {
+     "r": "input"
+    },
+    "D35": {
+     "r": "input"
+    },
+    "E35": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F35": {
+     "r": "input"
+    },
+    "G35": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H35": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I35": {
+     "r": "input"
     },
     "J35": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A35,'BONUS REGISTER'!B$5:B$58,B35),0)",
@@ -1657,6 +5114,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A36": {
+     "r": "input"
+    },
+    "B36": {
+     "r": "input"
+    },
+    "C36": {
+     "r": "input"
+    },
+    "D36": {
+     "r": "input"
+    },
+    "E36": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F36": {
+     "r": "input"
+    },
+    "G36": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H36": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I36": {
+     "r": "input"
+    },
     "J36": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A36,'BONUS REGISTER'!B$5:B$58,B36),0)",
      "r": "computed",
@@ -1685,6 +5172,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A37": {
+     "r": "input"
+    },
+    "B37": {
+     "r": "input"
+    },
+    "C37": {
+     "r": "input"
+    },
+    "D37": {
+     "r": "input"
+    },
+    "E37": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F37": {
+     "r": "input"
+    },
+    "G37": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H37": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I37": {
+     "r": "input"
     },
     "J37": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A37,'BONUS REGISTER'!B$5:B$58,B37),0)",
@@ -1715,6 +5232,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A38": {
+     "r": "input"
+    },
+    "B38": {
+     "r": "input"
+    },
+    "C38": {
+     "r": "input"
+    },
+    "D38": {
+     "r": "input"
+    },
+    "E38": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F38": {
+     "r": "input"
+    },
+    "G38": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H38": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I38": {
+     "r": "input"
+    },
     "J38": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A38,'BONUS REGISTER'!B$5:B$58,B38),0)",
      "r": "computed",
@@ -1743,6 +5290,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A39": {
+     "r": "input"
+    },
+    "B39": {
+     "r": "input"
+    },
+    "C39": {
+     "r": "input"
+    },
+    "D39": {
+     "r": "input"
+    },
+    "E39": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F39": {
+     "r": "input"
+    },
+    "G39": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H39": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I39": {
+     "r": "input"
     },
     "J39": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A39,'BONUS REGISTER'!B$5:B$58,B39),0)",
@@ -1773,6 +5350,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A40": {
+     "r": "input"
+    },
+    "B40": {
+     "r": "input"
+    },
+    "C40": {
+     "r": "input"
+    },
+    "D40": {
+     "r": "input"
+    },
+    "E40": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F40": {
+     "r": "input"
+    },
+    "G40": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H40": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I40": {
+     "r": "input"
+    },
     "J40": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A40,'BONUS REGISTER'!B$5:B$58,B40),0)",
      "r": "computed",
@@ -1801,6 +5408,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A41": {
+     "r": "input"
+    },
+    "B41": {
+     "r": "input"
+    },
+    "C41": {
+     "r": "input"
+    },
+    "D41": {
+     "r": "input"
+    },
+    "E41": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F41": {
+     "r": "input"
+    },
+    "G41": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H41": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I41": {
+     "r": "input"
     },
     "J41": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A41,'BONUS REGISTER'!B$5:B$58,B41),0)",
@@ -1831,6 +5468,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A42": {
+     "r": "input"
+    },
+    "B42": {
+     "r": "input"
+    },
+    "C42": {
+     "r": "input"
+    },
+    "D42": {
+     "r": "input"
+    },
+    "E42": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F42": {
+     "r": "input"
+    },
+    "G42": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H42": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I42": {
+     "r": "input"
+    },
     "J42": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A42,'BONUS REGISTER'!B$5:B$58,B42),0)",
      "r": "computed",
@@ -1859,6 +5526,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A43": {
+     "r": "input"
+    },
+    "B43": {
+     "r": "input"
+    },
+    "C43": {
+     "r": "input"
+    },
+    "D43": {
+     "r": "input"
+    },
+    "E43": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F43": {
+     "r": "input"
+    },
+    "G43": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H43": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I43": {
+     "r": "input"
     },
     "J43": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A43,'BONUS REGISTER'!B$5:B$58,B43),0)",
@@ -1889,6 +5586,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A44": {
+     "r": "input"
+    },
+    "B44": {
+     "r": "input"
+    },
+    "C44": {
+     "r": "input"
+    },
+    "D44": {
+     "r": "input"
+    },
+    "E44": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F44": {
+     "r": "input"
+    },
+    "G44": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H44": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I44": {
+     "r": "input"
+    },
     "J44": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A44,'BONUS REGISTER'!B$5:B$58,B44),0)",
      "r": "computed",
@@ -1917,6 +5644,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A45": {
+     "r": "input"
+    },
+    "B45": {
+     "r": "input"
+    },
+    "C45": {
+     "r": "input"
+    },
+    "D45": {
+     "r": "input"
+    },
+    "E45": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F45": {
+     "r": "input"
+    },
+    "G45": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H45": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I45": {
+     "r": "input"
     },
     "J45": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A45,'BONUS REGISTER'!B$5:B$58,B45),0)",
@@ -1947,6 +5704,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A46": {
+     "r": "input"
+    },
+    "B46": {
+     "r": "input"
+    },
+    "C46": {
+     "r": "input"
+    },
+    "D46": {
+     "r": "input"
+    },
+    "E46": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F46": {
+     "r": "input"
+    },
+    "G46": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H46": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I46": {
+     "r": "input"
+    },
     "J46": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A46,'BONUS REGISTER'!B$5:B$58,B46),0)",
      "r": "computed",
@@ -1975,6 +5762,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A47": {
+     "r": "input"
+    },
+    "B47": {
+     "r": "input"
+    },
+    "C47": {
+     "r": "input"
+    },
+    "D47": {
+     "r": "input"
+    },
+    "E47": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F47": {
+     "r": "input"
+    },
+    "G47": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H47": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I47": {
+     "r": "input"
     },
     "J47": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A47,'BONUS REGISTER'!B$5:B$58,B47),0)",
@@ -2005,6 +5822,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A48": {
+     "r": "input"
+    },
+    "B48": {
+     "r": "input"
+    },
+    "C48": {
+     "r": "input"
+    },
+    "D48": {
+     "r": "input"
+    },
+    "E48": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F48": {
+     "r": "input"
+    },
+    "G48": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H48": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I48": {
+     "r": "input"
+    },
     "J48": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A48,'BONUS REGISTER'!B$5:B$58,B48),0)",
      "r": "computed",
@@ -2033,6 +5880,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A49": {
+     "r": "input"
+    },
+    "B49": {
+     "r": "input"
+    },
+    "C49": {
+     "r": "input"
+    },
+    "D49": {
+     "r": "input"
+    },
+    "E49": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F49": {
+     "r": "input"
+    },
+    "G49": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H49": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I49": {
+     "r": "input"
     },
     "J49": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A49,'BONUS REGISTER'!B$5:B$58,B49),0)",
@@ -2063,6 +5940,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A50": {
+     "r": "input"
+    },
+    "B50": {
+     "r": "input"
+    },
+    "C50": {
+     "r": "input"
+    },
+    "D50": {
+     "r": "input"
+    },
+    "E50": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F50": {
+     "r": "input"
+    },
+    "G50": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H50": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I50": {
+     "r": "input"
+    },
     "J50": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A50,'BONUS REGISTER'!B$5:B$58,B50),0)",
      "r": "computed",
@@ -2091,6 +5998,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A51": {
+     "r": "input"
+    },
+    "B51": {
+     "r": "input"
+    },
+    "C51": {
+     "r": "input"
+    },
+    "D51": {
+     "r": "input"
+    },
+    "E51": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F51": {
+     "r": "input"
+    },
+    "G51": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H51": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I51": {
+     "r": "input"
     },
     "J51": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A51,'BONUS REGISTER'!B$5:B$58,B51),0)",
@@ -2121,6 +6058,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A52": {
+     "r": "input"
+    },
+    "B52": {
+     "r": "input"
+    },
+    "C52": {
+     "r": "input"
+    },
+    "D52": {
+     "r": "input"
+    },
+    "E52": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F52": {
+     "r": "input"
+    },
+    "G52": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H52": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I52": {
+     "r": "input"
+    },
     "J52": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A52,'BONUS REGISTER'!B$5:B$58,B52),0)",
      "r": "computed",
@@ -2149,6 +6116,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A53": {
+     "r": "input"
+    },
+    "B53": {
+     "r": "input"
+    },
+    "C53": {
+     "r": "input"
+    },
+    "D53": {
+     "r": "input"
+    },
+    "E53": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F53": {
+     "r": "input"
+    },
+    "G53": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H53": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I53": {
+     "r": "input"
     },
     "J53": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A53,'BONUS REGISTER'!B$5:B$58,B53),0)",
@@ -2179,6 +6176,36 @@ window.VENDITUS_RAW = {
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A54": {
+     "r": "input"
+    },
+    "B54": {
+     "r": "input"
+    },
+    "C54": {
+     "r": "input"
+    },
+    "D54": {
+     "r": "input"
+    },
+    "E54": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F54": {
+     "r": "input"
+    },
+    "G54": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H54": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I54": {
+     "r": "input"
+    },
     "J54": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A54,'BONUS REGISTER'!B$5:B$58,B54),0)",
      "r": "computed",
@@ -2207,6 +6234,36 @@ window.VENDITUS_RAW = {
      "v": 0,
      "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A55": {
+     "r": "input"
+    },
+    "B55": {
+     "r": "input"
+    },
+    "C55": {
+     "r": "input"
+    },
+    "D55": {
+     "r": "input"
+    },
+    "E55": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "F55": {
+     "r": "input"
+    },
+    "G55": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H55": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "I55": {
+     "r": "input"
     },
     "J55": {
      "f": "=IFERROR(SUMIFS('BONUS REGISTER'!F$5:F$58,'BONUS REGISTER'!A$5:A$58,A55,'BONUS REGISTER'!B$5:B$58,B55),0)",
@@ -2406,6 +6463,9 @@ window.VENDITUS_RAW = {
      "v": "NEI",
      "r": "input"
     },
+    "J6": {
+     "r": "input"
+    },
     "A7": {
      "v": "TEAM",
      "r": "input"
@@ -2464,6 +6524,9 @@ window.VENDITUS_RAW = {
      "v": "Annen bonus",
      "r": "input"
     },
+    "E8": {
+     "r": "input"
+    },
     "F8": {
      "v": 800,
      "r": "input",
@@ -2486,9 +6549,56 @@ window.VENDITUS_RAW = {
      "v": "Under 5 000 kr grense",
      "r": "input"
     },
+    "A9": {
+     "r": "input"
+    },
+    "B9": {
+     "r": "input"
+    },
+    "C9": {
+     "r": "input"
+    },
+    "D9": {
+     "r": "input"
+    },
+    "E9": {
+     "r": "input"
+    },
+    "F9": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G9": {
      "f": "=IFERROR(IF(H9=\"JA\",F9,F9*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H9": {
+     "r": "input"
+    },
+    "I9": {
+     "r": "input"
+    },
+    "J9": {
+     "r": "input"
+    },
+    "A10": {
+     "r": "input"
+    },
+    "B10": {
+     "r": "input"
+    },
+    "C10": {
+     "r": "input"
+    },
+    "D10": {
+     "r": "input"
+    },
+    "E10": {
+     "r": "input"
+    },
+    "F10": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G10": {
@@ -2496,9 +6606,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H10": {
+     "r": "input"
+    },
+    "I10": {
+     "r": "input"
+    },
+    "J10": {
+     "r": "input"
+    },
+    "A11": {
+     "r": "input"
+    },
+    "B11": {
+     "r": "input"
+    },
+    "C11": {
+     "r": "input"
+    },
+    "D11": {
+     "r": "input"
+    },
+    "E11": {
+     "r": "input"
+    },
+    "F11": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G11": {
      "f": "=IFERROR(IF(H11=\"JA\",F11,F11*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H11": {
+     "r": "input"
+    },
+    "I11": {
+     "r": "input"
+    },
+    "J11": {
+     "r": "input"
+    },
+    "A12": {
+     "r": "input"
+    },
+    "B12": {
+     "r": "input"
+    },
+    "C12": {
+     "r": "input"
+    },
+    "D12": {
+     "r": "input"
+    },
+    "E12": {
+     "r": "input"
+    },
+    "F12": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G12": {
@@ -2506,9 +6672,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H12": {
+     "r": "input"
+    },
+    "I12": {
+     "r": "input"
+    },
+    "J12": {
+     "r": "input"
+    },
+    "A13": {
+     "r": "input"
+    },
+    "B13": {
+     "r": "input"
+    },
+    "C13": {
+     "r": "input"
+    },
+    "D13": {
+     "r": "input"
+    },
+    "E13": {
+     "r": "input"
+    },
+    "F13": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G13": {
      "f": "=IFERROR(IF(H13=\"JA\",F13,F13*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H13": {
+     "r": "input"
+    },
+    "I13": {
+     "r": "input"
+    },
+    "J13": {
+     "r": "input"
+    },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
+    },
+    "C14": {
+     "r": "input"
+    },
+    "D14": {
+     "r": "input"
+    },
+    "E14": {
+     "r": "input"
+    },
+    "F14": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G14": {
@@ -2516,9 +6738,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H14": {
+     "r": "input"
+    },
+    "I14": {
+     "r": "input"
+    },
+    "J14": {
+     "r": "input"
+    },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
+    },
+    "C15": {
+     "r": "input"
+    },
+    "D15": {
+     "r": "input"
+    },
+    "E15": {
+     "r": "input"
+    },
+    "F15": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G15": {
      "f": "=IFERROR(IF(H15=\"JA\",F15,F15*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H15": {
+     "r": "input"
+    },
+    "I15": {
+     "r": "input"
+    },
+    "J15": {
+     "r": "input"
+    },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
+    },
+    "C16": {
+     "r": "input"
+    },
+    "D16": {
+     "r": "input"
+    },
+    "E16": {
+     "r": "input"
+    },
+    "F16": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G16": {
@@ -2526,9 +6804,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H16": {
+     "r": "input"
+    },
+    "I16": {
+     "r": "input"
+    },
+    "J16": {
+     "r": "input"
+    },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
+    },
+    "C17": {
+     "r": "input"
+    },
+    "D17": {
+     "r": "input"
+    },
+    "E17": {
+     "r": "input"
+    },
+    "F17": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G17": {
      "f": "=IFERROR(IF(H17=\"JA\",F17,F17*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H17": {
+     "r": "input"
+    },
+    "I17": {
+     "r": "input"
+    },
+    "J17": {
+     "r": "input"
+    },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
+    },
+    "C18": {
+     "r": "input"
+    },
+    "D18": {
+     "r": "input"
+    },
+    "E18": {
+     "r": "input"
+    },
+    "F18": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G18": {
@@ -2536,9 +6870,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H18": {
+     "r": "input"
+    },
+    "I18": {
+     "r": "input"
+    },
+    "J18": {
+     "r": "input"
+    },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
+    },
+    "C19": {
+     "r": "input"
+    },
+    "D19": {
+     "r": "input"
+    },
+    "E19": {
+     "r": "input"
+    },
+    "F19": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G19": {
      "f": "=IFERROR(IF(H19=\"JA\",F19,F19*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H19": {
+     "r": "input"
+    },
+    "I19": {
+     "r": "input"
+    },
+    "J19": {
+     "r": "input"
+    },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
+    },
+    "C20": {
+     "r": "input"
+    },
+    "D20": {
+     "r": "input"
+    },
+    "E20": {
+     "r": "input"
+    },
+    "F20": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G20": {
@@ -2546,9 +6936,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H20": {
+     "r": "input"
+    },
+    "I20": {
+     "r": "input"
+    },
+    "J20": {
+     "r": "input"
+    },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
+    },
+    "C21": {
+     "r": "input"
+    },
+    "D21": {
+     "r": "input"
+    },
+    "E21": {
+     "r": "input"
+    },
+    "F21": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G21": {
      "f": "=IFERROR(IF(H21=\"JA\",F21,F21*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H21": {
+     "r": "input"
+    },
+    "I21": {
+     "r": "input"
+    },
+    "J21": {
+     "r": "input"
+    },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
+    },
+    "C22": {
+     "r": "input"
+    },
+    "D22": {
+     "r": "input"
+    },
+    "E22": {
+     "r": "input"
+    },
+    "F22": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G22": {
@@ -2556,9 +7002,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H22": {
+     "r": "input"
+    },
+    "I22": {
+     "r": "input"
+    },
+    "J22": {
+     "r": "input"
+    },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
+    },
+    "C23": {
+     "r": "input"
+    },
+    "D23": {
+     "r": "input"
+    },
+    "E23": {
+     "r": "input"
+    },
+    "F23": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G23": {
      "f": "=IFERROR(IF(H23=\"JA\",F23,F23*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H23": {
+     "r": "input"
+    },
+    "I23": {
+     "r": "input"
+    },
+    "J23": {
+     "r": "input"
+    },
+    "A24": {
+     "r": "input"
+    },
+    "B24": {
+     "r": "input"
+    },
+    "C24": {
+     "r": "input"
+    },
+    "D24": {
+     "r": "input"
+    },
+    "E24": {
+     "r": "input"
+    },
+    "F24": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G24": {
@@ -2566,9 +7068,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H24": {
+     "r": "input"
+    },
+    "I24": {
+     "r": "input"
+    },
+    "J24": {
+     "r": "input"
+    },
+    "A25": {
+     "r": "input"
+    },
+    "B25": {
+     "r": "input"
+    },
+    "C25": {
+     "r": "input"
+    },
+    "D25": {
+     "r": "input"
+    },
+    "E25": {
+     "r": "input"
+    },
+    "F25": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G25": {
      "f": "=IFERROR(IF(H25=\"JA\",F25,F25*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H25": {
+     "r": "input"
+    },
+    "I25": {
+     "r": "input"
+    },
+    "J25": {
+     "r": "input"
+    },
+    "A26": {
+     "r": "input"
+    },
+    "B26": {
+     "r": "input"
+    },
+    "C26": {
+     "r": "input"
+    },
+    "D26": {
+     "r": "input"
+    },
+    "E26": {
+     "r": "input"
+    },
+    "F26": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G26": {
@@ -2576,9 +7134,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H26": {
+     "r": "input"
+    },
+    "I26": {
+     "r": "input"
+    },
+    "J26": {
+     "r": "input"
+    },
+    "A27": {
+     "r": "input"
+    },
+    "B27": {
+     "r": "input"
+    },
+    "C27": {
+     "r": "input"
+    },
+    "D27": {
+     "r": "input"
+    },
+    "E27": {
+     "r": "input"
+    },
+    "F27": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G27": {
      "f": "=IFERROR(IF(H27=\"JA\",F27,F27*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H27": {
+     "r": "input"
+    },
+    "I27": {
+     "r": "input"
+    },
+    "J27": {
+     "r": "input"
+    },
+    "A28": {
+     "r": "input"
+    },
+    "B28": {
+     "r": "input"
+    },
+    "C28": {
+     "r": "input"
+    },
+    "D28": {
+     "r": "input"
+    },
+    "E28": {
+     "r": "input"
+    },
+    "F28": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G28": {
@@ -2586,9 +7200,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H28": {
+     "r": "input"
+    },
+    "I28": {
+     "r": "input"
+    },
+    "J28": {
+     "r": "input"
+    },
+    "A29": {
+     "r": "input"
+    },
+    "B29": {
+     "r": "input"
+    },
+    "C29": {
+     "r": "input"
+    },
+    "D29": {
+     "r": "input"
+    },
+    "E29": {
+     "r": "input"
+    },
+    "F29": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G29": {
      "f": "=IFERROR(IF(H29=\"JA\",F29,F29*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H29": {
+     "r": "input"
+    },
+    "I29": {
+     "r": "input"
+    },
+    "J29": {
+     "r": "input"
+    },
+    "A30": {
+     "r": "input"
+    },
+    "B30": {
+     "r": "input"
+    },
+    "C30": {
+     "r": "input"
+    },
+    "D30": {
+     "r": "input"
+    },
+    "E30": {
+     "r": "input"
+    },
+    "F30": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G30": {
@@ -2596,9 +7266,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H30": {
+     "r": "input"
+    },
+    "I30": {
+     "r": "input"
+    },
+    "J30": {
+     "r": "input"
+    },
+    "A31": {
+     "r": "input"
+    },
+    "B31": {
+     "r": "input"
+    },
+    "C31": {
+     "r": "input"
+    },
+    "D31": {
+     "r": "input"
+    },
+    "E31": {
+     "r": "input"
+    },
+    "F31": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G31": {
      "f": "=IFERROR(IF(H31=\"JA\",F31,F31*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H31": {
+     "r": "input"
+    },
+    "I31": {
+     "r": "input"
+    },
+    "J31": {
+     "r": "input"
+    },
+    "A32": {
+     "r": "input"
+    },
+    "B32": {
+     "r": "input"
+    },
+    "C32": {
+     "r": "input"
+    },
+    "D32": {
+     "r": "input"
+    },
+    "E32": {
+     "r": "input"
+    },
+    "F32": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G32": {
@@ -2606,9 +7332,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H32": {
+     "r": "input"
+    },
+    "I32": {
+     "r": "input"
+    },
+    "J32": {
+     "r": "input"
+    },
+    "A33": {
+     "r": "input"
+    },
+    "B33": {
+     "r": "input"
+    },
+    "C33": {
+     "r": "input"
+    },
+    "D33": {
+     "r": "input"
+    },
+    "E33": {
+     "r": "input"
+    },
+    "F33": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G33": {
      "f": "=IFERROR(IF(H33=\"JA\",F33,F33*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H33": {
+     "r": "input"
+    },
+    "I33": {
+     "r": "input"
+    },
+    "J33": {
+     "r": "input"
+    },
+    "A34": {
+     "r": "input"
+    },
+    "B34": {
+     "r": "input"
+    },
+    "C34": {
+     "r": "input"
+    },
+    "D34": {
+     "r": "input"
+    },
+    "E34": {
+     "r": "input"
+    },
+    "F34": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G34": {
@@ -2616,9 +7398,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H34": {
+     "r": "input"
+    },
+    "I34": {
+     "r": "input"
+    },
+    "J34": {
+     "r": "input"
+    },
+    "A35": {
+     "r": "input"
+    },
+    "B35": {
+     "r": "input"
+    },
+    "C35": {
+     "r": "input"
+    },
+    "D35": {
+     "r": "input"
+    },
+    "E35": {
+     "r": "input"
+    },
+    "F35": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G35": {
      "f": "=IFERROR(IF(H35=\"JA\",F35,F35*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H35": {
+     "r": "input"
+    },
+    "I35": {
+     "r": "input"
+    },
+    "J35": {
+     "r": "input"
+    },
+    "A36": {
+     "r": "input"
+    },
+    "B36": {
+     "r": "input"
+    },
+    "C36": {
+     "r": "input"
+    },
+    "D36": {
+     "r": "input"
+    },
+    "E36": {
+     "r": "input"
+    },
+    "F36": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G36": {
@@ -2626,9 +7464,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H36": {
+     "r": "input"
+    },
+    "I36": {
+     "r": "input"
+    },
+    "J36": {
+     "r": "input"
+    },
+    "A37": {
+     "r": "input"
+    },
+    "B37": {
+     "r": "input"
+    },
+    "C37": {
+     "r": "input"
+    },
+    "D37": {
+     "r": "input"
+    },
+    "E37": {
+     "r": "input"
+    },
+    "F37": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G37": {
      "f": "=IFERROR(IF(H37=\"JA\",F37,F37*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H37": {
+     "r": "input"
+    },
+    "I37": {
+     "r": "input"
+    },
+    "J37": {
+     "r": "input"
+    },
+    "A38": {
+     "r": "input"
+    },
+    "B38": {
+     "r": "input"
+    },
+    "C38": {
+     "r": "input"
+    },
+    "D38": {
+     "r": "input"
+    },
+    "E38": {
+     "r": "input"
+    },
+    "F38": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G38": {
@@ -2636,9 +7530,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H38": {
+     "r": "input"
+    },
+    "I38": {
+     "r": "input"
+    },
+    "J38": {
+     "r": "input"
+    },
+    "A39": {
+     "r": "input"
+    },
+    "B39": {
+     "r": "input"
+    },
+    "C39": {
+     "r": "input"
+    },
+    "D39": {
+     "r": "input"
+    },
+    "E39": {
+     "r": "input"
+    },
+    "F39": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G39": {
      "f": "=IFERROR(IF(H39=\"JA\",F39,F39*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H39": {
+     "r": "input"
+    },
+    "I39": {
+     "r": "input"
+    },
+    "J39": {
+     "r": "input"
+    },
+    "A40": {
+     "r": "input"
+    },
+    "B40": {
+     "r": "input"
+    },
+    "C40": {
+     "r": "input"
+    },
+    "D40": {
+     "r": "input"
+    },
+    "E40": {
+     "r": "input"
+    },
+    "F40": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G40": {
@@ -2646,9 +7596,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H40": {
+     "r": "input"
+    },
+    "I40": {
+     "r": "input"
+    },
+    "J40": {
+     "r": "input"
+    },
+    "A41": {
+     "r": "input"
+    },
+    "B41": {
+     "r": "input"
+    },
+    "C41": {
+     "r": "input"
+    },
+    "D41": {
+     "r": "input"
+    },
+    "E41": {
+     "r": "input"
+    },
+    "F41": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G41": {
      "f": "=IFERROR(IF(H41=\"JA\",F41,F41*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H41": {
+     "r": "input"
+    },
+    "I41": {
+     "r": "input"
+    },
+    "J41": {
+     "r": "input"
+    },
+    "A42": {
+     "r": "input"
+    },
+    "B42": {
+     "r": "input"
+    },
+    "C42": {
+     "r": "input"
+    },
+    "D42": {
+     "r": "input"
+    },
+    "E42": {
+     "r": "input"
+    },
+    "F42": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G42": {
@@ -2656,9 +7662,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H42": {
+     "r": "input"
+    },
+    "I42": {
+     "r": "input"
+    },
+    "J42": {
+     "r": "input"
+    },
+    "A43": {
+     "r": "input"
+    },
+    "B43": {
+     "r": "input"
+    },
+    "C43": {
+     "r": "input"
+    },
+    "D43": {
+     "r": "input"
+    },
+    "E43": {
+     "r": "input"
+    },
+    "F43": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G43": {
      "f": "=IFERROR(IF(H43=\"JA\",F43,F43*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H43": {
+     "r": "input"
+    },
+    "I43": {
+     "r": "input"
+    },
+    "J43": {
+     "r": "input"
+    },
+    "A44": {
+     "r": "input"
+    },
+    "B44": {
+     "r": "input"
+    },
+    "C44": {
+     "r": "input"
+    },
+    "D44": {
+     "r": "input"
+    },
+    "E44": {
+     "r": "input"
+    },
+    "F44": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G44": {
@@ -2666,9 +7728,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H44": {
+     "r": "input"
+    },
+    "I44": {
+     "r": "input"
+    },
+    "J44": {
+     "r": "input"
+    },
+    "A45": {
+     "r": "input"
+    },
+    "B45": {
+     "r": "input"
+    },
+    "C45": {
+     "r": "input"
+    },
+    "D45": {
+     "r": "input"
+    },
+    "E45": {
+     "r": "input"
+    },
+    "F45": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G45": {
      "f": "=IFERROR(IF(H45=\"JA\",F45,F45*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H45": {
+     "r": "input"
+    },
+    "I45": {
+     "r": "input"
+    },
+    "J45": {
+     "r": "input"
+    },
+    "A46": {
+     "r": "input"
+    },
+    "B46": {
+     "r": "input"
+    },
+    "C46": {
+     "r": "input"
+    },
+    "D46": {
+     "r": "input"
+    },
+    "E46": {
+     "r": "input"
+    },
+    "F46": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G46": {
@@ -2676,9 +7794,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H46": {
+     "r": "input"
+    },
+    "I46": {
+     "r": "input"
+    },
+    "J46": {
+     "r": "input"
+    },
+    "A47": {
+     "r": "input"
+    },
+    "B47": {
+     "r": "input"
+    },
+    "C47": {
+     "r": "input"
+    },
+    "D47": {
+     "r": "input"
+    },
+    "E47": {
+     "r": "input"
+    },
+    "F47": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G47": {
      "f": "=IFERROR(IF(H47=\"JA\",F47,F47*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H47": {
+     "r": "input"
+    },
+    "I47": {
+     "r": "input"
+    },
+    "J47": {
+     "r": "input"
+    },
+    "A48": {
+     "r": "input"
+    },
+    "B48": {
+     "r": "input"
+    },
+    "C48": {
+     "r": "input"
+    },
+    "D48": {
+     "r": "input"
+    },
+    "E48": {
+     "r": "input"
+    },
+    "F48": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G48": {
@@ -2686,9 +7860,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H48": {
+     "r": "input"
+    },
+    "I48": {
+     "r": "input"
+    },
+    "J48": {
+     "r": "input"
+    },
+    "A49": {
+     "r": "input"
+    },
+    "B49": {
+     "r": "input"
+    },
+    "C49": {
+     "r": "input"
+    },
+    "D49": {
+     "r": "input"
+    },
+    "E49": {
+     "r": "input"
+    },
+    "F49": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G49": {
      "f": "=IFERROR(IF(H49=\"JA\",F49,F49*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H49": {
+     "r": "input"
+    },
+    "I49": {
+     "r": "input"
+    },
+    "J49": {
+     "r": "input"
+    },
+    "A50": {
+     "r": "input"
+    },
+    "B50": {
+     "r": "input"
+    },
+    "C50": {
+     "r": "input"
+    },
+    "D50": {
+     "r": "input"
+    },
+    "E50": {
+     "r": "input"
+    },
+    "F50": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G50": {
@@ -2696,9 +7926,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H50": {
+     "r": "input"
+    },
+    "I50": {
+     "r": "input"
+    },
+    "J50": {
+     "r": "input"
+    },
+    "A51": {
+     "r": "input"
+    },
+    "B51": {
+     "r": "input"
+    },
+    "C51": {
+     "r": "input"
+    },
+    "D51": {
+     "r": "input"
+    },
+    "E51": {
+     "r": "input"
+    },
+    "F51": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G51": {
      "f": "=IFERROR(IF(H51=\"JA\",F51,F51*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H51": {
+     "r": "input"
+    },
+    "I51": {
+     "r": "input"
+    },
+    "J51": {
+     "r": "input"
+    },
+    "A52": {
+     "r": "input"
+    },
+    "B52": {
+     "r": "input"
+    },
+    "C52": {
+     "r": "input"
+    },
+    "D52": {
+     "r": "input"
+    },
+    "E52": {
+     "r": "input"
+    },
+    "F52": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G52": {
@@ -2706,9 +7992,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H52": {
+     "r": "input"
+    },
+    "I52": {
+     "r": "input"
+    },
+    "J52": {
+     "r": "input"
+    },
+    "A53": {
+     "r": "input"
+    },
+    "B53": {
+     "r": "input"
+    },
+    "C53": {
+     "r": "input"
+    },
+    "D53": {
+     "r": "input"
+    },
+    "E53": {
+     "r": "input"
+    },
+    "F53": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G53": {
      "f": "=IFERROR(IF(H53=\"JA\",F53,F53*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H53": {
+     "r": "input"
+    },
+    "I53": {
+     "r": "input"
+    },
+    "J53": {
+     "r": "input"
+    },
+    "A54": {
+     "r": "input"
+    },
+    "B54": {
+     "r": "input"
+    },
+    "C54": {
+     "r": "input"
+    },
+    "D54": {
+     "r": "input"
+    },
+    "E54": {
+     "r": "input"
+    },
+    "F54": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G54": {
@@ -2716,9 +8058,65 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H54": {
+     "r": "input"
+    },
+    "I54": {
+     "r": "input"
+    },
+    "J54": {
+     "r": "input"
+    },
+    "A55": {
+     "r": "input"
+    },
+    "B55": {
+     "r": "input"
+    },
+    "C55": {
+     "r": "input"
+    },
+    "D55": {
+     "r": "input"
+    },
+    "E55": {
+     "r": "input"
+    },
+    "F55": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G55": {
      "f": "=IFERROR(IF(H55=\"JA\",F55,F55*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H55": {
+     "r": "input"
+    },
+    "I55": {
+     "r": "input"
+    },
+    "J55": {
+     "r": "input"
+    },
+    "A56": {
+     "r": "input"
+    },
+    "B56": {
+     "r": "input"
+    },
+    "C56": {
+     "r": "input"
+    },
+    "D56": {
+     "r": "input"
+    },
+    "E56": {
+     "r": "input"
+    },
+    "F56": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G56": {
@@ -2726,15 +8124,80 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H56": {
+     "r": "input"
+    },
+    "I56": {
+     "r": "input"
+    },
+    "J56": {
+     "r": "input"
+    },
+    "A57": {
+     "r": "input"
+    },
+    "B57": {
+     "r": "input"
+    },
+    "C57": {
+     "r": "input"
+    },
+    "D57": {
+     "r": "input"
+    },
+    "E57": {
+     "r": "input"
+    },
+    "F57": {
+     "r": "input",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
     "G57": {
      "f": "=IFERROR(IF(H57=\"JA\",F57,F57*KONFIGURASJON!B7),0)",
      "r": "computed",
+     "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H57": {
+     "r": "input"
+    },
+    "I57": {
+     "r": "input"
+    },
+    "J57": {
+     "r": "input"
+    },
+    "A58": {
+     "r": "input"
+    },
+    "B58": {
+     "r": "input"
+    },
+    "C58": {
+     "r": "input"
+    },
+    "D58": {
+     "r": "input"
+    },
+    "E58": {
+     "r": "input"
+    },
+    "F58": {
+     "r": "input",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
     "G58": {
      "f": "=IFERROR(IF(H58=\"JA\",F58,F58*KONFIGURASJON!B7),0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H58": {
+     "r": "input"
+    },
+    "I58": {
+     "r": "input"
+    },
+    "J58": {
+     "r": "input"
     },
     "A60": {
      "v": "OPPSUMMERING — TOTALT BONUS PER SELGER (alle måneder)"
@@ -3102,6 +8565,12 @@ window.VENDITUS_RAW = {
     "AH4": {
      "v": "TOTAL KOSTNAD\ninkl. alle poster\n(kr)"
     },
+    "A5": {
+     "r": "input"
+    },
+    "B5": {
+     "r": "input"
+    },
     "C5": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A5,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -3250,6 +8719,12 @@ window.VENDITUS_RAW = {
     "AH5": {
      "f": "=IFERROR(W5+AC5+AD5+AE5+AF5+AG5,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A6": {
+     "r": "input"
+    },
+    "B6": {
+     "r": "input"
     },
     "C6": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A6,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -3400,6 +8875,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W6+AC6+AD6+AE6+AF6+AG6,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A7": {
+     "r": "input"
+    },
+    "B7": {
+     "r": "input"
+    },
     "C7": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A7,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -3548,6 +9029,12 @@ window.VENDITUS_RAW = {
     "AH7": {
      "f": "=IFERROR(W7+AC7+AD7+AE7+AF7+AG7,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A8": {
+     "r": "input"
+    },
+    "B8": {
+     "r": "input"
     },
     "C8": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A8,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -3698,6 +9185,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W8+AC8+AD8+AE8+AF8+AG8,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A9": {
+     "r": "input"
+    },
+    "B9": {
+     "r": "input"
+    },
     "C9": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A9,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -3846,6 +9339,12 @@ window.VENDITUS_RAW = {
     "AH9": {
      "f": "=IFERROR(W9+AC9+AD9+AE9+AF9+AG9,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A10": {
+     "r": "input"
+    },
+    "B10": {
+     "r": "input"
     },
     "C10": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A10,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -3996,6 +9495,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W10+AC10+AD10+AE10+AF10+AG10,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A11": {
+     "r": "input"
+    },
+    "B11": {
+     "r": "input"
+    },
     "C11": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A11,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -4144,6 +9649,12 @@ window.VENDITUS_RAW = {
     "AH11": {
      "f": "=IFERROR(W11+AC11+AD11+AE11+AF11+AG11,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A12": {
+     "r": "input"
+    },
+    "B12": {
+     "r": "input"
     },
     "C12": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A12,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -4294,6 +9805,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W12+AC12+AD12+AE12+AF12+AG12,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A13": {
+     "r": "input"
+    },
+    "B13": {
+     "r": "input"
+    },
     "C13": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A13,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -4442,6 +9959,12 @@ window.VENDITUS_RAW = {
     "AH13": {
      "f": "=IFERROR(W13+AC13+AD13+AE13+AF13+AG13,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
     },
     "C14": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A14,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -4592,6 +10115,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W14+AC14+AD14+AE14+AF14+AG14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
+    },
     "C15": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A15,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -4740,6 +10269,12 @@ window.VENDITUS_RAW = {
     "AH15": {
      "f": "=IFERROR(W15+AC15+AD15+AE15+AF15+AG15,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
     },
     "C16": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A16,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -4890,6 +10425,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W16+AC16+AD16+AE16+AF16+AG16,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
+    },
     "C17": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A17,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -5038,6 +10579,12 @@ window.VENDITUS_RAW = {
     "AH17": {
      "f": "=IFERROR(W17+AC17+AD17+AE17+AF17+AG17,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
     },
     "C18": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A18,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -5188,6 +10735,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W18+AC18+AD18+AE18+AF18+AG18,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
+    },
     "C19": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A19,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -5336,6 +10889,12 @@ window.VENDITUS_RAW = {
     "AH19": {
      "f": "=IFERROR(W19+AC19+AD19+AE19+AF19+AG19,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
     },
     "C20": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A20,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -5486,6 +11045,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W20+AC20+AD20+AE20+AF20+AG20,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
+    },
     "C21": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A21,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -5634,6 +11199,12 @@ window.VENDITUS_RAW = {
     "AH21": {
      "f": "=IFERROR(W21+AC21+AD21+AE21+AF21+AG21,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
     },
     "C22": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A22,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -5784,6 +11355,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W22+AC22+AD22+AE22+AF22+AG22,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
+    },
     "C23": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A23,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -5932,6 +11509,12 @@ window.VENDITUS_RAW = {
     "AH23": {
      "f": "=IFERROR(W23+AC23+AD23+AE23+AF23+AG23,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A24": {
+     "r": "input"
+    },
+    "B24": {
+     "r": "input"
     },
     "C24": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A24,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -6082,6 +11665,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W24+AC24+AD24+AE24+AF24+AG24,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A25": {
+     "r": "input"
+    },
+    "B25": {
+     "r": "input"
+    },
     "C25": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A25,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -6230,6 +11819,12 @@ window.VENDITUS_RAW = {
     "AH25": {
      "f": "=IFERROR(W25+AC25+AD25+AE25+AF25+AG25,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A26": {
+     "r": "input"
+    },
+    "B26": {
+     "r": "input"
     },
     "C26": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A26,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -6380,6 +11975,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W26+AC26+AD26+AE26+AF26+AG26,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A27": {
+     "r": "input"
+    },
+    "B27": {
+     "r": "input"
+    },
     "C27": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A27,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -6528,6 +12129,12 @@ window.VENDITUS_RAW = {
     "AH27": {
      "f": "=IFERROR(W27+AC27+AD27+AE27+AF27+AG27,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A28": {
+     "r": "input"
+    },
+    "B28": {
+     "r": "input"
     },
     "C28": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A28,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -6678,6 +12285,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W28+AC28+AD28+AE28+AF28+AG28,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A29": {
+     "r": "input"
+    },
+    "B29": {
+     "r": "input"
+    },
     "C29": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A29,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -6826,6 +12439,12 @@ window.VENDITUS_RAW = {
     "AH29": {
      "f": "=IFERROR(W29+AC29+AD29+AE29+AF29+AG29,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A30": {
+     "r": "input"
+    },
+    "B30": {
+     "r": "input"
     },
     "C30": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A30,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -6976,6 +12595,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W30+AC30+AD30+AE30+AF30+AG30,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A31": {
+     "r": "input"
+    },
+    "B31": {
+     "r": "input"
+    },
     "C31": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A31,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -7124,6 +12749,12 @@ window.VENDITUS_RAW = {
     "AH31": {
      "f": "=IFERROR(W31+AC31+AD31+AE31+AF31+AG31,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A32": {
+     "r": "input"
+    },
+    "B32": {
+     "r": "input"
     },
     "C32": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A32,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -7274,6 +12905,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W32+AC32+AD32+AE32+AF32+AG32,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A33": {
+     "r": "input"
+    },
+    "B33": {
+     "r": "input"
+    },
     "C33": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A33,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -7422,6 +13059,12 @@ window.VENDITUS_RAW = {
     "AH33": {
      "f": "=IFERROR(W33+AC33+AD33+AE33+AF33+AG33,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A34": {
+     "r": "input"
+    },
+    "B34": {
+     "r": "input"
     },
     "C34": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A34,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -7572,6 +13215,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W34+AC34+AD34+AE34+AF34+AG34,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A35": {
+     "r": "input"
+    },
+    "B35": {
+     "r": "input"
+    },
     "C35": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A35,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -7720,6 +13369,12 @@ window.VENDITUS_RAW = {
     "AH35": {
      "f": "=IFERROR(W35+AC35+AD35+AE35+AF35+AG35,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A36": {
+     "r": "input"
+    },
+    "B36": {
+     "r": "input"
     },
     "C36": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A36,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -7870,6 +13525,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W36+AC36+AD36+AE36+AF36+AG36,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A37": {
+     "r": "input"
+    },
+    "B37": {
+     "r": "input"
+    },
     "C37": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A37,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -8018,6 +13679,12 @@ window.VENDITUS_RAW = {
     "AH37": {
      "f": "=IFERROR(W37+AC37+AD37+AE37+AF37+AG37,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A38": {
+     "r": "input"
+    },
+    "B38": {
+     "r": "input"
     },
     "C38": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A38,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -8168,6 +13835,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W38+AC38+AD38+AE38+AF38+AG38,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A39": {
+     "r": "input"
+    },
+    "B39": {
+     "r": "input"
+    },
     "C39": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A39,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -8316,6 +13989,12 @@ window.VENDITUS_RAW = {
     "AH39": {
      "f": "=IFERROR(W39+AC39+AD39+AE39+AF39+AG39,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A40": {
+     "r": "input"
+    },
+    "B40": {
+     "r": "input"
     },
     "C40": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A40,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -8466,6 +14145,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W40+AC40+AD40+AE40+AF40+AG40,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A41": {
+     "r": "input"
+    },
+    "B41": {
+     "r": "input"
+    },
     "C41": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A41,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -8614,6 +14299,12 @@ window.VENDITUS_RAW = {
     "AH41": {
      "f": "=IFERROR(W41+AC41+AD41+AE41+AF41+AG41,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A42": {
+     "r": "input"
+    },
+    "B42": {
+     "r": "input"
     },
     "C42": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A42,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -8764,6 +14455,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W42+AC42+AD42+AE42+AF42+AG42,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A43": {
+     "r": "input"
+    },
+    "B43": {
+     "r": "input"
+    },
     "C43": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A43,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -8912,6 +14609,12 @@ window.VENDITUS_RAW = {
     "AH43": {
      "f": "=IFERROR(W43+AC43+AD43+AE43+AF43+AG43,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A44": {
+     "r": "input"
+    },
+    "B44": {
+     "r": "input"
     },
     "C44": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A44,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -9062,6 +14765,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W44+AC44+AD44+AE44+AF44+AG44,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A45": {
+     "r": "input"
+    },
+    "B45": {
+     "r": "input"
+    },
     "C45": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A45,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -9210,6 +14919,12 @@ window.VENDITUS_RAW = {
     "AH45": {
      "f": "=IFERROR(W45+AC45+AD45+AE45+AF45+AG45,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A46": {
+     "r": "input"
+    },
+    "B46": {
+     "r": "input"
     },
     "C46": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A46,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -9360,6 +15075,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W46+AC46+AD46+AE46+AF46+AG46,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A47": {
+     "r": "input"
+    },
+    "B47": {
+     "r": "input"
+    },
     "C47": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A47,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -9508,6 +15229,12 @@ window.VENDITUS_RAW = {
     "AH47": {
      "f": "=IFERROR(W47+AC47+AD47+AE47+AF47+AG47,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A48": {
+     "r": "input"
+    },
+    "B48": {
+     "r": "input"
     },
     "C48": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A48,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -9658,6 +15385,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W48+AC48+AD48+AE48+AF48+AG48,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A49": {
+     "r": "input"
+    },
+    "B49": {
+     "r": "input"
+    },
     "C49": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A49,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -9806,6 +15539,12 @@ window.VENDITUS_RAW = {
     "AH49": {
      "f": "=IFERROR(W49+AC49+AD49+AE49+AF49+AG49,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A50": {
+     "r": "input"
+    },
+    "B50": {
+     "r": "input"
     },
     "C50": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A50,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -9956,6 +15695,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W50+AC50+AD50+AE50+AF50+AG50,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A51": {
+     "r": "input"
+    },
+    "B51": {
+     "r": "input"
+    },
     "C51": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A51,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -10104,6 +15849,12 @@ window.VENDITUS_RAW = {
     "AH51": {
      "f": "=IFERROR(W51+AC51+AD51+AE51+AF51+AG51,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A52": {
+     "r": "input"
+    },
+    "B52": {
+     "r": "input"
     },
     "C52": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A52,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -10254,6 +16005,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(W52+AC52+AD52+AE52+AF52+AG52,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A53": {
+     "r": "input"
+    },
+    "B53": {
+     "r": "input"
+    },
     "C53": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A53,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
      "r": "computed"
@@ -10402,6 +16159,12 @@ window.VENDITUS_RAW = {
     "AH53": {
      "f": "=IFERROR(W53+AC53+AD53+AE53+AF53+AG53,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A54": {
+     "r": "input"
+    },
+    "B54": {
+     "r": "input"
     },
     "C54": {
      "f": "=IFERROR(INDEX('SELGER PROFIL'!C$4:C$23,MATCH(A54,'SELGER PROFIL'!A$4:A$23,0)),\"-\")",
@@ -10775,6 +16538,9 @@ window.VENDITUS_RAW = {
      "v": "Ikke betalt",
      "r": "input"
     },
+    "H5": {
+     "r": "input"
+    },
     "A6": {
      "v": "Q2"
     },
@@ -10801,6 +16567,9 @@ window.VENDITUS_RAW = {
     },
     "G6": {
      "v": "Ikke betalt",
+     "r": "input"
+    },
+    "H6": {
      "r": "input"
     },
     "A7": {
@@ -10831,6 +16600,9 @@ window.VENDITUS_RAW = {
      "v": "Ikke betalt",
      "r": "input"
     },
+    "H7": {
+     "r": "input"
+    },
     "A8": {
      "v": "Q4"
     },
@@ -10857,6 +16629,9 @@ window.VENDITUS_RAW = {
     },
     "G8": {
      "v": "Ikke betalt",
+     "r": "input"
+    },
+    "H8": {
      "r": "input"
     },
     "A10": {
@@ -10890,6 +16665,12 @@ window.VENDITUS_RAW = {
     "H13": {
      "v": "Tiltaksperiode t.o.m."
     },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
+    },
     "C14": {
      "v": 0,
      "r": "input",
@@ -10914,6 +16695,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F14-E14,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H14": {
+     "r": "input"
+    },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
     },
     "C15": {
      "v": 0,
@@ -10940,6 +16730,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H15": {
+     "r": "input"
+    },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
+    },
     "C16": {
      "v": 0,
      "r": "input",
@@ -10964,6 +16763,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F16-E16,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H16": {
+     "r": "input"
+    },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
     },
     "C17": {
      "v": 0,
@@ -10990,6 +16798,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H17": {
+     "r": "input"
+    },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
+    },
     "C18": {
      "v": 0,
      "r": "input",
@@ -11014,6 +16831,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F18-E18,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H18": {
+     "r": "input"
+    },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
     },
     "C19": {
      "v": 0,
@@ -11040,6 +16866,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H19": {
+     "r": "input"
+    },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
+    },
     "C20": {
      "v": 0,
      "r": "input",
@@ -11064,6 +16899,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F20-E20,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H20": {
+     "r": "input"
+    },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
     },
     "C21": {
      "v": 0,
@@ -11090,6 +16934,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H21": {
+     "r": "input"
+    },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
+    },
     "C22": {
      "v": 0,
      "r": "input",
@@ -11114,6 +16967,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F22-E22,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H22": {
+     "r": "input"
+    },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
     },
     "C23": {
      "v": 0,
@@ -11140,6 +17002,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H23": {
+     "r": "input"
+    },
+    "A24": {
+     "r": "input"
+    },
+    "B24": {
+     "r": "input"
+    },
     "C24": {
      "v": 0,
      "r": "input",
@@ -11164,6 +17035,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F24-E24,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H24": {
+     "r": "input"
+    },
+    "A25": {
+     "r": "input"
+    },
+    "B25": {
+     "r": "input"
     },
     "C25": {
      "v": 0,
@@ -11190,6 +17070,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H25": {
+     "r": "input"
+    },
+    "A26": {
+     "r": "input"
+    },
+    "B26": {
+     "r": "input"
+    },
     "C26": {
      "v": 0,
      "r": "input",
@@ -11214,6 +17103,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F26-E26,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H26": {
+     "r": "input"
+    },
+    "A27": {
+     "r": "input"
+    },
+    "B27": {
+     "r": "input"
     },
     "C27": {
      "v": 0,
@@ -11240,6 +17138,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H27": {
+     "r": "input"
+    },
+    "A28": {
+     "r": "input"
+    },
+    "B28": {
+     "r": "input"
+    },
     "C28": {
      "v": 0,
      "r": "input",
@@ -11264,6 +17171,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F28-E28,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H28": {
+     "r": "input"
+    },
+    "A29": {
+     "r": "input"
+    },
+    "B29": {
+     "r": "input"
     },
     "C29": {
      "v": 0,
@@ -11290,6 +17206,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H29": {
+     "r": "input"
+    },
+    "A30": {
+     "r": "input"
+    },
+    "B30": {
+     "r": "input"
+    },
     "C30": {
      "v": 0,
      "r": "input",
@@ -11314,6 +17239,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F30-E30,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H30": {
+     "r": "input"
+    },
+    "A31": {
+     "r": "input"
+    },
+    "B31": {
+     "r": "input"
     },
     "C31": {
      "v": 0,
@@ -11340,6 +17274,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H31": {
+     "r": "input"
+    },
+    "A32": {
+     "r": "input"
+    },
+    "B32": {
+     "r": "input"
+    },
     "C32": {
      "v": 0,
      "r": "input",
@@ -11365,6 +17308,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H32": {
+     "r": "input"
+    },
+    "A33": {
+     "r": "input"
+    },
+    "B33": {
+     "r": "input"
+    },
     "C33": {
      "v": 0,
      "r": "input",
@@ -11389,6 +17341,9 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F33-E33,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H33": {
+     "r": "input"
     },
     "A34": {
      "v": "TOTALT NAV-TILSKUDD"
@@ -11436,6 +17391,12 @@ window.VENDITUS_RAW = {
     "H39": {
      "v": "Søknadsdato"
     },
+    "A40": {
+     "r": "input"
+    },
+    "B40": {
+     "r": "input"
+    },
     "C40": {
      "v": 0,
      "r": "input",
@@ -11460,6 +17421,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F40-E40,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H40": {
+     "r": "input"
+    },
+    "A41": {
+     "r": "input"
+    },
+    "B41": {
+     "r": "input"
     },
     "C41": {
      "v": 0,
@@ -11486,6 +17456,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H41": {
+     "r": "input"
+    },
+    "A42": {
+     "r": "input"
+    },
+    "B42": {
+     "r": "input"
+    },
     "C42": {
      "v": 0,
      "r": "input",
@@ -11510,6 +17489,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F42-E42,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H42": {
+     "r": "input"
+    },
+    "A43": {
+     "r": "input"
+    },
+    "B43": {
+     "r": "input"
     },
     "C43": {
      "v": 0,
@@ -11536,6 +17524,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H43": {
+     "r": "input"
+    },
+    "A44": {
+     "r": "input"
+    },
+    "B44": {
+     "r": "input"
+    },
     "C44": {
      "v": 0,
      "r": "input",
@@ -11560,6 +17557,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F44-E44,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H44": {
+     "r": "input"
+    },
+    "A45": {
+     "r": "input"
+    },
+    "B45": {
+     "r": "input"
     },
     "C45": {
      "v": 0,
@@ -11586,6 +17592,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H45": {
+     "r": "input"
+    },
+    "A46": {
+     "r": "input"
+    },
+    "B46": {
+     "r": "input"
+    },
     "C46": {
      "v": 0,
      "r": "input",
@@ -11610,6 +17625,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F46-E46,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H46": {
+     "r": "input"
+    },
+    "A47": {
+     "r": "input"
+    },
+    "B47": {
+     "r": "input"
     },
     "C47": {
      "v": 0,
@@ -11636,6 +17660,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H47": {
+     "r": "input"
+    },
+    "A48": {
+     "r": "input"
+    },
+    "B48": {
+     "r": "input"
+    },
     "C48": {
      "v": 0,
      "r": "input",
@@ -11660,6 +17693,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F48-E48,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H48": {
+     "r": "input"
+    },
+    "A49": {
+     "r": "input"
+    },
+    "B49": {
+     "r": "input"
     },
     "C49": {
      "v": 0,
@@ -11686,6 +17728,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H49": {
+     "r": "input"
+    },
+    "A50": {
+     "r": "input"
+    },
+    "B50": {
+     "r": "input"
+    },
     "C50": {
      "v": 0,
      "r": "input",
@@ -11710,6 +17761,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F50-E50,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H50": {
+     "r": "input"
+    },
+    "A51": {
+     "r": "input"
+    },
+    "B51": {
+     "r": "input"
     },
     "C51": {
      "v": 0,
@@ -11736,6 +17796,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H51": {
+     "r": "input"
+    },
+    "A52": {
+     "r": "input"
+    },
+    "B52": {
+     "r": "input"
+    },
     "C52": {
      "v": 0,
      "r": "input",
@@ -11760,6 +17829,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F52-E52,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H52": {
+     "r": "input"
+    },
+    "A53": {
+     "r": "input"
+    },
+    "B53": {
+     "r": "input"
     },
     "C53": {
      "v": 0,
@@ -11786,6 +17864,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H53": {
+     "r": "input"
+    },
+    "A54": {
+     "r": "input"
+    },
+    "B54": {
+     "r": "input"
+    },
     "C54": {
      "v": 0,
      "r": "input",
@@ -11810,6 +17897,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F54-E54,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H54": {
+     "r": "input"
+    },
+    "A55": {
+     "r": "input"
+    },
+    "B55": {
+     "r": "input"
     },
     "C55": {
      "v": 0,
@@ -11836,6 +17932,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H55": {
+     "r": "input"
+    },
+    "A56": {
+     "r": "input"
+    },
+    "B56": {
+     "r": "input"
+    },
     "C56": {
      "v": 0,
      "r": "input",
@@ -11860,6 +17965,15 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F56-E56,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H56": {
+     "r": "input"
+    },
+    "A57": {
+     "r": "input"
+    },
+    "B57": {
+     "r": "input"
     },
     "C57": {
      "v": 0,
@@ -11886,6 +18000,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H57": {
+     "r": "input"
+    },
+    "A58": {
+     "r": "input"
+    },
+    "B58": {
+     "r": "input"
+    },
     "C58": {
      "v": 0,
      "r": "input",
@@ -11911,6 +18034,15 @@ window.VENDITUS_RAW = {
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "H58": {
+     "r": "input"
+    },
+    "A59": {
+     "r": "input"
+    },
+    "B59": {
+     "r": "input"
+    },
     "C59": {
      "v": 0,
      "r": "input",
@@ -11935,6 +18067,9 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(F59-E59,0)",
      "r": "computed",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "H59": {
+     "r": "input"
     },
     "A60": {
      "v": "TOTALT REFUNDERT"
@@ -12048,6 +18183,12 @@ window.VENDITUS_RAW = {
     "L4": {
      "v": "Tapt inntjening\nopplæringsperiode\n(beregnes auto, kr)"
     },
+    "A5": {
+     "r": "input"
+    },
+    "B5": {
+     "r": "input"
+    },
     "C5": {
      "v": 0,
      "r": "external",
@@ -12094,6 +18235,12 @@ window.VENDITUS_RAW = {
     "L5": {
      "f": "=IFERROR(I5*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A6": {
+     "r": "input"
+    },
+    "B6": {
+     "r": "input"
     },
     "C6": {
      "v": 0,
@@ -12142,6 +18289,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I6*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A7": {
+     "r": "input"
+    },
+    "B7": {
+     "r": "input"
+    },
     "C7": {
      "v": 0,
      "r": "external",
@@ -12188,6 +18341,12 @@ window.VENDITUS_RAW = {
     "L7": {
      "f": "=IFERROR(I7*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A8": {
+     "r": "input"
+    },
+    "B8": {
+     "r": "input"
     },
     "C8": {
      "v": 0,
@@ -12236,6 +18395,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I8*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A9": {
+     "r": "input"
+    },
+    "B9": {
+     "r": "input"
+    },
     "C9": {
      "v": 0,
      "r": "external",
@@ -12282,6 +18447,12 @@ window.VENDITUS_RAW = {
     "L9": {
      "f": "=IFERROR(I9*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A10": {
+     "r": "input"
+    },
+    "B10": {
+     "r": "input"
     },
     "C10": {
      "v": 0,
@@ -12330,6 +18501,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I10*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A11": {
+     "r": "input"
+    },
+    "B11": {
+     "r": "input"
+    },
     "C11": {
      "v": 0,
      "r": "external",
@@ -12376,6 +18553,12 @@ window.VENDITUS_RAW = {
     "L11": {
      "f": "=IFERROR(I11*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A12": {
+     "r": "input"
+    },
+    "B12": {
+     "r": "input"
     },
     "C12": {
      "v": 0,
@@ -12424,6 +18607,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I12*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A13": {
+     "r": "input"
+    },
+    "B13": {
+     "r": "input"
+    },
     "C13": {
      "v": 0,
      "r": "external",
@@ -12470,6 +18659,12 @@ window.VENDITUS_RAW = {
     "L13": {
      "f": "=IFERROR(I13*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A14": {
+     "r": "input"
+    },
+    "B14": {
+     "r": "input"
     },
     "C14": {
      "v": 0,
@@ -12518,6 +18713,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I14*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A15": {
+     "r": "input"
+    },
+    "B15": {
+     "r": "input"
+    },
     "C15": {
      "v": 0,
      "r": "external",
@@ -12564,6 +18765,12 @@ window.VENDITUS_RAW = {
     "L15": {
      "f": "=IFERROR(I15*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A16": {
+     "r": "input"
+    },
+    "B16": {
+     "r": "input"
     },
     "C16": {
      "v": 0,
@@ -12612,6 +18819,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I16*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A17": {
+     "r": "input"
+    },
+    "B17": {
+     "r": "input"
+    },
     "C17": {
      "v": 0,
      "r": "external",
@@ -12658,6 +18871,12 @@ window.VENDITUS_RAW = {
     "L17": {
      "f": "=IFERROR(I17*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A18": {
+     "r": "input"
+    },
+    "B18": {
+     "r": "input"
     },
     "C18": {
      "v": 0,
@@ -12706,6 +18925,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I18*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A19": {
+     "r": "input"
+    },
+    "B19": {
+     "r": "input"
+    },
     "C19": {
      "v": 0,
      "r": "external",
@@ -12752,6 +18977,12 @@ window.VENDITUS_RAW = {
     "L19": {
      "f": "=IFERROR(I19*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A20": {
+     "r": "input"
+    },
+    "B20": {
+     "r": "input"
     },
     "C20": {
      "v": 0,
@@ -12800,6 +19031,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I20*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A21": {
+     "r": "input"
+    },
+    "B21": {
+     "r": "input"
+    },
     "C21": {
      "v": 0,
      "r": "external",
@@ -12846,6 +19083,12 @@ window.VENDITUS_RAW = {
     "L21": {
      "f": "=IFERROR(I21*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A22": {
+     "r": "input"
+    },
+    "B22": {
+     "r": "input"
     },
     "C22": {
      "v": 0,
@@ -12894,6 +19137,12 @@ window.VENDITUS_RAW = {
      "f": "=IFERROR(I22*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
     },
+    "A23": {
+     "r": "input"
+    },
+    "B23": {
+     "r": "input"
+    },
     "C23": {
      "v": 0,
      "r": "external",
@@ -12940,6 +19189,12 @@ window.VENDITUS_RAW = {
     "L23": {
      "f": "=IFERROR(I23*((KONFIGURASJON!B26+KONFIGURASJON!B27+KONFIGURASJON!B28+KONFIGURASJON!B29)/4)/KONFIGURASJON!B14,0)",
      "z": "#,##0\" kr\";[RED]\\-#,##0\" kr\""
+    },
+    "A24": {
+     "r": "input"
+    },
+    "B24": {
+     "r": "input"
     },
     "C24": {
      "v": 0,

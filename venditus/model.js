@@ -485,6 +485,160 @@
 
   /* ── rules — thresholds that flip a verdict, per Insight.dc.html ──────── */
 
+  /* ── risks: the three things that cost money before anyone notices ───────
+     1 · a seller who has gone loss-making, in-month rather than at close
+     2 · settlement exposure — what a departure would cost today
+     3 · NAV money that lapses because a condition stopped being true
+
+     Every figure carries the cells it came from, so a flag is never a black
+     box. Notably, 2 is built almost entirely from workbook fields no formula
+     in the workbook references: B24, B25, B26 and the pending / clawback
+     columns of PHONERO RAPPORT. */
+
+  function monthsBack(months, from, count) {
+    var i = months.indexOf(from);
+    if (i < 0) return [];
+    return months.slice(Math.max(0, i - count + 1), i + 1);
+  }
+
+  function risks(model, dataset, today) {
+    var config = model.config || {};
+    var months = model.months || [];
+    if (!months.length) return { margin: [], settlement: [], nav: [], totals: {} };
+    var last = months[months.length - 1];
+    var floorPct = n(config.marginAlert) * 100;      // stored as a rate
+    var warnDays = n(config.navWarnDays) || 30;
+    var window = Math.max(1, Math.round(n(config.deductionPeriod) || 3));
+    var avgRate = averagePackRate(config);
+    var now = today ? new Date(today) : new Date();
+
+    /* 1 ─────────────────────────────────────────────────────────────────── */
+    var margin = [];
+    (model.byMonth[last] ? model.byMonth[last].rows : []).forEach(function (r) {
+      if (!r.hasData && !r.revenue) return;
+      var pct = r.marginPct * 100;
+      // how many months in a row it has fallen — a seller sliding toward zero
+      // is the warning; one already under it is the alarm
+      var series = months.map(function (m) {
+        var rr = (model.byMonth[m].rows || []).filter(function (x) { return x.seller === r.seller; })[0];
+        return rr ? rr.marginKr : null;
+      });
+      var falling = 0;
+      for (var i = series.length - 1; i > 0; i--) {
+        if (series[i] === null || series[i - 1] === null) break;
+        if (series[i] < series[i - 1]) falling++; else break;
+      }
+      var under = pct < floorPct;
+      if (!under && falling < 3) return;
+      margin.push({
+        seller: r.seller, month: last,
+        marginKr: r.marginKr, marginPct: r.marginPct, revenue: r.revenue,
+        cost: r.totalCostAll, salesCount: r.salesCount,
+        falling: falling, level: under ? (r.marginKr < 0 ? 'high' : 'medium') : 'low',
+        series: series,
+        // the biggest single cost line, so the flag says why
+        driver: [['commission', r.commission], ['employerCost', r.employerCost],
+                 ['absence', n(r.selfCertCost) + n(r.employerSickCost) + n(r.leaveCost)],
+                 ['bonus', n(r.bonusWithEmployer)], ['other', n(r.listCost) + n(r.onboarding) +
+                 n(r.severance) + n(r.incentives)]]
+                .sort(function (a, b) { return b[1] - a[1]; })[0]
+      });
+    });
+    margin.sort(function (a, b) { return a.marginKr - b.marginKr; });
+
+    /* 2 ─────────────────────────────────────────────────────────────────── */
+    var win = monthsBack(months, last, window);
+    var settlement = [];
+    var sellers = {};
+    months.forEach(function (m) {
+      (model.byMonth[m].rows || []).forEach(function (r) { sellers[r.seller] = r; });
+    });
+    Object.keys(sellers).forEach(function (name) {
+      var pendingCount = 0, rejectedCount = 0, clawback = 0, guarantee = 0, commission = 0;
+      win.forEach(function (m) {
+        var r = (model.byMonth[m].rows || []).filter(function (x) { return x.seller === name; })[0];
+        if (!r) return;
+        pendingCount += n(r.pending);
+        rejectedCount += n(r.rejected);
+        clawback += n(r.clawback);
+        guarantee += n(r.guarantee);
+        commission += n(r.commission);
+      });
+      var unpaidBonus = 0, bonusLines = [];
+      (dataset && dataset.bonus ? dataset.bonus : []).forEach(function (b) {
+        if (String(b.seller).replace(/\s+/g, ' ').toLowerCase() !== String(name).replace(/\s+/g, ' ').toLowerCase()) return;
+        if (b.paid === true) return;
+        unpaidBonus += n(b.amount);
+        bonusLines.push(b);
+      });
+      var pendingValue = pendingCount * avgRate;
+      var exposure = guarantee + unpaidBonus + pendingValue;
+      if (exposure <= 0 && clawback <= 0) return;
+      var row = (model.byMonth[last].rows || []).filter(function (x) { return x.seller === name; })[0];
+      settlement.push({
+        seller: name, months: win, window: window,
+        guarantee: guarantee, unpaidBonus: unpaidBonus, bonusLines: bonusLines,
+        pendingCount: pendingCount, pendingValue: pendingValue,
+        rejectedCount: rejectedCount, clawback: clawback,
+        commission: commission, avgRate: avgRate,
+        exposure: exposure,
+        active: row ? row.active !== false : true,
+        level: exposure > commission * 0.5 ? 'high' : exposure > 0 ? 'medium' : 'low'
+      });
+    });
+    settlement.sort(function (a, b) { return b.exposure - a.exposure; });
+
+    /* 3 ─────────────────────────────────────────────────────────────────── */
+    var nav = [];
+    var subs = (dataset && dataset.navSubsidy) ? dataset.navSubsidy : [];
+    subs.forEach(function (sb) {
+      var until = sb.until ? new Date(sb.until) : null;
+      var days = until && !isNaN(+until) ? Math.round((+until - +now) / 86400000) : null;
+      var row = null;
+      months.forEach(function (m) {
+        (model.byMonth[m].rows || []).forEach(function (x) {
+          if (String(x.seller).toLowerCase() === String(sb.seller).toLowerCase()) row = x; });
+      });
+      var inactive = row ? row.active === false : false;
+      var kind = inactive ? 'condition' : days === null ? 'nodate'
+               : days < 0 ? 'expired' : days <= warnDays ? 'expiring' : null;
+      if (!kind && n(sb.gross) > 0 && n(sb.received) === 0) kind = 'unclaimed';
+      if (!kind) return;
+      nav.push({
+        kind: kind, seller: sb.seller, month: sb.month, until: sb.until, days: days,
+        gross: n(sb.gross), received: n(sb.received),
+        rate: n(config.navSubsidyRate),
+        atRisk: n(sb.gross) * n(config.navSubsidyRate),
+        level: kind === 'expired' || kind === 'condition' ? 'high' : 'medium'
+      });
+    });
+
+    // Sick-pay refunds we computed as due but never saw arrive.
+    var refundGap = [];
+    months.forEach(function (m) {
+      (model.byMonth[m].rows || []).forEach(function (r) {
+        var gap = n(r.navExpected) - n(r.navReceived);
+        if (n(r.navExpected) > 0 && gap > 1) {
+          refundGap.push({ seller: r.seller, month: m, expected: r.navExpected,
+                           received: r.navReceived, gap: gap, days: r.navDays });
+        }
+      });
+    });
+
+    var totals = {
+      inMinus: margin.filter(function (x) { return x.marginKr < 0; }).length,
+      marginFlags: margin.length,
+      exposure: settlement.reduce(function (a, x) { return a + x.exposure; }, 0),
+      navAtRisk: nav.reduce(function (a, x) { return a + x.atRisk; }, 0)
+                 + refundGap.reduce(function (a, x) { return a + x.gap; }, 0),
+      subsidyRows: subs.length,
+      refundGapKr: refundGap.reduce(function (a, x) { return a + x.gap; }, 0)
+    };
+
+    return { margin: margin, settlement: settlement, nav: nav, refundGap: refundGap,
+             totals: totals, window: window, floorPct: floorPct, warnDays: warnDays, month: last };
+  }
+
   function rules(model, month, thresholds) {
     var t = thresholds || {};
     var m = model.byMonth[month];
@@ -540,6 +694,7 @@
     shareFor: shareFor,
     DEFAULT_SHARE: DEFAULT_SHARE,
     rules: rules,
+    risks: risks,
     index: index,
     total: total,
     PACKS: PACKS

@@ -46,7 +46,13 @@
         commissionThreshold:{ label: 'Provisjonstrekk-terskel',           cell: 'B25', kind: 'num' },
         deductionPeriod:    { label: 'Trekkperiode før avregning',        cell: 'B26', kind: 'num' },
 
-        navSubsidyRate:     { label: 'NAV lønnstilskudd-sats',            cell: 'B34', kind: 'rate' }
+        navSubsidyRate:     { label: 'NAV lønnstilskudd-sats',            cell: 'B34', kind: 'rate' },
+
+        /* Alert thresholds. The workbook has no rows for these yet, so they
+         * default in parse.js and are editable in KONFIGURASJON like any other
+         * setting — no separate settings screen to learn. */
+        marginAlert:        { label: 'Marginvarsel — terskel',            cell: null, missing: true, kind: 'rate' },
+        navWarnDays:        { label: 'NAV-varsel — dager før utløp',      cell: null, missing: true, kind: 'num' }
       },
 
       /* Commission per sales pack. These keys line up with `sales.packs`
@@ -218,6 +224,54 @@
      * letting them poison a sum. */
     placeholders: ['← Tripletex']
   };
+
+
+  /* The workbook's own headers are Norwegian, and they are what the NO UI
+   * shows — they are the client's words for the client's columns. English
+   * needs its own labels, so declare them here beside the mapping rather than
+   * translating sheet text at render time. Keyed table.field / calc.field. */
+  var EN_HEADERS = {
+    'employees.name':'Name (full name — matches other sheets)','employees.start':'Start date',
+    'employees.contract':'Contract type','employees.product':'Product / brand',
+    'employees.active':'Active','employees.end':'End date','employees.note':'Note',
+
+    'sales.month':'Report month','sales.ref':'Report ID / ref.','sales.seller':'Seller',
+    'sales.p1gb':'Phonero 1GB','sales.p5gb':'Phonero 5GB','sales.p10gb':'Phonero 10GB',
+    'sales.p15gb':'Phonero 15GB','sales.fkStrom':'Fjordkraft Power','sales.fkMobil':'Fjordkraft Mobile',
+    'sales.tryg':'TRYG','sales.commission':'Total commission (kr)','sales.rejected':'Rejected sales',
+    'sales.pending':'Pending sales','sales.clawback':'Clawback reversed (kr)',
+
+    'hr.seller':'Seller (matches PROFIL)','hr.month':'Month','hr.selfCertDays':'Self-certified days',
+    'hr.sickDays':'Doctor-certified days','hr.navRefund':'NAV refund received (kr)',
+    'hr.leaveDays':'Leave days','hr.clawback':'Clawback (kr)','hr.listCost':'List cost (kr)',
+    'hr.newHire':'New hire','hr.guaranteeUsed':'Guaranteed salary triggered',
+    'hr.incentives':'Informal incentives (kr)','hr.severance':'Severance (kr)',
+    'hr.lostEarnings':'Lost earnings, training (kr)',
+
+    'bonus.seller':'Seller (or TEAM)','bonus.month':'Month','bonus.description':'Period / description',
+    'bonus.type':'Bonus type','bonus.basis':'Basis','bonus.amount':'Amount (kr)',
+    'bonus.taxFree':'Tax-free','bonus.paid':'Paid','bonus.note':'Note',
+
+    'onboarding.name':'Name','onboarding.start':'Start date','onboarding.advertising':'Recruitment advertising',
+    'onboarding.fee':'Recruitment fee','onboarding.course':'Course material','onboarding.training':'Product training',
+    'onboarding.equipment':'Equipment / SIM','onboarding.daysToFirstSale':'Days to first sale',
+
+    'calc.seller':'Seller','calc.month':'Month','calc.contract':'Contract','calc.fixedSalary':'Fixed salary (kr)',
+    'calc.commission':'Commission (kr)','calc.gross':'Gross pay (kr)','calc.employerCost':'Total employer cost (kr)',
+    'calc.aga':'Employer tax (kr)','calc.holiday':'Holiday pay (kr)','calc.pension':'Pension (kr)',
+    'calc.selfCertDays':'Self-cert. days','calc.selfCertCost':'Self-cert. cost (kr)',
+    'calc.sickDays':'Sick days (total)','calc.employerSickCost':'Employer sick pay, days 1–16 (kr)',
+    'calc.leaveDays':'Leave days','calc.leaveCost':'Leave cost (kr)','calc.navRefund':'NAV refund received (kr)',
+    'calc.netPayroll':'Net payroll cost (kr)','calc.clawback':'Clawback (kr)','calc.listCost':'Lists (kr)',
+    'calc.onboarding':'Onboarding (kr)','calc.indirect':'Indirect per seller (kr)',
+    'calc.totalCost':'TOTAL COST (kr)','calc.revenue':'Revenue (kr)','calc.marginKr':'CONTRIBUTION MARGIN (kr)',
+    'calc.marginPct':'CONTRIBUTION MARGIN (%)','calc.absencePct':'Absence (%)','calc.bonus':'Bonus (kr)',
+    'calc.bonusWithEmployer':'Bonus incl. employer cost (kr)','calc.guarantee':'Guaranteed salary triggered (kr)',
+    'calc.incentives':'Informal incentives (kr)','calc.severance':'Severance (kr)',
+    'calc.lostEarnings':'Lost earnings, training (kr)','calc.totalCostAll':'TOTAL COST incl. all items (kr)'
+  };
+
+  global.VenditusHeadersEN = EN_HEADERS;
 
   global.VenditusMapping = MAPPING;
 })(typeof window !== 'undefined' ? window : globalThis);

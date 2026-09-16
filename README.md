@@ -241,7 +241,7 @@ inputs change. See `Insight.dc.html`.
 - No column resize, no multi-sheet paste, no find-and-replace within a sheet.
 - The `venditus/*.js` script tags carry a content hash (`?h=…`) so an edit always reloads.
   Regenerate with the stamping step if you add a file.
-- Thor, Scenarios, Invoices and the Insights page still run on their own demo literals and do
+- Dara, Scenarios, Invoices and the Insights page still run on their own demo literals and do
   not follow a Venditus edit.
 - `flowSeries()`, `wfMonths()`, `buildExpenseStack()`, `buildRunwayArc()`, `buildNetDiverge()`
   and `buildWaterfall()` are now unreferenced by any route — dead, and safe to delete.

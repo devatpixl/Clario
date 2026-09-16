@@ -47,6 +47,8 @@
     revenueReported:  { sheet: 'phonero', field: 'commission', no: 'Phoneros egen sum',           en: "Phonero's own total" },
     revenueVariance:  { sheet: 'phonero', field: 'commission', no: 'Rapportert minus beregnet',   en: 'Reported minus computed' },
     salesCount:       { sheet: 'phonero', packs: true,  no: 'Sum av pakkekolonnene',              en: 'Sum of the pack columns' },
+    pending:          { sheet: 'phonero', field: 'pending',    no: 'Salg Phonero ikke har godkjent', en: 'Sales Phonero has not approved' },
+    rejected:         { sheet: 'phonero', field: 'rejected',   no: 'Avviste salg',                  en: 'Rejected sales' },
     commission:       { sheet: 'konfig',  config: 'sellerShare', no: 'Inntekt × selgerandel',     en: 'Revenue × seller share' },
 
     // ── payroll and its statutory on-costs
@@ -105,7 +107,20 @@
     if (!n) return null;
     if (table === 'onboarding' || table === 'employees') return n;
     if (!month) return null;
-    if (table === 'bonus') return n + '|' + month + '|' + (description || '');
+    // A bonus row is keyed by its description too. From a chart we only know
+    // the seller and the month, so find the first line that matches rather
+    // than giving up and pointing at a whole column.
+    if (table === 'bonus') {
+      if (description) return n + '|' + month + '|' + description;
+      var rows = (arguments[4] && arguments[4].bonus) || [];
+      for (var i = 0; i < rows.length; i++) {
+        var rn = String(rows[i].seller || '').replace(/\s+/g, ' ').toLowerCase();
+        if (rn === n && rows[i].month === month) {
+          return n + '|' + month + '|' + (rows[i].description || '');
+        }
+      }
+      return null;
+    }
     return n + '|' + month;
   }
 
@@ -149,13 +164,34 @@
       col: null
     };
 
+    // When a seller and month are on the table, the useful destination is that
+    // person's own row on BEREGNING — not the company-wide rate that feeds it.
+    // A rate explains the number; the row *is* the number.
+    // Only for figures with no input cell of their own — a rate or a pure
+    // derivation. Anything with a real source column keeps going there, because
+    // the editable cell is more use than the answer it produces.
+    var perRow = (spec.config || spec.computed) ? (mapping().calc.cells || {})[metric] : null;
+    if (perRow && ctx.seller && ctx.month) {
+      out.sheet = 'beregning';
+      out.sheetName = SHEET_NAME.beregning;
+      out.code = SHEET_CODE.beregning;
+      out.target = 'beregning.' + rowKeyFor('calc', ctx.seller, ctx.month) + '.' + metric;
+      var pr = workbookRow(ctx.dataset, 'hr', rowKeyFor('hr', ctx.seller, ctx.month));
+      out.ref = SHEET_NAME.beregning + '!' + perRow + (pr || '');
+      out.col = perRow;
+      return out;
+    }
+
     // A KONFIGURASJON rate: one cell, the same for everybody
     if (spec.config) {
       out.target = 'config.' + spec.config;
       var cells = (mapping().config.keys[spec.config] || {}).cell;
       out.ref = SHEET_NAME.konfig + (cells ? '!' + cells : '');
       if (spec.config === 'packRates') out.ref = SHEET_NAME.konfig + '!B27:B32';
-      if (spec.config === 'sellerShare') out.ref = SHEET_NAME.konfig;
+      if (spec.config === 'sellerShare') {
+        out.ref = SHEET_NAME.konfig + '!B22:B24';
+        out.target = null;   // one rate per contract — no single cell owns it
+      }
       out.col = 'B';
       return out;
     }
@@ -177,16 +213,18 @@
       var first = columnOf(spec.sheet, PACK_FIELDS[0]);
       var last = columnOf(spec.sheet, PACK_FIELDS[PACK_FIELDS.length - 1]);
       var key = rowKeyFor(table, ctx.seller, ctx.month);
-      out.target = key ? table + '.' + key + '.' + PACK_FIELDS[1] : null;
+      // Revenue is every pack column, not one of them — land on the first cell
+      // but hand back the whole span so the highlight matches the reference.
+      out.target = key ? table + '.' + key + '.' + PACK_FIELDS[0] : null;
       var row = key && ctx.dataset ? workbookRow(ctx.dataset, table, key) : null;
       out.ref = SHEET_NAME[spec.sheet] + '!' + first + (row || '') + ':' + last + (row || '');
-      out.col = first;
+      out.col = first + ':' + last;
       return out;
     }
 
     // A single input column, narrowed to one row when we know the seller
     var col = columnOf(spec.sheet, spec.field);
-    var rowKey = rowKeyFor(table, ctx.seller, ctx.month, ctx.description);
+    var rowKey = rowKeyFor(table, ctx.seller, ctx.month, ctx.description, ctx.dataset);
     if (rowKey) {
       out.target = table + '.' + rowKey + '.' + spec.field;
       var wr = ctx.dataset ? workbookRow(ctx.dataset, table, rowKey) : null;

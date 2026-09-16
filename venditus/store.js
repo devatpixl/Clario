@@ -77,17 +77,67 @@
     }
 
     this.edits = restoreEdits ? this.readEdits() : {};
-    this.recompute();
+    try {
+      this.recompute();
+    } catch (e) {
+      // A stored overlay that no longer computes is not worth a broken page.
+      if (global.console && console.warn) {
+        console.warn('[venditus] stored edits could not be applied — starting clean', e);
+      }
+      this.edits = {};
+      this.persist();
+      this.recompute();
+      this.diagnostics.push({ level: 'warn', area: 'edits',
+        message: 'Lagrede endringer kunne ikke leses og ble forkastet.' });
+    }
     return this;
+  };
+
+  /* An edit overlay outlives the code that wrote it. A key from an older
+     build, or a hand-made one, must not be able to poison the dataset and take
+     the whole page down — so every restored key is checked against the grammar
+     and anything unrecognised is dropped rather than applied. */
+  Store.prototype.validEditPath = function (path) {
+    if (typeof path !== 'string' || !path) return false;
+    var parts = path.split('.');
+    if (parts[0] === 'config') return parts.length >= 2 && !!parts[1];
+    if (parts[0] === '_hidden') return parts.length >= 3 && !!ROW_KEY[parts[1]];
+    if (!ROW_KEY[parts[0]]) return false;
+    // table.rowKey.field — the row key may contain dots, the field may not be empty
+    return parts.length >= 3 && !!parts[parts.length - 1];
   };
 
   Store.prototype.readEdits = function () {
     try {
+      // ?reset=1 clears the overlay before anything reads it, so a bad edit can
+      // always be escaped from the URL bar without opening devtools.
+      var q = (global.location && global.location.search) || '';
+      if (/[?&]reset=1\b/.test(q) || (global.location && global.location.hash === '#reset')) {
+        global.localStorage.removeItem(LS_EDITS);
+        global.localStorage.removeItem(LS_SOURCE);
+        return {};
+      }
       var stored = global.localStorage && global.localStorage.getItem(LS_EDITS);
       var src = global.localStorage && global.localStorage.getItem(LS_SOURCE);
       // Edits belong to the workbook they were made against.
       if (src && src !== this.sourceName) return {};
-      return stored ? JSON.parse(stored) : {};
+      var raw = stored ? JSON.parse(stored) : {};
+      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
+
+      var out = {}, dropped = 0, self = this;
+      Object.keys(raw).forEach(function (k) {
+        var v = raw[k];
+        var ok = self.validEditPath(k) &&
+          (v === null || ['string', 'number', 'boolean'].indexOf(typeof v) >= 0);
+        if (ok) out[k] = v; else dropped++;
+      });
+      if (dropped) {
+        this.droppedEdits = dropped;
+        if (global.console && console.warn) {
+          console.warn('[venditus] dropped ' + dropped + ' unreadable edit(s) from storage');
+        }
+      }
+      return out;
     } catch (e) { return {}; }
   };
 
@@ -117,8 +167,34 @@
     d.sales = d.sales || []; d.hr = d.hr || []; d.bonus = d.bonus || [];
     d.onboarding = d.onboarding || [];
 
+    // The workbook as it stood before anyone typed, kept so a changed cell can
+    // say what it used to hold and offer to put it back.
+    this.pristine = clone(d);
+
     this.applyEdits(d);
     return d;
+  };
+
+  /* The value a path held before the user's own edits. */
+  Store.prototype.originalValue = function (path) {
+    if (!this.pristine) return undefined;
+    var parts = path.split('.');
+    if (parts[0] === 'config') {
+      var c = this.pristine.config || {};
+      if (parts[1] === 'packRates') return (c.packRates || {})[parts[2]];
+      if (parts[1] === 'sellerShare') return (c.sellerShare || {})[parts.slice(2).join('.')];
+      if (parts[1] === '_label' || parts[1] === '_source') return (c[parts[1]] || {})[parts.slice(2).join('.')];
+      return c[parts[1]];
+    }
+    var rows = this.pristine[parts[0]] || [];
+    var keyOf = ROW_KEY[parts[0]];
+    if (!keyOf) return undefined;
+    var rowKey = parts.slice(1, -1).join('.');
+    var field = parts[parts.length - 1];
+    for (var i = 0; i < rows.length; i++) {
+      if (keyOf(rows[i]) === rowKey) return rows[i][field];
+    }
+    return undefined;
   };
 
   Store.prototype.applyEdits = function (d) {

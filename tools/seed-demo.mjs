@@ -27,7 +27,10 @@ function rng(seed) {
   };
 }
 
-const MONTHS = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06'];
+// Four months is enough for a trend, a falling-margin alert and a quarter of
+// employer tax, without filling the sheet with rows nobody reads. Every seller
+// gets one row per month, so this is sellers × months — 4 × 4 = 16.
+const MONTHS = ['2025-03', '2025-04', '2025-05', '2025-06'];
 
 // Shaped to each seller's contract and product, per SELGER PROFIL.
 const PROFILES = [

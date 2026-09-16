@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./venditus/raw.js?h=d0f782ad"></script>
-<script src="./venditus/demo.js?h=a65a10d6"></script>
-<script src="./venditus/mapping.js?h=c01f3e1e"></script>
-<script src="./venditus/parse.js?h=009f7b55"></script>
-<script src="./venditus/model.js?h=a9141aea"></script>
-<script src="./venditus/trace.js?h=e11e09e4"></script>
-<script src="./venditus/store.js?h=c5223cb8"></script>
+<script src="./venditus/raw.js?h=907861ec"></script>
+<script src="./venditus/demo.js?h=0de88225"></script>
+<script src="./venditus/mapping.js?h=6e299dd5"></script>
+<script src="./venditus/parse.js?h=a4e5a20b"></script>
+<script src="./venditus/model.js?h=26a4d9dc"></script>
+<script src="./venditus/trace.js?h=3e1778ba"></script>
+<script src="./venditus/store.js?h=1fbecfb1"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -66,33 +66,353 @@
   .vd-in:focus{outline:none;border-color:var(--accent);background:var(--card);
     box-shadow:0 0 0 3px var(--accent-soft)}
   /* the workbook grid — fills carried over from the client's own colour code */
-  :root{--vd-in-bg:#FFFBEF;--vd-calc-bg:#F1F8F1;--vd-ext-bg:#FDF3EC;--vd-grid:#E4E3EF;--vd-frame:#F4F3F9}
+  /* Only one thing in the grid is tinted: the cells you can type in. Computed
+     cells are plain paper. Tinting both states is what made this read as a
+     spreadsheet from 2007 — the contrast is wash against white, not yellow
+     against green, so the wash itself can stay almost invisible. */
+  :root{--vd-in-bg:rgba(43,95,224,.055);--vd-in-edge:#2B5FE0;
+    --vd-calc-bg:transparent;--vd-calc-edge:#CBD3E1;
+    --vd-ext-bg:rgba(233,162,59,.07);--vd-ext-edge:#E9A23B;
+    --vd-grid:#EAEDF5;--vd-frame:#F7F8FC}
   [data-theme="dark"], :root:has([data-theme="dark"]){
-    --vd-in-bg:rgba(224,169,74,.10);--vd-calc-bg:rgba(74,222,128,.09);
-    --vd-ext-bg:rgba(246,124,70,.10);--vd-grid:rgba(255,255,255,.10);--vd-frame:rgba(255,255,255,.05)}
-  .vd-wrap{overflow:auto;max-height:70vh;border:1px solid var(--border);border-radius:0 12px 12px 12px;
+    --vd-in-bg:rgba(91,140,255,.13);--vd-in-edge:#5B8CFF;
+    --vd-calc-bg:transparent;--vd-calc-edge:rgba(255,255,255,.20);
+    --vd-ext-bg:rgba(233,162,59,.11);--vd-ext-edge:#E9A23B;
+    --vd-grid:rgba(255,255,255,.09);--vd-frame:rgba(255,255,255,.04)}
+  /* ═══ The workbook as a data table ══════════════════════════════════════
+     No vertical rules, roomy rows, one hairline between records. The colour in
+     the grid comes from the content — a person, a period, a yes/no — not from
+     tinting every cell. */
+  .vd-wrap{overflow:auto;max-height:68vh;border:1px solid var(--border);border-radius:14px;
     background:var(--card)}
   .vd-grid{display:inline-block;min-width:100%}
   .vd-gr{display:grid}
   .vd-ghead{position:sticky;top:0;z-index:3}
-  .vd-c{border-right:1px solid var(--vd-grid);border-bottom:1px solid var(--vd-grid);
-    padding:0 8px;height:34px;line-height:34px;font-family:'JetBrains Mono',monospace;
-    font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;
-    text-overflow:ellipsis;color:var(--text)}
-  .vd-h{background:var(--vd-frame);height:46px;line-height:1.25;padding:5px 8px;display:flex;
-    flex-direction:column;justify-content:center;position:sticky;top:0}
-  .vd-hl{font-size:9px;color:var(--muted2);letter-spacing:0.1em}
-  .vd-ht{font-size:10.5px;color:var(--text2);font-weight:600;overflow:hidden;text-overflow:ellipsis}
-  .vd-corner{background:var(--vd-frame);height:46px;position:sticky;left:0;z-index:4}
-  .vd-rn{background:var(--vd-frame);color:var(--muted2);font-size:10px;text-align:center;
+  .vd-grid .vd-gr+.vd-gr{border-top:1px solid var(--border-soft)}
+  .vd-gr.vd-sec+.vd-gr,.vd-gr+.vd-gr.vd-sec{border-top-color:var(--border)}
+  .vd-tr{transition:background .12s}
+  .vd-tr:hover{background:var(--hover)}
+  .vd-c{padding:0 12px;height:46px;line-height:46px;font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis;color:var(--text);border:none;display:block}
+  .vd-h{background:var(--vd-frame);height:44px;line-height:44px;padding:0 12px;
+    position:sticky;top:0;display:flex;align-items:center;gap:6px;
+    border-bottom:1px solid var(--border);border-top:2px solid transparent}
+  .vd-ht{font-size:10.5px;color:var(--text2);font-weight:600;letter-spacing:0.02em;
+    font-family:'Inter',system-ui,sans-serif;overflow:hidden;text-overflow:ellipsis}
+  .vd-hi{font-size:9.5px;color:var(--muted2);flex:none}
+  .vd-h-input{border-top-color:var(--vd-in-edge)}
+  .vd-h-input .vd-hi{color:var(--vd-in-edge)}
+  .vd-h-computed{border-top-color:transparent}
+  .vd-h-external{border-top-color:var(--vd-ext-edge)}
+  .vd-h-external .vd-hi{color:var(--vd-ext-edge)}
+  .vd-corner{background:var(--vd-frame);height:44px;position:sticky;left:0;z-index:4;
+    border-bottom:1px solid var(--border)}
+  .vd-rn{background:var(--card);color:var(--muted2);font-size:10.5px;text-align:center;
     position:sticky;left:0;z-index:2}
-  .vd-ro{background:transparent}
+  .vd-tr:hover .vd-rn{background:var(--hover)}
+  .vd-ro{background:transparent;color:var(--text2);font-weight:400}
+  .vd-c-x{text-align:center;padding:0}
   .vd-sec .vd-sect{background:var(--surface2);color:var(--text2);font-weight:700;font-size:10px;
-    letter-spacing:0.12em}
-  input.vd-c{border:none;border-right:1px solid var(--vd-grid);border-bottom:1px solid var(--vd-grid);
-    width:100%;border-radius:0;transition:none}
-  input.vd-c:hover{box-shadow:inset 0 0 0 1px var(--border)}
-  input.vd-c:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent);position:relative;z-index:1}
+    letter-spacing:0.12em;font-family:'Inter',system-ui,sans-serif}
+  input.vd-c{width:100%;border-radius:0;transition:none;font-weight:600;color:var(--text);
+    box-shadow:inset 3px 0 0 var(--vd-in-edge)}
+  input.vd-c:hover{box-shadow:inset 3px 0 0 var(--vd-in-edge),inset 0 0 0 1px var(--border)}
+  input.vd-c:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent);position:relative;z-index:1;
+    background:var(--card)!important}
+  /* content chips */
+  .vt-pill{display:inline-flex;align-items:center;justify-content:center;height:24px;padding:0 10px;
+    border-radius:7px;font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:650;
+    letter-spacing:0.03em;line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap}
+  .vt-yes{background:rgba(18,161,80,.13);color:#0E7A3D}
+  .vt-no{background:rgba(229,72,77,.11);color:#B2383C}
+  .vt-nil{background:var(--surface2);color:var(--muted2)}
+  .vt-month-ro{background:rgba(124,92,255,.11);color:#5B43C4}
+  [data-theme="dark"] .vt-yes{color:#4ADE80} [data-theme="dark"] .vt-no{color:#FF8A8D}
+  [data-theme="dark"] .vt-month-ro{color:#B9A8FF}
+  .vd-c-btn{border:none;cursor:pointer;text-align:left;font:inherit;width:100%;
+    box-shadow:inset 3px 0 0 var(--vd-in-edge)}
+  .vd-c-btn:hover .vt-pill{filter:brightness(.96)}
+  .vd-c-wrap{display:flex!important;align-items:center;gap:8px;padding:0 10px;
+    box-shadow:inset 3px 0 0 var(--vd-in-edge)}
+  .vd-c-person{display:flex!important;align-items:center;gap:9px}
+  .vt-av{width:24px;height:24px;flex:none;border-radius:7px;display:flex;align-items:center;
+    justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+    color:#fff;letter-spacing:.02em}
+  .vt-av-s{width:17px;height:17px;border-radius:5px;font-size:7.5px}
+  .vt-nm{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:600;color:var(--text);
+    overflow:hidden;text-overflow:ellipsis}
+  .vt-sel{border:none;background:transparent;font:inherit;color:inherit;cursor:pointer;
+    -webkit-appearance:none;appearance:none;outline:none;max-width:100%;padding:0}
+  .vt-sel:focus{box-shadow:0 0 0 2px var(--accent);border-radius:6px}
+  .vt-name{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:600;
+    color:var(--text);flex:1;min-width:0}
+  select.vt-month{background:rgba(124,92,255,.11);color:#5B43C4;height:24px;line-height:24px;
+    padding:0 9px;border-radius:7px;font-family:'Inter',system-ui,sans-serif;font-size:10.5px;
+    font-weight:650;text-align:center;text-align-last:center;min-width:0;
+    text-overflow:ellipsis;white-space:nowrap}
+  [data-theme="dark"] select.vt-month{color:#B9A8FF}
+  /* toolbar */
+  .vt-tb{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:0 0 13px}
+  .vt-q-w{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;
+    border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--muted2);
+    min-width:230px}
+  .vt-q{border:none;outline:none;background:transparent;font:inherit;font-size:12.5px;
+    color:var(--text);width:100%;padding:0}
+  .vt-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .vt-chip{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:9999px;
+    border:1px solid var(--border);background:var(--card);cursor:pointer;font:inherit;font-size:12px;
+    font-weight:600;color:var(--text2);transition:all .14s}
+  .vt-chip:hover{border-color:var(--muted2)}
+  .vt-chip-on{background:var(--accent);border-color:transparent;color:#fff}
+  /* footer */
+  .vt-ft{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:13px 2px 0;font-size:11.5px;color:var(--muted)}
+  .vt-pages{display:inline-flex;gap:4px;align-items:center}
+  .vt-pg{min-width:28px;height:28px;padding:0 8px;border-radius:8px;border:1px solid var(--border);
+    background:var(--card);cursor:pointer;font:inherit;font-size:11.5px;font-weight:600;color:var(--text2)}
+  .vt-pg-on{background:var(--accent);border-color:transparent;color:#fff}
+  .vt-pg[disabled]{opacity:.35;cursor:default}
+  .vt-size-sel{border:1px solid var(--border);border-radius:8px;height:26px;padding:0 6px;
+    background:var(--card);color:var(--text2)}
+  .vd-c-date{font-family:'JetBrains Mono',monospace;font-size:11.5px;width:100%;
+    border:none;color:var(--text);font-weight:600;box-shadow:inset 3px 0 0 var(--vd-in-edge)}
+  .vd-c-date::-webkit-calendar-picker-indicator{opacity:.4;cursor:pointer}
+  .vd-c-date:hover::-webkit-calendar-picker-indicator{opacity:.9}
+  .vd-c-date:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent);background:var(--card)!important}
+  /* ── risk alerts ─────────────────────────────────────────────────────── */
+  /* ── alert cards on Oversikt ─────────────────────────────────────────── */
+  .vd-al-hd{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    flex-wrap:wrap;margin-bottom:10px}
+  .vd-al-note{font-size:11.5px;color:var(--muted)}
+  .vd-al-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px;
+    margin-bottom:24px}
+  .vd-al{position:relative;display:flex;flex-direction:column;gap:9px;padding:17px 18px 16px;
+    border-radius:18px;border:1px solid var(--border);background:var(--card);box-shadow:var(--elev);
+    cursor:pointer;text-align:left;font:inherit;color:inherit;overflow:hidden;
+    transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s,border-color .2s}
+  /* a hairline of the alert's own colour, so severity reads before the number */
+  .vd-al::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--al)}
+  .vd-al::after{content:'';position:absolute;right:-30%;top:-70%;width:150px;height:150px;
+    border-radius:9999px;background:var(--al);opacity:.05;pointer-events:none;transition:opacity .2s}
+  .vd-al:hover{transform:translateY(-2px);border-color:var(--al);
+    box-shadow:0 14px 30px -16px rgba(16,24,40,.32)}
+  .vd-al:hover::after{opacity:.1}
+  .vd-al-top{display:flex;align-items:center;gap:10px}
+  .vd-al-ic{width:30px;height:30px;flex:none;border-radius:10px;display:flex;align-items:center;
+    justify-content:center;color:var(--al);
+    background:color-mix(in srgb,var(--al) 13%,transparent)}
+  .vd-al-l{flex:1;min-width:0;font-size:11px;letter-spacing:0.07em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .vd-al-ar{flex:none;color:var(--muted2);transition:transform .2s,color .2s}
+  .vd-al:hover .vd-al-ar{color:var(--al);transform:translateX(3px)}
+  .vd-al-v{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;
+    letter-spacing:-0.035em;line-height:1;color:var(--al)}
+  .vd-al-ok{color:var(--green)}
+  .vd-al-s{font-size:11.5px;color:var(--muted);line-height:1.45}
+  @media(max-width:768px){ .vd-al-v{font-size:22px} }
+  /* one alert row */
+  .vd-rk{display:grid;grid-template-columns:4px 1fr auto;gap:16px;align-items:center;
+    padding:15px 16px;border-radius:14px;background:var(--card);border:1px solid var(--border);
+    margin-bottom:9px}
+  .vd-rk-bar{align-self:stretch;border-radius:3px}
+  .vd-rk-hi{background:var(--danger)} .vd-rk-me{background:var(--amber)} .vd-rk-lo{background:var(--muted2)}
+  .vd-rk-nm{font-size:14px;font-weight:650;letter-spacing:-0.01em}
+  .vd-rk-sub{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+  .vd-rk-v{text-align:right;font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;
+    letter-spacing:-0.02em;white-space:nowrap}
+  .vd-rk-vs{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:3px;
+    letter-spacing:0.04em}
+  .vd-rk-parts{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .vd-rk-p{display:inline-flex;align-items:baseline;gap:6px;font-size:10.5px;
+    border:1px solid var(--border);border-radius:8px;padding:3px 8px;color:var(--text2)}
+  .vd-rk-p b{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--text)}
+  .vd-rk-empty{padding:18px;border:1px dashed var(--border);border-radius:14px;
+    font-size:12.5px;color:var(--muted);line-height:1.6}
+  /* the collapsible alert card */
+  .vd-rkc-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;
+    align-items:start;margin-bottom:8px}
+  .vd-rkc{border:1px solid var(--border);border-radius:16px;background:var(--card);
+    box-shadow:var(--elev);overflow:hidden;transition:box-shadow .18s,border-color .18s}
+  .vd-rkc:hover{border-color:var(--muted2)}
+  .vd-rkc-open{grid-column:1/-1;border-color:var(--accent);
+    box-shadow:0 12px 30px -16px rgba(16,24,40,.30)}
+  .vd-rkc-h{display:grid;grid-template-columns:auto 1fr auto auto;gap:13px;align-items:center;
+    width:100%;padding:16px 18px;border:none;background:transparent;font:inherit;color:inherit;
+    text-align:left;cursor:pointer}
+  .vd-rkc-h:hover{background:var(--hover)}
+  .vd-rkc-ix{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;
+    justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    color:#fff;flex:none}
+  .vd-rkc-t{min-width:0}
+  .vd-rkc-nm{display:block;font-size:13.5px;font-weight:650;letter-spacing:-0.01em;
+    overflow:hidden;text-overflow:ellipsis}
+  .vd-rkc-c{display:block;font-size:11px;color:var(--muted);margin-top:3px}
+  .vd-rkc-v{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;
+    letter-spacing:-0.02em;white-space:nowrap}
+  .vd-rkc-ar{color:var(--muted2);transition:transform .2s}
+  .vd-rkc-open .vd-rkc-ar{transform:rotate(180deg);color:var(--accent)}
+  .vd-rkc-b{padding:0 18px 16px;border-top:1px solid var(--border-soft)}
+  .vd-rkc-note{font-size:12px;color:var(--muted);line-height:1.6;padding:13px 0 12px}
+  /* ── the sheet shelf ─────────────────────────────────────────────────── */
+  .vd-scs{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+  .vd-sc{display:flex;flex-direction:column;gap:9px;text-align:left;font:inherit;color:inherit;
+    padding:17px 18px 15px;border-radius:16px;border:1px solid var(--border);background:var(--card);
+    box-shadow:var(--elev);cursor:pointer;transition:transform .18s cubic-bezier(.22,1,.36,1),
+    box-shadow .18s,border-color .18s}
+  .vd-sc:hover{transform:translateY(-2px);border-color:var(--accent);
+    box-shadow:0 12px 28px -14px rgba(16,24,40,.30)}
+  .vd-sc-top{display:flex;align-items:center;gap:11px}
+  .vd-sc-ic{width:36px;height:36px;flex:none;border-radius:11px;display:flex;align-items:center;
+    justify-content:center;font-size:16px;background:var(--accent-soft);color:var(--accent)}
+  .vd-sc-ic-c{background:var(--surface2);color:var(--muted)}
+  .vd-sc-tx{min-width:0;flex:1}
+  .vd-sc-nm{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+    letter-spacing:0.06em;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .vd-sc-lb{display:block;font-size:13px;font-weight:600;letter-spacing:-0.01em;color:var(--text2);
+    margin-top:3px}
+  .vd-sc-ed{flex:none;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#fff;
+    background:var(--accent);border-radius:9999px;min-width:18px;height:18px;padding:0 5px;
+    display:flex;align-items:center;justify-content:center}
+  .vd-sc-ar{flex:none;color:var(--muted2);transition:transform .18s,color .18s}
+  .vd-sc:hover .vd-sc-ar{color:var(--accent);transform:translateX(3px)}
+  .vd-sc-bl{font-size:12px;line-height:1.55;color:var(--muted);min-height:37px}
+  .vd-sc-ft{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:10px;
+    border-top:1px solid var(--border-soft)}
+  .vd-sc-n{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text2)}
+  .vd-sc-tag{font-size:10px;font-weight:650;padding:3px 9px;border-radius:9999px;margin-left:auto}
+  .vd-sc-tag-i{background:var(--accent-soft);color:var(--accent)}
+  .vd-sc-tag-c{background:var(--surface2);color:var(--muted)}
+  .vd-sc-tag-e{background:var(--amber-soft);color:var(--amber-ink)}
+  .vd-sc-tag-x{background:var(--vd-ext-bg);color:var(--vd-ext-edge)}
+  /* ── one sheet, full width ───────────────────────────────────────────── */
+  .vd-sheet{background:var(--card);border:1px solid var(--border);border-radius:18px;
+    box-shadow:var(--elev);overflow:hidden}
+  .vd-shd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 16px;
+    border-bottom:1px solid var(--border-soft);background:var(--vd-frame)}
+  .vd-back{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:9px;
+    border:1px solid var(--border);background:var(--card);cursor:pointer;font:inherit;font-size:12px;
+    font-weight:600;color:var(--text2);flex:none}
+  .vd-back:hover{border-color:var(--accent);color:var(--accent)}
+  .vd-shd-t{min-width:0}
+  .vd-chip{display:inline-flex;align-items:center;gap:6px;height:19px;padding:0 8px;margin-left:9px;
+    border-radius:9999px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;
+    letter-spacing:0.09em;vertical-align:middle;cursor:default}
+  .vd-chip-demo{background:var(--amber-soft);color:var(--amber-ink);border:1px solid var(--amber-border)}
+  .vd-chip-ed{background:var(--accent-soft);color:var(--accent);letter-spacing:0.04em;padding-right:3px}
+  .vd-chip-ed button{border:none;background:transparent;color:inherit;cursor:pointer;font-size:12px;
+    line-height:1;padding:2px 5px;border-radius:9999px}
+  .vd-chip-ed button:hover{background:var(--accent);color:#fff}
+  .vd-shd-n{display:block;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;
+    letter-spacing:0.05em;color:var(--text)}
+  .vd-shd-s{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+  .vd-shd-keys{display:flex;gap:13px;flex-wrap:wrap;margin-left:auto}
+  .vd-shd-acts{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  .vd-sheet-b{padding:14px 16px 16px}
+  .vd-sheet-b .vd-wrap{max-height:none}
+  /* ── the Excel-style bottom bar ──────────────────────────────────────── */
+  .vd-bbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;
+    margin-bottom:14px;padding:8px 10px;border:1px solid var(--border);border-radius:14px;
+    background:var(--headerbg);backdrop-filter:blur(12px);box-shadow:0 6px 18px -12px rgba(16,24,40,.28)}
+  .vd-back-s{height:28px;padding:0 11px;font-size:11.5px;gap:6px}
+  .vd-stabs{display:flex;gap:3px;overflow-x:auto;flex:1;scrollbar-width:none}
+  .vd-stabs::-webkit-scrollbar{display:none}
+  .vd-stab{flex:none;height:30px;padding:0 13px;border-radius:9px;border:1px solid transparent;
+    background:transparent;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:0.06em;font-weight:500;color:var(--muted);white-space:nowrap}
+  .vd-stab:hover{background:var(--hover);color:var(--text2)}
+  .vd-stab-on{background:var(--card);border-color:var(--border);color:var(--accent);font-weight:700;
+    box-shadow:0 1px 3px rgba(16,24,40,.08)}
+  .vd-stab-all{font-size:13px;padding:0 11px;border:1px solid var(--border);background:var(--card)}
+  .vd-bstat{flex:none;max-width:52%;overflow:hidden}
+  .vd-bstat .vd-live{margin:0;border:none;background:transparent;padding:0;gap:16px;flex-wrap:nowrap}
+  .vd-bstat .vd-live-m,.vd-bstat .vd-live-note{display:none}
+  .vd-bstat .vd-live-v{font-size:13px}
+  .vd-bstat .vd-live-l{font-size:9.5px;white-space:nowrap}
+  @media(max-width:900px){ .vd-bstat{display:none} .vd-shd-keys{display:none} }
+  /* editable, but the number comes from Phonero / NAV / Tripletex */
+  input.vd-c-ext,.vd-c-ext.vd-c-btn,.vd-c-ext.vd-c-wrap{box-shadow:inset 3px 0 0 var(--vd-ext-edge)}
+  input.vd-c-ext:hover{box-shadow:inset 3px 0 0 var(--vd-ext-edge),inset 0 0 0 1px var(--border)}
+  input.vd-c-ext.vd-c-empty{box-shadow:inset 3px 0 0 var(--vd-ext-edge)!important;
+    background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(233,162,59,.09) 5px 10px)}
+  input.vd-c-ext:focus,input.vd-c-ext.vd-c-empty:focus{
+    box-shadow:inset 0 0 0 2px var(--vd-ext-edge)!important;background:var(--card)!important}
+  .vd-rk-r{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .vd-rk-go{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;
+    border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;
+    font:inherit;font-size:11px;font-weight:600;color:var(--text2);white-space:nowrap;
+    transition:all .15s}
+  .vd-rk-go:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .vd-rk-go svg{transition:transform .15s}
+  .vd-rk-go:hover svg{transform:translateX(2px)}
+  /* Arriving from a dashboard drill-through: hold the whole row in red for
+     three seconds so the eye lands on the record, not just the cell. Outline
+     rather than a pseudo-element — .vd-gr is a grid, and a ::before would
+     become a grid item and shift every column. */
+  @keyframes vdRowHit{
+    0%{background:rgba(229,72,77,.20)}
+    60%{background:rgba(229,72,77,.13)}
+    100%{background:rgba(229,72,77,0)}}
+  @keyframes vdRowRing{
+    0%,72%{outline-color:var(--danger)}
+    100%{outline-color:rgba(229,72,77,0)}}
+  .vd-rowhit{outline:2px solid var(--danger);outline-offset:-2px;border-radius:10px;
+    position:relative;z-index:4;
+    animation:vdRowHit 3s ease-out both,vdRowRing 3s ease-out both}
+  .vd-rowhit .vd-rn{animation:vdRowHit 3s ease-out both}
+  .vd-rowhit .vd-c{color:var(--danger-ink)}
+  [data-theme="dark"] .vd-rowhit .vd-c{color:#FF9D9F}
+  .vd-cellhit{box-shadow:inset 0 0 0 2px var(--danger)!important;
+    animation:vdRowHit 3s ease-out both;position:relative;z-index:5}
+  .vd-pin{position:sticky;z-index:2;background:var(--card)!important}
+  .vd-h.vd-pin{z-index:5}
+  .vd-tr:hover .vd-pin{background:var(--hover)!important}
+  .vd-rowhit .vd-pin{background:transparent!important}
+  /* inline field on a dashboard table */
+  .vd-f{width:100%;height:30px;padding:0 9px;border-radius:8px;text-align:right;
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-variant-numeric:tabular-nums;
+    font-weight:600;color:var(--text);background:var(--vd-in-bg);
+    border:1px solid transparent;box-shadow:inset 2px 0 0 var(--vd-in-edge);transition:all .14s}
+  .vd-f:hover{border-color:var(--border)}
+  .vd-f:focus{outline:none;background:var(--card);border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft)}
+  .vd-f-ed{background-image:linear-gradient(225deg,var(--accent) 6px,transparent 6px)}
+  .vt-chips-m{margin-left:auto}
+  .vt-chip-sm{height:26px;padding:0 10px;font-size:11px;font-weight:600}
+  .vt-off{display:none!important}
+  /* cell state: changed, unmatched, still blank */
+  .vd-c-ed{background-image:linear-gradient(225deg,var(--accent) 7px,transparent 7px)!important}
+  .vd-c-warn{background-image:linear-gradient(225deg,var(--danger) 7px,transparent 7px)!important;
+    box-shadow:inset 0 0 0 1px var(--danger)!important}
+  .vd-c-ed.vd-c-warn{background-image:linear-gradient(225deg,var(--danger) 7px,transparent 7px)!important}
+  input.vd-c-empty{box-shadow:inset 3px 0 0 var(--vd-in-edge)!important;
+    background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(43,95,224,.07) 5px 10px)}
+  input.vd-c-empty:focus{background-image:none;box-shadow:inset 0 0 0 2px var(--accent)!important}
+  /* the colour key above the grid */
+  .vd-key{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)}
+  .vd-key i{width:22px;height:15px;border-radius:4px;border:1px solid var(--border);display:block;
+    border-left-width:3px}
+  /* one floating explainer, reused for every cell in the grid */
+  .vd-hint{position:fixed;z-index:90;max-width:330px;background:var(--card);
+    border:1px solid var(--border);border-radius:13px;padding:12px 14px;
+    box-shadow:0 16px 40px -12px rgba(16,24,40,.30),0 2px 6px rgba(16,24,40,.07);
+    font-size:12px;color:var(--text);pointer-events:auto;opacity:0;visibility:hidden;
+    transform:translateY(-4px);transition:opacity .13s,transform .13s,visibility .13s;
+    font-family:'Inter',system-ui,sans-serif}
+  .vd-hint-on{opacity:1;visibility:visible;transform:none}
+  .vd-hint-t{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.1em;
+    color:var(--muted2);margin-bottom:7px}
+  .vd-hint-f{font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.7;
+    background:var(--surface2);border-radius:8px;padding:8px 10px;margin-bottom:8px;
+    white-space:pre-wrap;word-break:break-word}
+  .vd-hint-r{display:flex;justify-content:space-between;gap:14px;padding:3px 0;font-size:11.5px}
+  .vd-hint-r span:last-child{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .vd-hint-w{color:var(--danger-ink);background:var(--danger-soft);border:1px solid var(--danger-border);
+    border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.5}
+  .vd-hint-b{margin-top:9px;height:28px;padding:0 11px;border-radius:8px;border:1px solid var(--border);
+    background:var(--card);cursor:pointer;font-size:11.5px;font-weight:600;color:var(--accent)}
+  .vd-hint-b:hover{background:var(--accent-soft)}
   /* ── Venditus dashboard primitives ─────────────────────────────────── */
   .vd-src{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;
     letter-spacing:0.04em;color:var(--muted2);text-decoration:none;white-space:nowrap;
@@ -182,37 +502,68 @@
     margin-bottom:9px;flex-wrap:wrap}
   .vd-sb-note{font-size:11.5px;color:var(--muted)}
   .vd-sb-note b{font-weight:600;color:var(--accent)}
-  .vd-sb-rail{display:flex;gap:4px;padding:5px;border-radius:20px;background:var(--surface2);
-    border:1px solid var(--border-soft);overflow-x:auto;scrollbar-width:none}
-  .vd-sb-rail::-webkit-scrollbar{display:none}
-  .vd-sb-i{flex:1 1 0;min-width:152px;display:flex;align-items:center;gap:11px;
-    padding:11px 15px 15px;border-radius:16px;position:relative;cursor:pointer;text-align:left;
-    border:1px solid transparent;background:transparent;color:inherit;font:inherit;
-    -webkit-appearance:none;transition:background .18s,box-shadow .2s,border-color .18s}
-  .vd-sb-i:hover{background:rgba(255,255,255,.6)}
-  .vd-sb-i:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-  .vd-sb-on,.vd-sb-on:hover{background:var(--card);border-color:var(--border);
-    box-shadow:0 3px 12px rgba(16,24,40,.08)}
+  /* one control, always — a list of names is a dropdown, not a row of tiles */
+  .vd-sb-trg{display:inline-flex;align-items:center;gap:11px;min-width:288px;max-width:100%;
+    padding:10px 14px;border-radius:14px;cursor:pointer;text-align:left;font:inherit;color:inherit;
+    background:var(--card);border:1px solid var(--border);box-shadow:var(--elev);
+    -webkit-appearance:none;transition:border-color .18s,box-shadow .18s}
+  .vd-sb-trg:hover{border-color:var(--muted2)}
+  .vd-sb-trg:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .vd-sb-trg-on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .vd-sb-cv{flex:none;color:var(--muted2)}
+  .vd-sb-clr{flex:none;width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+    border-radius:9999px;border:none;background:transparent;color:var(--muted);cursor:pointer;padding:0}
+  .vd-sb-clr:hover{background:var(--danger-soft);color:var(--danger)}
   .vd-sb-av{width:32px;height:32px;flex:none;border-radius:11px;display:flex;align-items:center;
     justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
-    color:#fff;letter-spacing:.02em;background:linear-gradient(140deg,var(--accent),#7C5CFF);
-    transition:transform .2s cubic-bezier(.22,1,.36,1)}
-  .vd-sb-i:hover .vd-sb-av{transform:scale(1.06)}
+    color:#fff;letter-spacing:.02em;background:linear-gradient(140deg,var(--accent),#7C5CFF)}
   .vd-sb-av-neg{background:linear-gradient(140deg,var(--danger),#B8842A)}
   .vd-sb-av-all{background:linear-gradient(140deg,#1B2745,#46527A)}
   .vd-sb-tx{min-width:0;flex:1}
   .vd-sb-nm{display:block;font-size:13px;font-weight:600;letter-spacing:-0.01em;color:var(--text);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .vd-sb-on .vd-sb-nm{color:var(--accent-ink)}
   .vd-sb-v{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;
     font-family:'JetBrains Mono',monospace;white-space:nowrap}
-  .vd-sb-sh{position:absolute;left:15px;right:15px;bottom:8px;height:2px;border-radius:2px;
-    background:var(--border-soft);overflow:hidden}
-  .vd-sb-sh i{display:block;height:100%;border-radius:2px;transform-origin:left;
-    animation:growX .55s .08s both}
-  [data-theme="dark"] .vd-sb-i:hover{background:rgba(255,255,255,.05)}
-  [data-theme="dark"] .vd-sb-on .vd-sb-nm{color:#fff}
-  @media(max-width:768px){ .vd-sb-i{min-width:140px} }
+  @media(max-width:768px){ .vd-sb-trg{min-width:0;width:100%} }
+  /* searchable picker — one component behind every filter in the app, so the
+     keyboard and the look are identical wherever you meet it. The popover is a
+     sibling of the scrolling rail, never a child, or overflow would clip it. */
+  .vd-pk{position:relative}
+  [hidden]{display:none!important}
+  .vd-pk-pop{position:absolute;z-index:70;top:calc(100% + 8px);left:0;width:312px;max-width:92vw;
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    box-shadow:0 18px 44px -12px rgba(16,24,40,.28),0 2px 6px rgba(16,24,40,.06);
+    overflow:hidden;animation:pkIn .16s cubic-bezier(.22,1,.36,1) both}
+  .vd-pk-pop-r{left:auto;right:0}
+  @keyframes pkIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+  .vd-pk-qw{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--border-soft)}
+  .vd-pk-qw svg{flex:none;color:var(--muted2)}
+  .vd-pk-q{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--text);
+    font:inherit;font-size:13.5px;padding:0}
+  .vd-pk-q::placeholder{color:var(--muted2)}
+  .vd-pk-kbd{flex:none;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted2);
+    border:1px solid var(--border);border-radius:5px;padding:2px 5px;line-height:1}
+  .vd-pk-list{max-height:296px;overflow-y:auto;padding:6px}
+  .vd-pk-it{display:flex;align-items:center;gap:11px;width:100%;padding:8px 10px;border-radius:11px;
+    border:none;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+  .vd-pk-it:hover,.vd-pk-on{background:var(--hover)}
+  .vd-pk-on{box-shadow:inset 0 0 0 1px var(--border)}
+  .vd-pk-it[aria-selected="true"] .vd-pk-nm{color:var(--accent)}
+  .vd-pk-av{width:28px;height:28px;flex:none;border-radius:9px;display:flex;align-items:center;
+    justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;
+    color:#fff;background:linear-gradient(140deg,var(--accent),#7C5CFF)}
+  .vd-pk-av-neg{background:linear-gradient(140deg,var(--danger),#B8842A)}
+  .vd-pk-av-all{background:linear-gradient(140deg,#1B2745,#46527A)}
+  .vd-pk-tx{min-width:0;flex:1}
+  .vd-pk-nm{display:block;font-size:13px;font-weight:600;letter-spacing:-0.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vd-pk-sub{display:block;font-size:10.5px;color:var(--muted);margin-top:1px;
+    font-family:'JetBrains Mono',monospace;white-space:nowrap}
+  .vd-pk-tick{flex:none;color:var(--accent);opacity:0}
+  .vd-pk-it[aria-selected="true"] .vd-pk-tick{opacity:1}
+  .vd-pk-empty{padding:18px 14px;text-align:center;font-size:12.5px;color:var(--muted)}
+  .vd-pk-ft{padding:8px 14px;border-top:1px solid var(--border-soft);font-size:11px;color:var(--muted2);
+    display:flex;justify-content:space-between;gap:10px}
   /* hover detail cards on the HTML rows — reuses the .tt card the SVG charts use */
   .vd-hov{position:relative}
   .vd-hov[data-vd-act]{cursor:pointer}
@@ -504,7 +855,7 @@
       margin:2px auto 12px;flex:none}
     .lever-rail .eyebrow{margin-bottom:10px !important}
 
-    /* ── Thor: a real messaging surface ── */
+    /* ── Dara: a real messaging surface ── */
     .chat-wrap{display:flex;flex-direction:column;height:calc(100dvh - 132px);max-width:100% !important}
     .chat-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;
       overscroll-behavior:contain;padding-right:2px}
@@ -521,7 +872,7 @@
     .msg-bot > div:last-child{max-width:86% !important}
     .msg-bot > div:last-child > div:first-child{border-radius:6px 18px 18px 18px !important}
     .msg-user > div{max-width:82% !important;border-radius:18px 18px 6px 18px !important}
-    .app[data-route="Thor"] .fab{display:none !important}   /* composer owns the bottom */
+    .app[data-route="Dara"] .fab{display:none !important}   /* composer owns the bottom */
 
     /* type + touch targets */
     h1{letter-spacing:-0.022em}
@@ -846,13 +1197,19 @@
         <h1 style="margin:0;font-size:23px;line-height:1.05;font-weight:700;letter-spacing:-0.035em">{{ pageTitle }}</h1>
       </div>
       <div class="hdr-acts" style="display:flex;align-items:center;gap:10px">
-        <div class="btn hdr-month" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer">
+        <div class="vd-pk">
+        <div class="btn hdr-month" data-vd-act="pickopen" data-vd-val="months" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           {{ vdHeaderMonth }}
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2"><path d="M7 9l5 5 5-5"/></svg>
         </div>
-        <div class="btn hdr-search" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
+        <div dangerouslySetInnerHTML="{{ vdMonthPopHtml }}"></div>
+        </div>
+        <div class="vd-pk">
+        <div class="btn hdr-search" data-vd-act="pickopen" data-vd-val="global" title="⌘K" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </div>
+        <div dangerouslySetInnerHTML="{{ vdGlobalPopHtml }}"></div>
         </div>
         <div onClick="{{ toggleNotif }}" class="btn hdr-notif" style="position:relative;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
@@ -864,9 +1221,9 @@
           </sc-for>
         </div>
         <div onClick="{{ toggleTheme }}" class="btn hdr-theme" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);border-radius:10px;cursor:pointer"><span style="width:17px;height:17px;display:flex;color:var(--text2)" dangerouslySetInnerHTML="{{ themeIcon }}"></span></div>
-        <div onClick="{{ openThor }}" class="btnk hdr-ask" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 15px;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px -8px rgba(43,95,224,.6)">
+        <div onClick="{{ openDara }}" class="btnk hdr-ask" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 15px;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px -8px rgba(43,95,224,.6)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
-          Ask Thor
+          Ask Dara
         </div>
 
         <!-- NOTIFICATIONS DROPDOWN -->
@@ -1049,7 +1406,7 @@
             <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev)">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:6px">
                 <h2 style="margin:0;font-size:16px;font-weight:700;letter-spacing:-0.02em">{{ L.whatChanged }}</h2>
-                <span class="eyebrow">{{ L.byThor }}</span>
+                <span class="eyebrow">{{ L.byDara }}</span>
               </div>
               <div class="tablebox" dangerouslySetInnerHTML="{{ fluxRows }}"></div>
             </div>
@@ -1480,6 +1837,9 @@
 
             <div style="position:relative">
               <div style="{{ insVeil }}">
+                <!-- Venditus risk alerts, from the live workbook -->
+                <div dangerouslySetInnerHTML="{{ risksPage }}"></div>
+
                 <div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
                   <sc-for list="{{ insights }}" as="i" hint-placeholder-count="4">
                     <a href="{{ i.href }}" class="card lift" style="{{ i.wrap }}">
@@ -1627,7 +1987,7 @@
 
                 <div style="display:flex;gap:12px;margin-top:22px;padding:16px 18px;border-radius:14px;background:var(--accent-soft)">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" style="flex:none;margin-top:1px"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
-                  <div style="font-size:13px;line-height:1.6;color:var(--accent-ink);text-wrap:pretty"><b style="color:var(--accent)">Thor:</b> {{ activeLever.note }}</div>
+                  <div style="font-size:13px;line-height:1.6;color:var(--accent-ink);text-wrap:pretty"><b style="color:var(--accent)">Dara:</b> {{ activeLever.note }}</div>
                 </div>
               </div>
             </div>
@@ -1649,8 +2009,8 @@
           </div>
         </sc-if>
 
-        <!-- ===================== THOR (full chat) ===================== -->
-        <sc-if value="{{ isThor }}" hint-placeholder-val="{{ false }}">
+        <!-- ===================== DARA (full chat) ===================== -->
+        <sc-if value="{{ isDara }}" hint-placeholder-val="{{ false }}">
           <div class="chat-wrap" style="max-width:720px;margin:0 auto">
             <div class="chat-thread" dangerouslySetInnerHTML="{{ chatThread }}"></div>
             <div class="chat-typing" style="display:flex;gap:11px;align-items:center;margin:10px 0 22px;padding-left:41px;animation:fadeIn .4s 1.1s both">
@@ -1659,7 +2019,7 @@
                 <span style="width:6px;height:6px;border-radius:9999px;background:var(--accent);animation:typing 1.2s .15s infinite"></span>
                 <span style="width:6px;height:6px;border-radius:9999px;background:var(--accent);animation:typing 1.2s .3s infinite"></span>
               </div>
-              <span style="font-size:12px;color:var(--muted)">Thor is reviewing your ledger…</span>
+              <span style="font-size:12px;color:var(--muted)">Dara is reviewing your ledger…</span>
             </div>
             <div class="eyebrow chat-tryl" style="margin-bottom:12px">Try asking</div>
             <div class="chat-chips" style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px">
@@ -1668,7 +2028,7 @@
               </sc-for>
             </div>
             <div class="chat-composer" style="display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:9px 9px 9px 16px;box-shadow:0 8px 24px -16px rgba(25,23,53,.3);position:sticky;bottom:20px">
-              <div style="flex:1;font-size:14px;color:var(--muted2)">Ask Thor about your numbers…</div>
+              <div style="flex:1;font-size:14px;color:var(--muted2)">Ask Dara about your numbers…</div>
               <div class="btnk" style="width:36px;height:36px;flex:none;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
               </div>
@@ -1741,13 +2101,13 @@
     </div>
   </div>
 
-  <!-- FLOATING THOR LAUNCHER -->
+  <!-- FLOATING DARA LAUNCHER -->
   <sc-if value="{{ launcherVisible }}" hint-placeholder-val="{{ true }}">
     <div class="fab" onClick="{{ togglePop }}" style="position:fixed;right:28px;bottom:28px;z-index:60;cursor:pointer">
       <div style="position:relative;width:58px;height:58px;animation:floatY 3.4s ease-in-out infinite">
         <span style="position:absolute;inset:0;border-radius:9999px;background:var(--accent);opacity:.45;animation:pulseRing 2.6s ease-out infinite"></span>
         <div class="btnk" style="position:relative;width:58px;height:58px;border-radius:9999px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(43,95,224,.55),0 0 0 1px rgba(43,95,224,.15)">
-          <img src="assets/clario-o.png" alt="Thor" style="display:block;width:31px;height:31px"/>
+          <img src="assets/clario-o.png" alt="Dara" style="display:block;width:31px;height:31px"/>
         </div>
         <span class="mono" style="position:absolute;top:-3px;right:-3px;background:var(--danger);color:#fff;font-size:10px;font-weight:600;min-width:19px;height:19px;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bg);animation:badgePop .4s .6s both">3</span>
       </div>
@@ -1764,7 +2124,7 @@
             <span style="position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-radius:9999px;background:var(--green);border:2px solid #fff"></span>
           </div>
           <div>
-            <div style="font-size:14px;font-weight:700">Thor</div>
+            <div style="font-size:14px;font-weight:700">Dara</div>
             <div style="font-size:11px;color:var(--green);font-weight:500">Online · reads your Tripletex data</div>
           </div>
         </div>
@@ -1775,7 +2135,7 @@
       <div style="flex:1;overflow:auto;padding:18px" dangerouslySetInnerHTML="{{ popThread }}"></div>
       <div style="padding:12px 14px;border-top:1px solid var(--border-soft)">
         <div style="display:flex;align-items:center;gap:9px;background:var(--bg);border:1px solid var(--border);border-radius:13px;padding:8px 8px 8px 14px">
-          <div style="flex:1;font-size:13.5px;color:var(--muted2)">Message Thor…</div>
+          <div style="flex:1;font-size:13.5px;color:var(--muted2)">Message Dara…</div>
           <div class="btnk" style="width:34px;height:34px;flex:none;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
           </div>
@@ -1786,12 +2146,12 @@
 
   <!-- TOAST -->
   <sc-if value="{{ toastVisible }}" hint-placeholder-val="{{ false }}">
-    <div class="toast" onClick="{{ openThor }}" style="position:fixed;right:28px;bottom:100px;z-index:65;width:320px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.4);padding:15px 16px;display:flex;gap:12px;cursor:pointer;animation:slideInRight .5s cubic-bezier(.22,1,.36,1) both">
+    <div class="toast" onClick="{{ openDara }}" style="position:fixed;right:28px;bottom:100px;z-index:65;width:320px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px -18px rgba(25,23,53,.4);padding:15px 16px;display:flex;gap:12px;cursor:pointer;animation:slideInRight .5s cubic-bezier(.22,1,.36,1) both">
       <div style="width:34px;height:34px;flex:none;border-radius:10px;background:linear-gradient(140deg,#2B5FE0,var(--accent));display:flex;align-items:center;justify-content:center">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/></svg>
       </div>
       <div style="flex:1">
-        <div style="font-size:13px;font-weight:700;margin-bottom:2px">Thor spotted something</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:2px">Dara spotted something</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.45">Marketing spend jumped 34% with no revenue lift. Want to take a look?</div>
       </div>
     </div>
@@ -1801,19 +2161,19 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940}}">
 class Component extends DCLogic {
   state = { lang:'no', navMin:false, navOpen:false, scenPick:false, premium:false, settledOpen:false, impSheet:'pl', impCols:{}, wfMonth:5, wfOpen:false, active:'Overview', lever:0, notifOpen:false, popOpen:false, toastVisible:false, dark:false, importStep:'A', resolved:{},
-    vdMonth:null, vdSeller:null, vdSheet:'hr', vdFocus:{}, vdSort:'marginKr', vdDir:'desc', vdContract:'', vdProduct:'',
+    vdMonth:null, vdSeller:null, vdSheet:'', vdFocus:{}, vdSort:'marginKr', vdDir:'desc', vdContract:'', vdProduct:'',
     wpMode:'arb', density:'condensed', sel:null, focus:null, armedTick:null, paletteOpen:false, idxOpen:true, panelMode:'detail', hint:null, copied:false, reviewed:{}, notes:{},
     wpGridW:0, wpMidW:0, detailOpen:true, panelDismissed:false,
     edits:{}, userCols:[], editing:null, hEdit:null, undo:[], redo:[], fbFocus:false, fbDraft:null, fillPrev:null,
     ticks:{'3000:imp':{sym:'\u221A',v:2683400,who:'DK · 13. juni'},'4000:final':{sym:'\u221AGL',v:1247400,who:'DK · 13. juni'},'5400:final':{sym:'~',v:293900,who:'DK · 13. juni'},'sub-A:final':{sym:'F',v:2847000,who:'DK · 13. juni'}},
     entries:[{no:1,type:'Justering',narrative:'Periodisering av varekostnad — faktura 4471 gjelder juni.',author:'DK · 13. juni',lines:[{konto:'4000',dr:12400,cr:0},{konto:'2400',dr:0,cr:12400}]}],
     proposals:[
-      {id:'p1',konto:'5400',title:'Thor foreslår en justering',text:'Arbeidsgiveravgift beregnet med sats for sone 1 (14,1 %). Phonero er registrert i sone 5. Foreslått justering:',amount:-8200,lines:[{konto:'2770',dr:8200,cr:0},{konto:'5400',dr:0,cr:8200}],narrative:'Arbeidsgiveravgift korrigert til sone 5.'},
-      {id:'p2',konto:'6810',title:'Thor foreslår en omklassifisering',text:'Datakostnad (Tripletex) er ført som driftskostnad. Avtalen er en programvarelisens. Foreslått omklassifisering:',amount:0,type:'Omklassifisering',lines:[{konto:'6810',dr:0,cr:14900},{konto:'6720',dr:14900,cr:0}],narrative:'Omklassifisert til programvarelisens (presentasjon).'}],
+      {id:'p1',konto:'5400',title:'Dara foreslår en justering',text:'Arbeidsgiveravgift beregnet med sats for sone 1 (14,1 %). Phonero er registrert i sone 5. Foreslått justering:',amount:-8200,lines:[{konto:'2770',dr:8200,cr:0},{konto:'5400',dr:0,cr:8200}],narrative:'Arbeidsgiveravgift korrigert til sone 5.'},
+      {id:'p2',konto:'6810',title:'Dara foreslår en omklassifisering',text:'Datakostnad (Tripletex) er ført som driftskostnad. Avtalen er en programvarelisens. Foreslått omklassifisering:',amount:0,type:'Omklassifisering',lines:[{konto:'6810',dr:0,cr:14900},{konto:'6720',dr:14900,cr:0}],narrative:'Omklassifisert til programvarelisens (presentasjon).'}],
     comp:{open:false,no:2,type:'Justering',narrative:'',lines:[{konto:'',dr:'',cr:''},{konto:'',dr:'',cr:''}]} };
 
   applyTick(rid,colKey,v){ const k=rid+':'+colKey; this.setState(s=>{const t={...s.ticks}; if(t[k]&&t[k].sym===s.armedTick) delete t[k]; else t[k]={sym:s.armedTick,v:v,who:'DK · nå'}; return {ticks:t};}); }
-  acceptProp(p){ this.setState(s=>({entries:s.entries.concat([{no:s.comp.no,type:p.type||'Justering',narrative:p.narrative,author:'Foreslått av Thor · Godkjent av DK',lines:p.lines}]),proposals:s.proposals.filter(x=>x.id!==p.id),comp:{...s.comp,no:s.comp.no+1}})); }
+  acceptProp(p){ this.setState(s=>({entries:s.entries.concat([{no:s.comp.no,type:p.type||'Justering',narrative:p.narrative,author:'Foreslått av Dara · Godkjent av DK',lines:p.lines}]),proposals:s.proposals.filter(x=>x.id!==p.id),comp:{...s.comp,no:s.comp.no+1}})); }
   rejectProp(id){ this.setState(s=>({proposals:s.proposals.filter(x=>x.id!==id)})); }
   copyVal(t){ try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){} clearTimeout(this._cp); this.setState({copied:true}); this._cp=setTimeout(()=>this.setState({copied:false}),1200); }
   updLine(i,f,v){ this.setState(s=>{const L=s.comp.lines.map((l,j)=>j===i?{...l,[f]:v}:l); return {comp:{...s.comp,lines:L}};}); }
@@ -2034,7 +2394,7 @@ class Component extends DCLogic {
     this._onRz=()=>{ const m=this.mq(); if(m!==this._mqW){ this._mqW=m; this._c={}; this.forceUpdate(); } };
     window.addEventListener('resize',this._onRz,{passive:true});
     window.addEventListener('orientationchange',this._onRz,{passive:true});
-    this.vdBind(); this.vdBindGrid(); }
+    this.vdBind(); this.vdBindGrid(); this.vdBindPick(); this.vdBindHint(); this.vtApply(); }
   componentDidUpdate(){
     if(this._lastActive!==this.state.active||this._lastStep!==this.state.importStep){
       this._lastActive=this.state.active; this._lastStep=this.state.importStep; this.play();
@@ -2049,6 +2409,13 @@ class Component extends DCLogic {
     if(!el&&this._wasEditing){ const g=document.querySelector('[data-wp-grid]'); if(g) g.focus(); }
     this._wasEditing=!!el;
     this.vdRestoreFocus();
+    // a different sheet is a different table: drop its search, chip and page
+    const sheetNow=this.state.vdSheet+'|'+this.state.active;
+    if(this._vtSheet!==sheetNow){ this._vtSheet=sheetNow; this.vtReset(); }
+    const qEl=document.querySelector('[data-vt-q]');
+    if(qEl&&this._vtQ&&qEl.value!==this._vtQ) qEl.value=this._vtQ;
+    this.vtApply();
+    // jump last: the row has to be on screen before we can highlight it
     this.vdJump();
     if(this._selA) this.vdPaintSel();
   }
@@ -2065,6 +2432,10 @@ class Component extends DCLogic {
     if(this._vdCopy) document.removeEventListener('copy',this._vdCopy,true);
     if(this._vdMouse) document.removeEventListener('mousedown',this._vdMouse,true);
     if(this._vdFocusIn) document.removeEventListener('focusin',this._vdFocusIn,true);
+    if(this._vdPickIn) document.removeEventListener('input',this._vdPickIn,true);
+    if(this._vdPickKey) document.removeEventListener('keydown',this._vdPickKey,true);
+    if(this._vdOver) document.removeEventListener('mouseover',this._vdOver,true);
+    if(this._vdHintScroll) document.removeEventListener('scroll',this._vdHintScroll,true);
     clearTimeout(this._vdToastT); }
   // Figures render their exact value from the template on every render; motion is CSS-only
   // (this preview environment throttles rAF/timers, so never drive a number imperatively).
@@ -2083,7 +2454,10 @@ class Component extends DCLogic {
       ['Overview','<rect x="3" y="3" width="7" height="8" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',null],
       ['Cashflow','<path d="M3 3v18h18"/><path d="M7 13l4-4 3 3 5-6"/>',null],
       ['Insights','<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7" rx="1"/><rect x="12" y="7" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/>',null],
-      ['Recommendations','<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>','3'],
+      ['Recommendations','<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',(()=>{
+        const R=this.vdRisks(); if(!R) return '3';
+        const c=R.margin.length+R.settlement.length+R.nav.length+(R.refundGap||[]).length;
+        return c?String(c):null; })()],
       ['Invoices','<path d="M4 3h16v18l-3-2-3 2-2-2-2 2-3-2-3 2z"/><path d="M8 8h8M8 12h8M8 16h5"/>','4'],
       ['Selgere','<circle cx="9" cy="7" r="3.5"/><path d="M3 21v-1.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V21M17 8l2 2 4-4"/>',null],
       ['Fravaer','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',null],
@@ -2092,7 +2466,7 @@ class Component extends DCLogic {
       ['Import','<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M8 9l4-4 4 4M12 5v11"/>',null],
       ['Workpapers','<path d="M4 3h10l6 6v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',null],
       ['Scenarios','<path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 5-7" stroke-dasharray="2.5 2.5"/>',null],
-      ['Thor','<path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/>',null],
+      ['Dara','<path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/>',null],
       ['Clients','<circle cx="9" cy="7" r="3.5"/><path d="M3 21v-1.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V21M16 3.3a3.5 3.5 0 0 1 0 6.8M22 21v-1.5a4 4 0 0 0-3-3.8"/>',null],
       ['Settings','<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',null],
     ];
@@ -2108,7 +2482,7 @@ class Component extends DCLogic {
       Selgere:['Selgere','Sellers'],Fravaer:['Fravær & NAV','Absence & NAV'],
       Onboarding:['Onboarding','Onboarding'],Inndata:['Arbeidsbok','Workbook'],
       Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
-      Scenarios:['Scenarier','Scenarios'],Thor:['Thor','Thor'],Clients:['Kunder','Clients'],
+      Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
     const nav=navDefs.filter(([label])=>DEMO_ONLY.indexOf(label)<0).map(([label,path,badge])=>{
@@ -2123,7 +2497,7 @@ class Component extends DCLogic {
     // five micro-level routes were inserted after Invoices, so the rails shift
     const GROUP={monitor:['Overview','Cashflow','Insights','Recommendations','Invoices','Selgere',
                           'Fravaer','Onboarding','Inndata','Import','Workpapers'],
-                 plan:['Scenarios','Thor','Clients'], settings:['Settings']};
+                 plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
     const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings');
     const SCEN={
@@ -2178,7 +2552,7 @@ class Component extends DCLogic {
       Import:[t('Regnearklaget','Spreadsheet layer'),'Import'],
       Workpapers:[t('Arbeidspapir · beløp i NOK','Workpaper · amounts in NOK'),t('Arbeidspapirer','Workpapers')],
       Scenarios:[t('Planlegging','Planning'),t('Scenarier','Scenarios')],
-      Thor:[t('Din økonomikollega','Your finance coworker'),t('Snakk med Thor','Chat with Thor')],
+      Dara:[t('Din økonomikollega','Your finance coworker'),t('Snakk med Dara','Chat with Dara')],
       Clients:[t('12 aktive','12 active'),t('Kunder','Clients')],
       Settings:['Venditus AS',t('Innstillinger','Settings')]};
     const [pageEyebrow,pageTitle]=headers[active];
@@ -2354,7 +2728,7 @@ class Component extends DCLogic {
       {label:t('Regnskapsår','Fiscal year'),value:'Jan – Des'},
       {label:t('Valuta','Base currency'),value:'NOK'}].map((r,i)=>({...r,cell:scell(i)}));
     const team=[{name:'Kian Vestby',email:t('kontaktperson','contact'),initials:'KV',role:'Owner',av:'linear-gradient(135deg,var(--accent),#5B8CFF)'},
-      {name:'Thor',email:t('AI-kollega · lesetilgang','AI coworker · read-only'),initials:'R',role:'Viewer',av:'linear-gradient(135deg,#2B5FE0,var(--accent))'}].map((t,i)=>({...t,cell:scell(i)}));
+      {name:'Dara',email:t('AI-kollega · lesetilgang','AI coworker · read-only'),initials:'R',role:'Viewer',av:'linear-gradient(135deg,#2B5FE0,var(--accent))'}].map((t,i)=>({...t,cell:scell(i)}));
 
     // Notifications derived from the Venditus model, so the bell cannot
     // contradict the rest of the app.
@@ -2504,8 +2878,8 @@ class Component extends DCLogic {
     const goCell=(r,c)=>this.setState({focus:{r,c},sel:{a:{r,c},b:{r,c}}});
 
     const wpGrid=wrows.map((r,ri)=>{
-      const isSec=r.k==='section',isSub=r.k==='sub',isTot=r.k==='total',isThor=r.k==='ranu';
-      const canEdit=!isSec&&!isThor;
+      const isSec=r.k==='section',isSub=r.k==='sub',isTot=r.k==='total',isDara=r.k==='ranu';
+      const canEdit=!isSec&&!isDara;
       const cells=wcols.map((c,ci)=>{
         const v=resolve(ri,c.key);
         const has=v!==null&&v!==undefined&&v!=='';
@@ -2562,11 +2936,11 @@ class Component extends DCLogic {
           ref:(c.entered&&r.refs&&r.refs.length&&typeof v==='number'&&Math.round(v)!==0)?String(r.refs[0]):'',
         };
       });
-      return { isSec,isSub,isTot,isThor, notThor:!isThor, r, sid:r.id||'',
-        num:(isSec||isThor)?'':String(ri+1),
+      return { isSec,isSub,isTot,isDara, notDara:!isDara, r, sid:r.id||'',
+        num:(isSec||isDara)?'':String(ri+1),
         numStyle:{fontSize:'9.5px',color:'var(--muted2)',fontVariantNumeric:'tabular-nums'},
         label:r.label||'', konto:r.konto||'', name:r.name||'', prop:r.prop||null, cells,
-        accept:isThor?()=>this.acceptProp(r.prop):null, reject:isThor?()=>this.rejectProp(r.prop.id):null,
+        accept:isDara?()=>this.acceptProp(r.prop):null, reject:isDara?()=>this.rejectProp(r.prop.id):null,
         rowStyle:{display:'grid',gridTemplateColumns:gridTemplate,alignItems:'center',
           borderTop:isSub?'1px solid var(--muted2)':isTot?'1px solid var(--text)':'none',
           borderBottom:isTot?'4px double var(--text)':'1px solid var(--border-soft)',
@@ -2883,13 +3257,13 @@ class Component extends DCLogic {
       insVeil:this.state.premium?{}:{filter:'blur(7px)',opacity:.5,pointerEvents:'none',userSelect:'none'},
       goPremium:()=>this.setState({premium:true}),
       I:{
-        eyebrow:t('Anbefalinger fra Thor','Recommendations from Thor'),
+        eyebrow:t('Anbefalinger fra Dara','Recommendations from Dara'),
         stamp:t('oppdatert i natt 03:12','updated last night 03:12'),
         activeChip:t('Premium aktiv','Premium active'),
-        intro:t('Thor leser hovedboken hver natt og løfter fram det som endret seg — og hva som er verdt å gjøre med det. Hver anbefaling peker tilbake på linjen den kommer fra.','Thor reads the ledger every night and surfaces what changed — and what is worth doing about it. Every recommendation points back to the line it came from.'),
+        intro:t('Dara leser hovedboken hver natt og løfter fram det som endret seg — og hva som er verdt å gjøre med det. Hver anbefaling peker tilbake på linjen den kommer fra.','Dara reads the ledger every night and surfaces what changed — and what is worth doing about it. Every recommendation points back to the line it came from.'),
         premEyebrow:t('Clario Premium','Clario Premium'),
-        premTitle:t('Lås opp Thor-anbefalinger','Unlock Thor recommendations'),
-        premBody:t('Anbefalinger er en del av Premium. Thor gjennomgår hovedboken hver natt, sammenlikner mot budsjett og arbeidspapirer, og gir deg konkrete anbefalinger med tallene bak.','Recommendations are part of Premium. Thor reviews the ledger every night, compares it against budget and workpapers, and gives you concrete recommendations with the numbers behind them.'),
+        premTitle:t('Lås opp Dara-anbefalinger','Unlock Dara recommendations'),
+        premBody:t('Anbefalinger er en del av Premium. Dara gjennomgår hovedboken hver natt, sammenlikner mot budsjett og arbeidspapirer, og gir deg konkrete anbefalinger med tallene bak.','Recommendations are part of Premium. Dara reviews the ledger every night, compares it against budget and workpapers, and gives you concrete recommendations with the numbers behind them.'),
         premPerks:[
           t('Nattlig gjennomgang av hele hovedboken','Nightly review of the full ledger'),
           t('Konkrete anbefalinger med beløp og kilde','Concrete recommendations with amounts and source'),
@@ -2902,7 +3276,7 @@ class Component extends DCLogic {
         premDemo:t('Demo — knappen låser opp umiddelbart, ingen betaling','Demo — the button unlocks immediately, no payment'),
       },
       WF:(function(self,months,sel,open){
-        const M=months[sel];
+        const M=months[Math.min(sel,Math.max(0,months.length-1))]||{net:0,no:'',en:'',rows:[]};
         const maxAbs=Math.max.apply(null,months.map(m=>Math.abs(m.net)))||1;
         return {
           label:self.t(M.no,M.en),
@@ -2938,7 +3312,7 @@ class Component extends DCLogic {
               color:m.net>=0?'var(--bar-in)':'var(--bar-out)'},
           })),
         };
-      })(this,this.wfMonths(),Math.min(this.state.wfMonth,5),this.state.wfOpen),
+      })(this,this.wfMonths(),this.wfSel(),this.state.wfOpen),
       budgetActual:this.buildBudgetActual(),
       resultBridge:this.buildResultBridge(),
       marginTrend:this.buildMarginTrend(),
@@ -3004,7 +3378,7 @@ class Component extends DCLogic {
       })(this.wb(),this),
       L:{
         booksTitle:t('Junis regnskap er lukket og avstemt','June books are closed & reconciled'),
-        booksSub:t('Thor gikk gjennom 214 transaksjoner · flagget 3 ting verdt oppmerksomheten','Thor reviewed 214 transactions · flagged 3 things worth your attention'),
+        booksSub:t('Dara gikk gjennom 214 transaksjoner · flagget 3 ting verdt oppmerksomheten','Dara reviewed 214 transactions · flagged 3 things worth your attention'),
         viewInsights:t('Se anbefalinger','View recommendations'),
         availBalance:this.vdModel()?t('Inntekt hittil','Revenue to date')
                                    :t('Tilgjengelig saldo','Available balance'),
@@ -3029,7 +3403,7 @@ class Component extends DCLogic {
         balNote:t('Ved dagens burn passerer beholdningen kr 5,6M i desember','At current burn the balance passes kr 5.6M in December'),
         actual:t('Faktisk','Actual'), forecast:t('Prognose','Forecast'),
         whatChanged:t('Dette endret seg denne måneden','What changed this month'),
-        byThor:t('AV THOR','BY THOR'),
+        byDara:t('AV DARA','BY DARA'),
         wfTitle:t('Fra inngående til utgående balanse','From opening to closing balance'),
         wfPeriod:t('juni 2026','June 2026'),
         wfSub:t('Hver søyle er én bevegelse — grønt inn, rødt ut','Each bar is one movement — green in, red out'),
@@ -3259,9 +3633,9 @@ class Component extends DCLogic {
       active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',
       isSelgere:active==='Selgere',isFravaer:active==='Fravaer',
       isOnboarding:active==='Onboarding',isInndata:active==='Inndata',
-      isScenarios:active==='Scenarios',isThor:active==='Thor',isClients:active==='Clients',isSettings:active==='Settings',
+      isScenarios:active==='Scenarios',isDara:active==='Dara',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Recommendations'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
-      openThor:()=>this.setState({popOpen:true,toastVisible:false}),
+      openDara:()=>this.setState({popOpen:true,toastVisible:false}),
       toggleNotif:()=>this.setState(s=>({notifOpen:!s.notifOpen})), notifOpen:this.state.notifOpen, notifs,
       togglePop:()=>this.setState(s=>({popOpen:!s.popOpen})), popOpen:this.state.popOpen, launcherVisible:!this.state.popOpen,
       toastVisible:this.state.toastVisible,
@@ -3287,6 +3661,9 @@ class Component extends DCLogic {
       fravaerPage:this.buildFravaer(),
       onboardingPage:this.buildOnboarding(),
       inndataPage:this.buildArbeidsbok(),
+      risksPage:this.buildRisks(),
+      vdMonthPopHtml:this.html(this.vdMonthPop()),
+      vdGlobalPopHtml:this.html(this.vdGlobalPop()),
       venditusOverview:this.buildVenditusOverview(),
       cashflowPage:this.buildKontantstrom(),   // depends on the selected month, so never cached
       expenseStack:this.once('es'+LANG,()=>this.buildExpenseStack()),
@@ -3716,6 +4093,10 @@ class Component extends DCLogic {
   }
 
   /* ═══ 4 · WATERFALL — opening → in → out → closing ═══ */
+  // wfMonth defaulted to 5 on the assumption of six months. The demo's month
+  // count is data and can change, so clamp the selection to what exists.
+  wfSel(){ const n=this.wfMonths().length; return n?Math.min(this.state.wfMonth||0,n-1):0; }
+
   wfMonths(){
     // Movements that make up one month, in thousands. There is no bank balance
     // in the workbook, so this runs 0 -> net rather than opening -> closing.
@@ -3738,7 +4119,8 @@ class Component extends DCLogic {
   }
 
   buildWaterfall(){
-    const M=this.wfMonths()[Math.min(this.state.wfMonth,5)];
+    const M=this.wfMonths()[this.wfSel()];
+    if(!M) return this.html('');
     const _m=this.mq();
     const L=_m?[this.t('Innt.','Rev.'),'NAV',this.t('Prov.','Comm.'),this.t('AG','ER'),this.t('Frav.','Abs.'),this.t('Øvrig','Other')]
               :[this.t('Inntekt','Revenue'),this.t('NAV-refusjon','NAV refund'),this.t('Provisjon','Commission'),
@@ -4354,8 +4736,25 @@ class Component extends DCLogic {
         +'font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em">'
         +this.vmonthShort(m)+' '+m.slice(2,4)+'</button>';
     }).join('');
-    return '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
-      +'<span class="eyebrow" style="margin-right:4px">'+this.t('MÅNED','MONTH')+'</span>'+chips+'</div>'; }
+    // Six months is a row of chips; three years is a wall of them.
+    const CHIP_MAX=12;
+    if(M.months.length<=CHIP_MAX)
+      return '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
+        +'<span class="eyebrow" style="margin-right:4px">'+this.t('MÅNED','MONTH')+'</span>'+chips+'</div>';
+    return '<div class="vd-pk" style="display:flex;gap:8px;align-items:center;margin-bottom:20px">'
+      +'<span class="eyebrow" style="margin-right:4px">'+this.t('MÅNED','MONTH')+'</span>'
+      +'<button class="btn" data-vd-act="pickopen" data-vd-val="monthbar" style="height:32px;'
+      +'padding:0 14px;border-radius:9999px;border:1px solid transparent;background:var(--accent);'
+      +'color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:8px;'
+      +'font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em">'
+      +this.vmonthLbl(cur).toUpperCase()
+      +'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      +' stroke-width="2.2"><path d="M7 9l5 5 5-5"/></svg></button>'
+      +this.vdPickPop('monthbar',{ act:'month', placeholder:this.t('Søk måned…','Search month…'),
+        items:M.months.slice().reverse().map(m=>({ val:m, nm:this.vmonthLbl(m),
+          ini:this.vmonthShort(m).slice(0,3),
+          sub:this.vkr(M.byMonth[m].total.revenue), on:m===cur })) })
+      +'</div>'; }
 
   // A stat tile: label, the figure, its own trend, and a footnote. The
   // sparkline is what makes it read as a metric rather than a number.
@@ -4414,6 +4813,17 @@ class Component extends DCLogic {
       +this.t('Tilbakestill','Reset')+'</button></div>'; }
 
   /* ── table helper ───────────────────────────────────────────────────── */
+  /* The client's ask: edit NAV and absence where you already read them, not
+     four clicks away in the workbook. Same store path, same recompute, same
+     blue-means-yours colour — just rendered inside a dashboard table. */
+  vdField(table,row,field,kind){
+    const S=this.vdStore(); if(!S) return '';
+    const path=table+'.'+this.vdRowKey(table,row)+'.'+field;
+    const v=S.get(path);
+    const edited=S.isEdited(path);
+    return '<input class="vd-f'+(edited?' vd-f-ed':'')+'" data-vd-set="'+this.vesc(path)+'"'
+      +' data-vd-kind="'+kind+'" value="'+this.vesc(this.vdRawVal(v,kind))+'">'; }
+
   vdTable(cols,rows,opts){
     opts=opts||{};
     const tmpl=cols.map(c=>c.w||'1fr').join(' ');
@@ -4442,13 +4852,34 @@ class Component extends DCLogic {
       +'border:1px solid '+(on?'transparent':'var(--border)')+';background:'+(on?'var(--accent-soft)':'var(--card)')
       +';color:'+(on?'var(--accent)':'var(--text2)')+'">'+this.vesc(label)+'</button>';
     const c=this.state.vdContract||'', p=this.state.vdProduct||'';
+    const t=(a,b)=>this.t(a,b);
+
+    // A handful of values reads best as pills. Past that a client's list of
+    // brands stops being scannable, so the same searchable picker takes over.
+    const PILL_MAX=8;
+    const group=(id,act,label,vals,cur)=>{
+      if(vals.length<=PILL_MAX)
+        return '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'
+          +'<span class="eyebrow" style="margin-right:2px">'+label+'</span>'
+          +pill(act,'',t('Alle','All'),!cur)+vals.map(x=>pill(act,x,x,cur===x)).join('')+'</div>';
+      const shown=cur||t('Alle','All');
+      return '<div class="vd-pk" style="display:flex;gap:6px;align-items:center">'
+        +'<span class="eyebrow" style="margin-right:2px">'+label+'</span>'
+        +'<button class="btn" data-vd-act="pickopen" data-vd-val="'+id+'" style="height:30px;'
+        +'padding:0 12px;border-radius:9999px;cursor:pointer;font-size:12px;font-weight:500;'
+        +'display:inline-flex;align-items:center;gap:7px;border:1px solid '
+        +(cur?'transparent':'var(--border)')+';background:'+(cur?'var(--accent-soft)':'var(--card)')
+        +';color:'+(cur?'var(--accent)':'var(--text2)')+'">'+this.vesc(shown)
+        +'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+        +' stroke-width="2.2"><path d="M7 9l5 5 5-5"/></svg></button>'
+        + this.vdPickPop(id,{ act:act, placeholder:t('Søk…','Search…'),
+            items:[{val:'',nm:t('Alle','All'),ini:'∗',avCls:' vd-pk-av-all',on:!cur}]
+              .concat(vals.map(x=>({val:x,nm:this.vesc(x),ini:this.vdIni(x),on:cur===x})))})
+        +'</div>'; };
+
     return '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
-      +'<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'
-      +'<span class="eyebrow" style="margin-right:2px">'+this.t('KONTRAKT','CONTRACT')+'</span>'
-      +pill('contract','',this.t('Alle','All'),!c)+contracts.map(x=>pill('contract',x,x,c===x)).join('')+'</div>'
-      +'<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'
-      +'<span class="eyebrow" style="margin-right:2px">'+this.t('PRODUKT','PRODUCT')+'</span>'
-      +pill('product','',this.t('Alle','All'),!p)+products.map(x=>pill('product',x,x,p===x)).join('')+'</div>'
+      +group('contracts','contract',t('KONTRAKT','CONTRACT'),contracts,c)
+      +group('products','product',t('PRODUKT','PRODUCT'),products,p)
       +'</div>'; }
 
   vdRows(month){
@@ -4757,7 +5188,10 @@ class Component extends DCLogic {
   buildFravaer(){
     const M=this.vdModel(), t=(a,b)=>this.t(a,b);
     if(!M||!M.months.length) return this.html(this.vdEmpty(t('Ingen data.','No data.')));
-    const month=this.vdMonth(), rows=this.vdRows(month), tot=M.byMonth[month].total;
+    const month=this.vdMonth();
+    const foc=this.vdFocused();
+    const rows=this.vdRows(month).filter(r=>!foc||r.seller===foc);
+    const tot=this.vdScopeTotal(month)||M.byMonth[month].total;
     const wd=M.config.workdaysPerMonth||21.67;
 
     const ser=f=>M.months.map(mm=>M.byMonth[mm].total[f]||0);
@@ -4779,12 +5213,12 @@ class Component extends DCLogic {
 
     const table=this.vdTable([
       {h:t('SELGER','SELLER'),w:'1.5fr',v:r=>'<span style="font-weight:600">'+this.vesc(r.seller)+'</span>'},
-      {h:t('EGENM.','SELF-CERT'),a:'right',mono:1,v:r=>this.vnum(r.selfCertDays)},
-      {h:t('SYKEM.','DOCTOR'),a:'right',mono:1,v:r=>this.vnum(r.sickDays)},
+      {h:t('EGENM. ✎','SELF-CERT ✎'),a:'right',w:'.85fr',v:r=>this.vdField('hr',r,'selfCertDays','num')},
+      {h:t('SYKEM. ✎','DOCTOR ✎'),a:'right',w:'.85fr',v:r=>this.vdField('hr',r,'sickDays','num')},
       {h:t('DAG 1–16','DAYS 1–16'),a:'right',mono:1,v:r=>this.vkr(r.employerSickCost)},
-      {h:t('PERMISJON','LEAVE'),a:'right',mono:1,v:r=>r.leaveDays?this.vnum(r.leaveDays):'–'},
+      {h:t('PERMISJON ✎','LEAVE ✎'),a:'right',w:'.85fr',v:r=>this.vdField('hr',r,'leaveDays','num')},
       {h:t('NAV FORVENTET','NAV EXPECTED'),a:'right',mono:1,v:r=>r.navDays?this.vkr(r.navExpected):'–'},
-      {h:t('NAV MOTTATT','NAV RECEIVED'),a:'right',mono:1,v:r=>r.navReceived?this.vkr(r.navReceived):'–'},
+      {h:t('NAV MOTTATT ✎','NAV RECEIVED ✎'),a:'right',w:'1.1fr',v:r=>this.vdField('hr',r,'navRefund','kr')},
       {h:t('DIFF.','DIFF.'),a:'right',mono:1,v:r=>r.navDays?'<span style="color:'+this.vtone(r.navGap)+';font-weight:600">'
         +this.vsign(r.navGap)+'</span>':'–'},
       {h:t('FRAVÆR','ABSENCE'),a:'right',w:'1.1fr',mono:1,sort:'absencePct',
@@ -4807,8 +5241,11 @@ class Component extends DCLogic {
         +'The workbook loads 6G into KONFIGURASJON but no formula uses it — here the cap is live'
         +(capped?', and it binds on '+capped+' row'+(capped===1?'':'s')+'.':'.'))+'</div>';
 
-    return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+this.vdFilterBar()+tiles
-      +this.vdCard(t('Fravær per selger — ','Absence per seller — ')+this.vmonthLbl(month),null,table)
+    return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdSellerBar(month)
+      +this.vdMonthBar()+this.vdFilterBar()+tiles
+      +this.vdCard(t('Fravær per selger — ','Absence per seller — ')+this.vmonthLbl(month),
+        t('Feltene med ✎ er dine — skriv rett i tabellen, alt regnes om med én gang.',
+          'The ✎ fields are yours — type straight into the table, everything recomputes at once.'),table)
       +this.vdCard(t('Hvordan refusjonen regnes','How the refund is computed'),null,note)); }
 
   /* ═══ PAGE · Onboarding ════════════════════════════════════════════════ */
@@ -4993,19 +5430,38 @@ class Component extends DCLogic {
   // Column letters for the computed sheet run past Z, so build them properly.
   vdColLetter(i){ let s='',n=i; do{ s=String.fromCharCode(65+(n%26))+s; n=Math.floor(n/26)-1; }while(n>=0); return s; }
 
+  /* The workbook's headers are the client's own Norwegian. English gets the
+     labels declared in mapping.js, falling back to the sheet text so a column
+     we have not translated still shows something real. */
+  vdHeader(tbl,field,sheet,col,headerRow){
+    const raw=this.vdRawHeader(sheet,col,headerRow);
+    if(this.t('no','en')==='no') return raw||field;
+    const EN=window.VenditusHeadersEN||{};
+    return EN[tbl+'.'+field]||raw||field; }
+
   vdSheetDefs(){
     const M=this.vdModel(), MP=window.VenditusMapping, t=(a,b)=>this.t(a,b);
     if(!M) return [];
     const T=MP.tables;
 
     // one spec per sheet: which table it edits, and the columns to show
+    // The workbook colour-codes every cell; parse.js reads that back per
+    // column. Trust the file over any assumption we could bake in here — an
+    // imported workbook then classifies itself.
+    const ROLES=((this.vdStore()||{}).dataset||{})._colRoles||{};
     const tableSheet=(key,name,tbl,rows,extra)=>({
       key,name,table:tbl,rows,
       cols:Object.keys(T[tbl].cols).map(f=>{
         const spec=T[tbl].cols[f];
-        return {letter:spec.col,field:f,type:spec.type,role:'input',
-                header:this.vdRawHeader(name,spec.col,T[tbl].headerRow)||f};
+        return {letter:spec.col,field:f,type:spec.type,
+                role:(ROLES[tbl]&&ROLES[tbl][f])||'input',
+                header:this.vdHeader(tbl,f,name,spec.col,T[tbl].headerRow)};
       }).concat(extra||[])
+        // a recomputed column belongs where the workbook puts it; Clario's own
+        // additions carry no letter and go to the end
+        .sort((a,b)=>{
+          const ix=l=>/^[A-Z]+$/.test(l)?this.vdLetterIdx(l):9999;
+          return ix(a.letter)-ix(b.letter); })
     });
 
     const beregningCols=(()=>{
@@ -5017,16 +5473,24 @@ class Component extends DCLogic {
             :/Pct$/.test(f)?'pct'
             :['seller','month','contract'].indexOf(f)>=0?'text':'kr',
         role:['seller','month'].indexOf(f)>=0?'key':'computed',
-        header:this.vdRawHeader(MP.calc.sheet,C[f],MP.calc.headerRow)||f
+        header:this.vdHeader('calc',f,MP.calc.sheet,C[f],MP.calc.headerRow)
       })).sort((a,b)=>this.vdLetterIdx(a.letter)-this.vdLetterIdx(b.letter));
     })();
 
     return [
       {key:'konfig',name:'KONFIGURASJON',kind:'keyvalue'},
       tableSheet('profil','SELGER PROFIL','employees',M.employees),
-      tableSheet('phonero','PHONERO RAPPORT','sales',this.vdTableRows('sales')),
+      tableSheet('phonero','PHONERO RAPPORT','sales',this.vdTableRows('sales'),[
+        {letter:'∑',field:'computed',type:'kr',role:'computed',
+         header:t('Beregnet provisjon (antall × sats)','Computed commission (count × rate)')},
+        {letter:'∑',field:'variance',type:'kr',role:'computed',
+         header:t('Avvik mot Phonero','Variance vs Phonero')}
+      ]),
       tableSheet('hr','HR INPUT','hr',this.vdTableRows('hr')),
-      tableSheet('bonus','BONUS REGISTER','bonus',this.vdTableRows('bonus')),
+      tableSheet('bonus','BONUS REGISTER','bonus',this.vdTableRows('bonus'),[
+        {letter:'G',field:'withEmployer',type:'kr',role:'computed',
+         header:t('Bonus m/ AG-kostnad (kr)','Bonus incl. employer cost (kr)')}
+      ]),
       {key:'beregning',name:'BEREGNING PER SELGER',kind:'computed',cols:beregningCols,rows:M.rows},
       {key:'nav',name:'NAV INN & UT',kind:'nav'},
       tableSheet('onboarding','ONBOARDING TRACKER','onboarding',this.vdTableRows('onboarding'),[
@@ -5039,6 +5503,10 @@ class Component extends DCLogic {
 
   vdLetterIdx(l){ let n=0; for(let i=0;i<l.length;i++) n=n*26+(l.charCodeAt(i)-64); return n-1; }
 
+  vdRowSort(){ const S=this.vdStore(); const d=S.dataset||{};
+    return (a,b)=>String((a.month||'')+'|'+(a.seller||a.name||''))
+                 .localeCompare(String((b.month||'')+'|'+(b.seller||b.name||''))); }
+
   vdTableRows(tbl){
     const S=this.vdStore(); const d=S.dataset||{};
     if(tbl==='onboarding'){
@@ -5046,9 +5514,31 @@ class Component extends DCLogic {
       (M.onboarding||[]).forEach(o=>{ by[o.name]=o; });
       return (d.onboarding||[]).map(r=>({...r,...(by[r.name]||{})}));
     }
+    if(tbl==='sales'){
+      // Phonero reports one lump sum (K). What we compute from the pack counts
+      // and the rates belongs beside it, not only in BEREGNING — otherwise the
+      // sheet shows their number and hides ours.
+      const rates=(d.config&&d.config.packRates)||{};
+      const PK=window.VenditusModel.PACKS;
+      return (d.sales||[]).map(r=>{
+        const computed=PK.reduce((a,p)=>a+((+r[p.key]||0)*(+rates[p.key]||0)),0);
+        return {...r, computed:computed, variance:(+r.commission||0)-computed};
+      }).sort(this.vdRowSort());
+    }
+    if(tbl==='bonus'){
+      // The workbook's own column G: amount × arbeidsgiverfaktor unless tax-free.
+      const f=(d.config&&d.config.employerFactor)||1;
+      return (d.bonus||[]).map(r=>({...r,
+        withEmployer:r.taxFree===true?(+r.amount||0):(+r.amount||0)*f
+      })).sort(this.vdRowSort());
+    }
     return (d[tbl]||[]).slice().sort((a,b)=>
       String((a.month||'')+(a.seller||a.name||'')).localeCompare(String((b.month||'')+(b.seller||b.name||''))));
   }
+
+  // Exactly how the model joins names across sheets, so a warning fires when
+  // and only when the join would actually drop the row.
+  vdJoinKey(v){ return String(v==null?'':v).replace(/\s+/g,' ').trim().toLowerCase(); }
 
   vdRowKey(tbl,r){
     const n=String(r.seller||r.name||'').replace(/\s+/g,' ').toLowerCase();
@@ -5056,36 +5546,126 @@ class Component extends DCLogic {
     if(tbl==='bonus') return n+'|'+r.month+'|'+(r.description||r._row);
     return n+'|'+r.month; }
 
+  // Trim a float to `d` decimals without leaving 1.2810000000000001 on screen.
+  vdec(v,d){ const n=Number(v);
+    if(!isFinite(n)) return String(v);
+    return n.toFixed(d).replace(/(\.\d*?)0+$/,'$1').replace(/\.$/,'')
+            .replace('.',this.t(',','.')); }
+
   vdFmt(v,type){
     if(v===null||v===undefined||v==='') return '';
     if(type==='kr')  return this.vkr(v);
     if(type==='pct') return this.vpct(v);
     if(type==='num') return this.vnum(v);
+    if(type==='num1')  return this.vdec(v,1);
+    if(type==='factor')return this.vdec(v,4);
     if(type==='yesno') return v===true?this.t('JA','YES'):v===false?this.t('NEI','NO'):'';
     return this.vesc(v); }
 
   vdRawVal(v,type){
     if(v===null||v===undefined) return '';
     if(type==='yesno') return v===true?'JA':v===false?'NEI':'';
+    if(type==='num1')   return typeof v==='number'?this.vdec(v,1):v;
+    if(type==='factor') return typeof v==='number'?this.vdec(v,4):v;
     if(type==='kr'||type==='num') return typeof v==='number'?Math.round(v):v;
     if(type==='pct') return typeof v==='number'?(v*100).toFixed(1).replace('.',this.t(',','.')):v;
     return v; }
 
   // A cell: editable ones are real inputs, so Tab moves between them natively
   // and there is no selection state to keep in sync.
-  vdCell(path,value,type,role,col,rc){
+  vdCell(path,value,type,role,col,rc,fl,opts){
+    fl=fl||{}; opts=opts||{};
+    // External means "this comes from Phonero / NAV / Tripletex" — a source,
+    // not a lock. It is still typed and pasted into, so it stays an input and
+    // only wears different chrome.
+    const ext=role==='external';
+    const cls=(ext?' vd-c-ext':'')+(opts.pin?' vd-pin':'')+(fl.ed?' vd-c-ed':'')
+             +(fl.warn?' vd-c-warn':'')+(fl.empty?' vd-c-empty':'');
+    const pinS=opts.pin?'left:44px;':'';
+    const rcA=rc?' data-vd-r="'+rc[0]+'" data-vd-c="'+rc[1]+'"':'';
+    const colA=col?' data-vd-col="'+col+'"':'';
     const bg=role==='input'?'var(--vd-in-bg)':role==='computed'?'var(--vd-calc-bg)'
             :role==='external'?'var(--vd-ext-bg)':'transparent';
-    if(role==='input'){
-      return '<input class="vd-c" data-vd-set="'+path+'" data-vd-kind="'+type+'"'
-        +(col?' data-vd-col="'+col+'"':'')+(rc?' data-vd-r="'+rc[0]+'" data-vd-c="'+rc[1]+'"':'')+' '
-        +'value="'+this.vesc(this.vdRawVal(value,type))+'" style="background:'+bg+';text-align:'
+
+    if(role==='input'||ext){
+      // JA/NEI is a state, not a word to retype — one tap flips it.
+      if(type==='yesno'){
+        const on=value===true, off=value===false;
+        return '<button class="vd-c vd-c-btn'+cls+'" data-vd-act="toggleyn" data-vd-val="'
+          +this.vesc(path)+'" data-vd-set-soft="'+this.vesc(path)+'" data-vd-kind="yesno"'
+          +colA+rcA+' style="'+pinS+'background:'+bg+'">'
+          +'<span class="vt-pill '+(on?'vt-yes':off?'vt-no':'vt-nil')+'">'
+          +(on?this.t('JA','YES'):off?this.t('NEI','NO'):'–')+'</span></button>';
+      }
+      // A month is a choice from the periods that exist, not a string to spell.
+      if(type==='month'&&opts.months&&opts.months.length){
+        const cur=value||'';
+        const list=opts.months.slice();
+        if(cur&&list.indexOf(cur)<0) list.unshift(cur);
+        return '<span class="vd-c vd-c-wrap'+cls+'"'+rcA+colA+' style="'+pinS+'background:'+bg+'">'
+          +'<select class="vt-sel vt-pill vt-month" data-vd-set="'+this.vesc(path)+'" data-vd-kind="month">'
+          +(cur?'':'<option value="">–</option>')
+          +list.map(m=>'<option value="'+m+'"'+(m===cur?' selected':'')+'>'+this.vmonthLbl(m)+'</option>').join('')
+          +'</select></span>';
+      }
+      // A seller is one of the people in SELGER PROFIL — picking beats typing,
+      // and it removes the name-join typo at the source.
+      if(opts.sellers&&opts.sellers.length&&(col==='A'||col==='C')&&type==='text'&&opts.isSeller){
+        const cur=value||'';
+        const list=opts.sellers.slice();
+        if(cur&&list.indexOf(cur)<0) list.unshift(cur);
+        return '<span class="vd-c vd-c-wrap vd-c-person'+cls+'"'+rcA+colA+' style="'+pinS+'background:'+bg+'">'
+          +'<span class="vt-av" style="background:'+this.vdAvColor(cur)+'">'+this.vdIni(cur)+'</span>'
+          +'<select class="vt-sel vt-name" data-vd-set="'+this.vesc(path)+'" data-vd-kind="text">'
+          +list.map(x=>'<option value="'+this.vesc(x)+'"'+(x===cur?' selected':'')+'>'+this.vesc(x)+'</option>').join('')
+          +'</select></span>';
+      }
+      // parse.js already normalises every date to ISO, which is exactly what a
+      // native date field wants — so the calendar comes free.
+      if(type==='date')
+        return '<input type="date" class="vd-c vd-c-date'+cls+'" data-vd-set="'+path+'"'
+          +' data-vd-kind="date"'+colA+rcA+' value="'+this.vesc(value||'')+'"'
+          +' style="background:'+bg+'">';
+      return '<input class="vd-c'+cls+'" data-vd-set="'+path+'" data-vd-kind="'+type+'"'
+        +colA+rcA+' '
+        +'value="'+this.vesc(this.vdRawVal(value,type))+'" style="'+pinS+'background:'+bg+';text-align:'
         +(type==='text'||type==='month'||type==='date'||type==='yesno'?'left':'right')+'">';
     }
-    return '<div class="vd-c vd-ro"'+(path?' data-vd-cell="'+path+'"':'')
-      +(col?' data-vd-col="'+col+'"':'')+(rc?' data-vd-r="'+rc[0]+'" data-vd-c="'+rc[1]+'"':'')
-      +' style="background:'+bg+';text-align:'
+
+    // read-only: same shapes, so a computed column still reads like its type
+    if(type==='yesno'&&value!==null&&value!==undefined&&value!=='')
+      return '<div class="vd-c vd-ro'+cls+'"'+(path?' data-vd-cell="'+path+'"':'')+colA+rcA
+        +' style="background:'+bg+'"><span class="vt-pill '+(value===true?'vt-yes':'vt-no')+'">'
+        +(value===true?this.t('JA','YES'):this.t('NEI','NO'))+'</span></div>';
+    if(type==='month'&&value)
+      return '<div class="vd-c vd-ro'+cls+'"'+(path?' data-vd-cell="'+path+'"':'')+colA+rcA
+        +' style="background:'+bg+'"><span class="vt-pill vt-month-ro">'+this.vmonthLbl(value)+'</span></div>';
+    if(type==='date'&&value)
+      return '<div class="vd-c vd-ro'+cls+'"'+(path?' data-vd-cell="'+path+'"':'')+colA+rcA
+        +' style="background:'+bg+'">'+this.vdDateLbl(value)+'</div>';
+    if(opts.isSeller&&value)
+      return '<div class="vd-c vd-ro vd-c-person'+cls+'"'+(path?' data-vd-cell="'+path+'"':'')+colA+rcA
+        +' style="background:'+bg+'"><span class="vt-av" style="background:'+this.vdAvColor(value)+'">'
+        +this.vdIni(value)+'</span><span class="vt-nm">'+this.vesc(value)+'</span></div>';
+
+    return '<div class="vd-c vd-ro'+cls+'"'+(path?' data-vd-cell="'+path+'"':'')
+      +colA+rcA
+      +' style="'+pinS+'background:'+bg+';text-align:'
       +(type==='text'||type==='month'?'left':'right')+'">'+this.vdFmt(value,type)+'</div>'; }
+
+  vdDateLbl(v){
+    const m=String(v||'').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if(!m) return this.vesc(v||'');
+    const NO=['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
+    const EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const mo=(this.t('no','en')==='no'?NO:EN)[(+m[2])-1]||m[2];
+    return (+m[3])+'. '+mo+' '+m[1]; }
+
+  // A stable colour per person, so the same face keeps the same chip everywhere.
+  vdAvColor(name){
+    const P=['#2B5FE0','#7C5CFF','#0D9488','#D9772F','#C2410C','#4F46E5','#0F766E','#B8842A'];
+    let h=0; String(name||'').split('').forEach(ch=>{ h=(h*31+ch.charCodeAt(0))>>>0; });
+    return P[h%P.length]; }
 
   // Figures that recompute as you type, shown above the grid. Anything that
   // changed since the last render gets a brief highlight, so the link between
@@ -5115,85 +5695,254 @@ class Component extends DCLogic {
         +'<span class="vd-live-v mono" style="color:'+v[3]+'">'+v[2]+'</span></span>').join('')
       +'<span class="vd-live-note">'+t('oppdateres mens du skriver','updates as you type')+'</span></div>'; }
 
-  buildArbeidsbok(){
-    const M=this.vdModel(), S=this.vdStore(), t=(a,b)=>this.t(a,b);
-    if(!M) return this.html(this.vdEmpty(t('Ingen arbeidsbok lastet.','No workbook loaded.')));
+  /* ═══ Arbeidsbok ══════════════════════════════════════════════════════════
+     Two levels. You land on a shelf of all eight sheets and choose one; the
+     chosen sheet then gets the whole page, with an Excel-style switcher along
+     the bottom. The running totals moved down there too — a status bar is
+     where a spreadsheet puts them, and it stops the header competing with the
+     data for attention. */
 
-    const defs=this.vdSheetDefs();
-    const cur=defs.filter(d=>d.key===(this.state.vdSheet||'hr'))[0]||defs[3];
+  vdSheetMeta(key){
+    const t=(a,b)=>this.t(a,b);
+    const D={
+      konfig:   ['Satser og regler','Rates and rules','⚙',
+                 'Alt modellen regner med: AGA, feriepenger, 6G, pakkesatser, terskler.',
+                 'Everything the model computes with: employer tax, holiday pay, 6G, pack rates, thresholds.'],
+      profil:   ['Hvem jobber her','Who works here','👤',
+                 'Navn, startdato, kontrakttype og merke. Alle andre ark kobles mot denne.',
+                 'Name, start date, contract and brand. Every other sheet joins against this one.'],
+      phonero:  ['Hva som ble solgt','What was sold','📈',
+                 'Månedsrapporten fra Phonero — antall per pakke, provisjon, avviste og ventende.',
+                 'The monthly Phonero report — counts per pack, commission, rejected and pending.'],
+      hr:       ['Hva som skjedde med folk','What happened to people','🩺',
+                 'Egenmelding, sykemelding, NAV-refusjon, permisjon, lister og sluttavtaler.',
+                 'Self-certified and doctor-certified absence, NAV refunds, leave, lists and severance.'],
+      bonus:    ['Bonus, linje for linje','Bonus, line by line','★',
+                 'Beløp, skattefritt eller ikke, og — viktigst — om den er utbetalt.',
+                 'Amount, tax-free or not, and — most importantly — whether it has been paid.'],
+      beregning:['Regnestykket','The calculation','∑',
+                 'Alle 34 kolonnene, regnet ut på nytt av Clario. Ingenting å fylle inn her.',
+                 'All 34 columns, recomputed by Clario. Nothing to fill in here.'],
+      nav:      ['Penger begge veier','Money both ways','⇄',
+                 'AGA ut per kvartal, sykepengerefusjon og lønnstilskudd inn fra NAV.',
+                 'Employer tax out by quarter, sick-pay refunds and wage subsidy in from NAV.'],
+      onboarding:['Kostnad per ansettelse','Cost per hire','🎓',
+                 'Annonsering, honorar, opplæring og utstyr — og dager til første salg.',
+                 'Advertising, fees, training and equipment — and days to first sale.']
+    };
+    const d=D[key]||['','','▦','',''];
+    return { label:t(d[0],d[1]), icon:d[2], blurb:t(d[3],d[4]) }; }
 
-    const tabs='<div style="display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--border);'
-      +'margin-bottom:0;padding-bottom:0">'
-      +defs.map(d=>{ const on=d.key===cur.key;
-        return '<button data-vd-act="sheet" data-vd-val="'+d.key+'" class="btn" style="flex:none;height:36px;'
-          +'padding:0 15px;border:1px solid var(--border);border-bottom:'+(on?'1px solid var(--card)':'1px solid var(--border)')
-          +';border-radius:10px 10px 0 0;cursor:pointer;font-family:\'JetBrains Mono\',monospace;font-size:10.5px;'
-          +'letter-spacing:0.06em;font-weight:'+(on?600:400)+';margin-bottom:-1px;'
-          +'background:'+(on?'var(--card)':'var(--surface2)')+';color:'+(on?'var(--accent)':'var(--muted)')+'">'
-          +d.name+'</button>'; }).join('')+'</div>';
+  vdSheetStats(def){
+    const S=this.vdStore(), t=(a,b)=>this.t(a,b), M=this.vdModel();
+    const rows=def.kind==='keyvalue'
+      ? Object.keys(M.config.packRates||{}).length+18
+      : def.kind==='nav'
+        ? (S.dataset.navSubsidy||[]).length+(S.dataset.navSickRefund||[]).length+4
+        : (def.rows||[]).length;
+    const yours=def.table?(def.cols||[]).filter(c=>c.role==='input').length
+              :def.kind==='keyvalue'?null:0;
+    const fromExt=def.table?(def.cols||[]).filter(c=>c.role==='external').length:0;
+    const edits=def.table
+      ? Object.keys(S.edits).filter(k=>k.indexOf(def.table+'.')===0).length
+      : def.kind==='keyvalue'
+        ? Object.keys(S.edits).filter(k=>k.indexOf('config.')===0).length : 0;
+    const empty=def.table&&(def.rows||[]).length===0;
+    return { rows, yours, edits, empty, fromExt,
+      unit: def.kind==='keyvalue'?t('verdier','values'):t('rader','rows') }; }
+
+  vdSheetIndex(defs){
+    const t=(a,b)=>this.t(a,b), S=this.vdStore();
+    const cards=defs.map((d,i)=>{
+      const m=this.vdSheetMeta(d.key), st=this.vdSheetStats(d);
+      const computed=st.yours===0;
+      return '<button class="vd-sc" data-vd-act="sheet" data-vd-val="'+d.key+'"'
+        +' style="animation:fadeUp .45s '+(0.03+i*0.045).toFixed(2)+'s both">'
+        +'<span class="vd-sc-top">'
+        +'<span class="vd-sc-ic'+(computed?' vd-sc-ic-c':'')+'">'+m.icon+'</span>'
+        +'<span class="vd-sc-tx"><span class="vd-sc-nm">'+this.vesc(d.name)+'</span>'
+        +'<span class="vd-sc-lb">'+m.label+'</span></span>'
+        +(st.edits?'<span class="vd-sc-ed">'+this.vnum(st.edits)+'</span>':'')
+        +'<svg class="vd-sc-ar" width="15" height="15" viewBox="0 0 24 24" fill="none"'
+        +' stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>'
+        +'<span class="vd-sc-bl">'+m.blurb+'</span>'
+        +'<span class="vd-sc-ft">'
+        +'<span class="vd-sc-n">'+this.vnum(st.rows)+' '+st.unit+'</span>'
+        +(st.empty?'<span class="vd-sc-tag vd-sc-tag-e">'+t('Tom','Empty')+'</span>'
+          :computed?'<span class="vd-sc-tag vd-sc-tag-c">'+t('Beregnes','Computed')+'</span>'
+          :st.fromExt&&!st.yours?'<span class="vd-sc-tag vd-sc-tag-x">'
+            +t('Hentes eksternt','From outside')+'</span>'
+          :st.yours?'<span class="vd-sc-tag vd-sc-tag-i">'+this.vnum(st.yours)+' '
+            +t('kolonner er dine','columns yours')+'</span>'
+          :'<span class="vd-sc-tag vd-sc-tag-i">'+t('Du fyller ut','You fill this in')+'</span>')
+        +'</span></button>'; }).join('');
+
+    return this.vdDemoNote()+this.vdEditNote()
+      +'<div style="margin-bottom:20px">'
+      +'<div style="font-size:23px;font-weight:700;letter-spacing:-0.035em">'
+      +t('Arbeidsboken','The workbook')+'</div>'
+      +'<div style="font-size:13.5px;color:var(--text2);margin-top:7px;max-width:640px;line-height:1.6">'
+      +t('Åtte ark fra Venditus_v2_Mikro_final.xlsx. Velg ett for å åpne det — du kan bytte ark '
+        +'nederst på siden, som i Excel.',
+         'Eight sheets from Venditus_v2_Mikro_final.xlsx. Pick one to open it — you can switch '
+        +'sheets along the bottom of the page, like in Excel.')
+      +'</div></div>'
+      +'<div class="vd-scs">'+cards+'</div>'; }
+
+  vdSheetView(cur,defs){
+    const S=this.vdStore(), t=(a,b)=>this.t(a,b);
+    const m=this.vdSheetMeta(cur.key), st=this.vdSheetStats(cur);
+
+    const btn=(act,val,label,on)=>'<button data-vd-act="'+act+'" data-vd-val="'+val+'" class="btn"'
+      +' style="height:30px;padding:0 12px;border-radius:9px;border:1px solid var(--border);'
+      +'background:var(--card);cursor:'+(on?'pointer':'default')+';font-size:12px;font-weight:600;'
+      +'opacity:'+(on?1:.4)+'">'+label+'</button>';
+
+    const frows=(cur.rows||[]);
+    const finder=frows.length>1
+      ? '<div class="vd-pk" style="display:inline-block">'
+        +'<button class="btn" data-vd-act="pickopen" data-vd-val="findrow" style="height:30px;'
+        +'padding:0 12px;border-radius:9px;border:1px solid var(--border);background:var(--card);'
+        +'cursor:pointer;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:7px">'
+        +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+        +' stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+        +t('Finn rad','Find row')+' <span class="mono" style="font-size:9.5px;color:var(--muted2);'
+        +'border:1px solid var(--border);border-radius:5px;padding:1px 4px">⌘F</span></button>'
+        + this.vdPickPop('findrow',{ act:'findrow',
+            placeholder:t('Søk på navn eller måned…','Search name or month…'),
+            items:frows.map((r,i)=>({ val:String(i),
+              nm:this.vesc(r.seller||r.name||r.description||('#'+(i+1))),
+              sub:(r.month?this.vmonthLbl(r.month):'')+(r.description&&r.seller?' · '+this.vesc(r.description):''),
+              ini:this.vdIni(r.seller||r.name||'?') })) })
+        +'</div>'
+      : '';
+
+    const keys=[[t('Du skriver','You type'),'var(--vd-in-bg)','var(--vd-in-edge)'],
+                [t('Beregnes','Computed'),'var(--card)','var(--vd-calc-edge)'],
+                [t('Eksternt','External'),'var(--vd-ext-bg)','var(--vd-ext-edge)']]
+      .map(x=>'<span class="vd-key"><i style="background:'+x[1]+';border-color:'+x[2]+'"></i>'+x[0]+'</span>').join('');
+
+    // The DEMO note and the edit counter were full-width banners above the
+    // table, eating the space the sheet is supposed to own. They say the same
+    // thing as two chips in the header — and the reset stays one click away,
+    // which it would not be parked at the bottom of a long sheet.
+    const chips=
+      (S.usingDemo
+        ? '<span class="vd-chip vd-chip-demo" title="'+this.vesc(
+            t('PHONERO RAPPORT er tom i arbeidsboken, så salgstallene er demodata. Satser og '
+             +'ansatte kommer fra Venditus_v2_Mikro_final.xlsx.',
+              'PHONERO RAPPORT is empty in the workbook, so the sales figures are demo data. '
+             +'Rates and employees come from Venditus_v2_Mikro_final.xlsx.'))+'">DEMO</span>' : '')
+      +(S.editCount()
+        ? '<span class="vd-chip vd-chip-ed">'+this.vnum(S.editCount())+' '
+          +t('endring'+(S.editCount()===1?'':'er'),'edit'+(S.editCount()===1?'':'s'))
+          +'<button data-vd-act="reset" title="'+this.vesc(t('Tilbakestill alt','Reset all'))+'">↺</button>'
+          +'</span>' : '');
+
+    const head='<div class="vd-shd">'
+      +'<span class="vd-shd-t"><span class="vd-shd-n">'+this.vesc(cur.name)+chips+'</span>'
+      +'<span class="vd-shd-s">'+m.label+' · '+this.vnum(st.rows)+' '+st.unit
+      +(st.fromExt?' · '+this.vnum(st.fromExt)+' '+t('kolonner hentes eksternt','columns come from outside'):'')
+      +'</span></span>'
+      +'<span class="vd-shd-keys">'+keys+'</span>'
+      +'<span class="vd-shd-acts">'
+      +btn('undo','','↶ '+t('Angre','Undo'),S.canUndo())
+      +btn('redo','','↷ '+t('Gjør om','Redo'),S.canRedo())
+      +finder+'</span></div>';
 
     const body=cur.kind==='keyvalue'?this.vdKonfigGrid()
               :cur.kind==='nav'?this.vdNavGrid():this.vdGrid(cur);
-    const btn=(act,label,on)=>'<button data-vd-act="'+act+'" class="btn" style="height:30px;padding:0 12px;'
-      +'border-radius:9px;border:1px solid var(--border);background:var(--card);cursor:'+(on?'pointer':'default')
-      +';font-size:12px;font-weight:600;opacity:'+(on?1:.4)+'">'+label+'</button>';
-    const bar='<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 0 14px">'
-      +btn('undo','↶ '+t('Angre','Undo'),S.canUndo())
-      +btn('redo','↷ '+t('Gjør om','Redo'),S.canRedo())
-      +'<span style="width:1px;height:20px;background:var(--border);margin:0 4px"></span>'
-      +'<span style="font-size:11.5px;color:var(--muted)">'
-      +t('Lim inn fra Excel · piltaster · Enter · ⌘D fyll ned · ⌘Z angre',
-         'Paste from Excel · arrow keys · Enter · ⌘D fill down · ⌘Z undo')+'</span></div>';
 
-    const legend='<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);'
-      +'padding:12px 2px 0;align-items:center">'
-      +[[t('Gul — du kan skrive her','Yellow — you type here'),'var(--vd-in-bg)'],
-        [t('Grønn — beregnes automatisk','Green — computed'),'var(--vd-calc-bg)'],
-        [t('Oransje — fra Phonero / Tripletex','Orange — from Phonero / Tripletex'),'var(--vd-ext-bg)']]
-        .map(x=>'<span style="display:inline-flex;align-items:center;gap:6px">'
-          +'<span style="width:11px;height:11px;border-radius:3px;background:'+x[1]+';border:1px solid var(--border)"></span>'
-          +x[0]+'</span>').join('')
-      +'<span style="margin-left:auto">'+t('Endringer lagres mens du skriver','Changes save as you type')+'</span></div>';
+    // Excel puts the sheet tabs and the running totals along the bottom. So do we.
+    const tabs=defs.map(d=>{ const on=d.key===cur.key;
+      return '<button class="vd-stab'+(on?' vd-stab-on':'')+'" data-vd-act="sheet" data-vd-val="'+d.key+'">'
+        +this.vesc(d.name)+'</button>'; }).join('');
+    const bar='<div class="vd-bbar">'
+      +'<button class="vd-back vd-back-s" data-vd-act="sheet" data-vd-val="">'
+      +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      +' stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>'+t('Alle ark','All sheets')+'</button>'
+      +'<div class="vd-stabs">'+tabs+'</div>'
+      +'<div class="vd-bstat">'+this.vdLiveStrip()+'</div></div>';
 
-    return this.html(this.vdDemoNote()+this.vdEditNote()
-      +'<div style="background:var(--card);border:1px solid var(--border);border-radius:22px;'
-      +'padding:22px 24px 20px;box-shadow:var(--elev)">'
-      +'<div style="margin-bottom:16px"><div style="font-size:16.5px;font-weight:700;letter-spacing:-0.02em">'
-      +t('Arbeidsboken','The workbook')+'</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.55">'
-      +t('Alle åtte arkene, redigerbare her. BEREGNING PER SELGER regnes ut mens du skriver — '
-        +'du trenger ikke åpne Excel igjen.',
-         'All eight sheets, editable here. BEREGNING PER SELGER recalculates as you type — '
-        +'you never have to open Excel again.')+'</div></div>'
-      +this.vdLiveStrip()+tabs+bar+body+legend+'</div>'); }
+    return bar
+      +'<div class="vd-sheet">'+head
+      +'<div class="vd-sheet-b">'+body+'</div></div>'
+      +'<div style="height:12px"></div>'
+      +'<div style="font-size:11.5px;color:var(--muted2);padding:0 2px 8px">'
+      +t('Lim inn fra Excel · piltaster · Enter · ⌘D fyll ned · ⌘Z angre · ⌘F finn rad',
+         'Paste from Excel · arrow keys · Enter · ⌘D fill down · ⌘Z undo · ⌘F find row')+'</div>'; }
+
+  buildArbeidsbok(){
+    const M=this.vdModel(), t=(a,b)=>this.t(a,b);
+    if(!M) return this.html(this.vdEmpty(t('Ingen arbeidsbok lastet.','No workbook loaded.')));
+    const defs=this.vdSheetDefs();
+    const cur=this.state.vdSheet?defs.filter(d=>d.key===this.state.vdSheet)[0]:null;
+    return this.html(cur?this.vdSheetView(cur,defs):this.vdSheetIndex(defs)); }
 
   vdGrid(def){
     const S=this.vdStore(), M=this.vdModel(), t=(a,b)=>this.t(a,b);
     const rows=def.rows||[];
+    const known={team:1};
+    (M.employees||[]).forEach(e=>{ known[this.vdJoinKey(e.name||e._key)]=1; });
+    const sellers=(M.sellers||[]).slice();
+    const months=(M.months||[]).slice();
+
     const wide=def.kind==='computed';
-    const cw=wide?104:126;
-    const tmpl='46px '+def.cols.map(c=>(c.type==='text'?(wide?128:170):cw)+'px').join(' ')
-      +(def.table?' 44px':'');
+    const W=c=>c.field==='seller'||c.field==='name'?188
+            :c.type==='month'?150
+            :c.type==='yesno'?104
+            :c.type==='text'?(wide?150:190):(wide?112:134);
+    const tmpl='44px '+def.cols.map(c=>W(c)+'px').join(' ')+(def.table?' 44px':'');
+    // Scroll a wide sheet sideways and the key column leaves with it — which is
+    // how four sellers across four months start to look like repeated rows.
+    // Pin the first column beside the row numbers.
+    const pin=def.cols.length>3?1:0;
+    const pinW=pin?W(def.cols[0]):0;
 
     const head='<div class="vd-gr vd-ghead" style="grid-template-columns:'+tmpl+'">'
       +'<div class="vd-c vd-corner"></div>'
-      +def.cols.map(c=>'<div class="vd-c vd-h"><span class="vd-hl">'+c.letter+'</span>'
-        +'<span class="vd-ht">'+this.vesc(c.header)+'</span></div>').join('')
+      +def.cols.map((c,ci)=>{
+        const role=(def.table&&c.role==='input')?'input'
+                 :(c.role==='external'?'external':'computed');
+        const why=role==='input'?t('Du skriver her','You type here')
+                :role==='external'?t('Hentes fra eksternt system','From an external system')
+                :t('Beregnes automatisk','Computed automatically');
+        return '<div class="vd-c vd-h vd-h-'+role+(ci<pin?' vd-pin':'')+'"'
+          +(ci<pin?' style="left:44px"':'')
+          +' title="'+this.vesc(c.letter+' · '+why)+'">'
+          +'<span class="vd-ht">'+this.vesc(c.header)+'</span>'
+          +'<span class="vd-hi" aria-hidden="true">'+(role==='input'?'✎':role==='external'?'↧':'ƒ')+'</span>'
+          +'</div>'; }).join('')
       +(def.table?'<div class="vd-c vd-h"></div>':'')+'</div>';
 
     const body=rows.map((r,i)=>{
       const key=def.table?this.vdRowKey(def.table,r):null;
+      const who=r.seller||r.name||'';
       const cells=def.cols.map((c,ci)=>{
-        const editable=def.table&&c.role==='input';
-        // computed cells keep an address so a tooltip can point at them too
+        const editable=def.table&&(c.role==='input'||c.role==='external');
         const path=editable?def.table+'.'+key+'.'+c.field
                  :(def.kind==='computed'?'beregning.'+this.vdRowKey('hr',r)+'.'+c.field:null);
-        return this.vdCell(path,r[c.field],c.type,editable?'input':(c.role==='key'?'key':'computed'),c.letter,[i,ci]);
+        const v=r[c.field], fl={};
+        if(editable){
+          fl.ed=S.isEdited(path);
+          fl.empty=(v===null||v===undefined||v==='');
+        }
+        if(c.field==='seller'&&v&&!known[this.vdJoinKey(v)]) fl.warn=true;
+        return this.vdCell(path,v,c.type,editable?c.role:(c.role==='key'?'key':'computed'),
+                           c.letter,[i,ci],fl,
+                           {months:months,sellers:sellers,
+                            isSeller:c.field==='seller'||c.field==='name',
+                            pin:ci<pin});
       }).join('');
-      const del=def.table?'<div class="vd-c vd-ro" style="text-align:center">'
+      const del=def.table?'<div class="vd-c vd-ro vd-c-x">'
         +'<button data-vd-act="hiderow" data-vd-val="'+def.table+'|'+this.vesc(key)+'" class="vd-x" '
         +'title="'+t('Skjul raden','Hide row')+'">×</button></div>':'';
-      return '<div class="vd-gr" style="grid-template-columns:'+tmpl+'">'
+      // what the toolbar search matches against
+      const hay=this.vdNorm([who,r.month?this.vmonthLbl(r.month):'',r.month||'',r.description||'',
+                             r.contract||'',r.product||''].join(' '));
+      return '<div class="vd-gr vd-tr" data-vt-i="'+i+'" data-vt-s="'+this.vesc(hay)+'"'
+        +' data-vt-sel="'+this.vesc(this.vdJoinKey(who))+'"'
+        +' data-vt-month="'+this.vesc(r.month||'')+'" style="grid-template-columns:'+tmpl+'">'
         +'<div class="vd-c vd-rn">'+(i+1)+'</div>'+cells+del+'</div>';
     }).join('');
 
@@ -5206,9 +5955,119 @@ class Component extends DCLogic {
           +'padding:2px 8px;margin:0 4px 4px 0;cursor:pointer;font-size:11px">'+this.vesc(key.split('|')[0])+' ↩</button>'; }).join('')
       +'</div>':'';
 
-    const adder=def.table?this.vdAddRow(def):'';
+    return this.vdTableBar(def,rows)
+      +'<div class="vd-wrap"><div class="vd-grid">'+head+body+'</div></div>'
+      +this.vdTableFoot(rows.length)
+      +restore+(def.table?this.vdAddRow(def):''); }
 
-    return '<div class="vd-wrap"><div class="vd-grid">'+head+body+'</div></div>'+restore+adder; }
+  /* The toolbar and footer belong to the table, not to the page: search and
+     paging run on the DOM so a keystroke never rebuilds 84 rows. */
+  vdTableBar(def,rows){
+    const t=(a,b)=>this.t(a,b);
+    const who={}; rows.forEach(r=>{ const n=r.seller||r.name; if(n) who[n]=1; });
+    const names=Object.keys(who);
+    const chips=names.length>1
+      ? '<button class="vt-chip vt-chip-on" data-vd-act="vtchip" data-vd-val="">'
+        +t('Alle','All')+'</button>'
+        +names.map(n=>'<button class="vt-chip" data-vd-act="vtchip" data-vd-val="'+this.vesc(this.vdJoinKey(n))+'">'
+          +'<span class="vt-av vt-av-s" style="background:'+this.vdAvColor(n)+'">'+this.vdIni(n)+'</span>'
+          +this.vesc(n)+'</button>').join('')
+      : '';
+    // A sheet with one row per seller per month reads as repetition until you
+    // pick a month. Default to the month the app is on; "Alle" is one click.
+    const mons=[]; rows.forEach(r=>{ if(r.month&&mons.indexOf(r.month)<0) mons.push(r.month); });
+    mons.sort();
+    const cur=this._vtMonth===undefined?this.vdMonth():this._vtMonth;
+    const monChips=mons.length>1
+      ? '<span class="vt-chips vt-chips-m">'
+        +'<button class="vt-chip vt-chip-sm'+(cur?'':' vt-chip-on')+'" data-vd-act="vtmonth" data-vd-val="">'
+        +t('Alle måneder','All months')+'</button>'
+        +mons.map(m=>'<button class="vt-chip vt-chip-sm'+(m===cur?' vt-chip-on':'')
+          +'" data-vd-act="vtmonth" data-vd-val="'+m+'">'+this.vmonthLbl(m)+'</button>').join('')
+        +'</span>'
+      : '';
+    return '<div class="vt-tb">'
+      +'<span class="vt-q-w">'
+      +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+      +'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+      +'<input class="vt-q" data-vt-q type="text" autocomplete="off" placeholder="'
+      +this.vesc(t('Søk i tabellen…','Search the table…'))+'"></span>'
+      +'<span class="vt-chips">'+chips+'</span>'+monChips+'</div>'; }
+
+  vdTableFoot(n){
+    const t=(a,b)=>this.t(a,b);
+    if(n<=this.vtSize()) return '';
+    return '<div class="vt-ft">'
+      +'<span class="vt-count" data-vt-count></span>'
+      +'<span class="vt-pages" data-vt-pages></span>'
+      +'<span class="vt-size">'+t('Rader per side','Rows per page')
+      +' <select class="vt-sel vt-size-sel" data-vt-size>'
+      +[20,50,100].map(x=>'<option value="'+x+'"'+(x===this.vtSize()?' selected':'')+'>'+x+'</option>').join('')
+      +'</select></span></div>'; }
+
+  vtSize(){ return this._vtSize||20; }
+
+  vtRows(){ return [...document.querySelectorAll('.vd-grid .vd-tr')]; }
+
+  // Search, seller chip and paging all resolve to the same pass over the rows,
+  // so they compose instead of fighting each other.
+  vtApply(){
+    const rows=this.vtRows();
+    if(!rows.length) return;
+    const q=this.vdNorm(this._vtQ||''), chip=this._vtChip||'';
+    const mon=this._vtMonth===undefined?this.vdMonth():this._vtMonth;
+    const terms=q?q.split(/\s+/):[];
+    const hits=rows.filter(tr=>{
+      const hay=tr.getAttribute('data-vt-s')||'';
+      if(chip&&tr.getAttribute('data-vt-sel')!==chip) return false;
+      const rm=tr.getAttribute('data-vt-month')||'';
+      if(mon&&rm&&rm!==mon) return false;
+      return terms.every(x=>hay.indexOf(x)>=0);
+    });
+    const size=this.vtSize();
+    const filtering=!!(terms.length||chip||mon);
+    const pages=Math.max(1,Math.ceil(hits.length/size));
+    let page=Math.min(Math.max(1,this._vtPage||1),pages);
+    this._vtPage=page;
+    const from=filtering?0:(page-1)*size;
+    const to=filtering?hits.length:Math.min(hits.length,from+size);
+
+    rows.forEach(tr=>tr.classList.add('vt-off'));
+    hits.slice(from,to).forEach((tr,i)=>{
+      tr.classList.remove('vt-off');
+      const rn=tr.querySelector('.vd-rn'); if(rn) rn.textContent=from+i+1;
+    });
+
+    const cEl=document.querySelector('[data-vt-count]');
+    if(cEl) cEl.textContent=hits.length
+      ? this.t('Viser '+(from+1)+'–'+to+' av '+hits.length+' rader',
+               'Showing '+(from+1)+'–'+to+' of '+hits.length+' rows')
+      : this.t('Ingen rader matcher','No rows match');
+    const pEl=document.querySelector('[data-vt-pages]');
+    if(pEl){
+      if(filtering||pages<2){ pEl.innerHTML=''; }
+      else {
+        let out='<button class="vt-pg" data-vd-act="vtpage" data-vd-val="'+(page-1)+'"'
+          +(page===1?' disabled':'')+'>‹</button>';
+        for(let p=1;p<=pages;p++){
+          if(pages>7&&p>2&&p<pages-1&&Math.abs(p-page)>1){
+            if(p===3) out+='<span style="padding:0 2px;color:var(--muted2)">…</span>';
+            continue; }
+          out+='<button class="vt-pg'+(p===page?' vt-pg-on':'')+'" data-vd-act="vtpage" data-vd-val="'+p+'">'+p+'</button>';
+        }
+        out+='<button class="vt-pg" data-vd-act="vtpage" data-vd-val="'+(page+1)+'"'
+          +(page===pages?' disabled':'')+'>›</button>';
+        pEl.innerHTML=out;
+      }
+    }
+    document.querySelectorAll('[data-vd-act="vtchip"]').forEach(b=>
+      b.classList.toggle('vt-chip-on',(b.getAttribute('data-vd-val')||'')===chip));
+    document.querySelectorAll('[data-vd-act="vtmonth"]').forEach(b=>
+      b.classList.toggle('vt-chip-on',(b.getAttribute('data-vd-val')||'')===(mon||'')));
+  }
+
+  vtReset(){ this._vtQ=''; this._vtChip=''; this._vtMonth=undefined; this._vtPage=1; }
+
 
   // Adding a row is how you record a new month or a new seller without ever
   // touching the workbook's fixed row capacity.
@@ -5364,6 +6223,16 @@ class Component extends DCLogic {
     out+=line(++n,t('Maks sykepenger-grunnlag (6G)','Max sick-pay basis (6G)'),null,c.maxSickBase,'kr','computed',t('Beregnes','Computed'));
     out+=line(++n,t('Arbeidsdager per måned','Working days per month'),null,c.workdaysPerMonth,'num1','computed',t('Beregnes','Computed'));
 
+    // Alert thresholds live with every other setting, in the same grid and
+    // under the same colour rules — no separate settings screen to learn.
+    sec(t('VARSLER','ALERTS'));
+    out+=line(++n,t('Marginvarsel — terskel','Margin alert — threshold'),'config.marginAlert',
+      c.marginAlert,'pct','input',t('Varsle under denne marginen','Alert below this margin'));
+    out+=line(++n,t('NAV-varsel — dager før utløp','NAV alert — days before expiry'),'config.navWarnDays',
+      c.navWarnDays,'num','input',t('Varsle så mange dager før','Warn this many days ahead'));
+    out+=line(++n,t('Trekkperiode før avregning (mnd)','Deduction period before settlement (mo)'),
+      'config.deductionPeriod',c.deductionPeriod,'num','input',t('Brukes i oppgjørseksponering','Used in settlement exposure'));
+
     sec(t('PROVISJON PER PAKKE','COMMISSION PER PACK'));
     M.packs.forEach(p=>{ out+=line(++n,this.t(p.no,p.en),'config.packRates.'+p.key,
       (c.packRates||{})[p.key],'kr','input',
@@ -5437,6 +6306,543 @@ class Component extends DCLogic {
       +this.t('Alle tall på siden gjelder bare denne selgeren.','Every figure on this page covers only this seller.')
       +'</span></div>'; }
 
+  /* ═══ Risk alerts ═════════════════════════════════════════════════════════
+     Three things that cost money before the books catch them. Each flag states
+     its own arithmetic and links to the cells behind it. */
+
+  vdRisks(){
+    const M=this.vdModel(), S=this.vdStore();
+    if(!M||!S) return null;
+    if(!this._rk||this._rkModel!==M){
+      this._rk=window.VenditusModel.risks(M,S.dataset,null);
+      this._rkModel=M;
+    }
+    return this._rk; }
+
+  vdLvl(l){ return l==='high'?'vd-rk-hi':l==='medium'?'vd-rk-me':'vd-rk-lo'; }
+  vdLvlC(l){ return l==='high'?'var(--danger)':l==='medium'?'var(--amber)':'var(--muted2)'; }
+
+  /* `go` is {metric, ctx} — a flag is only useful if you can get from it to the
+     row that caused it, so every alert carries its own way into the workbook. */
+  vdRkRow(level,name,sub,value,valueSub,parts,valueColor,go){
+    let drill='';
+    if(go){
+      const A=this.vdRowAttrs(go.metric,go.ctx);
+      if(A.act) drill='<button class="vd-rk-go"'+A.attrs+' title="'+this.vesc(A.ref)+'">'
+        +this.t('Åpne raden','Open the row')
+        +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+        +' stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>';
+    }
+    return '<div class="vd-rk"><div class="vd-rk-bar '+this.vdLvl(level)+'"></div>'
+      +'<div><div class="vd-rk-nm">'+name+'</div>'
+      +(sub?'<div class="vd-rk-sub">'+sub+'</div>':'')
+      +(parts&&parts.length?'<div class="vd-rk-parts">'+parts.map(p=>
+        '<span class="vd-rk-p">'+p[0]+' <b>'+p[1]+'</b></span>').join('')+'</div>':'')
+      +'</div>'
+      +'<div class="vd-rk-r"><div class="vd-rk-v" style="color:'+(valueColor||'var(--text)')+'">'+value
+      +(valueSub?'<span class="vd-rk-vs">'+valueSub+'</span>':'')+'</div>'+drill+'</div></div>'; }
+
+  // The three alerts as cards at the top of Oversikt — the first thing on the
+  // page should be what is going wrong, not what is merely true.
+  vdRiskBand(){
+    const R=this.vdRisks(), t=(a,b)=>this.t(a,b), M=this.vdModel();
+    if(!R||!M) return '';
+    const T=R.totals;
+    const nSell=(M.byMonth[R.month].rows||[]).length;
+
+    const ICON={
+      red:'<path d="M3 7l6 6 4-4 8 8"/><path d="M21 17v-6h-6"/>',
+      exp:'<rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/>'
+         +'<path d="M7 15h4"/>',
+      nav:'<path d="M12 3l8 3.5v5c0 5-3.4 8.6-8 9.5-4.6-.9-8-4.5-8-9.5v-5L12 3z"/>'
+         +'<path d="M9.3 12.2l1.9 1.9 3.6-3.9"/>'
+    };
+
+    const card=(key,tone,icon,label,value,sub,ok)=>
+      '<button class="vd-al" data-vd-act="goto" data-vd-val="Recommendations"'
+      +' style="--al:'+tone+'">'
+      +'<span class="vd-al-top">'
+      +'<span class="vd-al-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"'
+      +' stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'
+      +icon+'</svg></span>'
+      +'<span class="vd-al-l">'+label+'</span>'
+      +'<svg class="vd-al-ar" width="14" height="14" viewBox="0 0 24 24" fill="none"'
+      +' stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>'
+      +'<span class="vd-al-v'+(ok?' vd-al-ok':'')+'">'+value+'</span>'
+      +'<span class="vd-al-s">'+sub+'</span></button>';
+
+    const c1=T.inMinus>0?'var(--danger)':T.marginFlags>0?'var(--amber)':'var(--green)';
+    const c2=T.exposure>0?'var(--amber)':'var(--green)';
+    const c3=T.navAtRisk>0?'var(--amber)':'var(--green)';
+
+    return '<div class="vd-al-hd">'
+      +'<span class="eyebrow">'+t('VARSLER','ALERTS')+' · '+this.vmonthLbl(R.month).toUpperCase()+'</span>'
+      +'<span class="vd-al-note">'+t('Klikk for detaljene og regnestykket bak.',
+                                     'Click for the detail and the arithmetic behind it.')+'</span></div>'
+      +'<div class="vd-al-wrap">'
+      +card('minus',c1,ICON.red,t('Selgere i minus','Sellers in the red'),
+            this.vnum(T.inMinus),
+            T.marginFlags>T.inMinus
+              ? this.vnum(T.marginFlags-T.inMinus)+' '+t('til med fallende margin','more with falling margin')
+              : t('av','of')+' '+this.vnum(nSell)+' '+t('selgere','sellers'),
+            T.inMinus===0)
+      +card('exp',c2,ICON.exp,t('Oppgjørseksponering','Settlement exposure'),
+            this.vkr(T.exposure),
+            t('ved oppsigelse i dag · '+R.window+' mnd trekkperiode',
+              'if someone left today · '+R.window+' mo deduction period'),
+            T.exposure===0)
+      +card('nav',c3,ICON.nav,t('NAV i faresonen','NAV at risk'),
+            this.vkr(T.navAtRisk),
+            T.subsidyRows===0
+              ? t('tilskuddsarket er tomt','the subsidy sheet is empty')
+              : this.vnum(R.nav.length+R.refundGap.length)+' '+t('å følge opp','to chase'),
+            T.navAtRisk===0)
+      +'</div>'; }
+
+  buildRisks(){
+    const R=this.vdRisks(), M=this.vdModel(), t=(a,b)=>this.t(a,b);
+    if(!R||!M) return this.html(this.vdEmpty(t('Ingen data.','No data.')));
+    const T=R.totals, mon=this.vmonthLbl(R.month);
+
+    /* 1 ── sellers who have gone under ─────────────────────────────────── */
+    const DRV={commission:[t('provisjon','commission')],employerCost:[t('arbeidsgiverkostnad','employer cost')],
+      absence:[t('fravær','absence')],bonus:[t('bonus','bonus')],other:[t('øvrige kostnader','other costs')]};
+    const m1=R.margin.length?R.margin.map(x=>
+      this.vdRkRow(x.level,this.vesc(x.seller),
+        (x.marginKr<0
+          ? t('Taper penger i ','Losing money in ')+mon+'. '
+          : t('Marginen har falt ','Margin has fallen for ')+x.falling+t(' måneder på rad. ',' months running. '))
+        +t('Største kostnadspost er ','Biggest cost line is ')+DRV[x.driver[0]][0]+', '+this.vkr(x.driver[1])+'.',
+        this.vkr(x.marginKr), this.vpct(x.marginPct),
+        [[t('Inntekt','Revenue'),this.vkr(x.revenue)],
+         [t('Kostnad','Cost'),this.vkr(x.cost)],
+         [t('Salg','Sales'),this.vnum(x.salesCount)],
+         [t('Fallende','Falling'),x.falling+' '+t('mnd','mo')]],
+        this.vtone(x.marginKr),
+        {metric:'marginKr',ctx:{seller:x.seller,month:x.month}})).join(''):'<div class="vd-rk-empty">'
+      +t('Ingen selgere under terskelen i '+mon+'.','No sellers below the threshold in '+mon+'.')+'</div>';
+
+    /* 2 ── settlement exposure ─────────────────────────────────────────── */
+    const m2=R.settlement.length?R.settlement.map(x=>
+      this.vdRkRow(x.level,this.vesc(x.seller),
+        t('Slutter '+x.seller+' i dag, står dette beløpet i spill: ubetalt bonus, garantilønn '
+          +'som er forskuttert, og salg Phonero ennå ikke har godkjent.',
+          'If '+x.seller+' left today, this is the amount in play: unpaid bonus, guaranteed '
+          +'salary already advanced, and sales Phonero has not yet approved.'),
+        this.vkr(x.exposure), t('eksponert','exposed'),
+        [[t('Ubetalt bonus','Unpaid bonus'),this.vkr(x.unpaidBonus)],
+         [t('Garantilønn','Guaranteed salary'),this.vkr(x.guarantee)],
+         [t('Ventende salg','Pending sales'),this.vnum(x.pendingCount)+' = '+this.vkr(x.pendingValue)],
+         [t('Clawback hittil','Clawback so far'),this.vkr(x.clawback)],
+         [t('Avvist','Rejected'),this.vnum(x.rejectedCount)]],
+        'var(--amber)',
+        {metric:'pending',ctx:{seller:x.seller,month:x.months[x.months.length-1]}})).join(''):'<div class="vd-rk-empty">'
+      +t('Ingen eksponering registrert.','No exposure recorded.')+'</div>';
+
+    /* 3 ── NAV ─────────────────────────────────────────────────────────── */
+    const KIND={expired:[t('Perioden er utløpt','The period has expired')],
+      expiring:[t('Utløper snart','Expiring soon')],
+      condition:[t('Vilkåret er brutt — ansatt ikke aktiv','Condition broken — employee not active')],
+      unclaimed:[t('Ikke mottatt','Not received')],nodate:[t('Mangler sluttdato','No end date')]};
+    let m3='';
+    if(T.subsidyRows===0){
+      m3+='<div class="vd-rk-empty"><b>'+t('NAV INN & UT har ingen tilskuddsrader ennå.',
+            'NAV INN & UT has no subsidy rows yet.')+'</b><br>'
+        +t('Varselet er bygget og klart. Fyll inn selger, måned, brutto lønn og «Gjelder til» '
+          +'(kolonne H, rad 14–33) — så flagges tilskudd som utløper innen '+R.warnDays+' dager, '
+          +'eller der den ansatte ikke lenger er aktiv.',
+           'The alert is built and ready. Fill in seller, month, gross salary and "valid until" '
+          +'(column H, rows 14–33) — then subsidies expiring within '+R.warnDays+' days, or where the '
+          +'employee is no longer active, are flagged.')+'</div>';
+    } else {
+      m3+=R.nav.map(x=>this.vdRkRow(x.level,this.vesc(x.seller)+' — '+KIND[x.kind][0],
+        (x.until?t('Gjelder til ','Valid until ')+x.until+'. ':'')
+        +(x.days!==null&&x.days>=0?t('Om '+x.days+' dager. ','In '+x.days+' days. '):''),
+        this.vkr(x.atRisk),t('i faresonen','at risk'),
+        [[t('Brutto','Gross'),this.vkr(x.gross)],[t('Sats','Rate'),this.vpct(x.rate)],
+         [t('Mottatt','Received'),this.vkr(x.received)]],'var(--amber)',
+        {metric:'navReceived',ctx:{seller:x.seller,month:x.month}})).join('');
+    }
+    if(R.refundGap.length){
+      m3+=R.refundGap.map(x=>
+        this.vdRkRow('medium',this.vesc(x.seller)+' — '+t('Sykepengerefusjon mangler','Sick-pay refund missing'),
+          t('Vi beregnet ','We computed ')+this.vkr(x.expected)+t(' for '+x.days+' NAV-dager i ',
+            ' for '+x.days+' NAV days in ')+this.vmonthLbl(x.month)
+          +t(', men bare ','; only ')+this.vkr(x.received)+t(' er ført som mottatt.',' is recorded as received.'),
+          this.vkr(x.gap),t('utestående','outstanding'),
+          [[t('Forventet','Expected'),this.vkr(x.expected)],[t('Mottatt','Received'),this.vkr(x.received)],
+           [t('NAV-dager','NAV days'),this.vnum(x.days)]],'var(--amber)',
+          {metric:'navReceived',ctx:{seller:x.seller,month:x.month}})).join('');
+    }
+
+    /* Each alert is a card that states its headline, and opens for the detail.
+       Three walls of paragraphs is not a dashboard. */
+    const card=(id,lvl,no,en,subNo,subEn,value,count,body)=>{
+      const c=this.vdLvlC(lvl);
+      return '<div class="vd-rkc" data-vd-rkc="'+id+'">'
+        +'<button class="vd-rkc-h" data-vd-act="rkopen" data-vd-val="'+id+'">'
+        +'<span class="vd-rkc-ix" style="background:'+c+'">'+id+'</span>'
+        +'<span class="vd-rkc-t"><span class="vd-rkc-nm">'+t(no,en)+'</span>'
+        +'<span class="vd-rkc-c">'+count+'</span></span>'
+        +'<span class="vd-rkc-v" style="color:'+c+'">'+value+'</span>'
+        +'<svg class="vd-rkc-ar" width="15" height="15" viewBox="0 0 24 24" fill="none"'
+        +' stroke="currentColor" stroke-width="2.2"><path d="M7 9l5 5 5-5"/></svg></button>'
+        +'<div class="vd-rkc-b" hidden>'
+        +'<div class="vd-rkc-note">'+t(subNo,subEn)+'</div>'+body+'</div></div>'; };
+
+    const nSell=(M.byMonth[R.month].rows||[]).length;
+    const navCount=R.nav.length+R.refundGap.length;
+
+    return this.html(
+      '<div style="display:flex;align-items:center;gap:10px;margin:4px 0 10px">'
+      +'<span class="eyebrow">'+t('VARSLER FRA ARBEIDSBOKEN','ALERTS FROM THE WORKBOOK')+'</span>'
+      +'<span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span>'
+      +'<span class="mono" style="font-size:10.5px;color:var(--muted2)">'+mon.toUpperCase()+'</span>'
+      +'<span class="mono" style="font-size:10px;color:var(--accent);background:var(--accent-soft);'
+      +'padding:3px 9px;border-radius:9999px">'+t('Live','Live')+'</span></div>'
+      +'<p style="margin:0 0 16px;font-size:13.5px;line-height:1.6;color:var(--text2);max-width:660px">'
+      +t('Tre ting som koster penger før regnskapet fanger dem opp. Klikk et kort for detaljene — '
+        +'hvert varsel viser regnestykket sitt og peker på cellene det kommer fra.',
+         'Three things that cost money before the books catch them. Click a card for the detail — '
+        +'every alert shows its own arithmetic and points at the cells it came from.')
+      +'</p>'
+      +'<div class="vd-rkc-wrap">'
+      +card(1,T.inMinus>0?'high':T.marginFlags?'medium':'low',
+            'Selgere under marginterskelen','Sellers below the margin threshold',
+            'Terskel '+this.vpct(R.floorPct/100)+' · '+mon+'. Fanges her, ikke ved månedsavslutning.',
+            'Threshold '+this.vpct(R.floorPct/100)+' · '+mon+'. Caught here, not at month-end close.',
+            this.vnum(T.marginFlags),
+            T.inMinus
+              ? this.vnum(T.inMinus)+' '+t('i minus av','in the red of')+' '+this.vnum(nSell)
+              : t('ingen under terskelen','none below the threshold'),
+            m1)
+      +card(2,R.settlement.length?'medium':'low',
+            'Oppgjørseksponering','Settlement exposure',
+            'Hva en oppsigelse ville koste i dag. Trekkperiode '+R.window+' måneder (KONFIGURASJON!B26).',
+            'What a departure would cost today. Deduction period '+R.window+' months (KONFIGURASJON!B26).',
+            this.vkr(T.exposure),
+            this.vnum(R.settlement.length)+' '+t('selgere eksponert','sellers exposed'),
+            m2)
+      +card(3,navCount?'medium':'low',
+            'NAV — tilskudd og refusjon','NAV — subsidies and refunds',
+            'Tilskudd som ryker fordi vilkår ikke lenger er oppfylt, og refusjon vi aldri fikk.',
+            'Subsidies lost because conditions no longer hold, and refunds that never arrived.',
+            this.vkr(T.navAtRisk),
+            T.subsidyRows===0
+              ? t('tilskuddsarket er tomt','the subsidy sheet is empty')
+              : this.vnum(navCount)+' '+t('å følge opp','to chase'),
+            m3)
+      +'</div>'); }
+
+  /* ═══ Searchable picker ══════════════════════════════════════════════════
+     Every filter in the app opens the same control: a search field over a
+     keyboard-navigable list. Filtering happens directly on the DOM rather than
+     through setState — a re-render on each keystroke would rebuild the whole
+     page and take the caret with it. */
+
+  // Fold case and Norwegian letters so "sorensen" finds "Sørensen".
+  vdNorm(s){ return String(s==null?'':s).toLowerCase()
+    .replace(/[æä]/g,'ae').replace(/[øö]/g,'o').replace(/å/g,'a')
+    .normalize('NFD').replace(/[̀-ͯ]/g,'').trim(); }
+
+  vdIni(name){ return String(name||'').split(/\s+/).filter(Boolean)
+    .map(x=>x[0]).slice(0,2).join('').toUpperCase(); }
+
+  /* items: [{val, act, nm, sub, ini, avCls, on}]  — `act` defaults to opts.act */
+  vdPickPop(id,opts){
+    const t=(a,b)=>this.t(a,b), items=opts.items||[];
+    const tick='<svg class="vd-pk-tick" width="14" height="14" viewBox="0 0 24 24" fill="none"'
+      +' stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'
+      +'<path d="M20 6L9 17l-5-5"/></svg>';
+    const list=items.map(it=>
+      '<button class="vd-pk-it" role="option" aria-selected="'+(it.on?'true':'false')+'"'
+      +' data-vd-act="'+(it.act||opts.act)+'"'+(it.val?' data-vd-val="'+this.vesc(it.val)+'"':'')
+      +' data-vd-s="'+this.vesc(this.vdNorm((it.nm||'')+' '+(it.sub||'')))+'">'
+      +'<span class="vd-pk-av'+(it.avCls||'')+'">'+(it.ini||'')+'</span>'
+      +'<span class="vd-pk-tx"><span class="vd-pk-nm">'+it.nm+'</span>'
+      +(it.sub?'<span class="vd-pk-sub">'+it.sub+'</span>':'')+'</span>'+tick+'</button>').join('');
+    return '<div class="vd-pk-pop'+(opts.align==='right'?' vd-pk-pop-r':'')+'"'
+      +' data-vd-pk-pop="'+id+'"'+(opts.width?' style="width:'+opts.width+'px"':'')+' hidden>'
+      +'<div class="vd-pk-qw">'
+      +'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      +' stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+      +'<input class="vd-pk-q" data-vd-pk-q="'+id+'" type="text" autocomplete="off" spellcheck="false"'
+      +' placeholder="'+this.vesc(opts.placeholder||t('Søk…','Search…'))+'">'
+      +'<span class="vd-pk-kbd">ESC</span></div>'
+      +'<div class="vd-pk-list" role="listbox">'+list
+      +'<div class="vd-pk-empty" data-vd-pk-empty="'+id+'" hidden>'
+      +t('Ingen treff','No matches')+'</div></div>'
+      +'<div class="vd-pk-ft"><span>'+this.vnum(items.length)+' '+t('valg','options')+'</span>'
+      +'<span>↑↓ '+t('flytt','move')+' · ↵ '+t('velg','select')+'</span></div></div>'; }
+
+  /* ── picker behaviour, all of it on the DOM ──────────────────────────── */
+  vdPickPopEl(id){ return document.querySelector('[data-vd-pk-pop="'+id+'"]'); }
+
+  vdPickClose(except){
+    document.querySelectorAll('[data-vd-pk-pop]').forEach(p=>{
+      if(except&&p.getAttribute('data-vd-pk-pop')===except) return;
+      p.hidden=true; }); }
+
+  vdPickOpen(id){
+    const pop=this.vdPickPopEl(id); if(!pop) return;
+    const wasOpen=!pop.hidden;
+    this.vdPickClose();
+    if(wasOpen) return;                       // a second click closes it
+    pop.hidden=false;
+    const q=pop.querySelector('.vd-pk-q');
+    if(q){ q.value=''; this.vdPickFilter(id,''); q.focus(); }
+    // an item already chosen is the one to land on
+    const sel=pop.querySelector('.vd-pk-it[aria-selected="true"]');
+    this.vdPickHi(id,sel||pop.querySelector('.vd-pk-it')); }
+
+  vdPickItems(id,visibleOnly){
+    const pop=this.vdPickPopEl(id); if(!pop) return [];
+    return [...pop.querySelectorAll('.vd-pk-it')].filter(el=>!visibleOnly||!el.hidden); }
+
+  vdPickFilter(id,q){
+    const pop=this.vdPickPopEl(id); if(!pop) return;
+    const n=this.vdNorm(q), terms=n?n.split(/\s+/):[];
+    let shown=0;
+    this.vdPickItems(id).forEach(el=>{
+      const hay=el.getAttribute('data-vd-s')||'';
+      const hit=terms.every(tm=>hay.indexOf(tm)>=0);
+      el.hidden=!hit; if(hit) shown++; });
+    const empty=pop.querySelector('[data-vd-pk-empty]');
+    if(empty) empty.hidden=shown>0;
+    this.vdPickHi(id,this.vdPickItems(id,true)[0]||null); }
+
+  vdPickHi(id,el){
+    const pop=this.vdPickPopEl(id); if(!pop) return;
+    pop.querySelectorAll('.vd-pk-on').forEach(x=>x.classList.remove('vd-pk-on'));
+    if(!el) return;
+    el.classList.add('vd-pk-on');
+    if(el.scrollIntoView) el.scrollIntoView({block:'nearest'}); }
+
+  vdPickMove(id,dir){
+    const vis=this.vdPickItems(id,true); if(!vis.length) return;
+    const cur=vis.findIndex(x=>x.classList.contains('vd-pk-on'));
+    let ix=cur<0?(dir>0?0:vis.length-1):cur+dir;
+    if(ix<0) ix=vis.length-1; if(ix>=vis.length) ix=0;
+    this.vdPickHi(id,vis[ix]); }
+
+  // The month picker behind the header button. Each month carries its own
+  // revenue, so choosing a period is not a guess at which one had the data.
+  vdMonthPop(){
+    const t=(a,b)=>this.t(a,b), M=this.vdModel();
+    if(!M||!M.months.length) return '';
+    const cur=this.vdMonth();
+    return this.vdPickPop('months',{
+      act:'month', align:'right', placeholder:t('Søk måned…','Search month…'),
+      items:M.months.slice().reverse().map(m=>{
+        const T=M.byMonth[m].total;
+        return { val:m, nm:this.vmonthLbl(m), ini:this.vmonthShort(m).slice(0,3),
+          sub:this.vkr(T.revenue)+' · '+this.vpct(T.marginPct)+' '+t('margin','margin'),
+          avCls:'', on:m===cur }; }) }); }
+
+  // The magnifier: one field that reaches every page, seller, month and sheet.
+  vdGlobalPop(){
+    const t=(a,b)=>this.t(a,b), M=this.vdModel();
+    const items=[];
+    const PAGES=[['Overview',t('Oversikt','Overview')],['Cashflow',t('Kontantstrøm','Cash flow')],
+      ['Selgere',t('Selgere','Sellers')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
+      ['Onboarding','Onboarding'],['Inndata',t('Arbeidsbok','Workbook')],
+      ['Insights',t('Innsikt','Insights')],['Recommendations',t('Anbefalinger','Recommendations')],
+      ['Invoices',t('Fakturaer','Invoices')],['Scenarios',t('Scenarier','Scenarios')],
+      ['Dara','Dara'],['Clients',t('Kunder','Clients')],['Import','Import'],
+      ['Settings',t('Innstillinger','Settings')]];
+    PAGES.forEach(p=>items.push({ val:p[0], act:'goto', nm:p[1], sub:t('Side','Page'),
+      ini:'→', avCls:' vd-pk-av-all' }));
+    if(M&&M.months.length){
+      M.byMonth[this.vdMonth()].rows.forEach(r=>items.push({
+        val:r.seller, act:'seller', nm:this.vesc(r.seller), sub:t('Selger','Seller'),
+        ini:this.vdIni(r.seller), avCls:r.marginKr>=0?'':' vd-pk-av-neg' }));
+      M.months.slice().reverse().forEach(m=>items.push({
+        val:m, act:'month', nm:this.vmonthLbl(m), sub:t('Måned','Month'),
+        ini:this.vmonthShort(m).slice(0,3), avCls:' vd-pk-av-all' }));
+      (this.vdSheetDefs()||[]).forEach(sh=>items.push({
+        val:sh.key||sh.name, act:'gosheet', nm:this.vesc(sh.name||sh.key), sub:t('Ark','Sheet'),
+        ini:'▦', avCls:' vd-pk-av-all' }));
+    }
+    return this.vdPickPop('global',{
+      act:'goto', align:'right', width:380,
+      placeholder:t('Gå til side, selger, måned eller ark…','Go to page, seller, month or sheet…'),
+      items:items }); }
+
+  /* ═══ Cell explainer ══════════════════════════════════════════════════════
+     Excel answers "why is this number?" with =E5*X5 and leaves you to hunt.
+     A computed cell here says it in words, with the parts that made it. One
+     floating element serves the whole grid — 800 tooltips in the DOM is not a
+     price worth paying for a hover. */
+
+  vdExplain(field,r){
+    const t=(a,b)=>this.t(a,b), M=this.vdModel(); if(!M||!r) return null;
+    const c=M.config, kr=v=>this.vkr(v||0), n=v=>this.vnum(v||0), pc=v=>this.vpct(v||0);
+    const E={
+      revenue:()=>({f:(r.packs||[]).filter(p=>p.count)
+          .map(p=>n(p.count)+' × '+kr(p.rate)).join('\n+ ')+'\n= '+kr(r.revenue),
+        rows:[[t('Antall salg','Sales'),n(r.salesCount)],[t('Inntekt','Revenue'),kr(r.revenue)]]}),
+      commission:()=>({f:kr(r.revenue)+' × '+pc(r.sellerShare)+' = '+kr(r.commission),
+        rows:[[t('Inntekt','Revenue'),kr(r.revenue)],[t('Kontrakt','Contract'),this.vesc(r.contract||'–')],
+              [t('Selgerandel','Seller share'),pc(r.sellerShare)]]}),
+      gross:()=>({f:kr(r.fixedSalary)+' + '+kr(r.commission)+' = '+kr(r.gross),
+        rows:[[t('Fastlønn','Fixed salary'),kr(r.fixedSalary)],[t('Provisjon','Commission'),kr(r.commission)]]}),
+      aga:()=>({f:kr(r.gross)+' × '+pc(c.agaRate)+' = '+kr(r.aga),
+        rows:[[t('Sats','Rate'),pc(c.agaRate)+' — KONFIGURASJON!B4']]}),
+      holiday:()=>({f:kr(r.gross)+' × '+pc(c.holidayRate)+' = '+kr(r.holiday),
+        rows:[[t('Sats','Rate'),pc(c.holidayRate)+' — KONFIGURASJON!B5']]}),
+      pension:()=>({f:kr(r.gross)+' × '+pc(c.pensionRate)+' = '+kr(r.pension),
+        rows:[[t('Sats','Rate'),pc(c.pensionRate)+' — KONFIGURASJON!B6']]}),
+      employerCost:()=>({f:kr(r.gross)+' × '+(c.employerFactor||0).toFixed(4)+' = '+kr(r.employerCost),
+        rows:[['AGA',kr(r.aga)],[t('Feriepenger','Holiday'),kr(r.holiday)],
+              [t('Pensjon','Pension'),kr(r.pension)]]}),
+      dayRate:()=>({f:kr(r.gross)+' / '+n(Math.round(c.workdaysPerMonth||0))+' = '+kr(r.dayRate),
+        rows:[[t('Arbeidsdager/mnd','Workdays/mo'),(c.workdaysPerMonth||0).toFixed(2)]]}),
+      selfCertCost:()=>({f:n(r.selfCertDays)+' × '+kr(r.dayRate)+' = '+kr(r.selfCertCost),
+        rows:[[t('Egenmeldingsdager','Self-cert days'),n(r.selfCertDays)]]}),
+      employerSickCost:()=>({f:'min('+n(r.sickDays)+'; '+n(c.employerSickDays)+') × '+kr(r.dayRate)
+          +' = '+kr(r.employerSickCost),
+        rows:[[t('Sykedager','Sick days'),n(r.sickDays)],
+              [t('Arbeidsgiverdager','Employer days'),n(c.employerSickDays)+' — AML §8-18']]}),
+      leaveCost:()=>({f:n(r.leaveDays)+' × '+kr(r.dayRate)+' = '+kr(r.leaveCost),rows:[]}),
+      navExpected:()=>({f:'maks('+n(r.sickDays)+' − '+n(c.employerSickDays)+'; 0) × '
+          +t('dagsats begrenset til 6G','day rate capped at 6G')+'\n= '+kr(r.navExpected),
+        rows:[[t('NAV-dager','NAV days'),n(r.navDays)],
+              [t('6G-tak','6G cap'),kr(c.maxSickBase)],
+              [t('Truffet taket','Cap applied'),r.navCapped?t('Ja','Yes'):t('Nei','No')]]}),
+      totalCost:()=>({f:t('lønn + AG-kostnad + fravær − NAV + clawback + lister + onboarding',
+          'payroll + employer cost + absence − NAV + clawback + lists + onboarding')+'\n= '+kr(r.totalCost),
+        rows:[[t('Netto lønn','Net payroll'),kr(r.netPayroll)],[t('Lister','Lists'),kr(r.listCost)],
+              ['Onboarding',kr(r.onboarding)]]}),
+      totalCostAll:()=>({f:kr(r.totalCost)+' + '+t('bonus, garantilønn, insentiver, sluttpakke',
+          'bonus, guarantee, incentives, severance')+'\n= '+kr(r.totalCostAll),
+        rows:[[t('Bonus m/AG','Bonus incl. employer'),kr(r.bonusWithEmployer)],
+              [t('Sluttpakke','Severance'),kr(r.severance)]]}),
+      marginKr:()=>({f:kr(r.revenue)+' − '+kr(r.totalCostAll)+' = '+kr(r.marginKr),
+        rows:[[t('Inntekt','Revenue'),kr(r.revenue)],[t('Total kostnad','Total cost'),kr(r.totalCostAll)]]}),
+      marginPct:()=>({f:kr(r.marginKr)+' / '+kr(r.revenue)+' = '+pc(r.marginPct),rows:[]}),
+      absencePct:()=>({f:'('+n(r.selfCertDays)+' + '+n(r.sickDays)+') / '
+          +(c.workdaysPerMonth||0).toFixed(2)+' = '+pc(r.absencePct),
+        rows:[[t('Terskel','Threshold'),'6,0 %']]}),
+      bonusWithEmployer:()=>({f:kr(r.bonus)+' × '+(c.employerFactor||0).toFixed(4)+' = '+kr(r.bonusWithEmployer),
+        rows:[[t('Fra BONUS REGISTER','From BONUS REGISTER'),kr(r.bonus)]]}),
+      costPerSale:()=>({f:kr(r.totalCostAll)+' / '+n(r.salesCount)+' = '+kr(r.costPerSale),rows:[]})
+    };
+    return E[field]?E[field]():null; }
+
+  vdHintEl(){
+    let el=document.getElementById('vd-hint');
+    if(!el){ el=document.createElement('div'); el.id='vd-hint'; el.className='vd-hint';
+      document.body.appendChild(el); }
+    return el; }
+
+  vdHintHide(){ const el=document.getElementById('vd-hint');
+    if(el) el.classList.remove('vd-hint-on'); }
+
+  vdHintHTML(cell){
+    const t=(a,b)=>this.t(a,b), S=this.vdStore(), M=this.vdModel();
+    if(!S||!M) return '';
+    const setPath=cell.getAttribute('data-vd-set');
+    const cellPath=cell.getAttribute('data-vd-cell');
+    const warn=cell.classList.contains('vd-c-warn');
+    let out='';
+
+    if(warn){
+      const v=setPath?cell.value:(cell.textContent||'').trim();
+      out+='<div class="vd-hint-w"><b>'+this.vesc(v)+'</b> '
+        +t('finnes ikke i SELGER PROFIL. Raden blir ikke koblet til en ansatt, så lønn, '
+          +'fravær og bonus havner ikke sammen.',
+           'is not in SELGER PROFIL. This row will not join to an employee, so pay, '
+          +'absence and bonus will not land together.')+'</div>';
+    }
+
+    if(setPath&&S.isEdited(setPath)){
+      const was=S.originalValue(setPath);
+      out+='<div class="vd-hint-t">'+t('ENDRET AV DEG','CHANGED BY YOU')+'</div>'
+        +'<div class="vd-hint-r"><span>'+t('Arbeidsboken hadde','The workbook had')+'</span>'
+        +'<span>'+this.vesc(was===undefined||was===null||was===''?'–':String(was))+'</span></div>'
+        +'<button class="vd-hint-b" data-vd-act="clearcell" data-vd-val="'+this.vesc(setPath)+'">'
+        +t('Sett tilbake','Restore')+'</button>';
+    }
+
+    if(cellPath&&cellPath.indexOf('beregning.')===0){
+      const bits=cellPath.split('.'), field=bits[bits.length-1];
+      const rowKey=bits.slice(1,-1).join('.');
+      const row=(M.rows||[]).find(r=>this.vdRowKey('hr',r)===rowKey);
+      const ex=this.vdExplain(field,row);
+      if(ex){
+        out+='<div class="vd-hint-t">'+t('SLIK BLIR TALLET TIL','HOW THIS NUMBER IS MADE')+'</div>'
+          +'<div class="vd-hint-f">'+this.vesc(ex.f)+'</div>'
+          +ex.rows.map(x=>'<div class="vd-hint-r"><span>'+x[0]+'</span><span>'+x[1]+'</span></div>').join('');
+      }
+    }
+
+    if(!out&&cell.classList.contains('vd-c-empty'))
+      out='<div class="vd-hint-t">'+t('TOM','EMPTY')+'</div><div style="font-size:11.5px;color:var(--text2)">'
+        +t('Ingen verdi ennå. Skriv, eller lim inn fra Phonero-rapporten.',
+           'No value yet. Type, or paste from the Phonero report.')+'</div>';
+    return out; }
+
+  vdBindHint(){
+    if(this._vdHintBound) return; this._vdHintBound=true;
+    this._vdOver=(e)=>{
+      const el=e.target;
+      if(el&&el.closest&&el.closest('#vd-hint')) return;      // moving onto the card
+      const cell=el&&el.closest&&el.closest('.vd-c');
+      if(!cell){ this.vdHintHide(); return; }
+      const html=this.vdHintHTML(cell);
+      if(!html){ this.vdHintHide(); return; }
+      const box=this.vdHintEl();
+      box.innerHTML=html;
+      box.classList.add('vd-hint-on');
+      const r=cell.getBoundingClientRect(), b=box.getBoundingClientRect();
+      let x=r.left, y=r.bottom+8;
+      if(x+b.width>innerWidth-12) x=Math.max(12,innerWidth-b.width-12);
+      if(y+b.height>innerHeight-12) y=Math.max(12,r.top-b.height-8);
+      box.style.left=x+'px'; box.style.top=y+'px';
+    };
+    this._vdHintScroll=()=>this.vdHintHide();
+    document.addEventListener('mouseover',this._vdOver,true);
+    document.addEventListener('scroll',this._vdHintScroll,true);
+  }
+
+  vdBindPick(){
+    if(this._vdPickBound) return; this._vdPickBound=true;
+
+    this._vdPickIn=(e)=>{
+      const el=e.target;
+      if(el&&el.hasAttribute&&el.hasAttribute('data-vt-q')){
+        this._vtQ=el.value; this._vtPage=1; this.vtApply(); return; }
+      if(el&&el.hasAttribute&&el.hasAttribute('data-vt-size')){
+        this._vtSize=+el.value||20; this._vtPage=1; this.vtApply(); return; }
+      const id=el&&el.getAttribute&&el.getAttribute('data-vd-pk-q');
+      if(!id) return;
+      this.vdPickFilter(id,el.value); };
+
+    this._vdPickKey=(e)=>{
+      const el=e.target, id=el&&el.getAttribute&&el.getAttribute('data-vd-pk-q');
+      if(!id){
+        // ⌘K / Ctrl-K opens the global picker from anywhere
+        if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){
+          e.preventDefault(); this.vdPickOpen('global'); return; }
+        if((e.metaKey||e.ctrlKey)&&(e.key==='f'||e.key==='F')
+           &&document.querySelector('[data-vd-pk-pop="findrow"]')){
+          e.preventDefault(); this.vdPickOpen('findrow'); }
+        return; }
+      if(e.key==='ArrowDown'){ e.preventDefault(); return this.vdPickMove(id,1); }
+      if(e.key==='ArrowUp'){ e.preventDefault(); return this.vdPickMove(id,-1); }
+      if(e.key==='Enter'){
+        e.preventDefault();
+        const on=this.vdPickPopEl(id).querySelector('.vd-pk-on')||this.vdPickItems(id,true)[0];
+        if(on) on.click();
+        return; }
+      if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); this.vdPickClose();
+        const trg=document.querySelector('[data-vd-act="pickopen"][data-vd-val="'+id+'"]');
+        if(trg) trg.focus(); } };
+
+    document.addEventListener('input',this._vdPickIn,true);
+    document.addEventListener('keydown',this._vdPickKey,true);
+  }
+
   // Picking a seller and seeing what that pick does are the same surface: the
   // rail sits above everything it filters, and each segment carries the figure
   // it is filtering on, so the choice is made on evidence rather than on a name.
@@ -5448,48 +6854,57 @@ class Component extends DCLogic {
     const rows=bm.rows.slice().sort((a,b)=>b.revenue-a.revenue);
     if(rows.length<2) return '';
     const focus=this.vdFocused(), tot=bm.total;
-    const maxRev=Math.max(...rows.map(r=>r.revenue),1);
+    const cur=focus?rows.find(r=>r.seller===focus):null;
 
-    const seg=(on,act,val,av,avCls,nm,sub,share,tone,i)=>
-      '<button class="vd-sb-i'+(on?' vd-sb-on':'')+'" data-vd-act="'+act+'"'
-      +(val?' data-vd-val="'+this.vesc(val)+'"':'')
-      +' style="animation:fadeUp .4s '+(0.02+i*0.045).toFixed(2)+'s both">'
-      +'<span class="vd-sb-av'+avCls+'">'+av+'</span>'
-      +'<span class="vd-sb-tx"><span class="vd-sb-nm">'+nm+'</span>'
-      +'<span class="vd-sb-v">'+sub+'</span></span>'
-      +'<span class="vd-sb-sh"><i style="width:'+Math.max(share,2).toFixed(1)+'%;'
-      +'background:'+tone+'"></i></span></button>';
+    const peopleMark='<svg width="15" height="15" viewBox="0 0 16 16" fill="none"'
+      +' stroke="currentColor" stroke-width="1.6" stroke-linecap="round">'
+      +'<circle cx="5.4" cy="5" r="2.4"/><circle cx="11.4" cy="5" r="2.1"/>'
+      +'<path d="M1.6 12.6c.5-2 2-3 3.8-3s3.3 1 3.8 3"/>'
+      +'<path d="M9.9 9.9c1.9-.5 3.7.4 4.4 2.7"/></svg>';
 
-    const all=seg(!focus,'unfocus','',
-      '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"'
-      +' stroke-width="1.6" stroke-linecap="round"><circle cx="5.4" cy="5" r="2.4"/>'
-      +'<circle cx="11.4" cy="5" r="2.1"/><path d="M1.6 12.6c.5-2 2-3 3.8-3s3.3 1 3.8 3"/>'
-      +'<path d="M9.9 9.9c1.9-.5 3.7.4 4.4 2.7"/></svg>',
-      ' vd-sb-av-all',t('Alle selgere','All sellers'),
-      this.vkr(tot.revenue)+' · '+this.vnum(rows.length)+' '+t('selgere','sellers'),
-      100,'var(--text2)',0);
+    // what the closed control shows: the current scope, and what it is worth
+    const trgAv = cur ? this.vdIni(cur.seller) : peopleMark;
+    const trgCls = cur ? (cur.marginKr>=0?'':' vd-sb-av-neg') : ' vd-sb-av-all';
+    const trgNm = cur ? this.vesc(cur.seller) : t('Alle selgere','All sellers');
+    const trgSub = cur
+      ? this.vkr(cur.revenue)+' · '+this.vnum(cur.salesCount)+' '+t('salg','sales')
+      : this.vkr(tot.revenue)+' · '+this.vnum(rows.length)+' '+t('selgere','sellers');
 
-    const segs=rows.map((r,i)=>{
-      const ini=r.seller.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
-      const pos=r.marginKr>=0;
-      return seg(focus===r.seller,'focus',r.seller,ini,pos?'':' vd-sb-av-neg',
-        this.vesc(r.seller),
-        this.vkr(r.revenue)+' · '+this.vnum(r.salesCount)+' '+t('salg','sales'),
-        (r.revenue/maxRev)*100,
-        pos?'linear-gradient(90deg,var(--accent),#7C5CFF)':'var(--danger)',i+1);
-    }).join('');
+    const trigger='<button class="vd-sb-trg'+(cur?' vd-sb-trg-on':'')+'"'
+      +' data-vd-act="pickopen" data-vd-val="sellers" aria-haspopup="listbox">'
+      +'<span class="vd-sb-av'+trgCls+'">'+trgAv+'</span>'
+      +'<span class="vd-sb-tx"><span class="vd-sb-nm">'+trgNm+'</span>'
+      +'<span class="vd-sb-v">'+trgSub+'</span></span>'
+      +(cur?'<span class="vd-sb-clr" role="button" data-vd-act="unfocus" title="'
+          +this.vesc(t('Fjern filter','Clear filter'))+'">'
+          +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+          +' stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>':'')
+      +'<svg class="vd-sb-cv" width="13" height="13" viewBox="0 0 24 24" fill="none"'
+      +' stroke="currentColor" stroke-width="2.2"><path d="M7 9l5 5 5-5"/></svg></button>';
+
+    const pop=this.vdPickPop('sellers',{
+      act:'focus',
+      placeholder:t('Søk på navn…','Search by name…'),
+      items:[{val:'',act:'unfocus',nm:t('Alle selgere','All sellers'),
+              sub:this.vkr(tot.revenue)+' · '+this.vnum(rows.length)+' '+t('selgere','sellers'),
+              ini:peopleMark,avCls:' vd-pk-av-all',on:!focus}]
+        .concat(rows.map(r=>({val:r.seller,nm:this.vesc(r.seller),
+          sub:this.vkr(r.revenue)+' · '+this.vnum(r.salesCount)+' '+t('salg','sales'),
+          ini:this.vdIni(r.seller),avCls:r.marginKr>=0?'':' vd-pk-av-neg',on:focus===r.seller})))
+    });
 
     const note=focus
       ? t('Alle tall under gjelder bare ','Every figure below covers only ')
-        +'<b>'+this.vesc(focus)+'</b>'+t('.','.')
-      : t('Klikk en selger for å filtrere alt under. Tallene er inntekt og antall salg i perioden.',
-          'Click a seller to filter everything below. Figures are revenue and sales for the period.');
+        +'<b>'+this.vesc(focus)+'</b>.'
+      : t('Velg en selger for å filtrere alt under. Skriv for å søke.',
+          'Pick a seller to filter everything below. Type to search.');
 
     return '<div class="vd-sb"><div class="vd-sb-hd">'
       +'<span class="eyebrow">'+t('SELGERFILTER','SELLER FILTER')+' · '
       +this.vmonthLbl(month).toUpperCase()+'</span>'
       +'<span class="vd-sb-note">'+note+'</span></div>'
-      +'<div class="vd-sb-rail">'+all+segs+'</div></div>'; }
+      +'<div class="vd-pk" data-vd-pk="sellers" style="display:inline-block;max-width:100%">'
+      +trigger+pop+'</div></div>'; }
 
   // The detail card on hover — same ttHTML the older charts use, so it looks
   // and behaves identically (keyboard reachable, drill link, footnote).
@@ -5858,7 +7273,8 @@ class Component extends DCLogic {
   buildVenditusOverview(){
     const M=this.vdModel(); if(!M||!M.months.length) return this.html('');
     const month=this.vdMonth();
-    return this.html(this.vdSellerBar(month)
+    return this.html(this.vdRiskBand()
+      +this.vdSellerBar(month)
       +this.buildCascade(month)
       +'<div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">'
       +this.buildSellerRank(month)+this.buildAbsenceTrend()+'</div>'
@@ -5957,7 +7373,11 @@ class Component extends DCLogic {
         t('Lovpålagt minimum etter OTP-loven.','The statutory minimum under the OTP act.'))
       +line(t('Ubetalt bonus','Unpaid bonus'),
         A.unpaidBonus.lines.length+' '+t('linjer merket «Utbetalt = NEI»','lines flagged "paid = NO"'),
-        this.vkr(A.unpaidBonus.withEmployer),'bonus',{},
+        this.vkr(A.unpaidBonus.withEmployer),'bonus',
+        (A.unpaidBonus.lines[0]
+          ? {seller:A.unpaidBonus.lines[0].seller,month:A.unpaidBonus.lines[0].month,
+             description:A.unpaidBonus.lines[0].description}
+          : {}),
         A.unpaidBonus.lines.slice(0,5).map(b=>[this.vesc(b.seller)+' · '+this.vmonthShort(b.month),
           this.vkr(b.amount)]).concat([['-'],
           [t('Med AG-kostnad','With employer cost'),this.vkr(A.unpaidBonus.withEmployer),null,'var(--amber)']]),
@@ -6008,7 +7428,7 @@ class Component extends DCLogic {
     const f=this.vdFocused();
     const CATS=[
       {k:'commission',no:'Provisjon',en:'Commission',c:'#2B5FE0',metric:'commission'},
-      {k:'onCost',    no:'AGA, feriepenger, pensjon',en:'Employer tax, holiday, pension',c:'#5B7BFF',metric:'aga'},
+      {k:'onCost',    no:'AGA, feriepenger, pensjon',en:'Employer tax, holiday, pension',c:'#0D9488',metric:'aga'},
       {k:'absence',   no:'Fravær',en:'Absence',c:'#F6465D',metric:'sickDays'},
       {k:'bonus',     no:'Bonus',en:'Bonus',c:'#B8842A',metric:'bonus'},
       {k:'other',     no:'Øvrig',en:'Other',c:'#7C5CFF',metric:'listCost'}
@@ -6097,11 +7517,6 @@ class Component extends DCLogic {
       +(wf.net>=0?'var(--accent)':'var(--danger-ink)')+'">'+(wf.net>=0?'+':'−')
       +this.vkr(Math.abs(wf.net)*1000)+' '+t('netto','net')+'</span>':'';
 
-    const legend=(this.stackLegend()||[]).map(l=>
-      '<span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text2)">'
-      +'<span style="width:9px;height:9px;border-radius:3px;background:'+l.dot+'"></span>'+l.name
-      +' <span class="mono" style="color:var(--muted)">'+l.amt+'</span></span>').join('');
-
     return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdSellerBar()+tiles
       +card(t('Månedens bevegelser','The month\'s movements'),
         t('Hver søyle er én bevegelse — grønt inn, rødt ut. Ingen inn- og utgående saldo: '
@@ -6115,18 +7530,14 @@ class Component extends DCLogic {
         '<div class="chartscroll">'+this.buildNetDiverge().__html+'</div>')
       +'<div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">'
       +this.buildObligations()+this.buildNavBalance()+'</div>'
-      +card(t('Kostnadssammensetning','Cost composition'),
-        t('Hvor pengene går, måned for måned.','Where the money goes, month by month.'),
-        '<div class="chartscroll">'+this.buildExpenseStack().__html+'</div>',
-        '<div style="display:flex;gap:14px;flex-wrap:wrap">'+legend+'</div>')); }
+      +this.buildCostComposition()); }
 
   /* ═══ Arbeidsbok · spreadsheet behaviour ═════════════════════════════════
      The grid is a set of plain <input>s, so navigation, selection, copy and
      paste have to be provided. Selection is held on the instance rather than
      in state: dragging a range must not re-render 350 inputs per keystroke. */
 
-  vdCellAt(r,c){ return document.querySelector('input.vd-c[data-vd-r="'+r+'"][data-vd-c="'+c+'"],'
-    +'div.vd-c[data-vd-r="'+r+'"][data-vd-c="'+c+'"]'); }
+  vdCellAt(r,c){ return document.querySelector('.vd-c[data-vd-r="'+r+'"][data-vd-c="'+c+'"]'); }
 
   vdCellCoords(el){
     if(!el||!el.getAttribute) return null;
@@ -6349,7 +7760,7 @@ class Component extends DCLogic {
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
-    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._c={}; this.forceUpdate(); });
+    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._c={}; this.forceUpdate(); });
 
     const parse=(raw,kind)=>{
       const s=String(raw).replace(/\s| |kr/gi,'').replace(',','.');
@@ -6372,6 +7783,10 @@ class Component extends DCLogic {
     };
     this._vdClick=(e)=>{
       let el=e.target;
+      // a field inside a clickable row belongs to the field
+      if(el&&(el.tagName==='INPUT'||el.tagName==='SELECT')) return;
+      // any click outside an open picker dismisses it, before we look for an action
+      if(!(el&&el.closest&&el.closest('.vd-pk'))) this.vdPickClose();
       while(el&&el!==document&&!(el.getAttribute&&el.getAttribute('data-vd-act'))) el=el.parentNode;
       if(!el||el===document||!el.getAttribute) return;
       const act=el.getAttribute('data-vd-act'), val=el.getAttribute('data-vd-val')||'';
@@ -6397,7 +7812,31 @@ class Component extends DCLogic {
         const cur=this.state.vdFocus||{};
         this.setState({vdFocus:cur.seller===val?{}:{seller:val}});
       }
-      else if(act==='unfocus'){ this.setState({vdFocus:{}}); }
+      else if(act==='pickopen'){ e.preventDefault(); e.stopPropagation(); this.vdPickOpen(val); }
+      else if(act==='rkopen'){
+        e.preventDefault();
+        const c=document.querySelector('[data-vd-rkc="'+val+'"]');
+        if(!c) return;
+        const open=c.classList.toggle('vd-rkc-open');
+        const b=c.querySelector('.vd-rkc-b'); if(b) b.hidden=!open;
+      }
+      else if(act==='clearcell'){ this.vdHintHide(); S.clearEdit(val); }
+      else if(act==='toggleyn'){ e.preventDefault(); S.set(val,S.get(val)===true?false:true); }
+      else if(act==='vtchip'){ this._vtChip=val; this._vtPage=1; this.vtApply(); }
+      else if(act==='vtmonth'){ this._vtMonth=val; this._vtPage=1; this.vtApply(); }
+      else if(act==='vtpage'){ this._vtPage=+val||1; this.vtApply();
+        const w=document.querySelector('.vd-wrap'); if(w) w.scrollTop=0; }
+      else if(act==='findrow'){
+        e.preventDefault(); this.vdPickClose();
+        const rows=[...document.querySelectorAll('.vd-wrap .vd-gr')].filter(x=>!x.classList.contains('vd-ghead'));
+        const tr=rows[+val]; if(!tr) return;
+        tr.scrollIntoView({block:'center',behavior:'smooth'});
+        tr.querySelectorAll('.vd-c').forEach(cc=>{ cc.classList.add('vd-pulse');
+          setTimeout(()=>cc.classList.remove('vd-pulse'),2700); });
+      }
+      else if(act==='goto'){ this.vdPickClose(); this.setState({active:val}); }
+      else if(act==='gosheet'){ this.vdPickClose(); this.setState({active:'Inndata',vdSheet:val}); }
+      else if(act==='unfocus'){ this.vdPickClose(); this.setState({vdFocus:{}}); }
       else if(act==='undo'){ if(S.undo()) this._vdToast(this.t('Angret','Undone')); }
       else if(act==='redo'){ if(S.redo()) this._vdToast(this.t('Gjort om igjen','Redone')); }
       else if(act==='hiderow'){ const [tb,k]=val.split('|',2); S.hideRow(tb,val.slice(tb.length+1)); }
@@ -6421,18 +7860,37 @@ class Component extends DCLogic {
 
   // Land on a cell a tooltip pointed at: scroll it into view and pulse it, so
   // the number you clicked and the cell behind it are visibly the same thing.
+  // "D" is one column; "D:J" is a span — revenue is every pack column, so the
+  // highlight has to cover what the reference claims.
+  vdCols(spec){
+    if(!spec) return [];
+    const p=String(spec).split(':');
+    if(p.length<2) return [p[0]];
+    const a=this.vdLetterIdx(p[0]), b=this.vdLetterIdx(p[1]);
+    const out=[];
+    for(let i=Math.min(a,b);i<=Math.max(a,b);i++) out.push(this.vdColLetter(i));
+    return out; }
+
   vdJump(){
     if(!this._vdJump&&!this._vdJumpCol) return;
     const col=this._vdJumpCol; this._vdJumpCol=null;
+    const colSel=this.vdCols(col).map(c=>'[data-vd-col="'+c+'"]').join(',');
 
     if(!this._vdJump){
-      // company-level figure: no one row owns it, so highlight the whole column
-      const cells=[...document.querySelectorAll('[data-vd-col="'+col+'"]')];
+      // company-level figure: no one row owns it, so highlight the whole span
+      let cells=colSel?[...document.querySelectorAll(colSel)]:[];
       if(!cells.length) return;
-      cells.forEach(c=>c.classList.add('vd-pulse'));
+      // if every cell in the span is filtered away, clear the filters first
+      if(cells.every(c=>c.closest&&c.closest('.vt-off'))){
+        this.vdShowRow(cells[0]);
+        cells=[...document.querySelectorAll(colSel)];
+      }
+      cells=cells.filter(c=>!(c.closest&&c.closest('.vt-off')));
+      if(!cells.length) return;
+      cells.forEach(c=>c.classList.add('vd-cellhit'));
       try{ cells[0].scrollIntoView({block:'center',inline:'center',behavior:'smooth'}); }catch(e){}
-      clearTimeout(this._pulseT);
-      this._pulseT=setTimeout(()=>cells.forEach(c=>c.classList.remove('vd-pulse')),2600);
+      clearTimeout(this._hitT);
+      this._hitT=setTimeout(()=>cells.forEach(c=>c.classList.remove('vd-cellhit')),3000);
       return;
     }
 
@@ -6440,12 +7898,43 @@ class Component extends DCLogic {
     const el=document.querySelector('[data-vd-set="'+q+'"],[data-vd-cell="'+q+'"]');
     this._vdJump=null;
     if(!el) return;
+
+    // The sheet paginates and filters, so the row we were sent to may be on
+    // another page or hidden behind a search. Clear the view down to it rather
+    // than silently scrolling to nothing.
+    if(el.closest&&el.closest('.vt-off')){
+      this.vdShowRow(el);
+    }
     try{ el.scrollIntoView({block:'center',inline:'center',behavior:'smooth'}); }catch(err){ el.scrollIntoView(); }
-    el.classList.add('vd-pulse');
-    clearTimeout(this._pulseT);
-    this._pulseT=setTimeout(()=>{ el.classList.remove('vd-pulse'); },2600);
+    // a span within one row: ring every cell the reference names
+    const row=el.closest&&el.closest('.vd-gr');
+    const span=(row&&colSel)?[...row.querySelectorAll(colSel)]:[];
+    this.vdHit(el,span);
     if(el.tagName==='INPUT'){ try{ el.focus({preventScroll:true}); }catch(err){} }
   }
+
+  /* Nothing may hide the row a dashboard sent you to — not the search, not the
+     seller chip, not the month filter, not the page you happen to be on. */
+  vdShowRow(el){
+    this._vtQ=''; this._vtChip=''; this._vtMonth='';
+    const q=document.querySelector('[data-vt-q]'); if(q) q.value='';
+    const tr=el.closest&&el.closest('.vd-tr');
+    const all=this.vtRows();
+    const ix=tr?all.indexOf(tr):-1;
+    this._vtPage=ix>=0?Math.floor(ix/this.vtSize())+1:1;
+    this.vtApply(); }
+
+  /* One rule for every arrival: the row goes red for three seconds, and the
+     cell that was actually asked for is ringed inside it. */
+  vdHit(el,extra){
+    if(!el) return;
+    const row=el.closest&&el.closest('.vd-gr');
+    const marked=[];
+    if(row){ row.classList.add('vd-rowhit'); marked.push([row,'vd-rowhit']); }
+    (extra&&extra.length?extra:[el]).forEach(c=>{
+      c.classList.add('vd-cellhit'); marked.push([c,'vd-cellhit']); });
+    clearTimeout(this._hitT);
+    this._hitT=setTimeout(()=>marked.forEach(([n,c])=>n.classList.remove(c)),3000); }
 
   // Typing into an injected input replaces the DOM on every commit, so put the
   // caret back where it was.
@@ -6784,16 +8273,16 @@ class Component extends DCLogic {
       +'<div class="inv-act"><span class="btnk" style="font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:8px;cursor:pointer;white-space:nowrap">'+t('Betal','Pay')+'</span></div></div>'; });
     const apCard='<div class="kn-card"><div class="kn-ch"><div><div class="kn-ct">'+t('Aldri betalt — leverandørgjeld','Never paid — accounts payable')+'</div><div class="kn-cs">'+t('Hentet direkte fra reskontro med forfallsdato. Forfalte først.','Pulled straight from the AP ledger with due dates. Overdue first.')+'</div></div><span class="kn-pill" style="color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent)">'+t('Live · Tripletex','Live · Tripletex')+'</span></div>'
       +'<div class="inv-head"><div>'+t('Leverandør','Supplier')+'</div><div class="inv-due">'+t('Forfall','Due')+'</div><div>'+t('Status','Status')+'</div><div style="text-align:right">'+t('Beløp','Amount')+'</div><div class="inv-act"></div></div>'+tb
-      +'<div class="kn-note"><b style="color:var(--accent)">Thor:</b> '+t('Nordlys Studio (kr 96 500) er 18 dager forfalt og leverandøren har 2 % purregebyr i avtalen. Betal denne først — resten forfaller etter lønnskjøring 5. juli.','Nordlys Studio (kr 96 500) is 18 days overdue and the contract carries a 2 % late fee. Pay this one first — the rest fall due after payroll on 5 July.')+'</div></div>';
+      +'<div class="kn-note"><b style="color:var(--accent)">Dara:</b> '+t('Nordlys Studio (kr 96 500) er 18 dager forfalt og leverandøren har 2 % purregebyr i avtalen. Betal denne først — resten forfaller etter lønnskjøring 5. juli.','Nordlys Studio (kr 96 500) is 18 days overdue and the contract carries a 2 % late fee. Pay this one first — the rest fall due after payroll on 5 July.')+'</div></div>';
     const leak='<div class="kn-card" style="border-style:dashed;background:var(--surface2)"><div class="kn-ch"><div><div class="kn-ct">'+t('Aldri sendt — inntektslekkasje','Never sent — revenue leakage')+'</div><div class="kn-cs">'+t('Arbeid som er levert, men aldri fakturert','Work delivered but never invoiced')+'</div></div><span class="kn-pill" style="color:#D98B1E;background:rgba(217,139,30,.12)">'+t('Blokkert · mangler kilde','Blocked · missing source')+'</span></div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 16px" class="inv-steps">'
       +'<div class="inv-step on"><div class="inv-step-n">1</div><div><div class="inv-step-t">'+t('Fakturert omsetning','Invoiced revenue')+'</div><div class="inv-step-s">'+t('Har vi · Tripletex konto 3000–3900','Have it · Tripletex 3000–3900')+'</div></div></div>'
       +'<div class="inv-step"><div class="inv-step-n">2</div><div><div class="inv-step-t">'+t('Avtalt omsetning','Contracted revenue')+'</div><div class="inv-step-s">'+t('Mangler · CRM / kontraktsliste','Missing · CRM / contract list')+'</div></div></div>'
-      +'<div class="inv-step"><div class="inv-step-n">3</div><div><div class="inv-step-t">'+t('Differanse = aldri sendt','Gap = never sent')+'</div><div class="inv-step-s">'+t('Thor sammenligner per kunde og måned','Thor compares per customer and month')+'</div></div></div></div>'
-      +'<div style="font-size:13px;line-height:1.6;color:var(--text2);text-wrap:pretty;margin-bottom:14px">'+t('Regnskapet vet bare hva som er fakturert — ikke hva som skulle vært fakturert. For å finne fakturaer som aldri ble sendt trenger Thor en ekstern referanse: en kontraktsliste, CRM-eksport eller timeregistrering med avtalte satser. Uten den kilden kan ikke sammenligningen bygges.','The ledger only knows what was invoiced — not what should have been. To find invoices that were never sent, Thor needs an external reference: a contract list, a CRM export or time tracking with agreed rates. Without that source the comparison cannot be built.')+'</div>'
+      +'<div class="inv-step"><div class="inv-step-n">3</div><div><div class="inv-step-t">'+t('Differanse = aldri sendt','Gap = never sent')+'</div><div class="inv-step-s">'+t('Dara sammenligner per kunde og måned','Dara compares per customer and month')+'</div></div></div></div>'
+      +'<div style="font-size:13px;line-height:1.6;color:var(--text2);text-wrap:pretty;margin-bottom:14px">'+t('Regnskapet vet bare hva som er fakturert — ikke hva som skulle vært fakturert. For å finne fakturaer som aldri ble sendt trenger Dara en ekstern referanse: en kontraktsliste, CRM-eksport eller timeregistrering med avtalte satser. Uten den kilden kan ikke sammenligningen bygges.','The ledger only knows what was invoiced — not what should have been. To find invoices that were never sent, Dara needs an external reference: a contract list, a CRM export or time tracking with agreed rates. Without that source the comparison cannot be built.')+'</div>'
       +'<div style="display:flex;gap:8px;flex-wrap:wrap"><span class="btnk" style="height:36px;display:inline-flex;align-items:center;padding:0 16px;border-radius:10px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">'+t('Koble til HubSpot','Connect HubSpot')+'</span><span class="btnk" style="height:36px;display:inline-flex;align-items:center;padding:0 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-size:12.5px;font-weight:600;cursor:pointer">'+t('Last opp kontraktsliste (.xlsx)','Upload contract list (.xlsx)')+'</span></div></div>';
     const head='<div style="margin-bottom:20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap"><span class="eyebrow">'+t('Manglende fakturaer','Missing invoices')+'</span><span style="width:3px;height:3px;border-radius:9999px;background:var(--muted2)"></span><span class="mono" style="font-size:10.5px;color:var(--muted2)">'+t('per 30. juni 2026','as of 30 June 2026')+'</span></div>'
-      +'<p style="margin:0;max-width:640px;font-size:14px;line-height:1.6;color:var(--text2);text-wrap:pretty">'+t('To forskjellige problemer: regninger dere ikke har betalt, og arbeid dere aldri har fakturert. Det første kan Thor se i dag. Det andre trenger en kilde utenfor regnskapet.','Two different problems: bills you have not paid, and work you never invoiced. Thor can see the first today. The second needs a source outside the ledger.')+'</p></div>';
+      +'<p style="margin:0;max-width:640px;font-size:14px;line-height:1.6;color:var(--text2);text-wrap:pretty">'+t('To forskjellige problemer: regninger dere ikke har betalt, og arbeid dere aldri har fakturert. Det første kan Dara se i dag. Det andre trenger en kilde utenfor regnskapet.','Two different problems: bills you have not paid, and work you never invoiced. Dara can see the first today. The second needs a source outside the ledger.')+'</p></div>';
     return this.html(head+stats+apCard+leak);
   }
 
@@ -6939,7 +8428,7 @@ class Component extends DCLogic {
       +'<div class="kn-body">'+f.eq+f.viz+'<div class="kn-fnote">'+f.note+'</div></div></details>';
     const fh=F.map(fRow).join('');
 
-    /* ===== 6. Thor pattern flags (auto-surfaced) ===== */
+    /* ===== 6. Dara pattern flags (auto-surfaced) ===== */
     const flagSpark=(a,color)=>{ const w=120,h=32,min=Math.min(...a),max=Math.max(...a),r=(max-min)||1;
       const d='M'+a.map((v,i)=>(i*(w/(a.length-1))).toFixed(1)+','+(h-3-((v-min)/r)*(h-8)).toFixed(1)).join(' L');
       return '<svg viewBox="0 0 '+w+' '+h+'" width="120" height="32" style="overflow:visible;flex:none"><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="'+w+'" cy="'+(h-3-((a[a.length-1]-min)/r)*(h-8)).toFixed(1)+'" r="3" fill="'+color+'"/></svg>'; };
@@ -6970,7 +8459,7 @@ class Component extends DCLogic {
         +flagSpark(f.s,c)
         +'<span class="kn-sev" style="color:'+c+';background:color-mix(in srgb,'+c+' 12%,transparent)">'+sevL[f.sev]+'</span>'
         +'</'+(f.href?'a':'div')+'>'; });
-    const flagsSec='<div class="kn-panel kn-panel-flag"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Thor har flagget','Thor flagged')+'</div><div class="kn-cs">'+t('mønstre funnet automatisk i bank- og regnskapsdata','patterns detected automatically in bank and ledger data')+'</div></div><span class="kn-pill">'+flags.length+' '+t('aktive','active')+'</span></div><div class="kn-flags">'+flagsH+'</div></div>';
+    const flagsSec='<div class="kn-panel kn-panel-flag"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Dara har flagget','Dara flagged')+'</div><div class="kn-cs">'+t('mønstre funnet automatisk i bank- og regnskapsdata','patterns detected automatically in bank and ledger data')+'</div></div><span class="kn-pill">'+flags.length+' '+t('aktive','active')+'</span></div><div class="kn-flags">'+flagsH+'</div></div>';
 
     /* ===== 4. Key ratios with trend ===== */
     const R={assets:19600,equity:8230,curA:6120,inv:980,curL:3260,debt:11370,fixed:5890};
@@ -7057,7 +8546,7 @@ class Component extends DCLogic {
       +'<span class="kn-rep-v" style="'+mono+'">'+M(r.v)+'</span><span class="kn-rep-c" style="'+mono+'">'+dec(r.c)+' %</span></div>'; });
     const repBlock='<div class="kn-panel"><div class="kn-panel-h"><div><div class="kn-ct">'+t('Omsetning per selger','Revenue per salesperson')+'</div><div class="kn-cs">'+t('hittil i år · siste kolonne er provisjonssats','year to date · last column is commission rate')+'</div></div></div>'
       +'<div class="kn-reps">'+repsH+'</div>'
-      +'<div class="kn-note">'+t('<b>Thor:</b> Topp 2 selgere står for 47 % av omsetningen. Petter har høyest provisjonssats (11,4 %) men lavest omsetning per krone provisjon.','<b>Thor:</b> Top 2 reps deliver 47 % of revenue. Petter has the highest commission rate (11.4 %) but the lowest revenue per commission krone.')+'</div></div>';
+      +'<div class="kn-note">'+t('<b>Dara:</b> Topp 2 selgere står for 47 % av omsetningen. Petter har høyest provisjonssats (11,4 %) men lavest omsetning per krone provisjon.','<b>Dara:</b> Top 2 reps deliver 47 % of revenue. Petter has the highest commission rate (11.4 %) but the lowest revenue per commission krone.')+'</div></div>';
 
     /* ===== ratio formulas ===== */
     const F2=[
