@@ -5303,9 +5303,31 @@ class Component extends DCLogic {
   buildOnboarding(){
     const M=this.vdModel(), t=(a,b)=>this.t(a,b);
     if(!M) return this.html(this.vdEmpty(t('Ingen data.','No data.')));
-    const list=M.onboarding||[];
-    if(!list.length) return this.html(this.vdDemoNote()
+    const all=M.onboarding||[];
+    if(!all.length) return this.html(this.vdDemoNote()
       +this.vdEmpty(t('Ingen rader i ONBOARDING TRACKER.','No rows in ONBOARDING TRACKER.')));
+
+    const obMonths=[];
+    all.forEach(o=>{ const m=(o.start||'').slice(0,7);
+      if(m.length===7&&obMonths.indexOf(m)<0) obMonths.push(m); });
+    obMonths.sort();
+    const obCur=obMonths.indexOf(this.state.obMonth)>=0?this.state.obMonth:'';
+    const list=obCur?all.filter(o=>(o.start||'').slice(0,7)===obCur):all;
+
+    const obChip=(v,l)=>{ const on=v===obCur;
+      return '<button data-vd-act="obmonth" data-vd-val="'+v+'" class="btn" style="height:32px;'
+        +'padding:0 14px;border-radius:9999px;border:1px solid '+(on?'transparent':'var(--border)')+';'
+        +'cursor:pointer;background:'+(on?'var(--accent)':'var(--card)')+';color:'+(on?'#fff':'var(--text2)')+';'
+        +'font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em">'
+        +l+'</button>'; };
+    const obBar=!obMonths.length?'':'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;'
+      +'margin-bottom:20px"><span class="eyebrow" style="margin-right:4px">'
+      +t('STARTM\u00c5NED','START MONTH')+'</span>'
+      +obChip('',t('Alle','All'))
+      +obMonths.map(m=>obChip(m,this.vmonthShort(m)+' '+m.slice(2,4))).join('')+'</div>';
+
+    if(!list.length) return this.html(this.vdDemoNote()+obBar
+      +this.vdEmpty(t('Ingen ansettelser denne m\u00e5neden.','No hires started this month.')));
 
     const sum=list.reduce((a,o)=>a+o.sum,0);
     const tiles=this.vdTiles([
@@ -5351,7 +5373,7 @@ class Component extends DCLogic {
         '<div class="eyebrow" style="text-align:right">'+t('CLARIO','CLARIO')+'</div>',
         '<div class="eyebrow" style="text-align:right">'+t('DIFFERANSE','DIFFERENCE')+'</div>'].join('')+'</div>';
 
-    return this.html(this.vdDemoNote()+this.vdEditNote()+tiles
+    return this.html(this.vdDemoNote()+this.vdEditNote()+obBar+tiles
       +this.vdCard(t('Kostnad per ansettelse','Cost per hire'),
         t('Break-even er antall salg som dekker onboarding-kostnaden, til gjennomsnittlig pakkesats.',
           'Break-even is the number of sales that covers the onboarding cost, at the average pack rate.'),table)
@@ -7429,7 +7451,7 @@ class Component extends DCLogic {
   buildVenditusOverview(){
     const M=this.vdModel(); if(!M||!M.months.length) return this.html('');
     const month=this.vdMonth();
-    return this.html(this.vdSellerBar(month)
+    return this.html(this.vdMonthBar()+this.vdSellerBar(month)
       +this.buildCascade(month)
       +'<div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">'
       +this.buildSellerRank(month)+this.buildAbsenceTrend()+'</div>'
@@ -7946,6 +7968,7 @@ class Component extends DCLogic {
       if(!el||el===document||!el.getAttribute) return;
       const act=el.getAttribute('data-vd-act'), val=el.getAttribute('data-vd-val')||'';
       if(act==='month')    this.setState({vdMonth:val});
+      else if(act==='obmonth') this.setState({obMonth:val});
       else if(act==='seller')   this.setState({vdSeller:val,active:'Selgere'});
       else if(act==='back')     this.setState({vdSeller:null});
       else if(act==='contract') this.setState({vdContract:val});
