@@ -148,11 +148,22 @@ hr.filter(h => h.seller === NEW_HIRE).forEach((h) => {
   if (h.month === '2025-01' || h.month === '2025-02') h.guaranteeUsed = true;
 });
 
-onboarding.push({
-  _row: 5, _sheet: 'ONBOARDING TRACKER',
-  name: NEW_HIRE, start: '2025-01-10',
-  advertising: 3000, fee: 0, course: 2000, training: 1500, equipment: 500,
-  daysToFirstSale: 12, _key: NEW_HIRE.toLowerCase()
+// An agency hires through the year, so the tracker holds more people than the
+// four sellers currently carrying quota: one of these is still ramping up and
+// one came through a recruiter, which is what makes HONORAR non-zero.
+[
+  [NEW_HIRE,        '2025-01-10', 3000,     0, 2000, 1500,  500, 12],
+  ['Mats Lien',     '2025-03-03', 4500,     0, 2000, 2500,  500, 21],
+  ['Thea Nygård',   '2025-03-17', 4500,     0, 2000, 2500,  500, 14],
+  ['Ida Sørensen',  '2025-04-14', 3000, 12000, 2000, 1500,  500,  9],
+  ['Jonas Bakke',   '2025-06-02', 2500,     0, 2000, 1000, 5500, 17]
+].forEach((o, i) => {
+  onboarding.push({
+    _row: i + 5, _sheet: 'ONBOARDING TRACKER',
+    name: o[0], start: o[1],
+    advertising: o[2], fee: o[3], course: o[4], training: o[5], equipment: o[6],
+    daysToFirstSale: o[7], _key: o[0].toLowerCase()
+  });
 });
 
 // Quarterly sales bonuses plus one tax-free Christmas gift, mirroring the
@@ -187,4 +198,4 @@ fs.writeFileSync(
 );
 
 console.log(`venditus/demo.js — ${MONTHS.length} months, ${sales.length} sales rows, ` +
-  `${hr.length} HR rows, ${bonus.length} bonus rows, ${onboarding.length} onboarding row`);
+  `${hr.length} HR rows, ${bonus.length} bonus rows, ${onboarding.length} onboarding rows`);

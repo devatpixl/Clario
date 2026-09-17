@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./venditus/raw.js?h=907861ec"></script>
-<script src="./venditus/demo.js?h=0de88225"></script>
+<script src="./venditus/demo.js?h=b0912b0d"></script>
 <script src="./venditus/mapping.js?h=6e299dd5"></script>
 <script src="./venditus/parse.js?h=a4e5a20b"></script>
 <script src="./venditus/model.js?h=560c8f6a"></script>
@@ -5307,24 +5307,51 @@ class Component extends DCLogic {
     if(!all.length) return this.html(this.vdDemoNote()
       +this.vdEmpty(t('Ingen rader i ONBOARDING TRACKER.','No rows in ONBOARDING TRACKER.')));
 
-    const obMonths=[];
-    all.forEach(o=>{ const m=(o.start||'').slice(0,7);
-      if(m.length===7&&obMonths.indexOf(m)<0) obMonths.push(m); });
+    // Hires are filtered by the month they started, not by the workbook month —
+    // a hire belongs to a date. The chips are built from the start dates that
+    // are actually in the tracker, and carry their own count, so the bar says
+    // where the hiring happened before you click anything.
+    const obCount={}, obMonths=[];
+    all.forEach(o=>{ const m=(o.start||'').slice(0,7); if(m.length!==7) return;
+      if(obCount[m]===undefined){ obCount[m]=0; obMonths.push(m); } obCount[m]++; });
     obMonths.sort();
     const obCur=obMonths.indexOf(this.state.obMonth)>=0?this.state.obMonth:'';
     const list=obCur?all.filter(o=>(o.start||'').slice(0,7)===obCur):all;
 
-    const obChip=(v,l)=>{ const on=v===obCur;
+    const obLbl=m=>this.vmonthShort(m)+' '+m.slice(2,4);
+    const obChip=(v,l,c)=>{ const on=v===obCur;
       return '<button data-vd-act="obmonth" data-vd-val="'+v+'" class="btn" style="height:32px;'
-        +'padding:0 14px;border-radius:9999px;border:1px solid '+(on?'transparent':'var(--border)')+';'
+        +'padding:0 13px;border-radius:9999px;border:1px solid '+(on?'transparent':'var(--border)')+';'
         +'cursor:pointer;background:'+(on?'var(--accent)':'var(--card)')+';color:'+(on?'#fff':'var(--text2)')+';'
+        +'display:inline-flex;align-items:center;gap:7px;'
         +'font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em">'
-        +l+'</button>'; };
-    const obBar=!obMonths.length?'':'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;'
-      +'margin-bottom:20px"><span class="eyebrow" style="margin-right:4px">'
-      +t('STARTM\u00c5NED','START MONTH')+'</span>'
-      +obChip('',t('Alle','All'))
-      +obMonths.map(m=>obChip(m,this.vmonthShort(m)+' '+m.slice(2,4))).join('')+'</div>';
+        +l+'<span style="opacity:'+(on?'0.75':'0.55')+';font-weight:500">'+c+'</span></button>'; };
+
+    // One start month is not a filter, it is a label — leave it off the page.
+    let obBar='';
+    if(obMonths.length>1&&obMonths.length<=12)
+      obBar='<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
+        +'<span class="eyebrow" style="margin-right:4px">'+t('STARTET','STARTED')+'</span>'
+        +obChip('',t('Alle','All'),all.length)
+        +obMonths.map(m=>obChip(m,obLbl(m),obCount[m])).join('')+'</div>';
+    else if(obMonths.length>12)
+      obBar='<div class="vd-pk" style="display:flex;gap:8px;align-items:center;margin-bottom:20px">'
+        +'<span class="eyebrow" style="margin-right:4px">'+t('STARTET','STARTED')+'</span>'
+        +'<button class="btn" data-vd-act="pickopen" data-vd-val="obmonth" style="height:32px;'
+        +'padding:0 14px;border-radius:9999px;border:1px solid transparent;background:var(--accent);'
+        +'color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:8px;'
+        +'font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em">'
+        +(obCur?obLbl(obCur).toUpperCase():t('ALLE','ALL'))
+        +'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+        +' stroke-width="2.2"><path d="M7 9l5 5 5-5"/></svg></button>'
+        +this.vdPickPop('obmonth',{ act:'obmonth',
+          placeholder:t('S\u00f8k m\u00e5ned\u2026','Search month\u2026'),
+          items:[{val:'',nm:t('Alle m\u00e5neder','All months'),ini:'\u2211',
+                  sub:this.vnum(all.length)+' '+t('ansettelser','hires'),on:!obCur}]
+            .concat(obMonths.slice().reverse().map(m=>({ val:m, nm:this.vmonthLbl(m),
+              ini:this.vmonthShort(m).slice(0,3),
+              sub:this.vnum(obCount[m])+' '+t('ansettelser','hires'), on:m===obCur }))) })
+        +'</div>';
 
     if(!list.length) return this.html(this.vdDemoNote()+obBar
       +this.vdEmpty(t('Ingen ansettelser denne m\u00e5neden.','No hires started this month.')));

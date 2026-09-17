@@ -720,6 +720,58 @@ window.VENDITUS_DEMO = {
    "equipment": 500,
    "daysToFirstSale": 12,
    "_key": "ansatt 4"
+  },
+  {
+   "_row": 6,
+   "_sheet": "ONBOARDING TRACKER",
+   "name": "Mats Lien",
+   "start": "2025-03-03",
+   "advertising": 4500,
+   "fee": 0,
+   "course": 2000,
+   "training": 2500,
+   "equipment": 500,
+   "daysToFirstSale": 21,
+   "_key": "mats lien"
+  },
+  {
+   "_row": 7,
+   "_sheet": "ONBOARDING TRACKER",
+   "name": "Thea Nygård",
+   "start": "2025-03-17",
+   "advertising": 4500,
+   "fee": 0,
+   "course": 2000,
+   "training": 2500,
+   "equipment": 500,
+   "daysToFirstSale": 14,
+   "_key": "thea nygård"
+  },
+  {
+   "_row": 8,
+   "_sheet": "ONBOARDING TRACKER",
+   "name": "Ida Sørensen",
+   "start": "2025-04-14",
+   "advertising": 3000,
+   "fee": 12000,
+   "course": 2000,
+   "training": 1500,
+   "equipment": 500,
+   "daysToFirstSale": 9,
+   "_key": "ida sørensen"
+  },
+  {
+   "_row": 9,
+   "_sheet": "ONBOARDING TRACKER",
+   "name": "Jonas Bakke",
+   "start": "2025-06-02",
+   "advertising": 2500,
+   "fee": 0,
+   "course": 2000,
+   "training": 1000,
+   "equipment": 5500,
+   "daysToFirstSale": 17,
+   "_key": "jonas bakke"
   }
  ]
 };
