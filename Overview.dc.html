@@ -11,6 +11,7 @@
 <script src="./venditus/trace.js?h=3e1778ba"></script>
 <script src="./venditus/store.js?h=9c4ca9b0"></script>
 <script src="./venditus/forecast.js?h=102c4749"></script>
+<script src="./venditus/phonero-demo.js?h=863ac430"></script>
 <script src="./venditus/phonero-grunnlag.js"></script>
 <script src="./support.js"></script>
 </head>
@@ -1108,6 +1109,7 @@
   .pg-info{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border-soft)}
   .pg-file{font-size:12px;font-weight:600;color:var(--text)}
   .pg-warn{font-size:11px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:9999px;padding:2px 9px}
+  .pg-anon{font-size:11px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);border-radius:9999px;padding:2px 9px}
   .pg-priv{font-size:11px;color:var(--danger-ink);background:var(--danger-soft);border:1px solid var(--danger-border);border-radius:9999px;padding:2px 9px}
   .pg-scroll{max-height:70vh}
   .pg2 .vd-gr{grid-template-columns:var(--pg-cols)}
@@ -9011,7 +9013,9 @@ class Component extends DCLogic {
       warn.push(t('Selgerne har bare nummer (1–'+D.groups.length+'). Koble dem til ansatte under Provisjon → Oppgjør per selger.','Sellers are numbered only (1–'+D.groups.length+'). Link them to employees under Commission → Settlement per seller.'));
       return '<div class="pg-info"><span class="pg-file">📄 '+this.vesc(P.source)+' · '+t('alle tall kan redigeres — Z, V og AC regnes ut av Clario','every figure is editable — Z, V and AC are computed by Clario')+'</span>'
         +warn.map(w=>'<span class="pg-warn">'+w+'</span>').join('')
-        +'<span class="pg-priv">'+t('Inneholder ekte kundenavn — lagres bare lokalt, aldri i repoet.','Contains real customer names — kept locally only, never in the repo.')+'</span></div>'
+        +(P.anon
+          ?'<span class="pg-anon">'+t('Anonymisert: kundene heter «Kunde 001…», telefonnumre og navn i kommentarene er fjernet. Alle tall er uendret.','Anonymised: customers are "Kunde 001…", phone numbers and names in the comments are removed. Every number is unchanged.')+'</span>'
+          :'<span class="pg-priv">'+t('Inneholder ekte kundenavn — lagres bare lokalt, aldri i repoet.','Contains real customer names — kept locally only, never in the repo.')+'</span>')+'</div>'
         +'<div class="vd-wrap pg-scroll">'+h+'</div>'; }); }
 
   // "bilal ahmad" → "Bilal Ahmad", from SELGER PROFIL
