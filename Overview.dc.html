@@ -838,29 +838,72 @@
   .fc-yr-lg i{width:9px;height:9px;border-radius:3px;display:inline-block}
   .fc-how{margin-top:16px}
 
-  /* Hva skal betales fremover — three months side by side */
-  .pc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-  .pc-c{border:1px solid var(--border-soft);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column}
-  .pc-m{font-size:13.5px;font-weight:700;margin-bottom:6px}
-  .pc-r{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-top:1px solid var(--border-soft)}
-  .pc-r.pc-in{border-top:none}
-  .pc-k{font-size:12.5px;font-weight:600;color:var(--text)}
-  .pc-w{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
-  .pc-v{font-size:12.5px;font-weight:600;white-space:nowrap}
-  .pc-due{font-size:10px;font-weight:500;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);
-    padding:1px 6px;border-radius:6px;margin-left:4px}
-  .pc-net{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1.5px solid var(--border);
-    font-size:12.5px;font-weight:600}
-  .pc-net .mono{font-size:14px}
-  .pc-notes{margin-top:14px;display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--muted);line-height:1.5}
-  .pc-notes div::before{content:'· ';color:var(--muted2)}
-
+  /* Hva skal betales fremover — timeline + one split bar per month */
+  .pc2{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px 18px;box-shadow:var(--elev);margin-bottom:18px;
+    background-image:radial-gradient(700px 220px at 100% 0%,color-mix(in srgb,var(--accent) 6%,transparent),transparent 70%)}
+  .pc2-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}
+  .pc2-t{font-size:16.5px;font-weight:700;letter-spacing:-0.02em}
+  .pc2-s{font-size:12.5px;color:var(--muted);margin-top:4px;max-width:620px}
+  .pc2-lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--text2);max-width:420px;justify-content:flex-end}
+  .pc2-lg span{display:inline-flex;align-items:center;gap:6px}
+  .pc2-lg i{width:9px;height:9px;border-radius:3px;display:inline-block}
+  /* timeline */
+  .pct{position:relative;height:74px;margin:14px 0 6px}
+  .pct-lanes{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .pct-lane{border-left:1px dashed var(--border);position:relative}
+  .pct-lane:first-child{border-left:none}
+  .pct-lane span{position:absolute;right:8px;bottom:0;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted2)}
+  .pct-line{position:absolute;left:0;right:0;top:37px;height:3px;border-radius:9999px;
+    background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 25%,transparent))}
+  .pct-pin{position:absolute;top:31px;width:0;outline:none}
+  .pct-pin>i{position:absolute;left:-7px;top:0;width:14px;height:14px;border-radius:9999px;background:var(--card);
+    border:3px solid var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent);transition:transform .15s ease}
+  .pct-pin:hover>i,.pct-pin:focus>i{transform:scale(1.25)}
+  .pct-tag{position:absolute;left:-10px;bottom:22px;white-space:nowrap;font-size:11px;color:var(--text);
+    background:var(--card);border:1px solid color-mix(in srgb,var(--c) 45%,var(--border));border-radius:8px;padding:3px 8px;
+    box-shadow:0 4px 12px -6px rgba(16,24,40,.25)}
+  .pct-tag-lo{bottom:auto;top:20px}
+  .pct-tag b{color:var(--c);font-weight:700;font-size:10.5px}
+  .pct-tag .mono{font-weight:600;font-size:10.5px}
+  .pct-tag em{font-style:normal;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .pct-pin .vd-tt{left:-20px;right:auto;bottom:46px}
+  /* months */
+  .pc2-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .pcm{border:1px solid var(--border-soft);border-radius:16px;padding:14px 16px 10px;background:var(--card)}
+  .pcm-hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .pcm-m{font-size:13px;font-weight:700}
+  .pcm-net{font-size:21px;font-weight:700;letter-spacing:-0.04em}
+  .pcm-sub{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px}
+  .pcm-sub b{color:var(--text2);font-weight:600}
+  .pcm-bar{display:flex;gap:2px;height:12px;border-radius:9999px;overflow:hidden;margin:10px 0 8px;background:var(--surface2)}
+  .pcm-seg{height:100%;transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both}
+  .pcm-left,.pcm-left-i{background:repeating-linear-gradient(135deg,var(--green) 0 4px,color-mix(in srgb,var(--green) 45%,transparent) 4px 8px)}
+  .pcm-left{height:100%}
+  .pcm-left-i{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .pcm-over{box-shadow:inset 0 0 0 1.5px var(--danger)}
+  .pcm-rows{display:flex;flex-direction:column}
+  .pcm-r{display:grid;grid-template-columns:8px 1fr auto;align-items:center;gap:8px;padding:5px 6px;margin:0 -6px;border-radius:8px;
+    font-size:12px;cursor:default;outline:none}
+  .pcm-r:hover,.pcm-r:focus{background:var(--hover)}
+  .pcm-d{width:8px;height:8px;border-radius:3px}
+  .pcm-k{color:var(--text2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pcm-due{font-size:9.5px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);padding:0 5px;border-radius:5px;margin-left:3px}
+  .pcm-v{font-weight:600;font-size:11.5px}
+  .pc2-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .pcx{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2);background:var(--surface2);
+    border:1px solid var(--border-soft);border-radius:9999px;padding:5px 11px;cursor:help}
+  .pcx i{width:7px;height:7px;border-radius:9999px;display:inline-block}
+  .pcx b{color:var(--text);font-weight:600}
+  .pcx-q{color:var(--muted)}
+  @media(max-width:900px){ .pc2-grid{grid-template-columns:1fr} .pc2-lg{justify-content:flex-start} }
+  @media(max-width:768px){ .pc2{padding:18px 16px} .pct-tag{font-size:10px;padding:2px 6px} }
   @media(max-width:768px){
     .ks{padding:18px 18px 20px}
     .ks-p{font-size:14px;line-height:1.6}
     .ks-p b{font-size:13px}
     .ks-note{display:none}
-    .fc,.pc-c{padding:18px 16px}
+    .fc{padding:18px 16px}
     .fc-lead{font-size:13px}
   }
   /* a forecast column in a table */
@@ -7810,8 +7853,8 @@ class Component extends DCLogic {
                    'In short: these are bills that already exist. The largest is '+big[0]+' ('+this.vround(big[1])+')'+(big[2]?' — '+big[2]:'')+'.'); })(),
         what:t('Arbeidsgiveravgift er en skatt på lønn. Feriepenger og pensjon er en del av lønnen som settes av nå og betales senere. Ubetalt bonus er bonus som er lovet, men ikke utbetalt.',
                'Employer tax is a tax on pay. Holiday pay and pension are part of pay set aside now and paid later. Unpaid bonus is bonus promised but not yet paid.'),
-        good:t('Det er normalt å ha forpliktelser. Det viktige er at pengene finnes når de forfaller — se «Hva skal betales fremover» øverst.',
-               'Having obligations is normal. What matters is that the money is there when they fall due — see "What is coming up" at the top.'),
+        good:t('Det er normalt å ha forpliktelser. Det viktige er at pengene finnes når de forfaller — se «Hva skal betales fremover» rett over.',
+               'Having obligations is normal. What matters is that the money is there when they fall due — see "What is coming up" just above.'),
         src:t('Regnet ut fra brutto lønn i BEREGNING PER SELGER og «Utbetalt» i BONUS REGISTER.',
               'Worked out from gross pay in BEREGNING PER SELGER and "Paid" in BONUS REGISTER.')})); }
 
@@ -7942,7 +7985,6 @@ class Component extends DCLogic {
       +this.vkr(Math.abs(wf.net)*1000)+' '+t('netto','net')+'</span>':'';
 
     return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdSellerBar()+tiles
-      +this.buildPayCalendar()
       +card(t('Månedens bevegelser','The month\'s movements'),
         t('Hver søyle er én bevegelse — grønt inn, rødt ut. Ingen inn- og utgående saldo: '
           +'arbeidsboken har ingen bankdata, så dette går fra 0 til netto.',
@@ -7953,6 +7995,7 @@ class Component extends DCLogic {
         t('Over streken er måneder som gir overskudd, under er de som ikke gjør det.',
           'Above the line are months that contribute, below are the ones that do not.'),
         '<div class="chartscroll">'+this.buildNetDiverge().__html+'</div>')
+      +this.buildPayCalendar()
       +'<div class="m1" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">'
       +this.buildObligations()+this.buildNavBalance()+'</div>'
       +this.buildCostComposition()); }
@@ -8624,8 +8667,8 @@ class Component extends DCLogic {
       owed:()=>({line:t('Penger dere allerede skylder, men ikke har betalt ennå.','Money you already owe but have not paid yet.'),
         what:t('Arbeidsgiveravgift som ikke er betalt, feriepenger og pensjon som er satt av, og bonus som står som ikke utbetalt.',
                'Employer tax not yet paid, holiday pay and pension set aside, and bonus marked as unpaid.'),
-        good:t('Ikke farlig i seg selv — men pengene må stå på konto når det forfaller. Se «Hva skal betales fremover» under.',
-               'Not a problem in itself — but the money has to be there when it falls due. See "What is coming up" below.'),
+        good:t('Ikke farlig i seg selv — men pengene må stå på konto når det forfaller. Se «Hva skal betales fremover» lenger ned.',
+               'Not a problem in itself — but the money has to be there when it falls due. See "What is coming up" further down.'),
         src:t('Regnet ut fra lønnen, og «Utbetalt»-kolonnen i BONUS REGISTER.','Worked out from pay, and the "Paid" column in BONUS REGISTER.')}),
       navGap:()=>{ const g=M.accruals?M.accruals.nav.gap:0; return {
         line:g<0?t('NAV har betalt '+kr(Math.abs(g))+' mindre enn reglene sier. Dette kan dere kreve inn.',
@@ -8754,44 +8797,80 @@ class Component extends DCLogic {
       +'<p class="fc-lead">'+lead+'</p></div></div>'
       +'<div class="fc-grid">'+blocks+'</div>'+yb+how+'</div>'); }
 
-  /* ── Kontantstrøm · what has to be paid in the coming months ────────── */
+  /* ── Kontantstrøm · what has to be paid in the coming months ────────────
+     Drawn, not listed: a timeline with a pin on every due date, and for each
+     month one bar that is the money coming in, split by where it goes — what
+     is left over is the hatched green end. The explanations live in the hover
+     cards, so the card stays short. */
   buildPayCalendar(){
     const F=this.vdForecast(), M=this.vdModel(); if(!F||!M) return '';
     const t=(a,b)=>this.t(a,b);
     const C=window.VenditusForecast.calendar(M,F,this.vdStore().dataset,3);
     if(!C.length) return '';
-    const mn=m=>this.vmonthLbl(m);
+    const COL={pay:'var(--accent)',aga:'var(--amber)',bonus:'var(--danger)',bonusAvg:'#8B5CF6',holiday:'#0EA5A4',other:'var(--muted2)'};
+    const mn=m=>this.vmonthLbl(m).split(' ')[0];
+    const short=v=>{ const a=Math.abs(v); return a>=1000?Math.round(a/1000)+'k':this.nbn(a); };
+
+    // ── the timeline: one lane per month, a pin per payment that has a date
+    const pins=[];
+    C.forEach((c,mi)=>c.items.forEach(it=>{
+      if(it.kind==='bonus') pins.push({x:mi/3*100+1.2,lbl:t('Nå','Now'),what:t('Bonus skyldig','Bonus owed'),amt:it.amount,col:COL.bonus,it});
+      else if(it.due) pins.push({x:(mi+(+it.due.slice(0,2))/31)/3*100,lbl:it.due.slice(0,5),what:'AGA',amt:it.amount,col:COL.aga,it,est:it.estimate});
+      else if(it.kind==='holiday') pins.push({x:(mi+0.95)/3*100,lbl:t('Juni','June'),what:t('Feriepenger','Holiday pay'),amt:it.amount,col:COL.holiday,it});
+    }));
+    const tl='<div class="pct">'
+      +'<div class="pct-lanes">'+C.map(c=>'<div class="pct-lane"><span>'+mn(c.month)+'</span></div>').join('')+'</div>'
+      +'<div class="pct-line"></div>'
+      +pins.map((p,i)=>'<div class="pct-pin vd-hov" tabindex="0" style="left:'+p.x.toFixed(2)+'%;--c:'+p.col+'">'
+        +'<i></i><div class="pct-tag'+(i%2?' pct-tag-lo':'')+'"><b class="mono">'+p.lbl+'</b> '+p.what+' <span class="mono">−'+short(p.amt)+'</span>'
+        +(p.est?' <em>'+t('anslag','est.')+'</em>':'')+'</div>'
+        +this.vdTT(this.t(p.it.no,p.it.en).toUpperCase(),[[t('Beløp','Amount'),this.vkr(p.it.amount)]],this.t(p.it.whyNo,p.it.whyEn))+'</div>').join('')
+      +'</div>';
+
+    // ── one column per month: net, the split bar, compact rows
     const col=c=>{
-      const rows=c.items.map(it=>'<div class="pc-r"><div><div class="pc-k">'+this.t(it.no,it.en)
-          +(it.due?' <span class="pc-due mono">'+t('forfaller ','due ')+it.due.slice(0,5)+'</span>':'')
-          +(it.estimate?' <span class="fc-chip fc-chip-s">'+t('ANSLAG','ESTIMATE')+'</span>':'')+'</div>'
-          +'<div class="pc-w">'+this.t(it.whyNo,it.whyEn)+'</div></div>'
-          +'<div class="mono pc-v">−'+this.vround(it.amount)+'</div></div>').join('');
-      return '<div class="pc-c"><div class="pc-m">'+mn(c.month)+'</div>'
-        +'<div class="pc-r pc-in"><div><div class="pc-k">'+t('Forventet inn fra salg','Expected in from sales')+'</div>'
-        +'<div class="pc-w">'+t('Prognosen for måneden','The forecast for the month')+(c.nav?t(' + NAV-refusjon',' + NAV refund'):'')+'</div></div>'
-        +'<div class="mono pc-v" style="color:var(--bar-in)">+'+this.vround(c.inn)+'</div></div>'
-        +rows
-        +'<div class="pc-net"><span>'+t('Igjen etter måneden','Left after the month')+'</span><span class="mono" style="color:'+this.vtone(c.net)+'">'
-        +(c.net>=0?'+':'−')+this.vround(Math.abs(c.net))+'</span></div></div>'; };
-    const hol=M.accruals&&M.accruals.holidayTotal;
-    const nav=M.accruals&&M.accruals.nav.gap;
-    const notes=[];
-    if(hol) notes.push(t('Feriepenger: '+this.vround(hol)+' er satt av så langt i år. De betales ut i juni neste år — sett dem til side.',
-                        'Holiday pay: '+this.vround(hol)+' has been set aside this year. It is paid out next June — keep it aside.'));
-    if(nav<0) notes.push(t('NAV skylder dere '+this.vkr(Math.abs(nav))+' i sykepenger. Det kommer når NAV har behandlet kravet.',
-                          'NAV owes you '+this.vkr(Math.abs(nav))+' in sick pay. It arrives once NAV has processed the claim.'));
-    notes.push(t('Arbeidsgiveravgift betales annenhver måned, den 15. i måneden etter terminen (Skatteetaten). Forpliktelser-kortet under følger arbeidsbokens kvartaler.',
-                 'Employer tax is paid every two months, on the 15th of the month after the term (Skatteetaten). The Obligations card below follows the workbook\'s quarters.'));
-    return '<div style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);margin-bottom:18px">'
-      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:14px">'
-      +'<div><div style="font-size:16.5px;font-weight:700;letter-spacing:-0.02em">'+t('Hva skal betales fremover','What is coming up')
-      +' <span class="fc-chip">'+t('PROGNOSE','FORECAST')+'</span></div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin-top:4px">'
-      +t('De neste tre månedene: hva som kommer inn, hva som må betales og når. Bygget på snittet av '+this.vdBasisLbl(F).toLowerCase()+'.',
-         'The next three months: what comes in, what has to be paid and when. Built on the average of '+this.vdBasisLbl(F)+'.')+'</div></div></div>'
-      +'<div class="pc-grid">'+C.map(col).join('')+'</div>'
-      +'<div class="pc-notes">'+notes.map(n=>'<div>'+n+'</div>').join('')+'</div></div>'; }
+      const scale=Math.max(c.inn,c.out,1);
+      const seg=c.items.map(it=>'<div class="pcm-seg" style="width:'+(it.amount/scale*100).toFixed(2)+'%;background:'+(COL[it.kind]||COL.other)+'"></div>').join('');
+      const left=Math.max(0,c.net)/scale*100;
+      const over=c.out>c.inn;
+      const rows=c.items.map(it=>'<div class="pcm-r vd-hov" tabindex="0">'
+          +'<span class="pcm-d" style="background:'+(COL[it.kind]||COL.other)+'"></span>'
+          +'<span class="pcm-k">'+this.t(it.no,it.en).replace(/ \(AGA\)/,'')
+          +(it.due?' <span class="pcm-due mono">'+it.due.slice(0,5)+'</span>':'')+'</span>'
+          +'<span class="pcm-v mono">−'+this.vround(it.amount)+'</span>'
+          +this.vdTT(this.t(it.no,it.en).toUpperCase(),[[t('Beløp','Amount'),this.vkr(it.amount)]],this.t(it.whyNo,it.whyEn))+'</div>').join('');
+      return '<div class="pcm">'
+        +'<div class="pcm-hd"><span class="pcm-m">'+this.vmonthLbl(c.month)+'</span>'
+        +'<span class="pcm-net mono" style="color:'+this.vtone(c.net)+'">'+(c.net>=0?'+':'−')+this.vround(Math.abs(c.net))+'</span></div>'
+        +'<div class="pcm-sub"><span>'+t('igjen av ','left of ')+'<b class="mono">'+this.vround(c.inn)+'</b> '+t('inn','in')+'</span>'
+        +'<span>'+Math.round(Math.max(0,c.net)/(c.inn||1)*100)+' %</span></div>'
+        +'<div class="pcm-bar'+(over?' pcm-over':'')+'">'+seg+(left>0?'<div class="pcm-left" style="width:'+left.toFixed(2)+'%"></div>':'')+'</div>'
+        +'<div class="pcm-rows">'+rows+'</div></div>'; };
+
+    // ── the two facts that are not in any month, as chips
+    const hol=M.accruals&&M.accruals.holidayTotal, nav=M.accruals&&M.accruals.nav.gap;
+    const chips=[];
+    if(hol) chips.push('<span class="pcx" title="'+this.vesc(t('Satt av så langt i år. Betales ut i juni neste år — sett dem til side.','Set aside so far this year. Paid out next June — keep it aside.'))+'"><i style="background:'+COL.holiday+'"></i>'
+      +t('Feriepenger satt av ','Holiday pay set aside ')+'<b class="mono">'+this.vround(hol)+'</b> · '+t('betales juni','paid in June')+'</span>');
+    if(nav<0) chips.push('<span class="pcx" title="'+this.vesc(t('Kommer når NAV har behandlet kravet.','Arrives once NAV has processed the claim.'))+'"><i style="background:var(--green)"></i>'
+      +t('NAV skylder dere ','NAV owes you ')+'<b class="mono">'+this.vkr(Math.abs(nav))+'</b></span>');
+    chips.push('<span class="pcx pcx-q" title="'+this.vesc(t('Skatteetaten: annenhver måned, den 15. i måneden etter terminen. Forpliktelser-kortet under følger arbeidsbokens kvartaler.','Skatteetaten: every two months, on the 15th of the month after the term. The Obligations card below follows the workbook\'s quarters.'))+'">'
+      +t('AGA betales annenhver måned, den 15.','Employer tax is paid every two months, on the 15th')+'</span>');
+
+    const legend=[['pay',t('Lønn og pensjon','Pay & pension')],['aga','AGA'],['bonus',t('Bonus skyldig','Bonus owed')],
+      ['bonusAvg',t('Bonus (snitt)','Bonus (avg)')],['other',t('Lister og clawback','Lists & clawback')]]
+      .filter(([k])=>C.some(c=>c.items.some(it=>it.kind===k)))
+      .map(([k,l])=>'<span><i style="background:'+COL[k]+'"></i>'+l+'</span>').join('')
+      +'<span><i class="pcm-left-i"></i>'+t('Igjen','Left')+'</span>';
+
+    return '<div class="pc2">'
+      +'<div class="pc2-hd"><div><div class="pc2-t">'+t('Hva skal betales fremover','What is coming up')+' <span class="fc-chip">'+t('PROGNOSE','FORECAST')+'</span></div>'
+      +'<div class="pc2-s">'+t('Neste tre måneder — hva som kommer inn, hva som går ut, og når. Snittet av '+this.vdBasisLbl(F).toLowerCase()+'. Hold over en linje for detaljer.',
+         'The next three months — what comes in, what goes out, and when. The average of '+this.vdBasisLbl(F)+'. Hover a line for details.')+'</div></div>'
+      +'<div class="pc2-lg">'+legend+'</div></div>'
+      +tl
+      +'<div class="pc2-grid">'+C.map(col).join('')+'</div>'
+      +'<div class="pc2-chips">'+chips.join('')+'</div></div>'; }
 
   /* ═══ 1 · BUDGET vs ACTUAL — the chart only we can draw ═══ */
   buildBudgetActual(){
