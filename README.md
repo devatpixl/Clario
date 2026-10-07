@@ -195,6 +195,29 @@ what moves it, where it comes from). A `<details>`, not a hover card, so it work
 cards that clip overflow. **Kort fortalt** at the top of Oversikt is four–five sentences assembled from
 the model by fixed templates (no AI), so it can never state a number the page does not show.
 
+## Provisjon — the Phonero side (Venditus feedback, round 2)
+
+From the HR meeting: the Phonero report is retyped into a new sheet by hand, **every seller has their
+own commission agreement**, and when a Venditus customer cancels, Phonero claws the commission back in
+a later report — which today has to be corrected by hand in the month the sale was made. Frontend only
+for now; the importer waits for the backend.
+
+- **Two new tables**, in the store like every other (edit, undo, persisted): `models` (one row per
+  seller per agreement, keyed `seller|from`; `type` = `share` or `perPack`) and `cancellations` (one row
+  per cancelled sale: seller, pack, count, `saleMonth`, `claimMonth`, reason, amount). Demo rows come
+  from `tools/seed-demo.mjs`; PHONERO RAPPORT's clawback column is now the sum of what was claimed.
+- **model.js**: commission follows the agreement in force for that month (newest `from` ≤ month;
+  falls back to the contract-type share). A cancellation is booked to the **sale month** (revenue and
+  commission restated) and deducted from the seller's **payout in the claim month**; a payout never goes
+  negative — the rest carries forward (`payout`, `deductionTaken`, `deductionCarry`).
+  `compute(dataset, {attribution:'report'})` reproduces the old way for the before/after view.
+  Reconciliation against Phonero's own total uses `revenueGross` (as paid at the time), not the
+  restated revenue.
+- **Provisjon page**: payout hero · settlement card per seller (payslip in a `<details>`) ·
+  cancellations as a sold → claimed → deducted timeline, a register form, and before/after margins ·
+  what is still waiting on Phonero · editable agreements with history and "new agreement from …".
+  Oversikt carries a one-line card linking to it.
+
 ## Oversikt and Kontantstrøm
 
 **Oversikt** — computed-vs-reported revenue trend, a cost cascade from revenue down to

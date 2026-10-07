@@ -22,7 +22,11 @@
     hr: function (r) { return r._key + '|' + r.month; },
     bonus: function (r) { return r._key + '|' + r.month + '|' + (r.description || r._row); },
     onboarding: function (r) { return r._key; },
-    employees: function (r) { return r._key; }
+    employees: function (r) { return r._key; },
+    // Clario's own tables — not in the workbook yet. One row per cancelled
+    // sale, and one row per seller per commission agreement (by start month).
+    cancellations: function (r) { return r.id; },
+    models: function (r) { return r._key + '|' + r.from; }
   };
 
   function clone(v) { return JSON.parse(JSON.stringify(v)); }
@@ -159,6 +163,8 @@
       d.hr = clone(this.demo.hr);
       d.bonus = clone(this.demo.bonus);
       d.onboarding = clone(this.demo.onboarding);
+      d.cancellations = clone(this.demo.cancellations || []);
+      d.models = clone(this.demo.models || []);
       d.months = this.demo.months.slice();
       d.demo = true;
 
@@ -166,6 +172,7 @@
 
     d.sales = d.sales || []; d.hr = d.hr || []; d.bonus = d.bonus || [];
     d.onboarding = d.onboarding || [];
+    d.cancellations = d.cancellations || []; d.models = d.models || [];
 
     // The workbook as it stood before anyone typed, kept so a changed cell can
     // say what it used to hold and offer to put it back.
@@ -238,10 +245,16 @@
       // month for a seller works from the UI without a separate "new row" flow.
       if (!row) {
         var bits = rowKey.split('|');
-        row = { _key: bits[0], seller: bits[0], month: bits[1] || '', _added: true };
-        if (table === 'onboarding' || table === 'employees') { row.name = bits[0]; delete row.seller; }
+        if (table === 'cancellations') row = { id: rowKey, _added: true };
+        else if (table === 'models') row = { _key: bits[0], seller: bits[0], from: bits[1] || '', _added: true };
+        else {
+          row = { _key: bits[0], seller: bits[0], month: bits[1] || '', _added: true };
+          if (table === 'onboarding' || table === 'employees') { row.name = bits[0]; delete row.seller; }
+        }
         rows.push(row);
       }
+      // the row key is derived from the seller, so keep it in step with the name
+      if (field === 'seller' && (table === 'cancellations')) row._key = String(value).replace(/\s+/g, ' ').trim().toLowerCase();
       row[field] = value;
     });
 
@@ -397,6 +410,19 @@
     if (parts.month) this.edits[table + '.' + key + '.month'] = parts.month;
     if (table === 'employees') this.edits[table + '.' + key + '.active'] = true;
     if (table === 'bonus') this.edits[table + '.' + key + '.description'] = parts.description || '';
+    this.persist(); this.recompute(); this.emit();
+    return key;
+  };
+
+  /* A whole record in one undo step — a cancellation is registered once, with
+     every field, rather than cell by cell. */
+  Store.prototype.addRecord = function (table, key, fields) {
+    if (!ROW_KEY[table] || !key) return null;
+    this.snapshot();
+    var self = this;
+    Object.keys(fields).forEach(function (f) {
+      if (fields[f] !== undefined) self.edits[table + '.' + key + '.' + f] = fields[f];
+    });
     this.persist(); this.recompute(); this.emit();
     return key;
   };

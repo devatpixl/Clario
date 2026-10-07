@@ -47,7 +47,7 @@ window.VENDITUS_DEMO = {
    "commission": 68800,
    "rejected": 0,
    "pending": 1,
-   "clawback": 1450,
+   "clawback": 1400,
    "_key": "bilal ahmad"
   },
   {
@@ -85,7 +85,7 @@ window.VENDITUS_DEMO = {
    "commission": 66510,
    "rejected": 0,
    "pending": 0,
-   "clawback": 0,
+   "clawback": 350,
    "_key": "bilal ahmad"
   },
   {
@@ -104,7 +104,7 @@ window.VENDITUS_DEMO = {
    "commission": 48400,
    "rejected": 0,
    "pending": 5,
-   "clawback": 1300,
+   "clawback": 0,
    "_key": "sharjeel x"
   },
   {
@@ -142,7 +142,7 @@ window.VENDITUS_DEMO = {
    "commission": 45630,
    "rejected": 2,
    "pending": 2,
-   "clawback": 0,
+   "clawback": 1000,
    "_key": "sharjeel x"
   },
   {
@@ -161,7 +161,7 @@ window.VENDITUS_DEMO = {
    "commission": 53840,
    "rejected": 2,
    "pending": 2,
-   "clawback": 1000,
+   "clawback": 700,
    "_key": "sharjeel x"
   },
   {
@@ -237,7 +237,7 @@ window.VENDITUS_DEMO = {
    "commission": 54260,
    "rejected": 3,
    "pending": 0,
-   "clawback": 0,
+   "clawback": 1000,
    "_key": "danish y"
   },
   {
@@ -313,7 +313,7 @@ window.VENDITUS_DEMO = {
    "commission": 41930,
    "rejected": 0,
    "pending": 4,
-   "clawback": 0,
+   "clawback": 400,
    "_key": "ansatt 4"
   }
  ],
@@ -772,6 +772,128 @@ window.VENDITUS_DEMO = {
    "equipment": 5500,
    "daysToFirstSale": 17,
    "_key": "jonas bakke"
+  }
+ ],
+ "cancellations": [
+  {
+   "id": "c1",
+   "seller": "Bilal Ahmad",
+   "pack": "p15gb",
+   "count": 2,
+   "saleMonth": "2025-03",
+   "claimMonth": "2025-04",
+   "reason": "Kunden brukte angreretten",
+   "ref": "PH-202504-K1",
+   "amount": 1400,
+   "_key": "bilal ahmad"
+  },
+  {
+   "id": "c2",
+   "seller": "Sharjeel X",
+   "pack": "p10gb",
+   "count": 2,
+   "saleMonth": "2025-03",
+   "claimMonth": "2025-05",
+   "reason": "Kunden sa opp innen bindingstiden",
+   "ref": "PH-202505-K1",
+   "amount": 1000,
+   "_key": "sharjeel x"
+  },
+  {
+   "id": "c3",
+   "seller": "Sharjeel X",
+   "pack": "p15gb",
+   "count": 1,
+   "saleMonth": "2025-04",
+   "claimMonth": "2025-06",
+   "reason": "Kunden sa opp innen bindingstiden",
+   "ref": "PH-202506-K1",
+   "amount": 700,
+   "_key": "sharjeel x"
+  },
+  {
+   "id": "c4",
+   "seller": "Bilal Ahmad",
+   "pack": "p5gb",
+   "count": 1,
+   "saleMonth": "2025-05",
+   "claimMonth": "2025-06",
+   "reason": "Ikke godkjent av Phonero (kredittsjekk)",
+   "ref": "PH-202506-K2",
+   "amount": 350,
+   "_key": "bilal ahmad"
+  },
+  {
+   "id": "c5",
+   "seller": "Danish Y",
+   "pack": "tryg",
+   "count": 2,
+   "saleMonth": "2025-04",
+   "claimMonth": "2025-06",
+   "reason": "Forsikringen ble avsluttet innen tre måneder",
+   "ref": "PH-202506-K3",
+   "amount": 1000,
+   "_key": "danish y"
+  },
+  {
+   "id": "c6",
+   "seller": "Ansatt 4",
+   "pack": "fkStrom",
+   "count": 1,
+   "saleMonth": "2025-05",
+   "claimMonth": "2025-06",
+   "reason": "Kunden flyttet før oppstart",
+   "ref": "PH-202506-K4",
+   "amount": 400,
+   "_key": "ansatt 4"
+  }
+ ],
+ "models": [
+  {
+   "seller": "Bilal Ahmad",
+   "from": "2025-01",
+   "type": "share",
+   "share": 0.5,
+   "note": "Teamleder · fastlønn fra Tripletex",
+   "_key": "bilal ahmad"
+  },
+  {
+   "seller": "Sharjeel X",
+   "from": "2025-01",
+   "type": "perPack",
+   "p1gb": 0,
+   "p5gb": 160,
+   "p10gb": 260,
+   "p15gb": 380,
+   "fkStrom": 180,
+   "fkMobil": 140,
+   "tryg": 240,
+   "note": "Fast kroner per produkt",
+   "_key": "sharjeel x"
+  },
+  {
+   "seller": "Danish Y",
+   "from": "2025-01",
+   "type": "share",
+   "share": 0.65,
+   "note": "Ren provisjon",
+   "_key": "danish y"
+  },
+  {
+   "seller": "Danish Y",
+   "from": "2025-05",
+   "type": "share",
+   "share": 0.6,
+   "note": "Ny avtale fra mai: lavere sats, men TRYG-bonus",
+   "_key": "danish y"
+  },
+  {
+   "seller": "Ansatt 4",
+   "from": "2025-01",
+   "type": "share",
+   "share": 0.35,
+   "note": "Fast + liten provisjon · garantilønn første måneder",
+   "_key": "ansatt 4"
   }
  ]
 };

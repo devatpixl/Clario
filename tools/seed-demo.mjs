@@ -185,7 +185,47 @@ hr.filter(h => h.seller === NEW_HIRE).forEach((h) => {
   });
 });
 
-const payload = { demo: true, months: MONTHS, newHire: NEW_HIRE, sales, hr, bonus, onboarding };
+// ── Cancellations — the pain point from the HR meeting ───────────────────
+// A Venditus customer cancels (angrerett, binding broken, failed credit
+// check), Phonero claws the commission back in a LATER report, and today
+// someone has to go back and correct the month the sale was made in. Each row
+// is one cancelled sale as Phonero claims it: when it was sold, when Phonero
+// took the money back, and why. `amount` is what Phonero reverses.
+const CANCELLATIONS = [
+  ['c1', 'Bilal Ahmad', 'p15gb', 2, '2025-03', '2025-04', 'Kunden brukte angreretten', 'PH-202504-K1'],
+  ['c2', 'Sharjeel X',  'p10gb', 2, '2025-03', '2025-05', 'Kunden sa opp innen bindingstiden', 'PH-202505-K1'],
+  ['c3', 'Sharjeel X',  'p15gb', 1, '2025-04', '2025-06', 'Kunden sa opp innen bindingstiden', 'PH-202506-K1'],
+  ['c4', 'Bilal Ahmad', 'p5gb',  1, '2025-05', '2025-06', 'Ikke godkjent av Phonero (kredittsjekk)', 'PH-202506-K2'],
+  ['c5', 'Danish Y',    'tryg',  2, '2025-04', '2025-06', 'Forsikringen ble avsluttet innen tre måneder', 'PH-202506-K3'],
+  ['c6', 'Ansatt 4',    'fkStrom', 1, '2025-05', '2025-06', 'Kunden flyttet før oppstart', 'PH-202506-K4']
+].map(([id, seller, pack, count, saleMonth, claimMonth, reason, ref]) => ({
+  id, seller, pack, count, saleMonth, claimMonth, reason, ref, amount: count * RATES[pack],
+  _key: seller.toLowerCase()
+}));
+
+// Phonero's own clawback column is the sum of what it took back that month —
+// so the report and the register always agree. (The random draw above still
+// runs, so every other demo number is unchanged.)
+sales.forEach((s) => {
+  s.clawback = CANCELLATIONS.filter(c => c._key === s._key && c.claimMonth === s.month)
+    .reduce((a, c) => a + c.amount, 0);
+});
+
+// ── Commission models — one per seller, as the meeting said ──────────────
+// "Ikke fast provisjonsmodell, hver selger har sin egen." Two kinds: a share of
+// what Phonero pays, or a fixed amount per product. `from` lets an agreement
+// change without rewriting history — Danish's new agreement starts in May.
+const MODELS = [
+  { seller: 'Bilal Ahmad', from: '2025-01', type: 'share', share: 0.5, note: 'Teamleder · fastlønn fra Tripletex' },
+  { seller: 'Sharjeel X', from: '2025-01', type: 'perPack',
+    p1gb: 0, p5gb: 160, p10gb: 260, p15gb: 380, fkStrom: 180, fkMobil: 140, tryg: 240, note: 'Fast kroner per produkt' },
+  { seller: 'Danish Y', from: '2025-01', type: 'share', share: 0.65, note: 'Ren provisjon' },
+  { seller: 'Danish Y', from: '2025-05', type: 'share', share: 0.6, note: 'Ny avtale fra mai: lavere sats, men TRYG-bonus' },
+  { seller: 'Ansatt 4', from: '2025-01', type: 'share', share: 0.35, note: 'Fast + liten provisjon · garantilønn første måneder' }
+].map(m => ({ ...m, _key: m.seller.toLowerCase() }));
+
+const payload = { demo: true, months: MONTHS, newHire: NEW_HIRE, sales, hr, bonus, onboarding,
+  cancellations: CANCELLATIONS, models: MODELS };
 
 fs.writeFileSync(
   path.join(ROOT, 'venditus', 'demo.js'),

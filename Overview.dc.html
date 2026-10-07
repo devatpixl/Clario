@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./venditus/raw.js?h=907861ec"></script>
-<script src="./venditus/demo.js?h=b0912b0d"></script>
+<script src="./venditus/demo.js?h=ba25e18a"></script>
 <script src="./venditus/mapping.js?h=6e299dd5"></script>
 <script src="./venditus/parse.js?h=a4e5a20b"></script>
-<script src="./venditus/model.js?h=560c8f6a"></script>
+<script src="./venditus/model.js?h=189e8264"></script>
 <script src="./venditus/trace.js?h=3e1778ba"></script>
-<script src="./venditus/store.js?h=1fbecfb1"></script>
+<script src="./venditus/store.js?h=c5384bec"></script>
 <script src="./venditus/forecast.js?h=102c4749"></script>
 <script src="./support.js"></script>
 </head>
@@ -909,6 +909,164 @@
   /* a forecast column in a table */
   .vd-fc-cell{background:repeating-linear-gradient(135deg,transparent 0 9px,color-mix(in srgb,var(--accent) 4%,transparent) 9px 10px)}
 
+  /* ───────── Provisjon (Venditus feedback, round 2) ───────── */
+  .pv-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px;align-items:center;
+    background:var(--hero);color:#fff;border-radius:22px;padding:26px 28px;margin-bottom:22px;
+    box-shadow:var(--hero-ring),0 1px 2px rgba(25,23,53,.05),0 14px 34px -18px rgba(25,23,53,.5);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both}
+  .pv-hero::before{content:'';position:absolute;left:-120px;bottom:-160px;width:380px;height:380px;border-radius:9999px;
+    background:radial-gradient(circle,rgba(91,140,255,.26),transparent 65%);pointer-events:none}
+  .pv-hero-l{position:relative}
+  .pv-hero-v{font-size:clamp(30px,3.6vw,42px);font-weight:700;letter-spacing:-0.05em;margin-top:8px}
+  .pv-hero-p{margin:8px 0 0;font-size:14px;line-height:1.6;color:#D5DEF2;max-width:560px}
+  .pv-hero-p b{color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px}
+  .pv-hero-r{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pv-hs{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:12px 14px}
+  .pv-hs-l{font-size:11px;color:#9FB0D3}
+  .pv-hs-v{font-size:19px;font-weight:700;letter-spacing:-0.03em;margin-top:4px}
+  .pv-hs-s{font-size:10.5px;color:#8496B8;margin-top:2px}
+
+  .pv-sec{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:var(--elev);margin-bottom:18px}
+  .pv-sec-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .pv-sec-hd h3{margin:0;font-size:16.5px;font-weight:700;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px}
+  .pv-sec-hd p{margin:4px 0 0;font-size:12.5px;color:var(--muted);max-width:720px;line-height:1.5}
+  .pv-demo{font-size:11px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:9999px;padding:4px 10px}
+
+  .pv-av{width:34px;height:34px;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;flex:none;
+    color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.02em;box-shadow:inset 0 0 0 2px rgba(255,255,255,.18)}
+  .pv-av-s{width:28px;height:28px;font-size:10px}
+
+  /* settlement cards */
+  .pv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px}
+  .pv-c{border:1px solid var(--border-soft);border-radius:18px;padding:16px 18px;background:var(--card);transition:box-shadow .18s ease,border-color .18s ease}
+  .pv-c:hover{border-color:var(--border);box-shadow:0 10px 26px -18px rgba(16,24,40,.35)}
+  .pv-c-hd{display:flex;align-items:center;gap:12px}
+  .pv-c-who{flex:1;min-width:0}
+  .pv-c-n{font-size:14px;font-weight:700}
+  .pv-c-m{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+  .pv-c-pay{text-align:right}
+  .pv-c-pay .mono{font-size:19px;font-weight:700;letter-spacing:-0.03em}
+  .pv-c-pay span{font-size:10.5px;color:var(--muted)}
+  .pv-c-bar{position:relative;display:flex;height:8px;border-radius:9999px;overflow:hidden;background:var(--surface2);margin:14px 0 10px}
+  .pv-c-bar i{height:100%;transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both}
+  .pv-c-bar b{position:absolute;right:0;top:0;bottom:0;background:repeating-linear-gradient(135deg,var(--danger) 0 3px,color-mix(in srgb,var(--danger) 40%,transparent) 3px 6px)}
+  .pv-c-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--text2);padding:3px 0}
+  .pv-c-row .mono{font-weight:600;color:var(--text)}
+  .pv-neg .mono{color:var(--danger)}
+  .pv-warn .mono{color:var(--amber)}
+  .pv-slip{margin-top:8px}
+  .pv-sl{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;font-size:12px;padding:3px 0}
+  .pv-sl-h{color:var(--muted);font-size:11px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pv-sl .mono{font-weight:600;font-size:11.5px}
+  .pv-sl-neg .mono{color:var(--danger)}
+  .pv-sl-tot{border-top:1px solid var(--border);margin-top:4px;padding-top:6px;font-weight:700}
+  .pv-sl-note{font-size:10.5px;color:var(--muted);margin-top:8px}
+
+  /* cancellations */
+  .pv-cx{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+  .pv-x{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr) minmax(220px,auto) auto 22px;gap:12px;align-items:center;
+    padding:11px 12px;border-radius:14px;border:1px solid var(--border-soft);margin-bottom:8px;background:var(--card)}
+  .pv-x-hot{border-color:color-mix(in srgb,var(--danger) 30%,var(--border));background:color-mix(in srgb,var(--danger) 3%,var(--card))}
+  .pv-x-t{font-size:12.5px;color:var(--text2)}
+  .pv-x-t b{color:var(--text)}
+  .pv-x-r{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pv-track{display:flex;align-items:center}
+  .pv-track em{flex:1;height:2px;min-width:16px;background:linear-gradient(90deg,var(--muted2),var(--danger));opacity:.6;margin:0 2px 15px}
+  .pv-tn{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:54px}
+  .pv-tn i{width:11px;height:11px;border-radius:9999px;border:2.5px solid var(--muted2);background:var(--card)}
+  .pv-tn span{font-size:9px;color:var(--muted);white-space:nowrap}
+  .pv-tn b{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600}
+  .pv-tn-sold i{border-color:var(--green)}
+  .pv-tn-claim i{border-color:var(--danger)}
+  .pv-tn-ded i{border-color:var(--danger);background:var(--danger)}
+  .pv-x-amt{text-align:right}
+  .pv-x-amt .mono{font-size:13px;font-weight:700;color:var(--danger)}
+  .pv-x-amt span{font-size:10.5px;color:var(--muted)}
+  .pv-x-del{width:22px;height:22px;border-radius:9999px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;
+    font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.45;transition:opacity .15s}
+  .pv-x:hover .pv-x-del{opacity:1}
+  .pv-x-del:hover{color:var(--danger);border-color:var(--danger)}
+  .pv-form{margin-top:12px;border:1.5px dashed var(--border);border-radius:16px;padding:14px 16px;background:var(--surface2)}
+  .pv-form-t{font-size:13px;font-weight:700;margin-bottom:10px}
+  .pv-form-g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .pv-form-g label{display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:var(--muted);font-weight:500}
+  .pv-form-g select,.pv-form-g input{height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);
+    font:inherit;font-size:12.5px;padding:0 9px;min-width:0}
+  .pv-form-g .pv-form-w{grid-column:1/-1}
+  .pv-form-ft{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:12px;font-size:11.5px;color:var(--muted)}
+  .pv-btn{height:34px;padding:0 16px;border-radius:10px;border:none;background:var(--accent);color:#fff;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .pv-btn:hover{background:var(--accent-hover)}
+  .pv-btn-s{height:30px;padding:0 12px;font-size:12px}
+
+  .pv-ba{border:1px solid var(--border-soft);border-radius:16px;padding:16px 18px}
+  .pv-ba-hd h4{margin:0;font-size:14px;font-weight:700}
+  .pv-ba-lg{display:flex;flex-direction:column;gap:4px;margin-top:6px;font-size:11px;color:var(--text2)}
+  .pv-ba-lg span{display:inline-flex;align-items:center;gap:7px}
+  .pv-ba-lg i{width:14px;height:6px;border-radius:3px;display:inline-block}
+  .pv-ba-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+  .pv-ba-r{display:grid;grid-template-columns:34px 1fr 64px;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--border-soft)}
+  .pv-ba-m{font-size:11.5px;font-weight:600}
+  .pv-ba-bars{display:flex;flex-direction:column;gap:3px}
+  .pv-ba-bars div{display:grid;grid-template-columns:1fr 64px;align-items:center;gap:7px}
+  .pv-ba-bars div>i{justify-self:start;max-width:100%}
+  .pv-ba-bars i{height:6px;border-radius:3px;transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both}
+  .pv-ba-bars span{font-size:10px;color:var(--muted);white-space:nowrap;text-align:right}
+  .pv-ba-old{background:var(--muted2)}
+  .pv-ba-new{background:var(--accent)}
+  .pv-ba-d{font-size:11px;font-weight:700;text-align:right}
+
+  /* waiting on Phonero */
+  .pv-pipe-bar{display:flex;gap:3px;height:16px;border-radius:9999px;overflow:hidden}
+  .pv-pipe-bar i{height:100%;transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both}
+  .pv-pipe-lg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+  .pv-pipe-lg div{display:grid;grid-template-columns:10px auto;column-gap:8px;align-items:center}
+  .pv-pipe-lg i{width:10px;height:10px;border-radius:3px;grid-row:1/3}
+  .pv-pipe-lg b{font-size:18px;font-weight:700;letter-spacing:-0.03em}
+  .pv-pipe-lg span{font-size:11px;color:var(--muted);grid-column:2}
+
+  /* agreements */
+  .pv-md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .pv-md{border:1px solid var(--border-soft);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .pv-md-hd{display:flex;align-items:center;gap:10px}
+  .pv-md-s{font-size:12.5px;line-height:1.5;color:var(--text);background:var(--surface2);border-radius:10px;padding:9px 11px}
+  .pv-segs{display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--surface2);border:1px solid var(--border-soft)}
+  .pv-seg{flex:1;height:28px;border:none;border-radius:8px;background:transparent;color:var(--text2);font:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
+  .pv-seg.on{background:var(--card);color:var(--accent);box-shadow:0 1px 3px rgba(16,24,40,.12)}
+  .pv-md-share,.pv-md-note{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted)}
+  .pv-md-share span,.pv-md-note span{flex:1}
+  .pv-md-share input{width:70px;text-align:right}
+  .pv-md-note input{flex:2;min-width:0}
+  .pv-md input.vd-in{height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;padding:0 8px}
+  .pv-md-share b{font-size:12px;color:var(--text2)}
+  .pv-md-rates{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+  .pv-md-rates label{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:var(--muted)}
+  .pv-md-rates input{width:64px;text-align:right}
+  .pv-md-def{font-size:11.5px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:10px;padding:8px 10px}
+  .pv-md-h{display:flex;flex-wrap:wrap;gap:5px}
+  .pv-md-h span{font-size:10.5px;color:var(--muted);border:1px solid var(--border-soft);border-radius:9999px;padding:2px 8px}
+  .pv-md-h span.on{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+  .pv-link{align-self:flex-start;border:none;background:none;color:var(--accent);font:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:0}
+  .pv-link:hover{text-decoration:underline;text-underline-offset:3px}
+
+  /* Oversikt · the cancellations line */
+  .cxc{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px 16px;box-shadow:var(--elev)}
+  .cxc-i{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:none;
+    background:var(--danger-soft);color:var(--danger)}
+  .cxc-t{flex:1;font-size:13px;color:var(--text2)}
+  .cxc-t b{color:var(--text)}
+  .cxc-t .mono{color:var(--danger);font-weight:600}
+
+  @media(max-width:1100px){ .pv-cx{grid-template-columns:1fr} .pv-x{grid-template-columns:28px minmax(0,1fr) auto 22px} .pv-track{grid-column:2/4;grid-row:2} }
+  @media(max-width:768px){
+    .pv-hero{grid-template-columns:1fr;padding:20px 18px}
+    .pv-sec{padding:18px 16px}
+    .pv-form-g{grid-template-columns:1fr 1fr}
+    .pv-pipe-lg{grid-template-columns:1fr 1fr}
+    .pv-x{grid-template-columns:28px minmax(0,1fr) 22px}
+    .pv-x-amt{grid-column:2;text-align:left}
+    .pv-track{grid-column:1/-1}
+    .cxc{flex-wrap:wrap}
+  }
+
   /* ───────── mobile shell primitives (inert above 768px) ───────── */
   .burger{display:none}
   .side-mobile{display:none}
@@ -1507,6 +1665,9 @@
             <!-- FREMOVER — the forecast (Venditus feedback) -->
             <div dangerouslySetInnerHTML="{{ forecastCard }}"></div>
 
+            <!-- cancellations claimed this month — links to Provisjon -->
+            <div dangerouslySetInnerHTML="{{ cancelCard }}"></div>
+
             <!-- BUDGET vs ACTUAL -->
             <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;flex-wrap:wrap">
@@ -1997,6 +2158,9 @@
         <!-- ============ VENDITUS · MICRO LEVEL ============ -->
         <sc-if value="{{ isSelgere }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ selgerePage }}"></div>
+        </sc-if>
+        <sc-if value="{{ isProvisjon }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ provisjonPage }}"></div>
         </sc-if>
 
         <sc-if value="{{ isFravaer }}" hint-placeholder-val="{{ false }}">
@@ -2667,6 +2831,9 @@ class Component extends DCLogic {
         return c?String(c):null; })()],
       ['Invoices','<path d="M4 3h16v18l-3-2-3 2-2-2-2 2-3-2-3 2z"/><path d="M8 8h8M8 12h8M8 16h5"/>','4'],
       ['Selgere','<circle cx="9" cy="7" r="3.5"/><path d="M3 21v-1.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V21M17 8l2 2 4-4"/>',null],
+      ['Provisjon','<path d="M12 2v20M17 6.5c0-1.9-2.2-3.5-5-3.5s-5 1.6-5 3.5 2.2 3.2 5 3.5 5 1.6 5 3.5-2.2 3.5-5 3.5-5-1.6-5-3.5"/>',(()=>{
+        const M=this.vdModel(); if(!M||!M.cancellations) return null;
+        const c=M.cancellations.filter(x=>x.claimMonth===this.vdMonth()).length; return c?String(c):null; })()],
       ['Fravaer','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',null],
       ['Onboarding','<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M7 11v5c0 1.7 2.2 3 5 3s5-1.3 5-3v-5"/>',null],
       ['Inndata','<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',null],
@@ -2687,7 +2854,7 @@ class Component extends DCLogic {
     const NAVLBL={Overview:['Oversikt','Overview'],Cashflow:['Kontantstrøm','Cashflow'],
       Insights:['Innsikt','Insights'],Alerts:['Varsler','Alerts'],
       Recommendations:['Anbefalinger','Recommendations'],Invoices:['Fakturaer','Invoices'],
-      Selgere:['Selgere','Sellers'],Fravaer:['Fravær & NAV','Absence & NAV'],
+      Selgere:['Selgere','Sellers'],Provisjon:['Provisjon','Commission'],Fravaer:['Fravær & NAV','Absence & NAV'],
       Onboarding:['Onboarding','Onboarding'],Inndata:['Arbeidsbok','Workbook'],
       Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
       Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
@@ -2703,7 +2870,7 @@ class Component extends DCLogic {
         icon:on?'var(--accent)':'var(--muted2)', svg:this.icon(path) };
     });
     // five micro-level routes were inserted after Invoices, so the rails shift
-    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Selgere',
+    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Selgere','Provisjon',
                           'Fravaer','Onboarding','Inndata','Import','Workpapers'],
                  plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
@@ -2755,6 +2922,7 @@ class Component extends DCLogic {
       Recommendations:[t('3 åpne · juni 2026','3 open · June 2026'),t('Anbefalinger','Recommendations')],
       Invoices:[t('4 forfalt · leverandørgjeld','4 overdue · accounts payable'),t('Fakturaer','Invoices')],
       Selgere:[t('Per selger · mikronivå','Per seller · micro level'),t('Selgere','Sellers')],
+      Provisjon:[t('Phonero · oppgjør og kanselleringer','Phonero · settlement and cancellations'),t('Provisjon','Commission')],
       Fravaer:[t('Egenmelding, sykemelding og NAV','Self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
       Onboarding:[t('Kostnad per ansettelse','Cost per hire'),'Onboarding'],
       Inndata:[t('Alle åtte arkene — rediger direkte','All eight sheets — edit directly'),t('Arbeidsbok','Workbook')],
@@ -3531,8 +3699,9 @@ class Component extends DCLogic {
       marginTrend:this.buildMarginTrend(),
       payrollSpread:this.buildPayrollSpread(),
       D:(function(W,self){
-        const varSum=W.actRev.reduce((a,v,i)=>a+(v-W.revenue[i]),0);
-        const varPct=(varSum/W.revenue.slice(0,W.closed).reduce((a,b)=>a+b,0))*100;
+        const RC=W.revenueRec||W.revenue;   // before later cancellations — what Phonero's total is compared with
+        const varSum=W.actRev.reduce((a,v,i)=>a+(v-RC[i]),0);
+        const varPct=(varSum/RC.slice(0,W.closed).reduce((a,b)=>a+b,0))*100;
         const mm=W.mm;
         return {
           baTitle:self.vdModel()?t('Beregnet mot rapportert','Computed vs reported')
@@ -3584,8 +3753,8 @@ class Component extends DCLogic {
              dot:{width:'8px',height:'8px',borderRadius:'3px',background:'var(--bar-out)',flex:'none'}},
           ],
           ueWarn:self.vdModel()
-            ?t('Selgerandelen (65/50/35 %) finnes ikke i arbeidsboken — den er Clarios antakelse og må bekreftes av Kian.',
-               'The seller share (65/50/35 %) is not in the workbook — it is Clario\'s assumption and needs Kian\'s confirmation.')
+            ?t('Provisjonen regnes etter hver selgers egen avtale (Provisjon-siden). Avtalene er eksempler til Venditus sender de ekte.',
+               'Commission follows each seller\'s own agreement (the Commission page). The agreements are examples until Venditus sends the real ones.')
             :t('Arket er statisk — 7 «beregnede» rader mangler formel, og faktoren 1,2808 er ubekreftet.','This sheet is static — 7 “calculated” rows hold no formula, and the 1.2808 factor is unconfirmed.'),
           // the same month the stats above use: the last one in the model
           uePlain:self.html((()=>{ const V=self.vdModel(); if(!V||!V.months.length) return '';
@@ -3849,7 +4018,7 @@ class Component extends DCLogic {
       invoicesPage:this.once('inv'+LANG,()=>this.buildInvoices(t)),
       active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',
       isAlerts:active==='Alerts',
-      isSelgere:active==='Selgere',isFravaer:active==='Fravaer',
+      isSelgere:active==='Selgere',isProvisjon:active==='Provisjon',isFravaer:active==='Fravaer',
       isOnboarding:active==='Onboarding',isInndata:active==='Inndata',
       isScenarios:active==='Scenarios',isDara:active==='Dara',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Recommendations'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
@@ -3885,6 +4054,8 @@ class Component extends DCLogic {
       vdGlobalPopHtml:this.html(this.vdGlobalPop()),
       venditusOverview:this.buildVenditusOverview(),
       plainSummary:this.buildPlainSummary(),
+      provisjonPage:this.buildProvisjonPage(),
+      cancelCard:this.buildCancelCard(),
       forecastCard:this.buildForecastCard(),
       cashflowPage:this.buildKontantstrom(),   // depends on the selected month, so never cached
       expenseStack:this.once('es'+LANG,()=>this.buildExpenseStack()),
@@ -5391,9 +5562,9 @@ class Component extends DCLogic {
 
     return this.vdCard(t('Provisjon — avstemming mot Phonero','Commission — reconciliation against Phonero'),
       t('Phonero rapporterer én sum. Clario regner den ut fra antall × sats og viser differansen. '
-        +'Satsene og selgerandelen endres i Arbeidsbok → KONFIGURASJON.',
+        +'Satsene endres i Arbeidsbok → KONFIGURASJON, selgernes avtaler og kanselleringer på <a href="#" data-vd-act="goto" data-vd-val="Provisjon" style="color:var(--accent);font-weight:600">Provisjon →</a>',
         'Phonero reports one lump sum. Clario computes it from count × rate and shows the difference. '
-        +'The rates and the seller share are changed in Arbeidsbok → KONFIGURASJON.'),
+        +'Rates are changed in Arbeidsbok → KONFIGURASJON, seller agreements and cancellations on <a href="#" data-vd-act="goto" data-vd-val="Provisjon" style="color:var(--accent);font-weight:600">Commission →</a>'),
       band+plain+'<div style="margin-top:18px">'+table+'</div>'); }
 
   buildProvisjonRetired(){
@@ -7081,7 +7252,7 @@ class Component extends DCLogic {
     const t=(a,b)=>this.t(a,b), M=this.vdModel();
     const items=[];
     const PAGES=[['Overview',t('Oversikt','Overview')],['Cashflow',t('Kontantstrøm','Cash flow')],
-      ['Selgere',t('Selgere','Sellers')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
+      ['Selgere',t('Selgere','Sellers')],['Provisjon',t('Provisjon','Commission')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
       ['Onboarding','Onboarding'],['Inndata',t('Arbeidsbok','Workbook')],
       ['Insights',t('Innsikt','Insights')],['Recommendations',t('Anbefalinger','Recommendations')],
       ['Invoices',t('Fakturaer','Invoices')],['Scenarios',t('Scenarier','Scenarios')],
@@ -7118,9 +7289,13 @@ class Component extends DCLogic {
       revenue:()=>({f:(r.packs||[]).filter(p=>p.count)
           .map(p=>n(p.count)+' × '+kr(p.rate)).join('\n+ ')+'\n= '+kr(r.revenue),
         rows:[[t('Antall salg','Sales'),n(r.salesCount)],[t('Inntekt','Revenue'),kr(r.revenue)]]}),
-      commission:()=>({f:kr(r.revenue)+' × '+pc(r.sellerShare)+' = '+kr(r.commission),
-        rows:[[t('Inntekt','Revenue'),kr(r.revenue)],[t('Kontrakt','Contract'),this.vesc(r.contract||'–')],
-              [t('Selgerandel','Seller share'),pc(r.sellerShare)]]}),
+      commission:()=>({f:(r.model&&r.model.type==='perPack'
+            ? t('Σ antall × selgerens sats per produkt','Σ count × the seller\'s rate per product')
+            : kr(r.revenueGross)+' × '+pc(r.model?r.model.share:r.sellerShare))
+          +(r.cancelledCommission?'\n− '+kr(r.cancelledCommission)+t(' for kansellerte salg',' for cancelled sales'):'')+'\n= '+kr(r.commission),
+        rows:[[t('Avtale','Agreement'),this.vesc(r.model&&r.model.source==='model'?(r.model.type==='perPack'?t('fast per produkt','fixed per product'):t('andel','share')):t('standard','default'))],
+              [t('Gjelder fra','In force from'),r.model&&r.model.from?r.model.from:'–'],
+              [t('Effektiv andel','Effective share'),pc(r.sellerShare)]]}),
       gross:()=>({f:kr(r.fixedSalary)+' + '+kr(r.commission)+' = '+kr(r.gross),
         rows:[[t('Fastlønn','Fixed salary'),kr(r.fixedSalary)],[t('Provisjon','Commission'),kr(r.commission)]]}),
       aga:()=>({f:kr(r.gross)+' × '+pc(c.agaRate)+' = '+kr(r.aga),
@@ -8228,7 +8403,7 @@ class Component extends DCLogic {
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
-    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._fc=null; this._fcDone=false; this._c={}; this.forceUpdate(); });
+    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._fc=null; this._fcDone=false; this._mr=null; this._c={}; this.forceUpdate(); });
 
     const parse=(raw,kind)=>{
       const s=String(raw).replace(/\s| |kr/gi,'').replace(',','.');
@@ -8240,7 +8415,8 @@ class Component extends DCLogic {
       const el=e.target;
       if(!el||!el.getAttribute) return;
       const path=el.getAttribute('data-vd-set'); if(!path) return;
-      const v=parse(el.value,el.getAttribute('data-vd-kind'));
+      const kind=el.getAttribute('data-vd-kind');
+      const v=kind==='text'?String(el.value):parse(el.value,kind);
       if(v===null){ this.forceUpdate(); return; }
       this._vdFocus=path;
       // follow the edited row's month, so the live totals above the sheet are
@@ -8304,6 +8480,37 @@ class Component extends DCLogic {
           setTimeout(()=>cc.classList.remove('vd-pulse'),2700); });
       }
       else if(act==='premium'){ this._c={}; this.setState({premium:true}); }
+      else if(act==='cxadd'){        // register one cancelled sale, every field in one undo step
+        const f=k=>{ const x=document.querySelector('[data-cx="'+k+'"]'); return x?x.value:''; };
+        const seller=f('seller'), pack=f('pack'), count=Math.max(1,parseInt(f('count'),10)||1), sale=f('sale'), claim=f('claim');
+        if(!seller||!pack||!sale||!claim){ this._vdToast(this.t('Fyll inn alle feltene','Fill in every field')); return; }
+        if(claim<sale){ this._vdToast(this.t('Phonero kan ikke kreve tilbake før salget','Phonero cannot claim before the sale')); return; }
+        const rate=((S.dataset.config||{}).packRates||{})[pack]||0;
+        S.addRecord('cancellations','c'+Date.now().toString(36),{seller,pack,count,saleMonth:sale,claimMonth:claim,
+          reason:f('reason')||this.t('Kansellert av kunden','Cancelled by the customer'),amount:count*rate});
+        this._vdToast(this.t('Registrert — '+this.vmonthLbl(sale).split(' ')[0].toLowerCase()+' er rettet','Registered — '+this.vmonthLbl(sale).split(' ')[0]+' is corrected'));
+      }
+      else if(act==='cxdel'){ S.hideRow('cancellations',val); this._vdToast(this.t('Fjernet — ⌘Z angrer','Removed — ⌘Z undoes')); }
+      else if(act==='mdtype'){       // key|from|type|name
+        const [k,from,ty,...nm]=val.split('|'); const name=nm.join('|');
+        const M=this.vdModel(), e=(M.employees||[]).find(x=>String(x.name).toLowerCase()===k)||{};
+        const cur=M.modelFor(name,this.vdMonth(),e.contract);
+        const rates=((S.dataset.config||{}).packRates)||{};
+        const fields={seller:name,from:from,type:ty};
+        if(ty==='perPack'&&cur.type!=='perPack') (window.VenditusModel.PACKS||[]).forEach(p=>{ fields[p.key]=Math.round((rates[p.key]||0)*(cur.share||0.5)); });
+        if(ty==='share'&&cur.type!=='share') fields.share=cur.source==='model'&&cur.share?cur.share:0.5;
+        if(cur.source!=='model'&&ty==='share') fields.share=cur.share;
+        S.addRecord('models',k+'|'+from,fields);
+      }
+      else if(act==='mdnew'){        // a new agreement from a chosen month, starting as a copy of today's
+        const [name,from]=val.split('|'); const k=String(name).replace(/\s+/g,' ').trim().toLowerCase();
+        const M=this.vdModel(), e=(M.employees||[]).find(x=>String(x.name).toLowerCase()===k)||{};
+        const cur=M.modelFor(name,this.vdMonth(),e.contract);
+        const fields={seller:name,from:from,type:cur.type,share:cur.share,note:this.t('Ny avtale','New agreement')};
+        if(cur.type==='perPack') Object.keys(cur.rates).forEach(p=>{ fields[p]=cur.rates[p]; });
+        S.addRecord('models',k+'|'+from,fields);
+        this._vdToast(this.t('Ny avtale fra '+this.vmonthLbl(from).toLowerCase()+' — endre satsen under','New agreement from '+this.vmonthLbl(from)+' — change the rate below'));
+      }
       else if(act==='goto'){ this.vdPickClose(); this.setState({active:val}); }
       else if(act==='gosheet'){ this.vdPickClose(); this.setState({active:'Inndata',vdSheet:val}); }
       else if(act==='unfocus'){ this.vdPickClose(); this.setState({vdFocus:{}}); }
@@ -8454,6 +8661,9 @@ class Component extends DCLogic {
     const at=f=>ms.map(m=>V.byMonth[m].total[f]||0);
 
     const revenue=at('revenue'), payroll=at('employerCost'), bonus=at('bonusWithEmployer');
+    // count × rate as Phonero paid it at the time — the right thing to reconcile
+    // against Phonero's own total; `revenue` is after cancellations moved back
+    const revenueRec=ms.map(m=>{ const t=V.byMonth[m].total; return t.revenueGross!==undefined?t.revenueGross:t.revenue; });
     const cogs=ms.map((m,i)=>V.byMonth[m].total.commission||0);
     const indirect=ms.map((m,i)=>{
       const t=V.byMonth[m].total;
@@ -8485,7 +8695,7 @@ class Component extends DCLogic {
     (V.byMonth[ms[n-1]].rows||[]).forEach(r=>r.packs.forEach(p=>{
       packAgg[p.key]=(packAgg[p.key]||0)+p.amount; }));
 
-    return {M,sales,bonus,cogs,emp,empBase,payroll,indirect,revenue,cost,ebit,margin,payrollPct,
+    return {M,sales,bonus,cogs,emp,empBase,payroll,indirect,revenue,revenueRec,cost,ebit,margin,payrollPct,
       closed,actRev,actCost,actEbit:actRev.map((v,i)=>v-actCost[i]),
       venditus:true, months:ms, sellerNames:sellerNames,
       mm:{subs:packAgg.p5gb||0,addl:(packAgg.p10gb||0)+(packAgg.p15gb||0),ded:-(last.clawback||0),
@@ -8494,6 +8704,255 @@ class Component extends DCLogic {
           marginNok:last.marginKr||0,marginPct:(last.marginPct||0)*100,
           perSub:last.salesCount?last.marginKr/last.salesCount:0}};
   }
+
+  /* ═══ PAGE · Provisjon — the Phonero side, without Excel ════════════════
+     Venditus, HR meeting: the Phonero report is retyped into a new sheet by
+     hand, every seller has their own commission agreement, and a sale Phonero
+     takes back has to be corrected in the month it was sold — "hodebry". This
+     page is the answer, in the order a manager asks the questions:
+       1 · what do we pay out this month
+       2 · per seller, and why
+       3 · cancellations — registered once, booked to the right month
+       4 · what is still waiting on Phonero
+       5 · each seller's own agreement, editable
+     Everything recomputes from the store like the rest of the dashboard. */
+
+  // the same model, with cancellations booked the old way — for "before / after"
+  vdModelReported(){
+    if(this._mr!==undefined&&this._mr!==null) return this._mr;
+    const S=this.vdStore();
+    try{ this._mr=(S&&S.dataset)?window.VenditusModel.compute(S.dataset,{attribution:'report'}):null; }
+    catch(e){ console.error('reported model',e); this._mr=null; }
+    return this._mr; }
+
+  vdPackLbl(k){ const p=(window.VenditusModel.PACKS||[]).find(x=>x.key===k); return p?this.t(p.no,p.en):k; }
+  vdSellerHue(name){
+    const M=this.vdModel(), list=(M&&M.sellers)||[];
+    const H=['#6D5BD0','#2B5FE0','#0F8F7E','#C2852A','#D9486B','#3B82F6'];
+    const i=Math.max(0,list.findIndex(s=>String(s).toLowerCase()===String(name).toLowerCase()));
+    return H[i%H.length]; }
+  vdInitials(name){ return String(name||'?').split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase(); }
+
+  // an agreement, in one sentence
+  vdModelSentence(m,brief){
+    const t=(a,b)=>this.t(a,b);
+    if(!m) return '';
+    if(m.type==='perPack'&&brief){
+      const v=Object.values(m.rates).filter(x=>x>0);
+      return v.length?t('Fast beløp per salg, fra '+this.vkr(Math.min(...v))+' til '+this.vkr(Math.max(...v)),'A fixed amount per sale, from '+this.vkr(Math.min(...v))+' to '+this.vkr(Math.max(...v))):t('Fast beløp per salg','A fixed amount per sale');
+    }
+    if(m.type==='perPack'){
+      const parts=(window.VenditusModel.PACKS||[]).filter(p=>m.rates[p.key]).map(p=>this.vdPackLbl(p.key)+' '+this.vkr(m.rates[p.key]));
+      return t('Fast beløp per salg: ','A fixed amount per sale: ')+parts.join(' · ');
+    }
+    return t('Får ','Gets ')+Math.round(m.share*1000)/10+t(' % av det Phonero betaler for hvert salg',' % of what Phonero pays for each sale')
+      +(m.source==='default'?t(' — standard for kontraktstypen, ingen egen avtale',' — the contract-type default, no agreement of their own'):''); }
+
+  buildProvisjonPage(){
+    const M=this.vdModel(), t=(a,b)=>this.t(a,b);
+    if(!M||!M.months.length) return this.html(this.vdEmpty(t('Ingen data.','No data.')));
+    const month=this.vdMonth(), MT=M.byMonth[month], T=MT.total, rows=MT.rows.slice().sort((a,b)=>b.payout-a.payout);
+    const mon=this.vmonthLbl(month).split(' ')[0], monL=mon.toLowerCase();
+    const short=m=>this.t(this.vmonthShort(m).toLowerCase(),this.vmonthShort(m).charAt(0)+this.vmonthShort(m).slice(1).toLowerCase());
+    const cx=M.cancellations||[];
+    const claimedNow=cx.filter(c=>c.claimMonth===month);
+    const restatedFrom=[...new Set(claimedNow.filter(c=>c.saleMonth!==month).map(c=>this.vmonthLbl(c.saleMonth).split(' ')[0].toLowerCase()))];
+
+    /* 1 · the payout, said plainly */
+    const sentence=t(rows.length+' selgere får <b>'+this.vkr(T.payout)+'</b> i provisjon for '+monL+'.'
+        +(claimedNow.length?' '+this.vkr(T.deductionTaken)+' er trukket for '+claimedNow.reduce((a,c)=>a+c.count,0)+' salg Phonero har tatt tilbake'
+          +(restatedFrom.length?' — salgene er rettet i '+restatedFrom.join(' og ')+', ikke i '+monL:'')+'.':' Ingen salg er tatt tilbake denne måneden.'),
+      rows.length+' sellers are paid <b>'+this.vkr(T.payout)+'</b> in commission for '+mon+'.'
+        +(claimedNow.length?' '+this.vkr(T.deductionTaken)+' is deducted for '+claimedNow.reduce((a,c)=>a+c.count,0)+' sales Phonero took back'
+          +(restatedFrom.length?' — the sales are corrected in '+restatedFrom.join(' and ')+', not in '+mon:'')+'.':' No sales were taken back this month.'));
+    const stat=(l,v,c,sub)=>'<div class="pv-hs"><div class="pv-hs-l">'+l+'</div><div class="pv-hs-v mono"'+(c?' style="color:'+c+'"':'')+'>'+v+'</div>'
+      +(sub?'<div class="pv-hs-s">'+sub+'</div>':'')+'</div>';
+    const hero='<div class="pv-hero">'
+      +'<div class="pv-hero-l"><div class="ks-eye">'+t('TIL UTBETALING','TO PAY OUT')+' · '+this.vmonthLbl(month).toUpperCase()+'</div>'
+      +'<div class="pv-hero-v mono">'+this.vkr(T.payout)+'</div><p class="pv-hero-p">'+sentence+'</p></div>'
+      +'<div class="pv-hero-r">'
+      +stat(t('Opptjent på salg','Earned on sales'),this.vkr(T.commissionGross),'#fff',this.vnum(T.salesCount)+' '+t('salg','sales'))
+      +stat(t('Trekk for kanselleringer','Cancellation deductions'),(T.deductionTaken?'−':'')+this.vkr(T.deductionTaken),'#FCA5A5',claimedNow.length+' '+t('registrert','registered'))
+      +stat(t('Garantitillegg','Guarantee top-up'),this.vkr(T.guarantee),'#fff',t('når provisjonen er under garantilønn','when commission is under the guarantee'))
+      +(T.deductionCarry?stat(t('Utsatt trekk','Deferred deduction'),this.vkr(T.deductionCarry),'#FCD34D',t('tas neste måned','taken next month')):'')
+      +'</div></div>';
+
+    /* 2 · per seller: one card each */
+    const PK=window.VenditusModel.PACKS||[];
+    const card=r=>{
+      const m=r.model||{}, col=this.vdSellerHue(r.seller);
+      const pay=Math.max(r.payout,1), wE=r.commissionGross/(r.commissionGross+r.guarantee||1)*100;
+      const lines=(r.packs||[]).filter(p=>p.count).map(p=>{
+        const amt=m.type==='perPack'?p.count*(m.rates[p.key]||0):p.amount*m.share;
+        const how=m.type==='perPack'?this.vnum(p.count)+' × '+this.vkr(m.rates[p.key]||0)
+          :this.vnum(p.count)+' × '+this.vkr(p.rate)+' × '+Math.round(m.share*100)+' %';
+        return '<div class="pv-sl"><span>'+this.vdPackLbl(p.key)+'</span><span class="pv-sl-h mono">'+how+'</span><span class="mono">'+this.vkr(amt)+'</span></div>'; }).join('');
+      const ded=(r.claimed||[]).map(c=>{ const C=cx.find(x=>x.id===c.id)||{};
+        return '<div class="pv-sl pv-sl-neg"><span>'+t('Trekk: ','Deduction: ')+c.count+' × '+this.vdPackLbl(c.pack)+'</span>'
+          +'<span class="pv-sl-h">'+t('solgt ','sold ')+short(c.saleMonth)+' · '+this.vesc(c.reason||'')+'</span>'
+          +'<span class="mono">−'+this.vkr(C.sellerAmount||0)+'</span></div>'; }).join('');
+      const carryIn=r.deductionTaken-r.deductions;
+      return '<div class="pv-c">'
+        +'<div class="pv-c-hd"><span class="pv-av" style="background:'+col+'">'+this.vdInitials(r.seller)+'</span>'
+        +'<div class="pv-c-who"><div class="pv-c-n">'+this.vesc(r.seller)+'</div><div class="pv-c-m">'+this.vdModelSentence(m,true)+'</div></div>'
+        +'<div class="pv-c-pay"><div class="mono">'+this.vkr(r.payout)+'</div><span>'+t('til utbetaling','to pay')+'</span></div></div>'
+        +'<div class="pv-c-bar"><i style="width:'+Math.min(100,wE).toFixed(1)+'%;background:'+col+'"></i>'
+        +(r.guarantee?'<i style="width:'+(100-wE).toFixed(1)+'%;background:color-mix(in srgb,'+col+' 40%,transparent)"></i>':'')
+        +(r.deductionTaken?'<b style="width:'+Math.min(40,r.deductionTaken/pay*100).toFixed(2)+'%"></b>':'')+'</div>'
+        +'<div class="pv-c-row"><span>'+t('Opptjent','Earned')+' · '+this.vnum(r.salesCount)+' '+t('salg','sales')+'</span><span class="mono">'+this.vkr(r.commissionGross)+'</span></div>'
+        +(r.deductionTaken?'<div class="pv-c-row pv-neg"><span>'+t('Trekk for kansellerte salg','Deduction for cancelled sales')+'</span><span class="mono">−'+this.vkr(r.deductionTaken)+'</span></div>':'')
+        +(r.guarantee?'<div class="pv-c-row"><span>'+t('Garantitillegg','Guarantee top-up')+'</span><span class="mono">+'+this.vkr(r.guarantee)+'</span></div>':'')
+        +(r.deductionCarry?'<div class="pv-c-row pv-warn"><span>'+t('Trekk som tas neste måned','Deduction carried to next month')+'</span><span class="mono">'+this.vkr(r.deductionCarry)+'</span></div>':'')
+        +'<details class="pl-more pv-slip"><summary><span class="pl-i" aria-hidden="true">i</span>'+t('Se oppgjøret','See the settlement')+'</summary>'
+        +'<div class="pl-body"><div class="pl-q">'+t('Provisjon på salgene i ','Commission on the sales in ')+monL+'</div>'+lines
+        +'<div class="pv-sl pv-sl-tot"><span>'+t('Opptjent','Earned')+'</span><span></span><span class="mono">'+this.vkr(r.commissionGross)+'</span></div>'
+        +(ded||carryIn>0?'<div class="pl-q">'+t('Trekk','Deductions')+'</div>'+ded
+          +(carryIn>0?'<div class="pv-sl pv-sl-neg"><span>'+t('Utsatt trekk fra forrige måned','Carried from last month')+'</span><span></span><span class="mono">−'+this.vkr(carryIn)+'</span></div>':''):'')
+        +(r.guarantee?'<div class="pv-sl"><span>'+t('Garantitillegg','Guarantee top-up')+'</span><span class="pv-sl-h">'+t('opp til ','up to ')+this.vkr(M.config.guaranteeSalary)+'</span><span class="mono">+'+this.vkr(r.guarantee)+'</span></div>':'')
+        +'<div class="pv-sl pv-sl-tot"><span>'+t('Til utbetaling','To pay')+'</span><span></span><span class="mono">'+this.vkr(r.payout)+'</span></div>'
+        +(r.bonus?'<div class="pv-sl"><span>'+t('Bonus i tillegg','Bonus on top')+'</span><span class="pv-sl-h">'+t('fra BONUS REGISTER','from BONUS REGISTER')+'</span><span class="mono">'+this.vkr(r.bonus)+'</span></div>':'')
+        +'<div class="pv-sl-note">'+t('Fastlønn kommer fra Tripletex og er ikke med her.','Fixed salary comes from Tripletex and is not included here.')+'</div>'
+        +'</div></details></div>'; };
+    const sellers='<div class="pv-sec"><div class="pv-sec-hd"><div><h3>'+t('Oppgjør per selger','Settlement per seller')+'</h3>'
+      +'<p>'+t('Hver selger etter sin egen avtale. Åpne et kort for regnestykket linje for linje.','Each seller on their own agreement. Open a card for the arithmetic, line by line.')+'</p></div></div>'
+      +'<div class="pv-grid">'+rows.map(card).join('')+'</div></div>';
+
+    /* 3 · cancellations — the timeline, the register, before / after */
+    const months=M.months;
+    const node=(lbl,m,cls)=>'<div class="pv-tn '+(cls||'')+'"><i></i><span>'+lbl+'</span><b>'+short(m)+'</b></div>';
+    const cxRow=c=>{
+      const hot=c.claimMonth===month||c.saleMonth===month;
+      return '<div class="pv-x'+(hot?' pv-x-hot':'')+'">'
+        +'<span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(c.seller)+'">'+this.vdInitials(c.seller)+'</span>'
+        +'<div class="pv-x-main"><div class="pv-x-t"><b>'+this.vesc(c.seller)+'</b> · '+c.count+' × '+this.vdPackLbl(c.pack)
+        +(c.added?' <span class="fc-chip fc-chip-s">'+t('NY','NEW')+'</span>':'')+'</div>'
+        +'<div class="pv-x-r">'+this.vesc(c.reason||'')+(c.ref?' · <span class="mono">'+this.vesc(c.ref)+'</span>':'')+'</div></div>'
+        +'<div class="pv-track">'+node(t('Solgt','Sold'),c.saleMonth,'pv-tn-sold')+'<em></em>'
+        +node(t('Phonero krevde','Phonero claimed'),c.claimMonth,'pv-tn-claim')+'<em></em>'
+        +node(t('Trukket','Deducted'),c.claimMonth,'pv-tn-ded')+'</div>'
+        +'<div class="pv-x-amt"><div class="mono">−'+this.vkr(c.amount)+'</div><span>'+t('selger −','seller −')+this.vkr(c.sellerAmount)+'</span></div>'
+        +'<button class="pv-x-del" data-vd-act="cxdel" data-vd-val="'+this.vesc(c.id)+'" title="'+t('Fjern (kan angres)','Remove (can be undone)')+'" aria-label="'+t('Fjern','Remove')+'">×</button>'
+        +'</div>'; };
+    const opts=(arr,sel)=>arr.map(([v,l])=>'<option value="'+this.vesc(v)+'"'+(v===sel?' selected':'')+'>'+l+'</option>').join('');
+    const emps=(M.employees||[]).filter(e=>e.active!==false).map(e=>[e.name,this.vesc(e.name)]);
+    const mOpts=months.map(m=>[m,this.vmonthLbl(m)]);
+    const form='<div class="pv-form">'
+      +'<div class="pv-form-t">'+t('Registrer et kansellert salg','Register a cancelled sale')+'</div>'
+      +'<div class="pv-form-g">'
+      +'<label>'+t('Selger','Seller')+'<select data-cx="seller">'+opts(emps,emps[0]&&emps[0][0])+'</select></label>'
+      +'<label>'+t('Produkt','Product')+'<select data-cx="pack">'+opts(PK.filter(p=>(M.config.packRates||{})[p.key]).map(p=>[p.key,this.t(p.no,p.en)+' · '+this.vkr(M.config.packRates[p.key])]),'p10gb')+'</select></label>'
+      +'<label>'+t('Antall','Count')+'<input data-cx="count" type="number" min="1" value="1"></label>'
+      +'<label>'+t('Solgt i','Sold in')+'<select data-cx="sale">'+opts(mOpts,months[Math.max(0,months.indexOf(month)-1)])+'</select></label>'
+      +'<label>'+t('Phonero krevde i','Phonero claimed in')+'<select data-cx="claim">'+opts(mOpts,month)+'</select></label>'
+      +'<label class="pv-form-w">'+t('Hvorfor','Why')+'<input data-cx="reason" type="text" placeholder="'+t('f.eks. Kunden brukte angreretten','e.g. The customer used the right of withdrawal')+'"></label>'
+      +'</div><div class="pv-form-ft"><span>'+t('Clario fører det på måneden salget ble gjort, og trekker selgeren i måneden Phonero tok pengene.','Clario books it to the month of the sale and deducts the seller in the month Phonero took the money.')+'</span>'
+      +'<button class="pv-btn" data-vd-act="cxadd">'+t('Registrer','Register')+'</button></div></div>';
+
+    // before / after, month by month
+    const R=this.vdModelReported();
+    const ba=R?months.map(m=>{
+      const a=M.byMonth[m].total, b=R.byMonth[m]?R.byMonth[m].total:a;
+      const d=a.marginKr-b.marginKr;
+      return {m,a:a.marginKr,b:b.marginKr,d,moved:cx.filter(c=>c.saleMonth===m&&c.claimMonth!==m).reduce((x,c)=>x+c.amount,0)}; }):[];
+    const baMax=Math.max(1,...ba.map(x=>Math.max(Math.abs(x.a),Math.abs(x.b))));
+    const baRows=ba.map(x=>'<div class="pv-ba-r"><span class="pv-ba-m">'+short(x.m)+'</span>'
+      +'<div class="pv-ba-bars"><div><i class="pv-ba-old" style="width:'+(Math.abs(x.b)/baMax*100).toFixed(1)+'%"></i><span class="mono">'+this.vround(x.b)+'</span></div>'
+      +'<div><i class="pv-ba-new" style="width:'+(Math.abs(x.a)/baMax*100).toFixed(1)+'%"></i><span class="mono">'+this.vround(x.a)+'</span></div></div>'
+      +'<span class="pv-ba-d mono" style="color:'+this.vtone(x.d)+'">'+(Math.abs(x.d)<1?'±0':(x.d>0?'+':'−')+this.vround(Math.abs(x.d)))+'</span></div>').join('');
+    const baPlain=(()=>{ const w=ba.filter(x=>x.d<-1).sort((p,q)=>p.d-q.d)[0];
+      return w?t(this.vmonthLbl(w.m).split(' ')[0]+' var egentlig '+this.vround(Math.abs(w.d))+' svakere enn det så ut — salg som ble kansellert senere sto fortsatt som inntekt der.',
+                 this.vmonthLbl(w.m).split(' ')[0]+' was really '+this.vround(Math.abs(w.d))+' weaker than it looked — sales cancelled later still counted as income there.')
+        :t('Ingen måneder endret seg.','No month changed.'); })();
+    const before='<div class="pv-ba"><div class="pv-ba-hd"><h4>'+t('Før og etter','Before and after')+'</h4>'
+      +'<div class="pv-ba-lg"><span><i class="pv-ba-old"></i>'+t('Slik det sto (måneden Phonero krevde)','As it stood (month Phonero claimed)')+'</span>'
+      +'<span><i class="pv-ba-new"></i>'+t('Rettet (måneden salget ble gjort)','Corrected (month of the sale)')+'</span></div></div>'
+      +'<div class="pv-ba-sub">'+t('Bidragsmargin per måned','Contribution margin per month')+'</div>'+baRows
+      +this.plBlock({line:baPlain,
+        what:t('Før måtte noen gå tilbake i Excel og rette måneden salget ble gjort. Nå registreres kanselleringen én gang, og Clario fører den på riktig måned selv.',
+               'Before, someone had to go back in Excel and correct the month of the sale. Now the cancellation is registered once and Clario books it to the right month itself.'),
+        good:t('Den rettede marginen er den riktige: den viser hva salgene i en måned faktisk ga, når alt er kjent.','The corrected margin is the true one: what the sales in a month actually earned, once everything is known.'),
+        src:t('Kanselleringene under, og Phonero sin clawback-kolonne (PHONERO RAPPORT, N).','The cancellations below, and Phonero\'s clawback column (PHONERO RAPPORT, N).')})+'</div>';
+
+    const cxSec='<div class="pv-sec"><div class="pv-sec-hd"><div><h3>'+t('Kanselleringer','Cancellations')+' <span class="fc-chip">'+cx.length+'</span></h3>'
+      +'<p>'+t('Når en kunde av Venditus kansellerer, krever Phonero provisjonen tilbake — ofte måneder senere. Registrer salget én gang, så retter Clario resten.',
+               'When a Venditus customer cancels, Phonero claims the commission back — often months later. Register the sale once and Clario corrects the rest.')+'</p></div></div>'
+      +'<div class="pv-cx"><div class="pv-cx-l">'+(cx.length?cx.map(cxRow).join(''):this.vdEmpty(t('Ingen kanselleringer registrert.','No cancellations registered.')))+form+'</div>'
+      +'<div class="pv-cx-r">'+before+'</div></div></div>';
+
+    /* 4 · what is still waiting on Phonero */
+    const pend=rows.reduce((a,r)=>a+(r.pending||0),0), rej=rows.reduce((a,r)=>a+(r.rejected||0),0);
+    const sold=T.salesCount, canc=T.cancelledCount||0, ok=Math.max(0,sold-canc);
+    const tot=Math.max(1,ok+canc+pend+rej);
+    const avg=T.salesCount?T.revenueGross/T.salesCount:0;
+    const seg=(v,c,l)=>v?'<i style="flex:'+v+';background:'+c+'" title="'+l+': '+v+'"></i>':'';
+    const pipe='<div class="pv-sec pv-pipe"><div class="pv-sec-hd"><div><h3>'+t('Venter hos Phonero','Waiting on Phonero')+'</h3>'
+      +'<p>'+t('Hva som skjedde med salgene i '+monL+'.','What happened to the sales in '+mon+'.')+'</p></div></div>'
+      +'<div class="pv-pipe-bar">'+seg(ok,'var(--green)',t('Godkjent','Approved'))+seg(canc,'var(--danger)',t('Kansellert senere','Cancelled later'))
+      +seg(pend,'var(--amber)',t('Venter','Pending'))+seg(rej,'var(--muted2)',t('Avvist','Rejected'))+'</div>'
+      +'<div class="pv-pipe-lg">'
+      +[[ok,'var(--green)',t('Godkjent og betalt','Approved and paid')],[canc,'var(--danger)',t('Kansellert senere','Cancelled later')],
+        [pend,'var(--amber)',t('Venter på godkjenning','Waiting for approval')],[rej,'var(--muted2)',t('Avvist av Phonero','Rejected by Phonero')]]
+        .map(([v,c,l])=>'<div><i style="background:'+c+'"></i><b class="mono">'+this.vnum(v)+'</b><span>'+l+'</span></div>').join('')+'</div>'
+      +this.plBlock({line:pend?t(this.vnum(pend)+' salg venter på godkjenning — rundt '+this.vround(pend*avg)+'. De kommer med i oppgjøret når Phonero godkjenner dem.',
+                                 this.vnum(pend)+' sales are waiting for approval — around '+this.vround(pend*avg)+'. They join the settlement once Phonero approves them.')
+                              :t('Ingen salg venter på Phonero.','No sales are waiting on Phonero.'),
+        what:t('Phonero godkjenner salg før de betaler. Avviste salg betales aldri. Kansellerte salg ble betalt, men tas tilbake senere — de står under Kanselleringer.',
+               'Phonero approves sales before paying. Rejected sales are never paid. Cancelled sales were paid but are taken back later — they are listed under Cancellations.'),
+        src:t('PHONERO RAPPORT: «Avviste salg» og «Ventende salg».','PHONERO RAPPORT: "Rejected" and "Pending".')})+'</div>';
+
+    /* 5 · each seller's agreement */
+    const S=this.vdStore();
+    const nextM=window.VenditusForecast?window.VenditusForecast.addMonths(months[months.length-1],1):months[months.length-1];
+    const mdCard=e=>{
+      const name=e.name, k=String(name).replace(/\s+/g,' ').trim().toLowerCase();
+      const cur=M.modelFor(name,month,e.contract);
+      const all=((S.dataset&&S.dataset.models)||[]).filter(x=>String(x.seller||x._key).replace(/\s+/g,' ').trim().toLowerCase()===k).sort((a,b)=>a.from<b.from?1:-1);
+      const rowKey=cur.source==='model'?k+'|'+cur.from:'';
+      const base='models.'+rowKey+'.';
+      const typeBtn=(ty,l)=>'<button class="pv-seg'+(cur.type===ty?' on':'')+'" data-vd-act="mdtype" data-vd-val="'+this.vesc(k+'|'+(cur.from||months[0])+'|'+ty+'|'+name)+'">'+l+'</button>';
+      const edit=cur.source==='model'
+        ? (cur.type==='perPack'
+          ? '<div class="pv-md-rates">'+PK.filter(p=>(M.config.packRates||{})[p.key]).map(p=>'<label><span>'+this.vdPackLbl(p.key)+'</span>'
+              +'<input class="vd-in" data-vd-set="'+this.vesc(base+p.key)+'" data-vd-kind="num" value="'+this.vnum(cur.rates[p.key]||0)+'"></label>').join('')+'</div>'
+          : '<label class="pv-md-share"><span>'+t('Andel av Phonero-provisjonen','Share of Phonero\'s commission')+'</span>'
+              +'<input class="vd-in" data-vd-set="'+this.vesc(base+'share')+'" data-vd-kind="pct" value="'+(cur.share*100).toFixed(1).replace('.',t(',','.'))+'"><b>%</b></label>')
+          +'<label class="pv-md-note"><span>'+t('Merknad','Note')+'</span><input class="vd-in" data-vd-set="'+this.vesc(base+'note')+'" data-vd-kind="text" value="'+this.vesc(cur.note||'')+'"></label>'
+        : '<div class="pv-md-def">'+t('Ingen egen avtale registrert — bruker standarden for «','No agreement on file — using the default for "')+this.vesc(e.contract||'')+t('».','".')+'</div>';
+      const hist=all.length>1?'<div class="pv-md-h">'+all.map(x=>'<span'+(x.from===cur.from?' class="on"':'')+'>'+t('fra ','from ')+short(x.from)+' '+x.from.slice(0,4)+': '
+          +(x.type==='perPack'?t('per produkt','per product'):Math.round((x.share||0)*100)+' %')+(x.from>month?' · '+t('kommende','upcoming'):'')+'</span>').join('')+'</div>':'';
+      return '<div class="pv-md">'
+        +'<div class="pv-md-hd"><span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(name)+'">'+this.vdInitials(name)+'</span>'
+        +'<div><div class="pv-c-n">'+this.vesc(name)+'</div><div class="pv-c-m">'+this.vesc(e.contract||'')+(cur.from?' · '+t('gjelder fra ','in force from ')+short(cur.from)+' '+cur.from.slice(0,4):'')+'</div></div></div>'
+        +'<div class="pv-md-s">'+this.vdModelSentence(cur)+'</div>'
+        +'<div class="pv-segs">'+typeBtn('share',t('Andel av Phonero','Share of Phonero'))+typeBtn('perPack',t('Fast per produkt','Fixed per product'))+'</div>'
+        +edit+hist
+        +'<button class="pv-link" data-vd-act="mdnew" data-vd-val="'+this.vesc(name+'|'+nextM)+'">+ '+t('Ny avtale fra ','New agreement from ')+short(nextM)+' '+nextM.slice(0,4)+'</button>'
+        +'</div>'; };
+    const models='<div class="pv-sec"><div class="pv-sec-hd"><div><h3>'+t('Provisjonsavtaler','Commission agreements')+'</h3>'
+      +'<p>'+t('Hver selger har sin egen avtale. Endrer dere en sats, regnes oppgjøret, marginen og prognosen om med én gang. En ny avtale gjelder fra måneden dere velger — tidligere måneder røres ikke.',
+               'Every seller has their own agreement. Change a rate and the settlement, margin and forecast recompute at once. A new agreement applies from the month you choose — earlier months are untouched.')+'</p></div>'
+      +'<span class="pv-demo">'+t('Avtalene er eksempler til Venditus sender de ekte','The agreements are examples until Venditus sends the real ones')+'</span></div>'
+      +'<div class="pv-md-grid">'+(M.employees||[]).filter(e=>e.active!==false).map(mdCard).join('')+'</div></div>';
+
+    return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+hero+sellers+cxSec+'<div class="pv-two">'+pipe+'</div>'+models); }
+
+  /* ── Oversikt · one line about cancellations, linking to Provisjon ──── */
+  buildCancelCard(){
+    const M=this.vdModel(); if(!M||!(M.cancellations||[]).length) return this.html('');
+    const t=(a,b)=>this.t(a,b), month=this.vdMonth();
+    const now=M.cancellations.filter(c=>c.claimMonth===month);
+    const amt=now.reduce((a,c)=>a+c.amount,0);
+    const to=[...new Set(now.filter(c=>c.saleMonth!==month).map(c=>this.vmonthLbl(c.saleMonth).split(' ')[0].toLowerCase()))];
+    const mon=this.vmonthLbl(month).split(' ')[0].toLowerCase();
+    const txt=now.length
+      ? t('<b>'+now.length+' kanselleringer</b> krevd tilbake av Phonero i '+mon+' · <span class="mono">−'+this.vkr(amt)+'</span>'
+          +(to.length?' · ført på '+to.join(' og ')+', der salgene ble gjort':''),
+          '<b>'+now.length+' cancellations</b> claimed back by Phonero in '+this.vmonthLbl(month).split(' ')[0]+' · <span class="mono">−'+this.vkr(amt)+'</span>'
+          +(to.length?' · booked to '+to.join(' and ')+', where the sales were made':''))
+      : t('Ingen kanselleringer krevd tilbake i '+mon+'.','No cancellations claimed back in '+this.vmonthLbl(month).split(' ')[0]+'.');
+    return this.html('<div class="cxc"><span class="cxc-i" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span>'
+      +'<span class="cxc-t">'+txt+'</span>'
+      +'<button class="pv-btn pv-btn-s" data-vd-act="goto" data-vd-val="Provisjon">'+t('Se provisjon','View commission')+' →</button></div>'); }
 
   /* ═══ Forecast + plain language ═════════════════════════════════════════
      Venditus' first feedback: the economy side is right, but they want more
@@ -8618,8 +9077,8 @@ class Component extends DCLogic {
                     more(tot.marginPct||0,prev.marginPct||0,'Better','Weaker')+' than '+this.vmonthLbl(ctx.prevMonth).split(' ')[0]+', when it was '+pc(prev.marginPct)+'.'+why()):'',
         drivers:t('Mer salg av dyre pakker løfter den. Bonus, sykefravær og hvor stor andel selgerne får i provisjon trekker den ned.',
                   'More sales of high-paying packs lift it. Bonus, sick leave and the share of commission the sellers get pull it down.'),
-        src:t('Regnet ut per selger i BEREGNING PER SELGER. NB: hvor stor andel av inntekten selgerne får ('+shareTxt+') er Clarios antakelse til Kian har bekreftet den.',
-              'Worked out per seller in BEREGNING PER SELGER. Note: the share of revenue paid to sellers ('+shareTxt+') is Clario\'s assumption until Kian confirms it.')}),
+        src:t('Regnet ut per selger i BEREGNING PER SELGER, med hver selgers egen provisjonsavtale (se Provisjon). NB: avtalene er eksempler til Venditus har sendt de ekte.',
+              'Worked out per seller in BEREGNING PER SELGER, using each seller\'s own commission agreement (see Commission). Note: the agreements are examples until Venditus sends the real ones.')}),
 
       totalCost:()=>({
         line:t('Alt det kostet å ha selgerne i '+mon+' — '+this.vper100(tot.revenue?tot.totalCostAll/tot.revenue:0)+' av hver 100 kr i inntekt.',
@@ -8876,7 +9335,8 @@ class Component extends DCLogic {
   buildBudgetActual(){
     const W0=this.wb(), FC=W0.venditus?this.vdFcSeries(3):null;
     // forecast months extend the computed line; nothing is "reported" for them
-    const W=FC?{...W0,M:W0.M.concat(FC.M),revenue:W0.revenue.concat(FC.rev)}:W0;
+    const RC=W0.revenueRec||W0.revenue;
+    const W=FC?{...W0,M:W0.M.concat(FC.M),revenue:RC.concat(FC.rev)}:{...W0,revenue:RC};
     const n=W.M.length, C=W0.closed, nA=W0.M.length;
     const M=this.mq();
     const w=M?372:940,h=M?250:272,padT=26,padB=M?30:34,padL=M?46:76,padR=M?48:86;
@@ -8921,8 +9381,8 @@ class Component extends DCLogic {
     });
     if(FC){
       // the range, fanning out from the last real month
-      const up=[[X(nA-1),Y(W0.revenue[nA-1])]].concat(FC.hi.map((v,k)=>[X(nA+k),Y(v)]));
-      const dn=[[X(nA-1),Y(W0.revenue[nA-1])]].concat(FC.lo.map((v,k)=>[X(nA+k),Y(v)]));
+      const up=[[X(nA-1),Y(RC[nA-1])]].concat(FC.hi.map((v,k)=>[X(nA+k),Y(v)]));
+      const dn=[[X(nA-1),Y(RC[nA-1])]].concat(FC.lo.map((v,k)=>[X(nA+k),Y(v)]));
       g+='<path d="M'+up.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'L'+dn.reverse().map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'Z" fill="var(--accent)" fill-opacity=".12" style="animation:fadeIn .9s 1s both"/>';
       g+='<text x="'+(X(nA-1)+8).toFixed(1)+'" y="'+(padT+12)+'" font-size="9" fill="var(--accent)" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('PROGNOSE','FORECAST')+'</text>';
       FC.rev.forEach((v,k)=>{ g+='<circle cx="'+X(nA+k).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.6" fill="var(--card)" stroke="var(--accent)" stroke-width="2" style="opacity:0;animation:popDot .4s '+(1.2+k*0.1)+'s cubic-bezier(.34,1.56,.64,1) forwards"/>'; });

@@ -40,6 +40,23 @@
       (ix.bonus[k] = ix.bonus[k] || []).push(b);
     });
 
+    // commission agreements per seller, newest start month first
+    ix.models = {};
+    (dataset.models || []).forEach(function (m) {
+      var k = String(m.seller || m._key || '').replace(/\s+/g, ' ').trim().toLowerCase();
+      if (!k || !m.from) return;
+      (ix.models[k] = ix.models[k] || []).push(m);
+    });
+    Object.keys(ix.models).forEach(function (k) { ix.models[k].sort(function (a, b) { return a.from < b.from ? 1 : -1; }); });
+
+    // cancellations, by the month the sale was made and by the month Phonero claimed it
+    ix.cancelSale = {}; ix.cancelClaim = {};
+    (dataset.cancellations || []).forEach(function (c) {
+      if (!c || !c.seller || !c.saleMonth) return;
+      (ix.cancelSale[key(c.seller, c.saleMonth)] = ix.cancelSale[key(c.seller, c.saleMonth)] || []).push(c);
+      if (c.claimMonth) (ix.cancelClaim[key(c.seller, c.claimMonth)] = ix.cancelClaim[key(c.seller, c.claimMonth)] || []).push(c);
+    });
+
     return ix;
   }
 
@@ -60,6 +77,46 @@
     var hit = Object.keys(table).filter(function (k) { return k.toLowerCase() === lc; })[0];
     if (hit) return table[hit];
     return table['Fast + Provisjon'] !== undefined ? table['Fast + Provisjon'] : 0.5;
+  }
+
+  /* ── commission models — each seller has their own ─────────────────────
+     The HR meeting: "Ikke fast provisjonsmodell, hver selger har sin egen."
+     A model is either a share of what Phonero pays for the sale, or a fixed
+     amount per product. The agreement in force is the newest one whose start
+     month is on or before the month in question, so a change of terms never
+     rewrites the months before it. With no agreement on file, the old
+     contract-type default applies — and the page says so. */
+  function modelFor(seller, month, ix, config, contract) {
+    var k = String(seller).replace(/\s+/g, ' ').trim().toLowerCase();
+    var list = (ix.models && ix.models[k]) || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].from <= month) {
+        var m = list[i];
+        var rates = {};
+        PACKS.forEach(function (p) { rates[p.key] = n(m[p.key]); });
+        return { type: m.type === 'perPack' ? 'perPack' : 'share', share: n(m.share), rates: rates,
+                 from: m.from, note: m.note || '', source: 'model', history: list.length };
+      }
+    }
+    return { type: 'share', share: shareFor(contract, config), rates: {}, from: null, note: '', source: 'default', history: 0 };
+  }
+
+  // what the seller earns on a set of pack counts under an agreement
+  function sellerCommission(model, lines, revenue) {
+    if (model.type === 'perPack') {
+      return lines.reduce(function (a, l) { return a + n(l.count) * n(model.rates[l.key]); }, 0);
+    }
+    return revenue * model.share;
+  }
+  // …and what is taken back when one cancelled sale is reversed
+  function cancelCommission(model, c, rates) {
+    var amount = cancelAmount(c, rates);
+    if (model.type === 'perPack') return n(c.count) * n(model.rates[c.pack]);
+    return amount * model.share;
+  }
+  function cancelAmount(c, rates) {
+    return c.amount !== undefined && c.amount !== null && c.amount !== ''
+      ? n(+c.amount) : n(c.count) * n((rates || {})[c.pack]);
   }
 
   // FIX-4: the workbook records a count per pack and then never uses it, so the
@@ -96,7 +153,8 @@
 
   /* ── one seller, one month: the 34 columns ───────────────────────────── */
 
-  function computeRow(seller, month, dataset, ix) {
+  function computeRow(seller, month, dataset, ix, opts) {
+    opts = opts || {};
     var config = dataset.config || {};
     var k = key(seller, month);
     var emp = ix.employees[String(seller).replace(/\s+/g, ' ').toLowerCase()] || null;
@@ -115,9 +173,35 @@
     //                against the lump total Phonero reports
     //   commission = the seller's share of that revenue, by contract type
     var contract = (emp && emp.contract) || 'Fast + Provisjon';
-    var share = shareFor(contract, config);
-    var revenue = comm.computed;
-    var commission = revenue * share;
+    var model = modelFor(seller, month, ix, config, contract);
+    var revenueGross = comm.computed;
+    var commissionGross = sellerCommission(model, comm.lines, revenueGross);
+
+    // Cancellations. Booked to the month the SALE was made ("sale", Clario),
+    // or — the old manual way, kept for comparison — as a cost in the month
+    // Phonero takes the money back ("report").
+    var attribution = opts.attribution === 'report' ? 'report' : 'sale';
+    var rates = config.packRates || {};
+    var cancelled = (ix.cancelSale && ix.cancelSale[k]) || [];
+    var claimed = (ix.cancelClaim && ix.cancelClaim[k]) || [];
+    var cancelledRevenue = 0, cancelledCommission = 0, cancelledCount = 0;
+    cancelled.forEach(function (c) {
+      var sm = modelFor(seller, c.saleMonth, ix, config, contract);
+      cancelledRevenue += cancelAmount(c, rates);
+      cancelledCommission += cancelCommission(sm, c, rates);
+      cancelledCount += n(c.count);
+    });
+    // what is deducted from the seller in THIS month's payout
+    var deductions = 0, claimedAmount = 0;
+    claimed.forEach(function (c) {
+      var sm = modelFor(seller, c.saleMonth, ix, config, contract);
+      deductions += cancelCommission(sm, c, rates);
+      claimedAmount += cancelAmount(c, rates);
+    });
+
+    var revenue = attribution === 'sale' ? revenueGross - cancelledRevenue : revenueGross;
+    var commission = attribution === 'sale' ? commissionGross - cancelledCommission : commissionGross - deductions;
+    var share = revenue ? commission / revenue : model.share;
 
     // FIX-2: D and V hold the literal text "← Tripletex". The workbook's
     // IFERROR turns the whole cost sum into 0. We keep them as nulls, exclude
@@ -156,7 +240,11 @@
 
     var netPayroll = employerCost + selfCertCost + employerSickCost + leaveCost - navReceived;
 
-    var clawback = n(hr && hr.clawback) || n(sale && sale.clawback);
+    // Phonero's clawback column. Under "sale" attribution the part the register
+    // explains has already left the month it was sold in, so only an
+    // unexplained remainder stays here as a cost.
+    var clawbackReported = n(hr && hr.clawback) || n(sale && sale.clawback);
+    var clawback = attribution === 'sale' ? Math.max(0, clawbackReported - claimedAmount) : clawbackReported;
     var listCost = n(hr && hr.listCost);
     var onboarding = (hr && hr.newHire === true) ? n(config.onbTotal) : 0;
 
@@ -193,6 +281,12 @@
 
       commission: commission,
       sellerShare: share,
+      model: model,
+      revenueGross: revenueGross, commissionGross: commissionGross,
+      cancelled: cancelled, cancelledCount: cancelledCount,
+      cancelledRevenue: cancelledRevenue, cancelledCommission: cancelledCommission,
+      claimed: claimed, claimedAmount: claimedAmount, deductions: deductions,
+      clawbackReported: clawbackReported,
       revenueReported: comm.reported,
       revenueVariance: comm.variance,
       revenueVariancePct: comm.variancePct,
@@ -229,7 +323,7 @@
       costPerSale: comm.count ? totalCostAll / comm.count : 0,
       marginPerSale: comm.count ? marginKr / comm.count : 0,
 
-      hasData: !!(sale || hr || bonuses.length)
+      hasData: !!(sale || hr || bonuses.length || cancelled.length || claimed.length)
     };
   }
 
@@ -240,7 +334,9 @@
     'employerCost', 'aga', 'holiday', 'pension', 'selfCertCost', 'employerSickCost', 'leaveCost',
     'navExpected', 'navReceived', 'navGap', 'netPayroll', 'clawback', 'listCost', 'onboarding',
     'totalCost', 'marginKr', 'bonus', 'bonusWithEmployer', 'guarantee', 'incentives', 'severance',
-    'lostEarnings', 'totalCostAll', 'salesCount', 'selfCertDays', 'sickDays', 'leaveDays', 'rejected', 'pending'];
+    'lostEarnings', 'totalCostAll', 'salesCount', 'selfCertDays', 'sickDays', 'leaveDays', 'rejected', 'pending',
+    'revenueGross', 'commissionGross', 'cancelledCount', 'cancelledRevenue', 'cancelledCommission',
+    'claimedAmount', 'deductions', 'clawbackReported', 'payout', 'deductionTaken', 'deductionCarry'];
 
   function total(rows, workdays) {
     var out = { count: rows.length };
@@ -395,8 +491,9 @@
 
   /* ── the whole model ──────────────────────────────────────────────────── */
 
-  function compute(dataset) {
+  function compute(dataset, opts) {
     if (!dataset) return null;
+    opts = opts || {};
     var ix = index(dataset);
     var config = dataset.config || {};
     var workdays = n(config.workdaysPerMonth) || 21.667;
@@ -428,9 +525,29 @@
     var rows = [];
     months.forEach(function (m) {
       sellers.forEach(function (s) {
-        var row = computeRow(s, m, dataset, ix);
+        var row = computeRow(s, m, dataset, ix, opts);
         if (row.hasData) rows.push(row);
       });
+    });
+
+    /* Payout — what the seller is actually paid for the month. Commission on
+       the month's sales as it stood when it was paid, minus deductions for
+       sales Phonero has since taken back, plus guarantee top-up. A seller is
+       never paid a negative amount: what a month cannot absorb carries into
+       the next ("trekk samles", KONFIGURASJON B26). */
+    sellers.forEach(function (s) {
+      var carry = 0;
+      rows.filter(function (r) { return r.seller === s || r.seller === (ix.employees[String(s).toLowerCase()] || {}).name; })
+        .sort(function (a, b) { return a.month < b.month ? -1 : 1; })
+        .forEach(function (r) {
+          var owed = r.deductions + carry;
+          var gross = r.commissionGross + r.guarantee;
+          var take = Math.min(owed, Math.max(0, gross));
+          r.deductionTaken = take;
+          r.deductionCarry = owed - take;
+          r.payout = gross - take;
+          carry = r.deductionCarry;
+        });
     });
 
     var byMonth = {};
@@ -474,6 +591,20 @@
         return avgMonthly / workdays;
       })()),
       packs: PACKS,
+      attribution: opts.attribution === 'report' ? 'report' : 'sale',
+      cancellations: (dataset.cancellations || []).map(function (c) {
+        var e = ix.employees[String(c.seller || '').replace(/\s+/g, ' ').trim().toLowerCase()];
+        var contract = (e && e.contract) || 'Fast + Provisjon';
+        var sm = modelFor(c.seller, c.saleMonth, ix, config, contract);
+        var amount = cancelAmount(c, config.packRates || {});
+        var lag = (c.claimMonth && c.saleMonth)
+          ? ((+c.claimMonth.slice(0, 4) - +c.saleMonth.slice(0, 4)) * 12 + (+c.claimMonth.slice(5) - +c.saleMonth.slice(5))) : 0;
+        return { id: c.id, seller: (e && e.name) || c.seller, pack: c.pack, count: n(c.count),
+                 saleMonth: c.saleMonth, claimMonth: c.claimMonth, reason: c.reason || '', ref: c.ref || '',
+                 amount: amount, sellerAmount: cancelCommission(sm, c, config.packRates || {}),
+                 lag: lag, restated: lag > 0, added: !!c._added };
+      }).sort(function (a, b) { return (b.claimMonth || '') < (a.claimMonth || '') ? -1 : 1; }),
+      modelFor: function (seller, month, contract) { return modelFor(seller, month, ix, config, contract); },
       avgPackRate: averagePackRate(config),
       employees: dataset.employees || [],
       source: dataset.source
@@ -698,6 +829,6 @@
     risks: risks,
     index: index,
     total: total,
-    PACKS: PACKS
+    PACKS: PACKS, modelFor: modelFor
   };
 })(typeof window !== 'undefined' ? window : globalThis);
