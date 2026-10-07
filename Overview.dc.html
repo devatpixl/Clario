@@ -1244,6 +1244,139 @@
   @media(max-width:1100px){ .ph-cols{grid-template-columns:1fr} }
   @media(max-width:768px){ .ph-stats{grid-template-columns:1fr 1fr} .ph-s>summary{grid-template-columns:28px minmax(0,1fr) auto} .ph-s-bar,.ph-s-tot{display:none} }
 
+  /* ───────── HR-tavle ───────── */
+  .hb{position:relative}
+  .hb-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:18px}
+  .hb-hero .ks-eye{color:var(--accent)}
+  .hb-hero h2{margin:6px 0 0;font-size:clamp(26px,3vw,34px);font-weight:700;letter-spacing:-0.04em;
+    background:linear-gradient(90deg,var(--text),color-mix(in srgb,var(--accent) 70%,var(--text)));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hb-hero p{margin:6px 0 0;font-size:13.5px;color:var(--text2);max-width:620px;line-height:1.55}
+  .hb-hero-r{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+  .hb-new{height:38px;padding:0 18px;font-size:13px;box-shadow:0 10px 24px -12px var(--accent)}
+  .hb-tplrow{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+  .hb-tq{height:28px;padding:0 11px;border-radius:9999px;border:1px solid color-mix(in srgb,var(--cc) 30%,var(--border));background:color-mix(in srgb,var(--cc) 8%,var(--card));
+    color:var(--cc);font:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
+  .hb-tq:hover{background:color-mix(in srgb,var(--cc) 16%,var(--card))}
+  .hb-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+  .hb-st{text-align:left;border:1px solid var(--border);background:var(--card);border-radius:16px;padding:12px 16px;font:inherit;color:var(--text);cursor:default;
+    box-shadow:var(--elev);position:relative;overflow:hidden}
+  .hb-st::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sc)}
+  .hb-st[data-vd-act]{cursor:pointer}
+  .hb-st.on{border-color:var(--sc);background:color-mix(in srgb,var(--sc) 7%,var(--card))}
+  .hb-st b{display:block;font-size:24px;font-weight:700;letter-spacing:-0.04em;color:var(--sc)}
+  .hb-st span{font-size:11.5px;color:var(--muted)}
+  .hb-mf{align-items:center}
+  .hb-views{display:flex;gap:3px;padding:3px;border-radius:10px;background:var(--card);border:1px solid var(--border-soft)}
+  .hb-views .pv-seg{height:30px;padding:0 14px;flex:none}
+  .hb-fcs{display:flex;flex-wrap:wrap;gap:5px;flex:1 1 100%}
+  .hb-fc{height:26px;padding:0 10px;border-radius:9999px;border:1px solid var(--border);background:var(--card);color:var(--text2);font:inherit;font-size:11.5px;font-weight:500;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px}
+  .hb-fc::before{content:'';width:7px;height:7px;border-radius:9999px;background:var(--cc)}
+  .hb-fc.on{border-color:var(--cc);color:var(--cc);background:color-mix(in srgb,var(--cc) 10%,var(--card));font-weight:650}
+  .hb-board{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 18px;scroll-snap-type:x proximity}
+  .hb-col{flex:0 0 288px;display:flex;flex-direction:column;background:color-mix(in srgb,var(--colc) 4%,var(--surface2));border:1px solid var(--border-soft);
+    border-radius:18px;padding:12px;scroll-snap-align:start;min-height:420px}
+  .hb-col header{display:flex;align-items:center;gap:8px;padding:2px 4px 10px}
+  .hb-dot{width:9px;height:9px;border-radius:9999px;background:var(--colc);box-shadow:0 0 0 3px color-mix(in srgb,var(--colc) 20%,transparent);flex:none}
+  .hb-col h3{margin:0;font-size:13.5px;font-weight:700;letter-spacing:-0.01em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-n{font-size:10.5px;min-width:22px;height:20px;padding:0 6px;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb,var(--colc,var(--accent)) 14%,transparent);color:var(--colc,var(--accent));font-weight:700}
+  .hb-plus{width:26px;height:26px;border-radius:8px;border:none;background:transparent;color:var(--muted);font-size:17px;cursor:pointer;line-height:1}
+  .hb-plus:hover{background:var(--card);color:var(--accent)}
+  .hb-drop{flex:1;display:flex;flex-direction:column;gap:10px;border-radius:12px;padding:2px;transition:background .15s}
+  .hb-drop.over{background:color-mix(in srgb,var(--colc) 8%,transparent)}
+  .hb-mark{height:4px;border-radius:9999px;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);margin:2px 4px}
+  .hb-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 13px 10px;cursor:grab;
+    box-shadow:0 1px 2px rgba(16,24,40,.05);transition:box-shadow .18s,transform .18s cubic-bezier(.22,1,.36,1),border-color .18s;overflow:hidden}
+  .hb-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cc);opacity:.9}
+  .hb-card:hover{border-color:color-mix(in srgb,var(--cc) 45%,var(--border));box-shadow:0 14px 30px -16px rgba(16,24,40,.35);transform:translateY(-1px)}
+  .hb-card.dragging{opacity:.35;transform:rotate(1.2deg)}
+  .hb-card[hidden]{display:none}
+  .hb-hi{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--danger) 30%,transparent)}
+  .hb-done h4{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted2)}
+  .hb-card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .hb-cat{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cc);background:color-mix(in srgb,var(--cc) 11%,transparent);
+    border-radius:6px;padding:2px 7px;white-space:nowrap}
+  .hb-prio{font-size:10px;color:var(--danger)}
+  .hb-card h4{margin:8px 0 6px;font-size:13.5px;font-weight:650;line-height:1.35;letter-spacing:-0.01em}
+  .hb-emp{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text2)}
+  .hb-emp .pv-av-s{width:22px;height:22px;font-size:8.5px}
+  .hb-emp-all{color:var(--muted);font-style:italic}
+  .hb-prog{height:4px;border-radius:9999px;background:var(--surface2);margin:10px 0 2px;overflow:hidden}
+  .hb-prog i{display:block;height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--cc,var(--accent)),color-mix(in srgb,var(--cc,var(--accent)) 60%,#fff))}
+  .hb-prog-l{height:6px;margin:0 0 8px}
+  .hb-ft{display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--border-soft);font-size:11px;color:var(--muted)}
+  .hb-due{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:6px;background:var(--surface2);color:var(--text2)}
+  .hb-due-over{background:var(--danger-soft);color:var(--danger)}
+  .hb-due-soon{background:var(--amber-soft);color:var(--amber-ink)}
+  .hb-due-ok{color:var(--green)}
+  .hb-meta{font-size:10.5px;color:var(--muted)}
+  .hb-owner{margin-left:auto;width:22px!important;height:22px!important;font-size:8.5px!important}
+  .hb-addcard{border:1.5px dashed var(--border);background:transparent;border-radius:12px;height:38px;color:var(--muted);font:inherit;font-size:12px;cursor:pointer;margin-top:2px}
+  .hb-addcard:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .hb-list section{margin-bottom:18px}
+  .hb-lh{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;margin:0 0 8px}
+  .hb-li{width:100%;display:grid;grid-template-columns:120px minmax(0,1fr) 160px 70px 110px;gap:12px;align-items:center;text-align:left;padding:11px 14px;
+    border:1px solid var(--border-soft);border-left:3px solid var(--cc);border-radius:12px;background:var(--card);margin-bottom:6px;font:inherit;color:var(--text);cursor:pointer}
+  .hb-li:hover{background:var(--hover)}
+  .hb-li b{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-li-e{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-li .hb-cat{justify-self:start}
+  .hb-foot{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .hb-scrim{position:fixed;inset:0;background:rgba(10,14,25,.32);backdrop-filter:blur(2px);z-index:290;animation:fadeIn .2s both}
+  .hb-drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);z-index:300;background:var(--card);border-left:1px solid var(--border);
+    box-shadow:-30px 0 60px -30px rgba(16,24,40,.45);padding:20px 22px;overflow-y:auto;animation:hbIn .28s cubic-bezier(.22,1,.36,1) both}
+  @keyframes hbIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
+  .hb-dr-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .hb-dr-id{font-size:10px;color:var(--muted)}
+  .hb-x{margin-left:auto;width:32px;height:32px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-size:18px;color:var(--muted);cursor:pointer;line-height:1}
+  .hb-x:hover{color:var(--text);border-color:var(--text2)}
+  .hb-title-in{width:100%;border:none;background:transparent;font:inherit;font-size:21px;font-weight:700;letter-spacing:-0.03em;color:var(--text);padding:4px 0;outline:none;border-bottom:1.5px solid transparent}
+  .hb-title-in:focus{border-bottom-color:var(--accent)}
+  .hb-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin:12px 0}
+  .hb-fields label{display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:var(--muted);font-weight:500}
+  .hb-fields select,.hb-fields input{height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;padding:0 9px}
+  .hb-fields select:focus,.hb-fields input:focus,.hb-sec textarea:focus,.hb-add input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .hb-wide{grid-column:1/-1}
+  .hb-go{width:100%;margin:2px 0 6px}
+  .hb-sec{margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft)}
+  .hb-sec-h{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;gap:8px}
+  .hb-sec textarea{width:100%;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:13px;padding:9px 11px;resize:vertical}
+  .hb-ck{display:flex;align-items:center;gap:9px;padding:6px 4px;border-radius:8px;font-size:13px}
+  .hb-ck:hover{background:var(--hover)}
+  .hb-ck span{flex:1}
+  .hb-ck.on span{color:var(--muted);text-decoration:line-through}
+  .hb-box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border);background:var(--card);color:#fff;font-size:12px;font-weight:700;cursor:pointer;flex:none;line-height:1}
+  .hb-ck.on .hb-box{background:var(--green);border-color:var(--green)}
+  .hb-ck-x{border:none;background:none;color:var(--muted2);cursor:pointer;font-size:15px;opacity:0}
+  .hb-ck:hover .hb-ck-x{opacity:1}
+  .hb-add{display:flex;gap:8px;margin-top:8px;align-items:flex-start}
+  .hb-add input,.hb-add textarea{flex:1;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;padding:7px 10px}
+  .hb-add input{height:34px}
+  .hb-tpls{font-size:11px;color:var(--muted);margin-top:8px}
+  .hb-tpls .pv-link{font-size:11px}
+  .hb-cm{display:flex;gap:9px;margin-bottom:10px}
+  .hb-cm-h{display:flex;gap:8px;align-items:baseline;font-size:12px}
+  .hb-cm-h span{font-size:10.5px;color:var(--muted)}
+  .hb-cm p{margin:3px 0 0;font-size:13px;line-height:1.5;background:var(--surface2);border-radius:4px 12px 12px 12px;padding:8px 11px}
+  .hb-dr-ft{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:11px;color:var(--muted)}
+  .hb-del-l{border:none;background:none;color:var(--danger);font:inherit;font-size:12px;cursor:pointer}
+  .hb-del{border:none;background:var(--danger);color:#fff;border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  .hb-del-q{color:var(--text2);font-size:12px}
+  .hb-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:300;width:min(580px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow-y:auto;
+    background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px 22px;box-shadow:0 40px 80px -30px rgba(16,24,40,.55);animation:fadeUp .25s both}
+  .hb-tplpick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0 12px}
+  .hb-tp{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--border);border-radius:12px;padding:9px 11px;background:var(--card);
+    font:inherit;font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer;border-left:3px solid var(--cc)}
+  .hb-tp em{font-style:normal;font-size:10.5px;font-weight:400;color:var(--muted)}
+  .hb-tp.on{background:color-mix(in srgb,var(--cc) 9%,var(--card));border-color:var(--cc)}
+  .hb-tplprev{background:var(--surface2);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--text2);display:flex;flex-direction:column;gap:3px}
+  @media(max-width:768px){
+    .hb-stats{grid-template-columns:1fr 1fr} .hb-hero-r{align-items:flex-start} .hb-tplrow{justify-content:flex-start}
+    .hb-li{grid-template-columns:1fr auto} .hb-li .hb-cat,.hb-li .hb-meta,.hb-li-e{display:none}
+    .hb-tplpick{grid-template-columns:1fr 1fr} .hb-fields{grid-template-columns:1fr}
+  }
+
   /* ───────── mobile shell primitives (inert above 768px) ───────── */
   .burger{display:none}
   .side-mobile{display:none}
@@ -1655,6 +1788,18 @@
             <span style="{{ item.lbl }}">{{ item.label }}</span>
             <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
               <span class="mono" style="font-size:10px;color:#fff;background:var(--accent);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div class="eyebrow" style="{{ ebPlan }}">HR</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <sc-for list="{{ navHr }}" as="item" hint-placeholder-count="1">
+          <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
+            <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
+            <span style="{{ item.lbl }}">{{ item.label }}</span>
+            <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
+              <span class="mono" style="font-size:10px;color:#fff;background:var(--danger);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
             </sc-if>
           </div>
         </sc-for>
@@ -2336,6 +2481,9 @@
         <sc-if value="{{ isSelgere }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ selgerePage }}"></div>
         </sc-if>
+        <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeIn .4s both" dangerouslySetInnerHTML="{{ boardPage }}"></div>
+        </sc-if>
         <sc-if value="{{ isProvisjon }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ provisjonPage }}"></div>
         </sc-if>
@@ -3016,6 +3164,8 @@ class Component extends DCLogic {
       ['Inndata','<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',null],
       ['Import','<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M8 9l4-4 4 4M12 5v11"/>',null],
       ['Workpapers','<path d="M4 3h10l6 6v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',null],
+      ['Board','<rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/>',(()=>{
+        const H=this.hbLoad(); const n=H.tasks.filter(x=>x.status!=='done'&&x.due&&this.hbDue(x.due).days<0).length; return n?String(n):null; })()],
       ['Scenarios','<path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 5-7" stroke-dasharray="2.5 2.5"/>',null],
       ['Dara','<path d="M12 2l1.9 5.8L20 9.7l-4.6 3.9L16.8 20 12 16.4 7.2 20l1.4-6.4L4 9.7l6.1-1.9z"/>',null],
       ['Clients','<circle cx="9" cy="7" r="3.5"/><path d="M3 21v-1.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V21M16 3.3a3.5 3.5 0 0 1 0 6.8M22 21v-1.5a4 4 0 0 0-3-3.8"/>',null],
@@ -3034,7 +3184,7 @@ class Component extends DCLogic {
       Selgere:['Selgere','Sellers'],Provisjon:['Provisjon','Commission'],Fravaer:['Fravær & NAV','Absence & NAV'],
       Onboarding:['Onboarding','Onboarding'],Inndata:['Arbeidsbok','Workbook'],
       Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
-      Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
+      Board:['Oppgavetavle','Task board'],Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
     const nav=navDefs.filter(([label])=>DEMO_ONLY.indexOf(label)<0).map(([label,path,badge])=>{
@@ -3049,9 +3199,9 @@ class Component extends DCLogic {
     // five micro-level routes were inserted after Invoices, so the rails shift
     const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Selgere','Provisjon',
                           'Fravaer','Onboarding','Inndata','Import','Workpapers'],
-                 plan:['Scenarios','Dara','Clients'], settings:['Settings']};
+                 hr:['Board'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
-    const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings');
+    const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings'), navHr=inGroup('hr');
     const SCEN={
       openScen:()=>this.setState({scenPick:true}),
       closeScen:()=>this.setState({scenPick:false}),
@@ -3100,6 +3250,7 @@ class Component extends DCLogic {
       Invoices:[t('4 forfalt · leverandørgjeld','4 overdue · accounts payable'),t('Fakturaer','Invoices')],
       Selgere:[t('Per selger · mikronivå','Per seller · micro level'),t('Selgere','Sellers')],
       Provisjon:[t('Phonero · oppgjør og kanselleringer','Phonero · settlement and cancellations'),t('Provisjon','Commission')],
+      Board:[t('HR · oppgaver','HR · tasks'),t('Oppgavetavle','Task board')],
       Fravaer:[t('Egenmelding, sykemelding og NAV','Self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
       Onboarding:[t('Kostnad per ansettelse','Cost per hire'),'Onboarding'],
       Inndata:[t('Alle åtte arkene — rediger direkte','All eight sheets — edit directly'),t('Arbeidsbok','Workbook')],
@@ -3808,7 +3959,7 @@ class Component extends DCLogic {
     const go=s=>()=>this.setState({importStep:s});
 
     return {
-      nav, navOverview, navPlan, navSettings, ...SB, ...SCEN, activeLever:levers[li], pageEyebrow, pageTitle, arrowUpG:upG,
+      nav, navOverview, navPlan, navSettings, navHr, ...SB, ...SCEN, activeLever:levers[li], pageEyebrow, pageTitle, arrowUpG:upG,
       /* ---- Insights + the premium gate ---- */
       premiumOn:this.state.premium,
       insLocked:!this.state.premium,
@@ -4195,7 +4346,7 @@ class Component extends DCLogic {
       invoicesPage:this.once('inv'+LANG,()=>this.buildInvoices(t)),
       active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',
       isAlerts:active==='Alerts',
-      isSelgere:active==='Selgere',isProvisjon:active==='Provisjon',isFravaer:active==='Fravaer',
+      isSelgere:active==='Selgere',isProvisjon:active==='Provisjon',isBoard:active==='Board',isFravaer:active==='Fravaer',
       isOnboarding:active==='Onboarding',isInndata:active==='Inndata',
       isScenarios:active==='Scenarios',isDara:active==='Dara',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Recommendations'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
@@ -4232,6 +4383,7 @@ class Component extends DCLogic {
       venditusOverview:this.buildVenditusOverview(),
       plainSummary:this.buildPlainSummary(),
       provisjonPage:this.buildProvisjonPage(),
+      boardPage:active==='Board'?this.buildBoardPage():this.html(''),
       cancelCard:this.buildCancelCard(),
       forecastCard:this.buildForecastCard(),
       cashflowPage:this.buildKontantstrom(),   // depends on the selected month, so never cached
@@ -5497,6 +5649,331 @@ class Component extends DCLogic {
       return (typeof x==='string'?String(x).localeCompare(String(y)):(x-y))*dir; });
     return rows; }
 
+  /* ═══ PAGE · HR-tavle — the task board from the HR meeting ═══════════════
+     "Canva board med oppgaver, hovedoppgave er å spare tid." The same flow as
+     the Pixl Novo client portal's board — columns, drag and drop, a card
+     drawer with checklist and comments, board / list, filters — in Clario's
+     own look, with HR's own vocabulary: contracts, onboarding, offboarding,
+     holidays, advances, warnings, courses. Templates turn the recurring jobs
+     (offboarding was "deleted by hand") into a checklist in one click.
+     Frontend only for now: tasks live in this browser until the backend. */
+
+  hbCols(){ const t=(a,b)=>this.t(a,b); return [
+    {k:'inbox',  l:t('Innboks','Inbox'),               c:'#9A93A6'},
+    {k:'todo',   l:t('Å gjøre','To do'),               c:'#C0892F'},
+    {k:'doing',  l:t('Pågår','In progress'),           c:'#2B5FE0'},
+    {k:'waiting',l:t('Venter på ansatt','Waiting on employee'),c:'#C2632F'},
+    {k:'review', l:t('Til godkjenning','For approval'), c:'#7C5AC2'},
+    {k:'done',   l:t('Ferdig','Done'),                 c:'#4F8A5B'}]; }
+  hbCats(){ const t=(a,b)=>this.t(a,b); return {
+    kontrakt:  {l:t('Kontrakt','Contract'),     c:'#2B5FE0'},
+    onboarding:{l:t('Onboarding','Onboarding'), c:'#0F8F7E'},
+    offboarding:{l:t('Offboarding','Offboarding'),c:'#D9486B'},
+    ferie:     {l:t('Ferie','Holiday'),         c:'#0EA5E9'},
+    forskudd:  {l:t('Forskudd','Advance'),      c:'#C2852A'},
+    advarsel:  {l:t('Advarsel','Warning'),      c:'#B03A52'},
+    kurs:      {l:t('Kurs','Course'),           c:'#7C5AC2'},
+    fravaer:   {l:t('Fravær & NAV','Absence & NAV'),c:'#E5484D'},
+    annet:     {l:t('Annet','Other'),           c:'#64748B'}}; }
+  hbTemplates(){ const t=(a,b)=>this.t(a,b); return {
+    offboarding:{cat:'offboarding',title:t('Offboarding','Offboarding'),items:[
+      t('Bekreft siste arbeidsdag og sluttdato i SELGER PROFIL','Confirm last day and end date in SELGER PROFIL'),
+      t('Sluttoppgjør: provisjon, feriepenger, trekk','Final settlement: commission, holiday pay, deductions'),
+      t('Steng tilganger (Phonero, e-post, CRM)','Close access (Phonero, email, CRM)'),
+      t('Hent inn utstyr (telefon, SIM, headset)','Collect equipment (phone, SIM, headset)'),
+      t('Fjern fra Phonero-rapporten og selgerlister','Remove from the Phonero report and seller lists'),
+      t('Send attest og bekreftelse','Send reference and confirmation')]},
+    onboarding:{cat:'onboarding',title:t('Onboarding','Onboarding'),items:[
+      t('Signert kontrakt mottatt','Signed contract received'),
+      t('Registrer i SELGER PROFIL med provisjonsavtale','Register in SELGER PROFIL with commission agreement'),
+      t('Opprett tilganger (Phonero, e-post, CRM)','Create access (Phonero, email, CRM)'),
+      t('Utlever utstyr (telefon, SIM, headset)','Hand out equipment (phone, SIM, headset)'),
+      t('Produktkurs Phonero / Fjordkraft / TRYG','Product course Phonero / Fjordkraft / TRYG'),
+      t('Første oppfølgingssamtale etter 2 uker','First follow-up after 2 weeks')]},
+    kontrakt:{cat:'kontrakt',title:t('Kontraktverifisering','Contract verification'),items:[
+      t('Hent signert kontrakt (Outlook)','Fetch the signed contract (Outlook)'),
+      t('Sjekk at provisjonsavtalen stemmer med Clario','Check the commission agreement matches Clario'),
+      t('Lagre i personalmappen','File it in the personnel folder')]},
+    ferie:{cat:'ferie',title:t('Ferieønske','Holiday request'),items:[
+      t('Sjekk bemanning i perioden','Check staffing for the period'),
+      t('Godkjenn eller avslå','Approve or decline'),
+      t('Registrer i HR INPUT (permisjon)','Record in HR INPUT (leave)')]},
+    forskudd:{cat:'forskudd',title:t('Lønnsforskudd','Salary advance'),items:[
+      t('Avtale signert av den ansatte','Agreement signed by the employee'),
+      t('Utbetal og registrer trekk i neste lønn','Pay out and record the deduction from next pay'),
+      t('Bekreft at trekket er gjort','Confirm the deduction was made')]}}; }
+
+  hbToday(){ const d=new Date(); d.setHours(0,0,0,0); return d; }
+  hbISO(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  hbIn(days){ const d=this.hbToday(); d.setDate(d.getDate()+days); return this.hbISO(d); }
+
+  hbSeed(){
+    const t=(a,b)=>this.t(a,b), T=this.hbTemplates();
+    const ck=(k,done)=>T[k].items.map((x,i)=>({t:x,done:i<done}));
+    let n=0; const mk=(o)=>({id:'hb'+(++n),pos:n,prio:'normal',desc:'',checklist:[],comments:[],created:this.hbIn(-(10-n%7)),owner:'Kian Vestby',...o});
+    return [
+      mk({title:t('Kontrakt utløper om 30 dager','Contract expires in 30 days'),status:'inbox',cat:'kontrakt',emp:'Bilal Ahmad',due:this.hbIn(30),desc:t('Midlertidig kontrakt — avklar fast ansettelse eller forlengelse.','Temporary contract — decide on permanent hire or extension.')}),
+      mk({title:t('Ny sykmelding registrert','New sick leave registered'),status:'inbox',cat:'fravaer',emp:'Sharjeel X',due:this.hbIn(2),prio:'hoy',desc:t('21 dager — fra dag 17 skal NAV refundere. Send krav.','21 days — NAV refunds from day 17. Send the claim.')}),
+      mk({title:t('Verifiser signert kontrakt','Verify the signed contract'),status:'todo',cat:'kontrakt',emp:'Danish Y',due:this.hbIn(1),prio:'hoy',checklist:ck('kontrakt',1),
+        comments:[{who:'Kian Vestby',at:this.hbIn(-1),text:t('Kontrakten ligger i Outlook fra 12.06.','The contract is in Outlook from 12 June.')}]}),
+      mk({title:t('Produktkurs Phonero 5G','Product course Phonero 5G'),status:'todo',cat:'kurs',emp:'',due:this.hbIn(9),desc:t('For alle selgere. 2 timer, fredag formiddag.','For all sellers. 2 hours, Friday morning.')}),
+      mk({title:t('Offboarding','Offboarding'),status:'doing',cat:'offboarding',emp:'Mats Lien',due:this.hbIn(4),prio:'hoy',checklist:ck('offboarding',3)}),
+      mk({title:t('Onboarding','Onboarding'),status:'doing',cat:'onboarding',emp:'Jonas Bakke',due:this.hbIn(6),checklist:ck('onboarding',4)}),
+      mk({title:t('Lønnsforskudd kr 5 000','Salary advance NOK 5,000'),status:'waiting',cat:'forskudd',emp:'Ansatt 4',due:this.hbIn(-2),checklist:ck('forskudd',0),
+        comments:[{who:'Kian Vestby',at:this.hbIn(-3),text:t('Venter på signatur fra den ansatte.','Waiting for the employee\'s signature.')}]}),
+      mk({title:t('NAV-refusjon mangler kr 588','NAV refund short by NOK 588'),status:'waiting',cat:'fravaer',emp:'Sharjeel X',due:this.hbIn(5),desc:t('Forventet mot mottatt for mars. Se Kontantstrøm → NAV-balanse.','Expected vs received for March. See Cashflow → NAV balance.')}),
+      mk({title:t('Ferie uke 29–31','Holiday weeks 29–31'),status:'review',cat:'ferie',emp:'Sharjeel X',due:this.hbIn(3),checklist:ck('ferie',1)}),
+      mk({title:t('Skriftlig advarsel — utkast','Written warning — draft'),status:'review',cat:'advarsel',emp:'Ansatt 4',due:this.hbIn(2),prio:'hoy',desc:t('Utkast etter samtale 03.10. Gjennomgås før det sendes.','Draft after the meeting on 3 Oct. Review before sending.')}),
+      mk({title:t('Onboarding fullført','Onboarding completed'),status:'done',cat:'onboarding',emp:'Ida Sørensen',due:this.hbIn(-6),checklist:ck('onboarding',6)}),
+      mk({title:t('Ferie godkjent','Holiday approved'),status:'done',cat:'ferie',emp:'Danish Y',due:this.hbIn(-4),checklist:ck('ferie',3)})
+    ]; }
+
+  hbLoad(){
+    if(this._hb) return this._hb;
+    let tasks=null;
+    try{ const raw=localStorage.getItem('clario.hr.board.v1'); const v=raw&&JSON.parse(raw); if(Array.isArray(v)) tasks=v; }catch(e){}
+    this._hb={tasks:tasks||this.hbSeed(),open:null,view:'board',q:'',cat:'',emp:'',overdue:false,newOpen:false,tpl:'',confirmDel:false};
+    return this._hb; }
+  hbSave(){ try{ localStorage.setItem('clario.hr.board.v1',JSON.stringify(this._hb.tasks)); }catch(e){} }
+  hbRender(){ this._c={}; this.forceUpdate(); }
+  hbPeople(){ const M=this.vdModel(); const seen={}, out=[];
+    (M?M.employees||[]:[]).forEach(e=>{ if(!seen[e.name]){ seen[e.name]=1; out.push(e.name); } });
+    (M&&M.onboarding||[]).forEach(o=>{ if(o.name&&!seen[o.name]){ seen[o.name]=1; out.push(o.name); } });
+    (this._hb?this._hb.tasks:[]).forEach(x=>{ if(x.emp&&!seen[x.emp]){ seen[x.emp]=1; out.push(x.emp); } });
+    return out; }
+  hbOwners(){ return ['Kian Vestby'].concat(((this.vdModel()||{}).employees||[]).filter(e=>/leder/i.test(e.note||'')).map(e=>e.name)); }
+  hbDue(d){ if(!d) return null; const t=(a,b)=>this.t(a,b); const days=Math.round((new Date(d+'T00:00:00')-this.hbToday())/864e5);
+    const MN=['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'], ME=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const p=d.split('-'), lbl=(+p[2])+'. '+this.t(MN[+p[1]-1],ME[+p[1]-1]);
+    return {days,lbl,cls:days<0?'over':days<=3?'soon':'ok',
+      txt:days<0?t(Math.abs(days)+' d forfalt',Math.abs(days)+' d overdue'):days===0?t('i dag','today'):days===1?t('i morgen','tomorrow'):lbl}; }
+  hbMatch(x){ const H=this._hb, q=(H.q||'').trim().toLowerCase();
+    if(H.cat&&x.cat!==H.cat) return false;
+    if(H.emp&&x.emp!==H.emp) return false;
+    if(H.overdue){ const d=this.hbDue(x.due); if(!d||d.days>=0||x.status==='done') return false; }
+    if(q&&(x.title+' '+(x.emp||'')+' '+(x.desc||'')+' '+((this.hbCats()[x.cat]||{}).l||'')).toLowerCase().indexOf(q)<0) return false;
+    return true; }
+
+  hbCard(x){
+    const t=(a,b)=>this.t(a,b), C=this.hbCats()[x.cat]||this.hbCats().annet, d=x.status==='done'?null:this.hbDue(x.due);
+    const done=x.checklist.filter(c=>c.done).length, all=x.checklist.length;
+    const hay=(x.title+' '+(x.emp||'')+' '+(x.desc||'')+' '+C.l).toLowerCase();
+    return '<article class="hb-card'+(x.prio==='hoy'?' hb-hi':'')+(x.status==='done'?' hb-done':'')+'" draggable="true" data-hb-id="'+x.id+'" data-hb-s="'+this.vesc(hay)+'" style="--cc:'+C.c+'"'+(this.hbMatch(x)?'':' hidden')+'>'
+      +'<div class="hb-card-top"><span class="hb-cat">'+C.l+'</span>'+(x.prio==='hoy'?'<span class="hb-prio" title="'+t('Høy prioritet','High priority')+'">▲</span>':'')+'</div>'
+      +'<h4>'+this.vesc(x.title)+'</h4>'
+      +(x.emp?'<div class="hb-emp"><span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(x.emp)+'">'+this.vdInitials(x.emp)+'</span>'+this.vesc(x.emp)+'</div>':'<div class="hb-emp hb-emp-all">'+t('Alle ansatte','All employees')+'</div>')
+      +(all?'<div class="hb-prog"><i style="width:'+(done/all*100).toFixed(0)+'%"></i></div>':'')
+      +'<div class="hb-ft">'
+      +(d?'<span class="hb-due hb-due-'+d.cls+'">'+d.txt+'</span>':x.status==='done'?'<span class="hb-due hb-due-ok">✓ '+t('ferdig','done')+'</span>':'')
+      +(all?'<span class="hb-meta">☑ '+done+'/'+all+'</span>':'')
+      +(x.comments.length?'<span class="hb-meta">💬 '+x.comments.length+'</span>':'')
+      +'<span class="hb-owner pv-av pv-av-s" title="'+this.vesc(x.owner||'')+'" style="background:'+this.vdSellerHue(x.owner||'')+'">'+this.vdInitials(x.owner||'?')+'</span>'
+      +'</div></article>'; }
+
+  hbDrawer(x){
+    if(!x) return '';
+    const t=(a,b)=>this.t(a,b), H=this._hb, CATS=this.hbCats(), COLS=this.hbCols();
+    const opt=(arr,cur)=>arr.map(([v,l])=>'<option value="'+this.vesc(v)+'"'+(v===cur?' selected':'')+'>'+this.vesc(l)+'</option>').join('');
+    const people=[['',t('Alle ansatte','All employees')]].concat(this.hbPeople().map(p=>[p,p]));
+    const done=x.checklist.filter(c=>c.done).length, all=x.checklist.length;
+    const M=this.vdModel(), isSeller=M&&(M.employees||[]).some(e=>e.name===x.emp);
+    const C=CATS[x.cat]||CATS.annet;
+    return '<div class="hb-scrim" data-vd-act="hbclose"></div>'
+      +'<aside class="hb-drawer" style="--cc:'+C.c+'" role="dialog" aria-label="'+this.vesc(x.title)+'">'
+      +'<div class="hb-dr-hd"><span class="hb-cat">'+C.l+'</span><span class="hb-dr-id mono">'+x.id.toUpperCase()+'</span>'
+      +'<button class="hb-x" data-vd-act="hbclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
+      +'<input class="hb-title-in" data-hb-f="title" value="'+this.vesc(x.title)+'" aria-label="'+t('Tittel','Title')+'">'
+      +'<div class="hb-fields">'
+      +'<label><span>'+t('Status','Status')+'</span><select data-hb-f="status">'+opt(COLS.map(c=>[c.k,c.l]),x.status)+'</select></label>'
+      +'<label><span>'+t('Kategori','Category')+'</span><select data-hb-f="cat">'+opt(Object.keys(CATS).map(k=>[k,CATS[k].l]),x.cat)+'</select></label>'
+      +'<label><span>'+t('Ansatt','Employee')+'</span><select data-hb-f="emp">'+opt(people,x.emp||'')+'</select></label>'
+      +'<label><span>'+t('Ansvarlig','Owner')+'</span><select data-hb-f="owner">'+opt(this.hbOwners().map(p=>[p,p]),x.owner)+'</select></label>'
+      +'<label><span>'+t('Frist','Due')+'</span><input type="date" data-hb-f="due" value="'+this.vesc(x.due||'')+'"></label>'
+      +'<label><span>'+t('Prioritet','Priority')+'</span><div class="pv-segs">'
+        +[['lav',t('Lav','Low')],['normal',t('Normal','Normal')],['hoy',t('Høy','High')]].map(([v,l])=>'<button class="pv-seg'+(x.prio===v?' on':'')+'" data-vd-act="hbprio" data-vd-val="'+v+'">'+l+'</button>').join('')+'</div></label>'
+      +'</div>'
+      +(isSeller?'<button class="pv-act hb-go" data-vd-act="seller" data-vd-val="'+this.vesc(x.emp)+'"><span>'+t('Åpne ','Open ')+this.vesc(x.emp)+t(' i Selgere',' in Sellers')+'</span><em>'+t('tall, fravær og oppgjør','figures, absence and settlement')+' →</em></button>':'')
+      +'<div class="hb-sec"><div class="hb-sec-h">'+t('Beskrivelse','Description')+'</div>'
+      +'<textarea data-hb-f="desc" rows="3" placeholder="'+t('Hva skal gjøres, og hvorfor?','What needs doing, and why?')+'">'+this.vesc(x.desc||'')+'</textarea></div>'
+      +'<div class="hb-sec"><div class="hb-sec-h">'+t('Sjekkliste','Checklist')+(all?' <span class="mono">'+done+'/'+all+'</span>':'')+'</div>'
+      +(all?'<div class="hb-prog hb-prog-l"><i style="width:'+(done/all*100).toFixed(0)+'%"></i></div>':'')
+      +x.checklist.map((c,i)=>'<div class="hb-ck'+(c.done?' on':'')+'"><button class="hb-box" data-vd-act="hbck" data-vd-val="'+i+'" aria-label="'+t('Kryss av','Tick')+'">'+(c.done?'✓':'')+'</button>'
+        +'<span>'+this.vesc(c.t)+'</span><button class="hb-ck-x" data-vd-act="hbckdel" data-vd-val="'+i+'" aria-label="'+t('Fjern','Remove')+'">×</button></div>').join('')
+      +'<div class="hb-add"><input data-hb-new="ck" placeholder="'+t('Nytt punkt…','New item…')+'"><button class="pv-btn pv-btn-s" data-vd-act="hbckadd">'+t('Legg til','Add')+'</button></div>'
+      +'<div class="hb-tpls">'+t('Fra mal: ','From template: ')+Object.keys(this.hbTemplates()).map(k=>'<button class="pv-link" data-vd-act="hbtplck" data-vd-val="'+k+'">'+this.hbTemplates()[k].title+'</button>').join(' · ')+'</div></div>'
+      +'<div class="hb-sec"><div class="hb-sec-h">'+t('Kommentarer','Comments')+(x.comments.length?' <span class="mono">'+x.comments.length+'</span>':'')+'</div>'
+      +x.comments.map(c=>'<div class="hb-cm"><span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(c.who)+'">'+this.vdInitials(c.who)+'</span><div><div class="hb-cm-h"><b>'+this.vesc(c.who)+'</b><span>'+((this.hbDue(c.at)||{}).lbl||'')+'</span></div><p>'+this.vesc(c.text)+'</p></div></div>').join('')
+      +'<div class="hb-add"><textarea data-hb-new="cm" rows="2" placeholder="'+t('Skriv en kommentar…','Write a comment…')+'"></textarea><button class="pv-btn pv-btn-s" data-vd-act="hbcmadd">'+t('Send','Post')+'</button></div></div>'
+      +'<div class="hb-dr-ft"><span>'+t('Opprettet ','Created ')+((this.hbDue(x.created)||{}).lbl||'')+'</span>'
+      +(H.confirmDel?'<span class="hb-del-q">'+t('Slette oppgaven?','Delete the task?')+' <button class="hb-del" data-vd-act="hbdel">'+t('Ja, slett','Yes, delete')+'</button> <button class="pv-link" data-vd-act="hbdelno">'+t('Avbryt','Cancel')+'</button></span>'
+        :'<button class="hb-del-l" data-vd-act="hbdelask">'+t('Slett oppgave','Delete task')+'</button>')+'</div>'
+      +'</aside>'; }
+
+  hbNewDialog(){
+    const H=this._hb; if(!H.newOpen) return '';
+    const t=(a,b)=>this.t(a,b), CATS=this.hbCats(), TP=this.hbTemplates(), tp=TP[H.tpl];
+    const opt=(arr,cur)=>arr.map(([v,l])=>'<option value="'+this.vesc(v)+'"'+(v===cur?' selected':'')+'>'+this.vesc(l)+'</option>').join('');
+    return '<div class="hb-scrim" data-vd-act="hbnewclose"></div>'
+      +'<div class="hb-modal" role="dialog" aria-label="'+t('Ny oppgave','New task')+'">'
+      +'<div class="hb-dr-hd"><b>'+t('Ny oppgave','New task')+'</b><button class="hb-x" data-vd-act="hbnewclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
+      +'<div class="hb-tplpick">'+[['',t('Tom','Blank')]].concat(Object.keys(TP).map(k=>[k,TP[k].title])).map(([k,l])=>'<button class="hb-tp'+(H.tpl===k?' on':'')+'" data-vd-act="hbtpl" data-vd-val="'+k+'" style="--cc:'+(k?CATS[TP[k].cat].c:'var(--muted)')+'">'+l+(k?'<em>'+TP[k].items.length+' '+t('punkter','items')+'</em>':'')+'</button>').join('')+'</div>'
+      +'<div class="hb-fields">'
+      +'<label class="hb-wide"><span>'+t('Tittel','Title')+'</span><input data-hb-n="title" value="'+this.vesc(tp?tp.title:'')+'" placeholder="'+t('f.eks. Verifiser kontrakt','e.g. Verify contract')+'"></label>'
+      +'<label><span>'+t('Kategori','Category')+'</span><select data-hb-n="cat">'+opt(Object.keys(CATS).map(k=>[k,CATS[k].l]),tp?tp.cat:'annet')+'</select></label>'
+      +'<label><span>'+t('Ansatt','Employee')+'</span><select data-hb-n="emp">'+opt([['',t('Alle ansatte','All employees')]].concat(this.hbPeople().map(p=>[p,p])),'')+'</select></label>'
+      +'<label><span>'+t('Frist','Due')+'</span><input type="date" data-hb-n="due" value="'+this.hbIn(7)+'"></label>'
+      +'<label><span>'+t('Kolonne','Column')+'</span><select data-hb-n="status">'+opt(this.hbCols().map(c=>[c.k,c.l]),H.newStatus||'todo')+'</select></label>'
+      +'</div>'
+      +(tp?'<div class="hb-tplprev"><div class="hb-sec-h">'+t('Sjekklisten som følger med','The checklist that comes with it')+'</div>'+tp.items.map(i=>'<div>☐ '+this.vesc(i)+'</div>').join('')+'</div>':'')
+      +'<div class="hb-dr-ft"><span></span><button class="pv-btn" data-vd-act="hbcreate">'+t('Opprett oppgave','Create task')+'</button></div></div>'; }
+
+  buildBoardPage(){
+    const H=this.hbLoad(), t=(a,b)=>this.t(a,b), COLS=this.hbCols(), CATS=this.hbCats();
+    const tasks=H.tasks, open=tasks.filter(x=>x.status!=='done');
+    let page;
+    const over=open.filter(x=>{ const d=this.hbDue(x.due); return d&&d.days<0; }).length;
+    const week=open.filter(x=>{ const d=this.hbDue(x.due); return d&&d.days>=0&&d.days<=7; }).length;
+    const doneN=tasks.filter(x=>x.status==='done').length;
+    const stat=(l,v,c,act,on)=>'<button class="hb-st'+(on?' on':'')+'"'+(act?' data-vd-act="'+act+'"':'')+' style="--sc:'+c+'"><b class="mono">'+v+'</b><span>'+l+'</span></button>';
+    const head='<div class="hb-hero"><div><div class="ks-eye">'+t('HR · OPPGAVER','HR · TASKS')+'</div><h2>'+t('HR-tavle','HR board')+'</h2>'
+      +'<p>'+t('Alt HR må gjøre, på ett sted: kontrakter, onboarding, offboarding, ferie, forskudd og advarsler. Dra kortene mellom kolonnene.',
+               'Everything HR has to do, in one place: contracts, onboarding, offboarding, holidays, advances and warnings. Drag cards between columns.')+'</p></div>'
+      +'<div class="hb-hero-r"><button class="pv-btn hb-new" data-vd-act="hbnew" data-vd-val="">+ '+t('Ny oppgave','New task')+'</button>'
+      +'<div class="hb-tplrow">'+Object.keys(this.hbTemplates()).map(k=>'<button class="hb-tq" data-vd-act="hbnew" data-vd-val="'+k+'" style="--cc:'+CATS[this.hbTemplates()[k].cat].c+'">'+this.hbTemplates()[k].title+'</button>').join('')+'</div></div></div>';
+    const stats='<div class="hb-stats">'
+      +stat(t('åpne oppgaver','open tasks'),open.length,'var(--accent)')
+      +stat(t('forfalt','overdue'),over,'var(--danger)','hboverdue',H.overdue)
+      +stat(t('forfaller innen 7 dager','due within 7 days'),week,'var(--amber)')
+      +stat(t('ferdig','done'),doneN,'var(--green)')+'</div>';
+    const chip=(k,l,c)=>'<button class="hb-fc'+(H.cat===k?' on':'')+'" data-vd-act="hbcat" data-vd-val="'+k+'" style="--cc:'+c+'">'+l+'</button>';
+    const filters='<div class="pv-mf hb-mf">'
+      +'<label class="pv-mf-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+      +'<input type="search" data-hb-q placeholder="'+t('Søk i oppgaver, ansatte…','Search tasks, employees…')+'" value="'+this.vesc(H.q)+'"></label>'
+      +'<label class="pv-mf-s"><span>'+t('Ansatt','Employee')+'</span><select data-hb-emp><option value="">'+t('Alle','All')+'</option>'
+      +this.hbPeople().map(p=>'<option value="'+this.vesc(p)+'"'+(H.emp===p?' selected':'')+'>'+this.vesc(p)+'</option>').join('')+'</select></label>'
+      +'<div class="hb-views">'+[['board',t('Tavle','Board')],['list',t('Liste','List')]].map(([v,l])=>'<button class="pv-seg'+(H.view===v?' on':'')+'" data-vd-act="hbview" data-vd-val="'+v+'">'+l+'</button>').join('')+'</div>'
+      +'<div class="hb-fcs">'+chip('',t('Alle','All'),'var(--muted)')+Object.keys(CATS).map(k=>chip(k,CATS[k].l,CATS[k].c)).join('')+'</div>'
+      +((H.q||H.cat||H.emp||H.overdue)?'<button class="pv-link" data-vd-act="hbclear">'+t('Nullstill','Clear')+'</button>':'')
+      +'</div>';
+    const byCol=k=>tasks.filter(x=>x.status===k).sort((a,b)=>a.pos-b.pos);
+    const board=H.view==='board'
+      ? '<div class="hb-board">'+COLS.map(c=>{ const list=byCol(c.k), shown=list.filter(x=>this.hbMatch(x)).length;
+          return '<section class="hb-col" data-hb-col="'+c.k+'" style="--colc:'+c.c+'">'
+            +'<header><span class="hb-dot"></span><h3>'+c.l+'</h3><span class="hb-n mono">'+shown+'</span>'
+            +'<button class="hb-plus" data-vd-act="hbnew" data-vd-val="@'+c.k+'" aria-label="'+t('Ny oppgave i ','New task in ')+c.l+'">+</button></header>'
+            +'<div class="hb-drop" data-hb-drop="'+c.k+'">'+list.map(x=>this.hbCard(x)).join('')
+            +'<button class="hb-addcard" data-vd-act="hbnew" data-vd-val="@'+c.k+'">+ '+t('Legg til kort','Add card')+'</button></div></section>'; }).join('')+'</div>'
+      : '<div class="hb-list">'+COLS.map(c=>{ const list=byCol(c.k).filter(x=>this.hbMatch(x)); if(!list.length) return '';
+          return '<section><div class="hb-lh" style="--colc:'+c.c+'"><span class="hb-dot"></span>'+c.l+' <span class="hb-n mono">'+list.length+'</span></div>'
+            +list.map(x=>{ const C=CATS[x.cat]||CATS.annet, d=x.status==='done'?null:this.hbDue(x.due), dn=x.checklist.filter(k=>k.done).length;
+              return '<button class="hb-li" data-vd-act="hbopen" data-vd-val="'+x.id+'" style="--cc:'+C.c+'"><span class="hb-cat">'+C.l+'</span><b>'+this.vesc(x.title)+'</b>'
+                +'<span class="hb-li-e">'+this.vesc(x.emp||t('Alle ansatte','All employees'))+'</span>'
+                +'<span class="hb-meta">'+(x.checklist.length?'☑ '+dn+'/'+x.checklist.length:'')+'</span>'
+                +(d?'<span class="hb-due hb-due-'+d.cls+'">'+d.txt+'</span>':'<span></span>')+'</button>'; }).join('')+'</section>'; }).join('')+'</div>';
+    const cur=H.open&&tasks.find(x=>x.id===H.open);
+    page=this.html('<div class="hb">'+head+stats+filters+board
+      +'<div class="hb-foot">'+t('Lagres i denne nettleseren til backend er på plass.','Saved in this browser until the backend is in place.')+' <button class="pv-link" data-vd-act="hbreset">'+t('Tilbakestill tavlen','Reset the board')+'</button></div>'
+      +'</div>');
+    // the drawer and the dialog live on <body>: the content column is its own
+    // stacking context, and nothing inside it can rise above the header
+    this._hbOverlay=this.hbDrawer(cur)+this.hbNewDialog();
+    return page; }
+
+  hbPortal(){
+    let el=document.getElementById('hb-portal');
+    const html=this.state.active==='Board'?(this._hbOverlay||''):'';
+    if(!el){ if(!html) return; el=document.createElement('div'); el.id='hb-portal'; document.body.appendChild(el); }
+    if(el._html!==html){ el.innerHTML=html; el._html=html;
+      el.className=document.querySelector('[data-theme="dark"]')?'hb-portal-dark':''; } }
+
+  /* board interaction: clicks go through _vdClick; drag, typing and fields here */
+  // Page-wide listeners added for the board, the seller cards and Provisjon.
+  // The runtime mounts the component more than once; a listener left behind by
+  // an earlier instance would act on that instance's own copy of the board.
+  // So each binding replaces whatever the last one registered.
+  gBind(name,list){
+    const R=window.__clarioL=window.__clarioL||{};
+    (R[name]||[]).forEach(([ev,fn])=>document.removeEventListener(ev,fn,true));
+    R[name]=list; list.forEach(([ev,fn])=>document.addEventListener(ev,fn,true)); }
+
+  hbBind(){
+    if(this._hbBound) return; this._hbBound=true;
+    const L=[]; const on=(ev,fn)=>L.push([ev,fn]);
+    let drag=null, mark=null;
+    const clearMark=()=>{ if(mark&&mark.parentNode) mark.parentNode.removeChild(mark); mark=null;
+      document.querySelectorAll('.hb-drop.over').forEach(x=>x.classList.remove('over')); };
+    on('dragstart',e=>{ const c=e.target.closest&&e.target.closest('.hb-card'); if(!c) return;
+      drag=c.getAttribute('data-hb-id'); c.classList.add('dragging');
+      try{ e.dataTransfer.setData('text/plain',drag); e.dataTransfer.effectAllowed='move'; }catch(x){} });
+    on('dragend',e=>{ document.querySelectorAll('.hb-card.dragging').forEach(x=>x.classList.remove('dragging')); clearMark(); drag=null; });
+    on('dragover',e=>{ if(!drag) return; const z=e.target.closest&&e.target.closest('.hb-drop'); if(!z) return;
+      e.preventDefault(); document.querySelectorAll('.hb-drop.over').forEach(x=>{ if(x!==z) x.classList.remove('over'); }); z.classList.add('over');
+      if(!mark){ mark=document.createElement('div'); mark.className='hb-mark'; }
+      const cards=[...z.querySelectorAll('.hb-card:not(.dragging):not([hidden])')];
+      const after=cards.find(c=>{ const r=c.getBoundingClientRect(); return e.clientY<r.top+r.height/2; });
+      if(after) z.insertBefore(mark,after); else z.insertBefore(mark,z.querySelector('.hb-addcard')); });
+    on('drop',e=>{ if(!drag) return; const z=e.target.closest&&e.target.closest('.hb-drop'); if(!z) return; e.preventDefault();
+      const H=this.hbLoad(), col=z.getAttribute('data-hb-drop'), x=H.tasks.find(k=>k.id===drag); if(!x){ clearMark(); return; }
+      // the order the cards will have, read off the DOM with the marker in place
+      const ids=[...z.children].map(n=>n.classList&&n.classList.contains('hb-mark')?drag
+        :(n.getAttribute&&n.getAttribute('data-hb-id')!==drag?n.getAttribute('data-hb-id'):null)).filter(Boolean);
+      if(ids.indexOf(drag)<0) ids.push(drag);
+      x.status=col; ids.forEach((id,i)=>{ const k=H.tasks.find(q=>q.id===id); if(k) k.pos=i; });
+      clearMark(); drag=null; this.hbSave(); this.hbRender(); });
+    // fields in the drawer and the new-task dialog
+    on('change',e=>{ const el=e.target; if(!el||!el.getAttribute) return;
+      const H=this._hb; if(!H) return;
+      const f=el.getAttribute('data-hb-f');
+      if(f){ const x=H.tasks.find(k=>k.id===H.open); if(!x) return; x[f]=el.value; this.hbSave(); this.hbRender(); return; }
+      if(el.hasAttribute('data-hb-emp')){ H.emp=el.value; this.hbRender(); } });
+    on('input',e=>{ const el=e.target; if(!el||!el.hasAttribute||!el.hasAttribute('data-hb-q')) return;
+      const H=this._hb; H.q=el.value; const q=el.value.trim().toLowerCase();
+      document.querySelectorAll('.hb-card').forEach(c=>{ const x=H.tasks.find(k=>k.id===c.getAttribute('data-hb-id')); c.hidden=!(x&&this.hbMatch(x)); });
+      document.querySelectorAll('.hb-col').forEach(col=>{ const n=col.querySelector('.hb-n'); if(n) n.textContent=col.querySelectorAll('.hb-card:not([hidden])').length; }); });
+    on('keydown',e=>{ const H=this._hb; if(!H) return;
+      if(e.key==='Escape'&&(H.open||H.newOpen)){ H.open=null; H.newOpen=false; H.confirmDel=false; this.hbRender(); }
+      if(e.key==='Enter'&&e.target&&e.target.getAttribute&&e.target.getAttribute('data-hb-new')==='ck'){ e.preventDefault(); this.hbAct('hbckadd'); } });
+    // a plain click on a card opens it (a drag never fires click)
+    on('click',e=>{ const c=e.target.closest&&e.target.closest('.hb-card'); if(!c||e.target.closest('[data-vd-act]')) return;
+      const H=this.hbLoad(); H.open=c.getAttribute('data-hb-id'); H.confirmDel=false; this.hbRender(); });   this.gBind('hb',L); }
+
+  hbAct(act,val){
+    const H=this.hbLoad(), x=H.tasks.find(k=>k.id===H.open);
+    const v=s=>{ const el=document.querySelector(s); return el?el.value:''; };
+    if(act==='hbopen'){ H.open=val; H.confirmDel=false; }
+    else if(act==='hbclose'){ H.open=null; H.confirmDel=false; }
+    else if(act==='hbnew'){ H.newOpen=true; H.tpl=val&&val[0]!=='@'?val:''; H.newStatus=val&&val[0]==='@'?val.slice(1):(H.tpl?'todo':'inbox'); H.open=null; }
+    else if(act==='hbnewclose'){ H.newOpen=false; }
+    else if(act==='hbtpl'){ H.tpl=val; }
+    else if(act==='hbcreate'){
+      const title=v('[data-hb-n="title"]').trim(); if(!title){ this._vdToast&&this._vdToast(this.t('Skriv en tittel','Enter a title')); return; }
+      const tp=this.hbTemplates()[H.tpl], status=v('[data-hb-n="status"]')||'todo';
+      const id='hb'+Date.now().toString(36);
+      H.tasks.push({id,title,status,cat:v('[data-hb-n="cat"]')||'annet',emp:v('[data-hb-n="emp"]'),due:v('[data-hb-n="due"]'),prio:'normal',desc:'',
+        checklist:tp?tp.items.map(i=>({t:i,done:false})):[],comments:[],created:this.hbISO(this.hbToday()),owner:'Kian Vestby',
+        pos:Math.max(-1,...H.tasks.filter(k=>k.status===status).map(k=>k.pos))+1});
+      H.newOpen=false; H.open=id; this.hbSave();
+    }
+    else if(act==='hbprio'&&x){ x.prio=val; this.hbSave(); }
+    else if(act==='hbck'&&x){ const c=x.checklist[+val]; if(c) c.done=!c.done;
+      // finishing the last item suggests the card is done
+      if(x.checklist.length&&x.checklist.every(k=>k.done)&&x.status!=='done'&&this._vdToast) this._vdToast(this.t('Alle punkter er gjort — flytt kortet til Ferdig?','Every item is done — move the card to Done?'));
+      this.hbSave(); }
+    else if(act==='hbckdel'&&x){ x.checklist.splice(+val,1); this.hbSave(); }
+    else if(act==='hbckadd'&&x){ const s=v('[data-hb-new="ck"]').trim(); if(!s) return; x.checklist.push({t:s,done:false}); this.hbSave(); }
+    else if(act==='hbtplck'&&x){ const tp=this.hbTemplates()[val]; if(tp) tp.items.forEach(i=>{ if(!x.checklist.some(c=>c.t===i)) x.checklist.push({t:i,done:false}); }); this.hbSave(); }
+    else if(act==='hbcmadd'&&x){ const s=v('[data-hb-new="cm"]').trim(); if(!s) return; x.comments.push({who:'Kian Vestby',at:this.hbISO(this.hbToday()),text:s}); this.hbSave(); }
+    else if(act==='hbdelask'){ H.confirmDel=true; }
+    else if(act==='hbdelno'){ H.confirmDel=false; }
+    else if(act==='hbdel'&&x){ H.tasks=H.tasks.filter(k=>k.id!==x.id); H.open=null; H.confirmDel=false; this.hbSave(); }
+    else if(act==='hbview'){ H.view=val; }
+    else if(act==='hbcat'){ H.cat=val; }
+    else if(act==='hboverdue'){ H.overdue=!H.overdue; }
+    else if(act==='hbclear'){ H.q=''; H.cat=''; H.emp=''; H.overdue=false; }
+    else if(act==='hbreset'){ H.tasks=this.hbSeed(); H.open=null; this.hbSave(); }
+    else return false;
+    this.hbRender(); return true; }
+
   /* ═══ Selgere · who stands out ═════════════════════════════════════════
      Venditus: the good sellers should stand out, and so should the ones who
      need help — and every seller should explain themselves on hover, like the
@@ -5618,21 +6095,22 @@ class Component extends DCLogic {
   // would clip a card that lives inside it
   vdBindSellerTips(){
     if(this._spBound) return; this._spBound=true;
+    const L=[]; const on=(ev,fn)=>L.push([ev,fn]);
     let tip=null, cur=null;
     const place=e=>{ if(!tip) return; const pad=14, w=tip.offsetWidth, h=tip.offsetHeight;
       let x=e.clientX+18, y=e.clientY+16;
       if(x+w>innerWidth-pad) x=e.clientX-w-18;
       if(y+h>innerHeight-pad) y=Math.max(pad,innerHeight-h-pad);
       tip.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px)'; };
-    document.addEventListener('mouseover',e=>{
+    on('mouseover',e=>{
       const el=e.target&&e.target.closest&&e.target.closest('[data-sp-tip]');
       const html=el&&this._spTips&&this._spTips[el.getAttribute('data-sp-tip')];
       if(!html){ if(tip&&cur&&!(e.target.closest&&e.target.closest('[data-sp-tip]'))){ tip.classList.remove('on'); cur=null; } return; }
       if(!tip){ tip=document.createElement('div'); tip.className='sp-tip'; document.body.appendChild(tip); }
       if(cur!==el){ tip.innerHTML=html; cur=el; }
-      tip.classList.add('on'); place(e); },true);
-    document.addEventListener('mousemove',e=>{ if(cur) place(e); },true);
-    document.addEventListener('scroll',()=>{ if(tip){ tip.classList.remove('on'); cur=null; } },true); }
+      tip.classList.add('on'); place(e); });
+    on('mousemove',e=>{ if(cur) place(e); });
+    on('scroll',()=>{ if(tip){ tip.classList.remove('on'); cur=null; } });   this.gBind('sp',L); }
 
   /* ═══ PAGE · Selgere ═══════════════════════════════════════════════════ */
   buildSelgere(){
@@ -7598,7 +8076,7 @@ class Component extends DCLogic {
     const t=(a,b)=>this.t(a,b), M=this.vdModel();
     const items=[];
     const PAGES=[['Overview',t('Oversikt','Overview')],['Cashflow',t('Kontantstrøm','Cash flow')],
-      ['Selgere',t('Selgere','Sellers')],['Provisjon',t('Provisjon','Commission')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
+      ['Selgere',t('Selgere','Sellers')],['Provisjon',t('Provisjon','Commission')],['Board',t('Oppgavetavle','Task board')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
       ['Onboarding','Onboarding'],['Inndata',t('Arbeidsbok','Workbook')],
       ['Insights',t('Innsikt','Insights')],['Recommendations',t('Anbefalinger','Recommendations')],
       ['Invoices',t('Fakturaer','Invoices')],['Scenarios',t('Scenarier','Scenarios')],
@@ -8747,6 +9225,7 @@ class Component extends DCLogic {
     if(this._vdBound) return; this._vdBound=true;
     const S=this.vdStore(); if(!S) return;
     this.vdBindSellerTips();
+    this.hbBind();
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
@@ -8786,7 +9265,7 @@ class Component extends DCLogic {
       const act=el.getAttribute('data-vd-act'), val=el.getAttribute('data-vd-val')||'';
       if(act==='month')    this.setState({vdMonth:val});
       else if(act==='obmonth') this.setState({obMonth:val});
-      else if(act==='seller')   this.setState({vdSeller:val,active:'Selgere'});
+      else if(act==='seller'){ if(this._hb){ this._hb.open=null; } this.setState({vdSeller:val,active:'Selgere'}); }
       else if(act==='back')     this.setState({vdSeller:null});
       else if(act==='contract') this.setState({vdContract:val});
       else if(act==='product')  this.setState({vdProduct:val});
@@ -8829,6 +9308,7 @@ class Component extends DCLogic {
         tr.querySelectorAll('.vd-c').forEach(cc=>{ cc.classList.add('vd-pulse');
           setTimeout(()=>cc.classList.remove('vd-pulse'),2700); });
       }
+      else if(act.indexOf('hb')===0){ e.preventDefault(); this.hbAct(act,val); }
       else if(act==='premium'){ this._c={}; this.setState({premium:true}); }
       else if(act==='cxadd'){        // register one cancelled sale, every field in one undo step
         const f=k=>{ const x=document.querySelector('[data-cx="'+k+'"]'); return x?x.value:''; };
@@ -8896,13 +9376,13 @@ class Component extends DCLogic {
     // a re-render must not snap an open settlement shut
     this._vdToggle=(e)=>{ const d=e.target; if(!d||!d.getAttribute||!d.getAttribute('data-slip')) return;
       this._slips=this._slips||{}; this._slips[d.getAttribute('data-slip')]=d.open; };
-    document.addEventListener('toggle',this._vdToggle,true);
+    this.gBind('slip',[['toggle',this._vdToggle]]);
     this._mdInput=(e)=>{ const el=e.target; if(!el||!el.hasAttribute||!el.hasAttribute('data-md-q')) return;
       this._mdQ=el.value; const q=el.value.trim().toLowerCase(); let n=0, all=0;
       document.querySelectorAll('[data-md-name]').forEach(c=>{ all++; const ok=!q||c.getAttribute('data-md-name').indexOf(q)>=0; c.hidden=!ok; if(ok) n++; });
       const cnt=document.querySelector('[data-md-count]'); if(cnt) cnt.textContent=n+' '+this.t('av','of')+' '+all+' '+this.t('selgere','sellers');
       const em=document.querySelector('[data-md-empty]'); if(em) em.hidden=n>0; };
-    document.addEventListener('input',this._mdInput,true);
+    this.gBind('mdq',[['input',this._mdInput]]);
   }
 
   // Land on a cell a tooltip pointed at: scroll it into view and pulse it, so
@@ -8919,6 +9399,7 @@ class Component extends DCLogic {
     return out; }
 
   vdJump(){
+    this.hbPortal();
     if(this._phJump&&!this._phPending){ this._phPending=true; requestAnimationFrame(()=>{ this._phPending=false; this.phJump(); }); }
     if(!this._vdJump&&!this._vdJumpCol) return;
     const col=this._vdJumpCol; this._vdJumpCol=null;
