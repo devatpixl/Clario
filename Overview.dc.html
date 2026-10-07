@@ -10,6 +10,7 @@
 <script src="./venditus/model.js?h=560c8f6a"></script>
 <script src="./venditus/trace.js?h=3e1778ba"></script>
 <script src="./venditus/store.js?h=1fbecfb1"></script>
+<script src="./venditus/forecast.js?h=102c4749"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -764,8 +765,106 @@
   .hb{outline:none}
   .hb:hover .tt,.hb:focus .tt,.hb:focus-within .tt{opacity:1;visibility:visible;
     transform:translateY(0) scale(1);pointer-events:auto}
+  .tts .tt-plain{display:block;font-size:11.5px;font-weight:400;line-height:1.45;color:var(--text);letter-spacing:0;margin-bottom:4px}
   .ttp{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;
        padding:1.5px 5px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:1px}
+
+  /* ───────── plain language + forecast (Venditus feedback, round 1) ───────── */
+  /* "Hva betyr dette?" — one sentence always shown, four answers on demand */
+  .pl{margin-top:10px}
+  .pl-line{font-size:12px;line-height:1.5;color:var(--text2)}
+  .pl-more{margin-top:6px}
+  .pl-more>summary{list-style:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    font-size:11.5px;font-weight:600;color:var(--accent);user-select:none;border-radius:6px;padding:2px 0}
+  .pl-more>summary::-webkit-details-marker{display:none}
+  .pl-more>summary:hover{text-decoration:underline;text-underline-offset:3px}
+  .pl-more>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .pl-i{width:15px;height:15px;border-radius:9999px;border:1.4px solid currentColor;display:inline-flex;
+    align-items:center;justify-content:center;font-size:9.5px;font-weight:700;font-style:italic;font-family:Georgia,serif;flex:none}
+  .pl-more[open]>summary .pl-i{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .pl-body{margin-top:8px;padding:12px 14px;border-radius:12px;background:var(--surface2);
+    border:1px solid var(--border-soft);animation:fadeUp .25s cubic-bezier(.22,1,.36,1) both}
+  .pl-q{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin:10px 0 3px}
+  .pl-q:first-child{margin-top:0}
+  .pl-a{font-size:12.5px;line-height:1.55;color:var(--text)}
+  .pl-dark .pl-line{color:#C9D4EE}
+  .pl-dark .pl-more>summary{color:#9DB8FF}
+  .pl-dark .pl-more[open]>summary .pl-i{background:#9DB8FF;color:#0D1730;border-color:#9DB8FF}
+  .pl-dark .pl-body{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12)}
+  .pl-dark .pl-q{color:#8EA2C8}
+  .pl-dark .pl-a{color:#EEF2FB}
+
+  /* Kort fortalt — the month in a few sentences, in the hero's colours */
+  .ks{position:relative;overflow:hidden;background:var(--hero);color:#fff;border-radius:22px;padding:22px 26px 24px;
+    box-shadow:var(--hero-ring),0 1px 2px rgba(25,23,53,.05),0 14px 34px -18px rgba(25,23,53,.5);
+    animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both}
+  .ks::before{content:'';position:absolute;right:-80px;top:-120px;width:340px;height:340px;border-radius:9999px;
+    background:radial-gradient(circle,rgba(91,140,255,.28),transparent 65%);pointer-events:none}
+  .ks-hd{position:relative;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .ks-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#9DB8FF}
+  .ks-note{font-size:11px;color:#8496B8}
+  .ks-p{position:relative;margin:0;font-size:15.5px;line-height:1.65;color:#E3E9F7;max-width:980px;text-wrap:pretty}
+  .ks-p b{color:#fff;font-weight:600;font-family:'JetBrains Mono',monospace;font-size:14.5px;letter-spacing:-0.02em}
+
+  /* Fremover — the forecast card */
+  .fc{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);
+    animation:fadeUp .55s .05s cubic-bezier(.22,1,.36,1) both}
+  .fc-hd{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+  .fc-h{margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px}
+  .fc-lead{margin:7px 0 0;font-size:13.5px;line-height:1.55;color:var(--text2);max-width:760px}
+  .fc-lead b{color:var(--text);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px}
+  .fc-chip{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;
+    padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent);vertical-align:2px}
+  .fc-chip-s{font-size:8px;padding:1.5px 5px;letter-spacing:.08em}
+  .fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .fc-b{border:1px dashed var(--border);border-radius:16px;padding:16px 18px;
+    background:repeating-linear-gradient(135deg,transparent 0 9px,color-mix(in srgb,var(--accent) 3.5%,transparent) 9px 10px)}
+  .fc-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.13em;color:var(--muted)}
+  .fc-t{font-size:13px;font-weight:600;margin-top:3px}
+  .fc-v{font-size:clamp(22px,2.4vw,27px);font-weight:700;letter-spacing:-0.04em;margin-top:10px;color:var(--accent)}
+  .fc-rng{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .fc-m{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--text2);margin-top:12px;
+    padding-top:10px;border-top:1px solid var(--border-soft)}
+  .fc-m .mono{font-weight:600}
+  .fc-n{font-size:11px;color:var(--muted);margin-top:6px}
+  .fc-yr{margin-top:18px}
+  .fc-yr-hd{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:7px}
+  .fc-yr-hd .mono{font-size:11px;color:var(--muted)}
+  .fc-yr-bar{display:flex;height:10px;border-radius:9999px;overflow:hidden;gap:2px;background:var(--surface2)}
+  .fc-yr-fut,.fc-yr-fi{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,transparent) 0 4px,
+    color-mix(in srgb,var(--accent) 14%,transparent) 4px 8px)}
+  .fc-yr-lg{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--text2)}
+  .fc-yr-lg span{display:inline-flex;align-items:center;gap:7px}
+  .fc-yr-lg i{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .fc-how{margin-top:16px}
+
+  /* Hva skal betales fremover — three months side by side */
+  .pc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .pc-c{border:1px solid var(--border-soft);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column}
+  .pc-m{font-size:13.5px;font-weight:700;margin-bottom:6px}
+  .pc-r{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-top:1px solid var(--border-soft)}
+  .pc-r.pc-in{border-top:none}
+  .pc-k{font-size:12.5px;font-weight:600;color:var(--text)}
+  .pc-w{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+  .pc-v{font-size:12.5px;font-weight:600;white-space:nowrap}
+  .pc-due{font-size:10px;font-weight:500;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);
+    padding:1px 6px;border-radius:6px;margin-left:4px}
+  .pc-net{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1.5px solid var(--border);
+    font-size:12.5px;font-weight:600}
+  .pc-net .mono{font-size:14px}
+  .pc-notes{margin-top:14px;display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--muted);line-height:1.5}
+  .pc-notes div::before{content:'· ';color:var(--muted2)}
+
+  @media(max-width:768px){
+    .ks{padding:18px 18px 20px}
+    .ks-p{font-size:14px;line-height:1.6}
+    .ks-p b{font-size:13px}
+    .ks-note{display:none}
+    .fc,.pc-c{padding:18px 16px}
+    .fc-lead{font-size:13px}
+  }
+  /* a forecast column in a table */
+  .vd-fc-cell{background:repeating-linear-gradient(135deg,transparent 0 9px,color-mix(in srgb,var(--accent) 4%,transparent) 9px 10px)}
 
   /* ───────── mobile shell primitives (inert above 768px) ───────── */
   .burger{display:none}
@@ -1316,6 +1415,9 @@
               <div onClick="{{ goInsights }}" class="btnk" style="height:36px;display:flex;align-items:center;padding:0 16px;border-radius:10px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ L.viewInsights }}</div>
             </div>
 
+            <!-- KORT FORTALT — the month in plain words (Venditus feedback) -->
+            <div dangerouslySetInnerHTML="{{ plainSummary }}"></div>
+
             <!-- HERO + KPI TILES -->
             <div class="m1 kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
               <!-- dark hero -->
@@ -1331,6 +1433,7 @@
                   <span style="font-size:12px;color:#AEBEE0">{{ L.vsMay }}</span>
                 </div>
                 <div style="margin-top:14px;position:relative;opacity:.95" dangerouslySetInnerHTML="{{ hero.spark }}"></div>
+                <div style="position:relative" dangerouslySetInnerHTML="{{ hero.explain }}"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:20px;position:relative">
                   <span onClick="{{ goCashflow }}" style="font-size:12.5px;font-weight:500;color:#fff;cursor:pointer">{{ L.viewAccounts }}</span>
                   <span class="mono" style="font-size:12px;color:#8496B8">{{ L.accounts }}</span>
@@ -1349,6 +1452,7 @@
                     <span style="font-size:12px;color:var(--muted)">{{ k.sub }}</span>
                   </div>
                   <div style="margin-top:12px" dangerouslySetInnerHTML="{{ k.spark }}"></div>
+                  <div dangerouslySetInnerHTML="{{ k.explain }}"></div>
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:16px">
                     <span style="font-size:12.5px;font-weight:500;color:var(--accent);cursor:pointer">{{ k.link }} →</span>
                     <span style="font-size:12px;color:var(--muted)">{{ k.meta }}</span>
@@ -1356,6 +1460,9 @@
                 </div>
               </sc-for>
             </div>
+
+            <!-- FREMOVER — the forecast (Venditus feedback) -->
+            <div dangerouslySetInnerHTML="{{ forecastCard }}"></div>
 
             <!-- BUDGET vs ACTUAL -->
             <div class="card" style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);animation:fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both">
@@ -1447,6 +1554,7 @@
                   <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)"><span style="{{ b.dot }}"></span>{{ b.label }} <span class="mono" style="font-weight:600">{{ b.amt }}</span></span>
                 </sc-for>
               </div>
+              <div dangerouslySetInnerHTML="{{ D.uePlain }}"></div>
               <div style="margin-top:16px;font-size:12px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:12px;padding:11px 14px">{{ D.ueWarn }}</div>
             </div>
 
@@ -2633,10 +2741,13 @@ class Component extends DCLogic {
     const VPREV=VIX>0?VSER[VIX-1]:null;
     const dlt=(a,b)=>b?((a-b)/Math.abs(b))*100:0;
 
+    // plain-language context for the explanations under each number
+    const PCTX=VT?{tot:VT,prev:VPREV,month:VLAST,prevMonth:VIX>0?VM.months[VIX-1]:null,model:VM}:null;
     const hero=VT
       ? { balance:this.kr(VSER.reduce((a,x)=>a+x.revenue,0)),
-          spark:this.spark(VSER.map(x=>x.revenue),'#7FA8FF',true) }
-      : { balance:this.kr(4820000), spark:this.spark(this.flowSeries().bal,'#7FA8FF',true) };
+          spark:this.spark(VSER.map(x=>x.revenue),'#7FA8FF',true),
+          explain:this.html(this.plBlock(this.vdPlain('revenueYtd',PCTX),true)) }
+      : { balance:this.kr(4820000), spark:this.spark(this.flowSeries().bal,'#7FA8FF',true), explain:this.html('') };
 
     const kpis=(VT?[
       {label:t('Bidragsmargin','Contribution margin'),to:Math.round(VT.marginKr),prefix:'kr ',suffix:'',
@@ -2656,7 +2767,8 @@ class Component extends DCLogic {
       {label:t('Netto resultat','Net income'),to:260000,prefix:'kr ',suffix:'',value:this.kr(260000),delta:t('10,2%','10.2%'),sub:t('mot forrige mnd','MoM'),arrow:upG,dc:'var(--green)',icon:this.icon('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),link:t('Se resultat','View P&L'),meta:t('juni 2026','June 2026'),d:'.08',_s:[180,165,210,-40,195,220,235,205,255,240,248,260]},
       {label:'Runway',to:15,prefix:'',suffix:t(' mnd',' mo'),value:t('15 mnd','15 mo'),delta:t('+2 mnd','+2 mo'),sub:t('ved burn','at burn'),arrow:upG,dc:'var(--green)',icon:this.icon('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'),link:t('Se prognose','See projection'),meta:t('ved dagens burn','at current burn'),d:'.12',_s:[11,11,12,10,12,13,13,13,14,14,15,15]},
     ]).map((k,i)=>({...k,...tile(k.d),
-      spark:this.spark(k._s,i===1&&VT&&VT.absencePct>0.06?'var(--bar-out)':'var(--bar-in)',true)}));
+      spark:this.spark(k._s,i===1&&VT&&VT.absencePct>0.06?'var(--bar-out)':'var(--bar-in)',true),
+      explain:this.html(PCTX?this.plBlock(this.vdPlain(i===0?'marginKr':'absencePct',PCTX)):'')}));
 
     const flowStats=[
       {label:t('Innbetalinger','Inflows'),to:1240000,prefix:'+kr ',suffix:'',color:'var(--green)',sub:t('2 kunder','2 clients')},
@@ -3432,6 +3544,10 @@ class Component extends DCLogic {
             ?t('Selgerandelen (65/50/35 %) finnes ikke i arbeidsboken — den er Clarios antakelse og må bekreftes av Kian.',
                'The seller share (65/50/35 %) is not in the workbook — it is Clario\'s assumption and needs Kian\'s confirmation.')
             :t('Arket er statisk — 7 «beregnede» rader mangler formel, og faktoren 1,2808 er ubekreftet.','This sheet is static — 7 “calculated” rows hold no formula, and the 1.2808 factor is unconfirmed.'),
+          // the same month the stats above use: the last one in the model
+          uePlain:self.html((()=>{ const V=self.vdModel(); if(!V||!V.months.length) return '';
+            const lm=V.months[V.months.length-1];
+            return self.plBlock(self.vdPlain('costPerSale',{tot:V.byMonth[lm].total,month:lm,model:V})); })()),
         };
       })(this.wb(),this),
       L:{
@@ -3725,6 +3841,8 @@ class Component extends DCLogic {
       vdMonthPopHtml:this.html(this.vdMonthPop()),
       vdGlobalPopHtml:this.html(this.vdGlobalPop()),
       venditusOverview:this.buildVenditusOverview(),
+      plainSummary:this.buildPlainSummary(),
+      forecastCard:this.buildForecastCard(),
       cashflowPage:this.buildKontantstrom(),   // depends on the selected month, so never cached
       expenseStack:this.once('es'+LANG,()=>this.buildExpenseStack()),
       stackLegend:this.stackLegend(),
@@ -3946,7 +4064,12 @@ class Component extends DCLogic {
 
   /* ═══ 1 · CASH FLOW COMBO — in/out bars + net trend line ═══ */
   buildFlowCombo(){
-    const S=this.flowSeries(), n=S.months.length;
+    const S0=this.flowSeries(), FC=S0.venditus?this.vdFcSeries(3):null, nA=S0.months.length;
+    // three forecast months after the real ones, drawn faded behind a divider
+    const S=FC?{...S0,months:S0.months.concat(FC.M),cin:S0.cin.concat(FC.cin),cout:S0.cout.concat(FC.cout),
+      full:S0.full.concat(FC.full),yr:S0.yr.concat(FC.yr),
+      bal:S0.bal.concat((()=>{let r=S0.bal[nA-1]||0; return FC.cin.map((v,k)=>(r+=v-FC.cout[k]));})())}:S0;
+    const n=S.months.length;
     const M=this.mq();
     const w=M?520:940,h=M?250:270,padT=18,padB=M?30:34,padL=M?44:68,padR=M?44:54;
     const plot=h-padT-padB, plotW=w-padL-padR, maxV=Math.max(...S.cin,...S.cout,0.01)*1.18;
@@ -3978,7 +4101,7 @@ class Component extends DCLogic {
     S.months.forEach((m,i)=>{
       const cx=padL+group*i+group/2;
       const ih=(S.cin[i]/maxV)*plot, oh=(S.cout[i]/maxV)*plot;
-      const fut=i===n-1;
+      const fut=FC?i>=nA:i===n-1;
       const o=fut?0.42:1;
       bars+='<rect x="'+(cx-bw-gap/2).toFixed(1)+'" y="'+(padT+plot-ih).toFixed(1)+'" width="'+bw+'" height="'+ih.toFixed(1)+'" rx="3" fill="url(#'+gIn+')" opacity="'+o+'" style="transform-box:fill-box;transform-origin:bottom;animation:growBar .8s cubic-bezier(.22,1,.36,1) both;animation-delay:'+(i*40)+'ms"/>';
       bars+='<rect x="'+(cx+gap/2).toFixed(1)+'" y="'+(padT+plot-oh).toFixed(1)+'" width="'+bw+'" height="'+oh.toFixed(1)+'" rx="3" fill="url(#'+gOut+')" opacity="'+o+'" style="transform-box:fill-box;transform-origin:bottom;animation:growBar .8s cubic-bezier(.22,1,.36,1) both;animation-delay:'+(i*40+25)+'ms"/>';
@@ -3987,6 +4110,10 @@ class Component extends DCLogic {
     // net trend on its own right-hand scale
     const area='M'+npts[0][0].toFixed(1)+','+nZero.toFixed(1)+'L'+this.sp(npts).slice(1)+'L'+npts[n-1][0].toFixed(1)+','+nZero.toFixed(1)+'Z';
     let line='<path d="'+area+'" fill="url(#'+gNet+')" style="animation:fadeIn 1.2s .5s both"/>';
+    if(FC){
+      line+='<path d="'+this.sp(npts.slice(0,nA))+'" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.25)+'"/>';
+      line+='<path d="'+this.sp(npts.slice(nA-1))+'" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-dasharray="5 5" stroke-linecap="round" stroke-opacity=".75" style="animation:fadeIn .6s 1.1s both"/>';
+    } else
     line+='<path d="'+this.sp(npts)+'" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.25)+'"/>';
     line+='<line x1="'+padL+'" y1="'+nZero.toFixed(1)+'" x2="'+(w-padR)+'" y2="'+nZero.toFixed(1)+'" stroke="var(--muted2)" stroke-width="1" stroke-dasharray="2 5" opacity=".45"/>';
     npts.forEach((p,i)=>{
@@ -3997,7 +4124,12 @@ class Component extends DCLogic {
     const lastNet=net[n-1];
     line+='<text x="'+(w-padR+10)+'" y="'+(npts[n-1][1]+3.5).toFixed(1)+'" font-size="10.5" fill="var(--accent)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.1s forwards">+'+Math.round(lastNet*1000)+'k</text>';
 
-    const lab=this.xLabels(S.months,padL+group/2,group,h-12,n-1);
+    let lab=this.xLabels(S.months,padL+group/2,group,h-12,FC?nA-1:n-1);
+    if(FC){
+      const dx=padL+group*nA;
+      lab+='<line x1="'+dx.toFixed(1)+'" y1="'+padT+'" x2="'+dx.toFixed(1)+'" y2="'+(padT+plot)+'" stroke="var(--muted2)" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>'
+        +'<text x="'+(dx+8).toFixed(1)+'" y="'+(padT+10)+'" font-size="9" fill="var(--accent)" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('PROGNOSE','FORECAST')+'</text>';
+    }
 
     // Breakdown shares come from the P&L sheet's own June composition — the
     // cash series itself is only in/out totals, so the split is stated as modelled.
@@ -4008,7 +4140,18 @@ class Component extends DCLogic {
                  [this.t('Lønn','Payroll'),W.payroll[0]/cT],
                  [this.t('Indirekte','Indirect'),W.indirect[0]/cT]];
     const bands=S.months.map((m,i)=>{
-      const nv=net[i], cur=i===n-1;
+      const nv=net[i], cur=FC?false:i===n-1;
+      if(FC&&i>=nA){
+        const x=FC.ms[i-nA];
+        return {x0:padL+group*i, x1:padL+group*(i+1),
+          html:this.ttHTML(this.t(S.full[i][1],S.full[i][2])+'<span class="ttp">'+this.t('PROGNOSE','FORECAST')+'</span>',
+            [[this.t('Inn','In'),this.vkr(x.flow.inn),'var(--bar-in)'],
+             [this.t('Ut','Out'),this.vkr(x.flow.ut),'var(--bar-out)'],'-',
+             [this.t('Netto','Net'),(x.flow.net>=0?'+':'−')+this.vkr(Math.abs(x.flow.net)),null,x.flow.net>=0?'var(--bar-in)':'var(--bar-out)'],
+             [this.t('Spenn','Range'),this.vround(x.flowLow)+' – '+this.vround(x.flowHigh)]],
+            this.t('Hvis salget fortsetter som snittet av '+this.vdBasisLbl(FC.F).toLowerCase()+'. Bonus regnet som snitt.',
+                   'If sales continue like the average of '+this.vdBasisLbl(FC.F)+'. Bonus carried as an average.'))};
+      }
       const rows=[[this.t('Inn','In'),this.krM(S.cin[i]),'var(--bar-in)'],
                   [this.t('Ut','Out'),this.krM(S.cout[i]),'var(--bar-out)'],'-',
                   [this.t('Netto','Net'),(nv>=0?'+':'−')+this.krM(Math.abs(nv)),null,nv>=0?'var(--bar-in)':'var(--bar-out)'],'-',
@@ -4094,7 +4237,11 @@ class Component extends DCLogic {
 
   /* ═══ 3 · NET CASH — one area, gradient flips at zero ═══ */
   buildNetDiverge(){
-    const S=this.flowSeries(), n=S.months.length;
+    const S0=this.flowSeries(), FC=S0.venditus?this.vdFcSeries(3):null, nA=S0.months.length;
+    const S=FC?{...S0,months:S0.months.concat(FC.M),cin:S0.cin.concat(FC.cin),cout:S0.cout.concat(FC.cout),
+      full:S0.full.concat(FC.full),yr:S0.yr.concat(FC.yr),
+      bal:S0.bal.concat((()=>{let r=S0.bal[nA-1]||0; return FC.cin.map((v,k)=>(r+=v-FC.cout[k]));})())}:S0;
+    const n=S.months.length;
     const net=S.cin.map((v,i)=>v-S.cout[i]);
     const M=this.mq();
     const w=M?470:940,h=M?210:220,padT=20,padB=M?28:30,padL=M?44:68,padR=M?12:20;
@@ -4121,15 +4268,29 @@ class Component extends DCLogic {
     let g='<path d="'+area+'" fill="url(#'+gd+')" style="animation:fadeIn 1.1s .3s both"/>';
     g+='<line x1="'+padL+'" y1="'+zY.toFixed(1)+'" x2="'+(w-padR)+'" y2="'+zY.toFixed(1)+'" stroke="var(--muted2)" stroke-width="1" opacity=".6"/>';
     g+='<text x="'+(padL-10)+'" y="'+(zY+3.5).toFixed(1)+'" font-size="10.5" fill="var(--muted2)" text-anchor="end" font-family="JetBrains Mono,monospace">0</text>';
-    g+='<path d="'+this.sp(pts)+'" fill="none" stroke="url(#'+cl+')" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.1)+'"/>';
+    g+='<path d="'+this.sp(FC?pts.slice(0,nA):pts)+'" fill="none" stroke="url(#'+cl+')" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="'+this.drawAnim(0.1)+'"/>';
+    if(FC){
+      g+='<path d="'+this.sp(pts.slice(nA-1))+'" fill="none" stroke="url(#'+cl+')" stroke-width="2.3" stroke-dasharray="5 5" stroke-linecap="round" stroke-opacity=".75" style="animation:fadeIn .6s 1s both"/>';
+      const dx=(X(nA-1)+X(nA))/2;
+      g+='<line x1="'+dx.toFixed(1)+'" y1="'+padT+'" x2="'+dx.toFixed(1)+'" y2="'+(padT+plot)+'" stroke="var(--muted2)" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>'
+        +'<text x="'+(dx+8).toFixed(1)+'" y="'+(padT+10)+'" font-size="9" fill="var(--accent)" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('PROGNOSE','FORECAST')+'</text>';
+    }
     pts.forEach((p,i)=>{
-      const neg=net[i]<0;
+      const neg=net[i]<0, fut=FC&&i>=nA;
+      if(fut){ g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.2" fill="var(--card)" stroke="'+(neg?'var(--bar-out)':'var(--bar-in)')+'" stroke-width="2" style="opacity:0;animation:popDot .4s '+(1.1+(i-nA)*0.08)+'s cubic-bezier(.34,1.56,.64,1) forwards"/>'; return; }
       g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(neg?4.5:2.8)+'" fill="'+(neg?'var(--bar-out)':'var(--bar-in)')+'" stroke="var(--card)" stroke-width="'+(neg?2.4:1.6)+'" style="opacity:0;animation:popDot .4s '+(0.4+i*0.05)+'s cubic-bezier(.34,1.56,.64,1) forwards"/>';
       if(neg) g+='<text x="'+p[0].toFixed(1)+'" y="'+(p[1]+18).toFixed(1)+'" font-size="10" fill="var(--bar-out)" text-anchor="middle" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1s forwards">−'+Math.abs(Math.round(net[i]*1000))+'k</text>';
     });
     const lab=this.xLabels(S.months,padL,plotW/(n-1),h-8);
     const step=plotW/(n-1);
-    const bands=net.map((v,i)=>({x0:Math.max(padL,X(i)-step/2), x1:Math.min(w-padR,X(i)+step/2),
+    const bands=net.map((v,i)=>(FC&&i>=nA)?({x0:Math.max(padL,X(i)-step/2), x1:Math.min(w-padR,X(i)+step/2),
+      html:this.ttHTML(this.t(S.full[i][1],S.full[i][2])+'<span class="ttp">'+this.t('PROGNOSE','FORECAST')+'</span>',
+        [[this.t('Netto','Net'),(v>=0?'+':'−')+this.vkr(Math.abs(v*1e6)),null,v>=0?'var(--bar-in)':'var(--bar-out)'],'-',
+         [this.t('Inn','In'),this.vkr(S.cin[i]*1e6),'var(--bar-in)'],
+         [this.t('Ut','Out'),this.vkr(S.cout[i]*1e6),'var(--bar-out)'],'-',
+         [this.t('Spenn','Range'),this.vround(FC.netLo[i-nA]*1e6)+' – '+this.vround(FC.netHi[i-nA]*1e6)]],
+        this.t('Hvis salget fortsetter som snittet av '+this.vdBasisLbl(FC.F).toLowerCase()+'.',
+               'If sales continue like the average of '+this.vdBasisLbl(FC.F)+'.'))}):({x0:Math.max(padL,X(i)-step/2), x1:Math.min(w-padR,X(i)+step/2),
       html:this.ttHTML(this.t(S.full[i][1],S.full[i][2])+' '+S.yr[i],
         [[this.t('Netto','Net'),(v>=0?'+':'−')+this.krM(Math.abs(v)),null,v>=0?'var(--bar-in)':'var(--bar-out)'],'-',
          [this.t('Inn','In'),this.krM(S.cin[i]),'var(--bar-in)'],
@@ -4823,6 +4984,7 @@ class Component extends DCLogic {
           +'<div class="mono" style="font-size:24px;font-weight:700;letter-spacing:-0.035em;color:'+col+'">'+i.value+'</div>'
           +sp
           +(i.sub?'<div style="font-size:11.5px;color:var(--muted);margin-top:auto;padding-top:6px">'+i.sub+'</div>':'')
+          +(i.plain||'')
           +'</div>'; }).join('')+'</div>'; }
 
   // A single horizontal bar row — used everywhere instead of SVG, so the
@@ -4952,21 +5114,24 @@ class Component extends DCLogic {
 
     const month=this.vdMonth(), rows=this.vdRows(month), tot=M.byMonth[month].total;
     const maxRev=Math.max(...rows.map(r=>r.revenue),1);
+    const FCS=this.vdForecast();
 
     const ser=f=>M.months.map(mm=>M.byMonth[mm].total[f]||0);
+    const mi=M.months.indexOf(month), pm=mi>0?M.months[mi-1]:null;
+    const PX={tot,prev:pm?M.byMonth[pm].total:null,month,prevMonth:pm,model:M}, pl=k=>this.plBlock(this.vdPlain(k,PX));
     const tiles=this.vdTiles([
       {label:t('Inntekt','Revenue'),value:this.vkr(tot.revenue),color:'var(--accent)',
-       series:ser('revenue'),sub:tot.salesCount+' '+t('salg','sales')},
+       series:ser('revenue'),sub:tot.salesCount+' '+t('salg','sales'),plain:pl('revenue')},
       {label:t('Total kostnad','Total cost'),value:this.vkr(tot.totalCostAll),color:'var(--bar-out)',
-       series:ser('totalCostAll'),sub:t('inkl. alle poster','all items included')},
+       series:ser('totalCostAll'),sub:t('inkl. alle poster','all items included'),plain:pl('totalCost')},
       {label:t('Bidragsmargin','Contribution'),value:this.vkr(tot.marginKr),color:this.vtone(tot.marginKr),
-       series:ser('marginKr'),sub:this.vpct(tot.marginPct)+' '+t('av inntekt','of revenue')},
+       series:ser('marginKr'),sub:this.vpct(tot.marginPct)+' '+t('av inntekt','of revenue'),plain:pl('marginKr')},
       {label:t('Kostnad per salg','Cost per sale'),value:this.vkr(tot.costPerSale),
-       series:ser('costPerSale'),sub:t('alle poster delt på salg','all items over sales')},
+       series:ser('costPerSale'),sub:t('alle poster delt på salg','all items over sales'),plain:pl('costPerSale')},
       {label:t('Sykefravær','Absence'),value:this.vpct(tot.absencePct),
        color:tot.absencePct>0.06?'var(--danger)':'var(--text)',
        series:M.months.map(mm=>M.byMonth[mm].total.absencePct*100),
-       sub:t('av arbeidsdager','of working days')}
+       sub:t('av arbeidsdager','of working days'),plain:pl('absencePct')}
     ]);
 
     const table=this.vdTable([
@@ -4987,8 +5152,13 @@ class Component extends DCLogic {
          +'<div style="height:5px;border-radius:9999px;background:var(--surface2);margin-top:5px;overflow:hidden">'
          +'<div style="height:100%;width:'+Math.max(0,Math.min(100,Math.abs(r.marginPct)*100*2)).toFixed(0)+'%;'
          +'background:'+(r.marginKr>=0?'var(--green)':'var(--danger)')+'"></div></div>'
-         +'<div style="font-size:10px;color:var(--muted);margin-top:3px">'+this.vpct(r.marginPct)+'</div>'}
-    ],rows,{act:'seller',val:r=>r.seller,min:1080});
+         +'<div style="font-size:10px;color:var(--muted);margin-top:3px">'+this.vpct(r.marginPct)+'</div>'},
+      {h:t('PROGNOSE ','FORECAST ')+(FCS?this.vmonthShort(FCS.future[0]):''),a:'right',w:'1.1fr',mono:1,
+       v:r=>{ const f=FCS&&FCS.bySeller[String(r.seller).replace(/\s+/g,' ').trim().toLowerCase()];
+         return f?'<div style="color:var(--accent);font-weight:600">'+this.vround(f.revenue)+'</div>'
+           +'<div style="font-size:10px;color:var(--muted);margin-top:3px">'+t('igjen ','left ')+'<span style="color:'+this.vtone(f.marginKr)+'">'+this.vround(f.marginKr)+'</span></div>'
+           :'<span style="color:var(--muted2)">–</span>'; }}
+    ],rows,{act:'seller',val:r=>r.seller,min:1180});
 
     const contrib=this.vdCard(t('Inntekt per selger','Revenue per seller'),
       t('Klikk en rad i tabellen for full kostnadsstruktur.','Click a row in the table for the full cost stack.'),
@@ -4998,7 +5168,9 @@ class Component extends DCLogic {
     return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+this.vdFilterBar()+tiles
       +this.vdCard(t('Per selger — ','Per seller — ')+this.vmonthLbl(month),
         t('Alle 34 kolonnene fra BEREGNING PER SELGER, beregnet på nytt fra kildetallene.',
-          'All 34 columns from BEREGNING PER SELGER, recomputed from the source figures.'),table)
+          'All 34 columns from BEREGNING PER SELGER, recomputed from the source figures.')
+          +(FCS?t(' Siste kolonne er prognosen for neste måned: selgerens snitt for '+this.vdBasisLbl(FCS).toLowerCase()+', inkludert snittbonus.',
+                  ' The last column is next month\'s forecast: the seller\'s average for '+this.vdBasisLbl(FCS)+', average bonus included.'):''),table)
       +contrib+this.buildProvisjonSection(month)); }
 
   /* ═══ PAGE · one seller, one month ═════════════════════════════════════ */
@@ -5157,12 +5329,29 @@ class Component extends DCLogic {
         +x[0]+'</div><div class="mono" style="font-size:17px;font-weight:700;color:'+x[2]+'">'+x[1]+'</div></div>'; })
       .join('')+'</div>';
 
+    // the difference, said the way you would say it to Phonero
+    const v=tot.revenueVariance||0, vp=tot.revenue?Math.abs(v)/tot.revenue:0;
+    const big=ordered[0];
+    const plain=this.plBlock({
+      line:Math.abs(v)<1?t('Phonero betalte nøyaktig det salgene tilsier.','Phonero paid exactly what the sales imply.')
+        :t('Phonero betalte '+this.vkr(Math.abs(v))+(v<0?' mindre':' mer')+' enn salgene tilsier ('+this.vpct(vp)+'). '
+            +(vp>0.01?'Det er nok til at det er verdt å spørre Phonero om.':'Små avvik som dette er vanlige.'),
+           'Phonero paid '+this.vkr(Math.abs(v))+(v<0?' less':' more')+' than the sales imply ('+this.vpct(vp)+'). '
+            +(vp>0.01?'That is enough to be worth asking Phonero about.':'Small differences like this are normal.')),
+      what:t('Clario regner ut hva dere skal ha betalt: antall salg av hver pakke ganget med satsen. Phonero sender sin egen sum. Avviket er forskjellen mellom de to.',
+             'Clario works out what you should be paid: the number of each pack sold times its rate. Phonero sends its own total. The difference is the gap between the two.'),
+      good:big&&Math.abs(big.revenueVariance)>=1?t('Størst avvik har '+this.vesc(big.seller)+' ('+this.vsign(big.revenueVariance)+' kr). Start der.',
+             'The biggest difference is '+this.vesc(big.seller)+' ('+this.vsign(big.revenueVariance)+' kr). Start there.'):'',
+      drivers:t('Salg som er avvist eller fortsatt venter, clawback, eller at Phonero har endret en sats uten at KONFIGURASJON er oppdatert.',
+                'Sales that were rejected or are still pending, clawback, or a rate Phonero changed that KONFIGURASJON has not caught up with.'),
+      src:t('PHONERO RAPPORT: antall per pakke mot kolonne K (total provisjon fra Phonero).','PHONERO RAPPORT: count per pack against column K (Phonero\'s total).')});
+
     return this.vdCard(t('Provisjon — avstemming mot Phonero','Commission — reconciliation against Phonero'),
       t('Phonero rapporterer én sum. Clario regner den ut fra antall × sats og viser differansen. '
         +'Satsene og selgerandelen endres i Arbeidsbok → KONFIGURASJON.',
         'Phonero reports one lump sum. Clario computes it from count × rate and shows the difference. '
         +'The rates and the seller share are changed in Arbeidsbok → KONFIGURASJON.'),
-      band+'<div style="margin-top:18px">'+table+'</div>'); }
+      band+plain+'<div style="margin-top:18px">'+table+'</div>'); }
 
   buildProvisjonRetired(){
     const M=this.vdModel(), t=(a,b)=>this.t(a,b);
@@ -7125,6 +7314,21 @@ class Component extends DCLogic {
 
   /* ── Oversikt · the Venditus block ──────────────────────────────────── */
 
+  // What a cascade line means, in a sentence a manager would use.
+  vdCascPlain(k){
+    const t=(a,b)=>this.t(a,b);
+    return ({
+      revenue:t('Det salgene ga i inntekt: antall salg ganget med det dere får per salg.','What the sales brought in: number of sales times what you get per sale.'),
+      commission:t('Det selgerne får utbetalt av salgene sine — den største kostnaden.','What the sellers are paid out of their own sales — the biggest cost.'),
+      aga:t('Avgift til staten på all lønn (arbeidsgiveravgift).','Tax to the state on all pay (employer tax).'),
+      holiday:t('Feriepenger som settes av hver måned og betales ut i juni.','Holiday pay set aside every month and paid out in June.'),
+      pension:t('Lovpålagt pensjon til de ansatte, 2 % av lønnen.','Mandatory pension for the employees, 2 % of pay.'),
+      absence:t('Lønn til folk som var syke eller borte — de første 16 dagene betaler dere selv.','Pay for people who were sick or away — you pay the first 16 days yourselves.'),
+      navReceived:t('Penger NAV har betalt tilbake for lange sykmeldinger.','Money NAV has paid back for long sick leaves.'),
+      bonusWithEmployer:t('Bonus til selgerne, med arbeidsgiveravgift og feriepenger på toppen.','Bonus to the sellers, with employer tax and holiday pay on top.'),
+      other:t('Lister, clawback (salg Phonero trakk tilbake) og andre småposter.','Lists, clawback (sales Phonero took back) and other small items.')
+    })[k]||''; }
+
   // What actually produced a cascade line, spelled out.
   vdCascRows(step,tot,month,seller){
     const t=(a,b)=>this.t(a,b), M=this.vdModel(), c=M.config;
@@ -7241,7 +7445,7 @@ class Component extends DCLogic {
       const R=this.vdRowAttrs(b.s.metric,{seller:seller,month:month});
       bandDefs.push({x0:padL+gap*i,x1:padL+gap*(i+1),act:R.attrs,
         html:this.ttHTML(this.vesc(b.s.label).toUpperCase()+' · '+this.vmonthLbl(month).toUpperCase(),
-          this.vdCascRows(b.s,tot,month,seller),
+          (this.vdCascPlain(b.s.key)?[['##','<span class="tt-plain">'+this.vdCascPlain(b.s.key)+'</span>']]:[]).concat(this.vdCascRows(b.s,tot,month,seller)),
           R.act&&R.act.trace?this.vesc(R.act.trace.why):'',R.act)});
     });
 
@@ -7595,7 +7799,21 @@ class Component extends DCLogic {
       t('Påløpt og ikke betalt. Arbeidsgiveravgiften forfaller kvartalsvis, feriepengene én gang i året — '
         +'begge er penger dere allerede skylder.',
         'Incurred and not yet paid. Employer tax falls due quarterly and holiday pay once a year — '
-        +'both are money already owed.'),aga+rest+total); }
+        +'both are money already owed.'),aga+rest+total
+      +this.plBlock({
+        line:(()=>{ const big=[[t('arbeidsgiveravgiften','employer tax'),A.agaTotal,t('den betales annenhver måned','it is paid every two months')],
+            [t('feriepengene','holiday pay'),A.holidayTotal,t('de betales ut i juni','it is paid out in June')],
+            [t('pensjonen','pension'),A.pensionTotal,''],
+            [t('den ubetalte bonusen','unpaid bonus'),A.unpaidBonus.withEmployer,t('den skyldes allerede','it is already due')]]
+            .sort((a,b)=>b[1]-a[1])[0];
+          return t('Kort sagt: dette er regninger som allerede har oppstått. Størst er '+big[0]+' ('+this.vround(big[1])+')'+(big[2]?' — '+big[2]:'')+'.',
+                   'In short: these are bills that already exist. The largest is '+big[0]+' ('+this.vround(big[1])+')'+(big[2]?' — '+big[2]:'')+'.'); })(),
+        what:t('Arbeidsgiveravgift er en skatt på lønn. Feriepenger og pensjon er en del av lønnen som settes av nå og betales senere. Ubetalt bonus er bonus som er lovet, men ikke utbetalt.',
+               'Employer tax is a tax on pay. Holiday pay and pension are part of pay set aside now and paid later. Unpaid bonus is bonus promised but not yet paid.'),
+        good:t('Det er normalt å ha forpliktelser. Det viktige er at pengene finnes når de forfaller — se «Hva skal betales fremover» øverst.',
+               'Having obligations is normal. What matters is that the money is there when they fall due — see "What is coming up" at the top.'),
+        src:t('Regnet ut fra brutto lønn i BEREGNING PER SELGER og «Utbetalt» i BONUS REGISTER.',
+              'Worked out from gross pay in BEREGNING PER SELGER and "Paid" in BONUS REGISTER.')})); }
 
   buildNavBalance(){
     const M=this.vdModel(), t=(a,b)=>this.t(a,b), N=M.accruals.nav;
@@ -7625,7 +7843,8 @@ class Component extends DCLogic {
       rows
       +'<div class="vd-ob vd-ob-tot"><div class="vd-ob-l">'+t('Til gode hos NAV','Owed by NAV')+'</div>'
       +'<div class="vd-ob-v mono" style="color:'+this.vtone(N.gap)+'">'+this.vsign(N.gap)+' kr</div>'
-      +'<div class="vd-ob-src"></div></div>'); }
+      +'<div class="vd-ob-src"></div></div>'
+      +this.plBlock(this.vdPlain('navGap',{model:M,month:this.vdMonth()}))); }
 
   buildCostComposition(){
     const M=this.vdModel(), t=(a,b)=>this.t(a,b);
@@ -7690,20 +7909,21 @@ class Component extends DCLogic {
     // accrued obligations build up month by month
     let run=0; const owedSeries=M.months.map(m=>{
       const x=M.byMonth[m].total; run+=x.holiday+x.pension+x.aga; return run; });
+    const PX={model:M,month:this.vdMonth()}, pl=k=>this.plBlock(this.vdPlain(k,PX));
     const tiles=this.vdTiles([
       {label:t('Sum inn','Total in'),value:'+'+this.vkr(sumIn),color:'var(--bar-in)',
-       series:A.flow.map(x=>x.inn),sub:t('inntekt + NAV-refusjon','revenue + NAV refund')},
+       series:A.flow.map(x=>x.inn),sub:t('inntekt + NAV-refusjon','revenue + NAV refund'),plain:pl('sumIn')},
       {label:t('Sum ut','Total out'),value:'−'+this.vkr(sumUt),color:'var(--bar-out)',
-       series:A.flow.map(x=>x.ut),sub:t('lønn, bonus, onboarding','payroll, bonus, onboarding')},
+       series:A.flow.map(x=>x.ut),sub:t('lønn, bonus, onboarding','payroll, bonus, onboarding'),plain:pl('sumUt')},
       {label:t('Netto','Net'),value:(sumNet>=0?'+':'−')+this.vkr(Math.abs(sumNet)),
        color:sumNet>=0?'var(--accent)':'var(--danger)',series:A.flow.map(x=>x.net),
-       sub:this.vpct(M.total.marginPct)+' '+t('margin','margin')},
+       sub:this.vpct(M.total.marginPct)+' '+t('margin','margin'),plain:pl('net')},
       {label:t('Forpliktelser','Obligations'),value:this.vkr(A.owedTotal),color:'var(--amber)',
-       series:owedSeries,sparkColor:'var(--amber)',sub:t('påløpt, ikke betalt','incurred, unpaid')},
+       series:owedSeries,sparkColor:'var(--amber)',sub:t('påløpt, ikke betalt','incurred, unpaid'),plain:pl('owed')},
       {label:t('Til gode hos NAV','Owed by NAV'),value:this.vsign(A.nav.gap)+' kr',
        color:this.vtone(A.nav.gap),
        series:M.months.map(m=>M.byMonth[m].rows.reduce((a,r)=>a+(r.navGap||0),0)),
-       sub:t('forventet mot mottatt','expected vs received')}
+       sub:t('forventet mot mottatt','expected vs received'),plain:pl('navGap')}
     ]);
 
     const card=(title,sub,body,extra)=>
@@ -7722,6 +7942,7 @@ class Component extends DCLogic {
       +this.vkr(Math.abs(wf.net)*1000)+' '+t('netto','net')+'</span>':'';
 
     return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdSellerBar()+tiles
+      +this.buildPayCalendar()
       +card(t('Månedens bevegelser','The month\'s movements'),
         t('Hver søyle er én bevegelse — grønt inn, rødt ut. Ingen inn- og utgående saldo: '
           +'arbeidsboken har ingen bankdata, så dette går fra 0 til netto.',
@@ -7964,7 +8185,7 @@ class Component extends DCLogic {
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
-    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._c={}; this.forceUpdate(); });
+    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._fc=null; this._fcDone=false; this._c={}; this.forceUpdate(); });
 
     const parse=(raw,kind)=>{
       const s=String(raw).replace(/\s| |kr/gi,'').replace(',','.');
@@ -8231,13 +8452,357 @@ class Component extends DCLogic {
           perSub:last.salesCount?last.marginKr/last.salesCount:0}};
   }
 
+  /* ═══ Forecast + plain language ═════════════════════════════════════════
+     Venditus' first feedback: the economy side is right, but they want more
+     forecast, and the key numbers explained in words a manager uses. Nothing
+     here replaces a chart — it sits beside them.
+
+     The forecast itself lives in venditus/forecast.js and runs the same model
+     as everything else, so a forecast month can never contradict an actual. */
+
+  vdForecast(){
+    if(this._fcDone) return this._fc;
+    const S=this.vdStore(), F=window.VenditusForecast;
+    try{ this._fc=(S&&S.model&&S.dataset&&F)?F.build(S.dataset,S.model):null; }
+    catch(e){ console.error('Venditus forecast',e); this._fc=null; }
+    this._fcDone=true;
+    return this._fc; }
+
+  // the first k forecast months, in the shapes the charts already use
+  vdFcSeries(k){
+    const F=this.vdForecast(); if(!F||!F.months.length) return null;
+    const ms=F.months.slice(0,k||3);
+    const NO=['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember'];
+    const EN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return { F, ms, keys:ms.map(x=>x.month), M:ms.map(x=>this.vmonthShort(x.month)),
+      rev:ms.map(x=>x.revenue), lo:ms.map(x=>x.revenueLow), hi:ms.map(x=>x.revenueHigh),
+      margin:ms.map(x=>x.marginKr), marginPct:ms.map(x=>x.marginPct*100),
+      payrollPct:ms.map(x=>x.revenue?x.employerCost/x.revenue*100:0),
+      cin:ms.map(x=>x.flow.inn/1e6), cout:ms.map(x=>x.flow.ut/1e6),
+      netLo:ms.map(x=>x.flowLow/1e6), netHi:ms.map(x=>x.flowHigh/1e6),
+      full:ms.map(x=>{const k=(+x.month.split('-')[1])-1; return [k,NO[k]+' '+x.month.slice(0,4),EN[k]+' '+x.month.slice(0,4)];}),
+      yr:ms.map(x=>x.month.slice(0,4)) }; }
+
+  // "April–juni" — the months a forecast stands on, in words
+  vdBasisLbl(F){
+    if(!F||!F.basis.length) return '';
+    const a=this.vmonthLbl(F.basis[0]).split(' ')[0], b=this.vmonthLbl(F.basis[F.basis.length-1]).split(' ')[0];
+    return F.basis.length>1?a+'–'+this.t(b.toLowerCase(),b):a; }
+
+  // whole kroner, rounded the way people say them out loud
+  vround(v){ const a=Math.abs(v||0), s=a>=100000?1000:a>=10000?100:a>=1000?50:1;
+    return this.vkr(Math.round((v||0)/s)*s); }
+  vmill(v){ const m=(v||0)/1e6; return this.t('kr '+m.toFixed(2).replace('.',',')+' mill.','NOK '+m.toFixed(2)+'M'); }
+  // 0.145 → "14,50 kr av hver 100 kr"
+  vper100(p){ return (p*100).toFixed(2).replace('.',this.t(',','.'))+' kr'; }
+
+  /* The "Hva betyr dette?" component: one plain sentence always visible, and
+     four short answers on demand. A native <details>, not a hover card — it
+     works on a phone, with a keyboard, and inside a card that clips overflow. */
+  plBlock(p,dark){
+    if(!p) return '';
+    const t=(a,b)=>this.t(a,b);
+    const qa=[[t('Hva er det?','What is it?'),p.what],[t('Er det bra?','Is it good?'),p.good],
+              [t('Hva påvirker det?','What moves it?'),p.drivers],[t('Hvor kommer tallet fra?','Where does it come from?'),p.src]]
+      .filter(x=>x[1]);
+    return '<div class="pl'+(dark?' pl-dark':'')+'">'
+      +(p.line?'<div class="pl-line">'+p.line+'</div>':'')
+      +(qa.length?'<details class="pl-more"><summary><span class="pl-i" aria-hidden="true">i</span>'
+        +t('Hva betyr dette?','What does this mean?')+'</summary><div class="pl-body">'
+        +qa.map(x=>'<div class="pl-q">'+x[0]+'</div><div class="pl-a">'+x[1]+'</div>').join('')
+        +'</div></details>':'')
+      +'</div>'; }
+
+  /* The catalog. Every text is written for the person running the company,
+     with that month's own numbers in it — not a formula, not an account code.
+     ctx: { tot, prev, month, prevMonth, model } */
+  vdPlain(key,ctx){
+    const t=(a,b)=>this.t(a,b), M=ctx.model||this.vdModel(); if(!M) return null;
+    const tot=ctx.tot||{}, prev=ctx.prev||null;
+    const mon=this.vmonthLbl(ctx.month).split(' ')[0].toLowerCase();
+    const pmon=ctx.prevMonth?this.vmonthLbl(ctx.prevMonth).split(' ')[0].toLowerCase():'';
+    const kr=v=>this.vkr(v), pc=v=>this.vpct(v);
+    const chg=(a,b)=>b?((a-b)/Math.abs(b)):0;
+    const more=(a,b,up,down)=>a>=b?up:down;
+    const share=M.config?(M.config.sellerShare||{}):{};
+    const shareTxt=Object.keys(share).map(k=>k+' '+Math.round(share[k]*100)+' %').join(', ');
+    // the biggest cost movement between two months, named in words
+    const why=()=>{
+      if(!prev) return '';
+      const parts=[[t('provisjon','commission'),tot.commission,prev.commission],
+        [t('bonus','bonus'),(tot.bonusWithEmployer||0)+(tot.teamBonus||0),(prev.bonusWithEmployer||0)+(prev.teamBonus||0)],
+        [t('fravær','absence'),(tot.selfCertCost||0)+(tot.employerSickCost||0)+(tot.leaveCost||0),
+          (prev.selfCertCost||0)+(prev.employerSickCost||0)+(prev.leaveCost||0)],
+        [t('arbeidsgiveravgift, feriepenger og pensjon','employer tax, holiday pay and pension'),
+          (tot.aga||0)+(tot.holiday||0)+(tot.pension||0),(prev.aga||0)+(prev.holiday||0)+(prev.pension||0)]]
+        .map(x=>[x[0],(x[1]||0)-(x[2]||0)]).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]))[0];
+      return parts&&Math.abs(parts[1])>1000
+        ? t(' Den største endringen er '+parts[0]+', som gikk '+(parts[1]>0?'opp':'ned')+' '+this.vround(Math.abs(parts[1]))+'.',
+            ' The biggest change is '+parts[0]+', '+(parts[1]>0?'up':'down')+' '+this.vround(Math.abs(parts[1]))+'.')
+        : ''; };
+
+    const C={
+      revenueYtd:()=>{
+        const ms=M.months.filter(m=>M.byMonth[m].total.revenue);
+        const sum=ms.reduce((a,m)=>a+M.byMonth[m].total.revenue,0);
+        return {
+        line:t('Alt dere har tjent på salg fra '+this.vmonthLbl(ms[0]).split(' ')[0].toLowerCase()+' til '+mon+'.',
+               'Everything you have earned from sales, '+this.vmonthLbl(ms[0]).split(' ')[0]+' to '+this.vmonthLbl(ctx.month).split(' ')[0]+'.'),
+        what:t('Summen av alle salgene, ganget med det Phonero, Fjordkraft og TRYG betaler dere per salg. Dette er inntekten før noen kostnader er trukket fra.',
+               'All sales, multiplied by what Phonero, Fjordkraft and TRYG pay you per sale. This is income before any cost is taken off.'),
+        good:prev?t(this.vmonthLbl(ctx.month).split(' ')[0]+' alene ga '+kr(tot.revenue)+', '+more(tot.revenue,prev.revenue,'mer','mindre')+' enn '+pmon+' ('+(chg(tot.revenue,prev.revenue)>=0?'+':'−')+Math.abs(chg(tot.revenue,prev.revenue)*100).toFixed(1).replace('.',',')+' %). Snittet per måned er '+this.vround(sum/ms.length)+'.',
+                    this.vmonthLbl(ctx.month).split(' ')[0]+' alone brought '+kr(tot.revenue)+', '+more(tot.revenue,prev.revenue,'more','less')+' than '+this.vmonthLbl(ctx.prevMonth).split(' ')[0]+' ('+(chg(tot.revenue,prev.revenue)>=0?'+':'−')+Math.abs(chg(tot.revenue,prev.revenue)*100).toFixed(1)+' %). The monthly average is '+this.vround(sum/ms.length)+'.'):'',
+        drivers:t('Hvor mange salg selgerne gjør, og hvilke pakker de selger. En Phonero 15GB gir dobbelt så mye som en 5GB.',
+                  'How many sales the team makes, and which packs. A Phonero 15GB pays twice what a 5GB does.'),
+        src:t('Antall salg per pakke fra PHONERO RAPPORT, ganget med satsene i KONFIGURASJON.',
+              'Sales per pack from PHONERO RAPPORT, times the rates in KONFIGURASJON.')}; },
+
+      revenue:()=>({
+        line:t('Det salgene i '+mon+' ga i inntekt, før kostnader.','What the sales in '+this.vmonthLbl(ctx.month).split(' ')[0]+' brought in, before costs.'),
+        what:t('Antall salg ganget med det dere får betalt per salg. '+this.vnum(tot.salesCount)+' salg gir i snitt '+kr(tot.salesCount?tot.revenue/tot.salesCount:0)+' per salg.',
+               'Number of sales times what you are paid per sale. '+this.vnum(tot.salesCount)+' sales average '+kr(tot.salesCount?tot.revenue/tot.salesCount:0)+' each.'),
+        good:prev?t(more(tot.revenue,prev.revenue,'Mer','Mindre')+' enn i '+pmon+' ('+kr(prev.revenue)+').',
+                    more(tot.revenue,prev.revenue,'More','Less')+' than '+this.vmonthLbl(ctx.prevMonth).split(' ')[0]+' ('+kr(prev.revenue)+').'):'',
+        drivers:t('Flere salg, og salg av de dyreste pakkene.','More sales, and more of the higher-paying packs.'),
+        src:t('PHONERO RAPPORT × satsene i KONFIGURASJON.','PHONERO RAPPORT × the rates in KONFIGURASJON.')}),
+
+      marginKr:()=>({
+        line:t('Av hver 100 kr dere tjente i '+mon+', satt dere igjen med '+this.vper100(tot.marginPct||0)+'.',
+               'Of every 100 kr you earned in '+this.vmonthLbl(ctx.month).split(' ')[0]+', you kept '+this.vper100(tot.marginPct||0)+'.'),
+        what:t('Det som er igjen av inntekten når alt som har med selgerne å gjøre er betalt: lønn og provisjon, arbeidsgiveravgift, feriepenger, pensjon, fravær, bonus, lister og clawback. Dette er pengene som skal dekke kontor, ledelse og overskudd.',
+               'What is left of revenue once everything to do with the sellers is paid: pay and commission, employer tax, holiday pay, pension, absence, bonus, lists and clawback. This is the money that has to cover the office, management and profit.'),
+        good:prev?t(more(tot.marginPct||0,prev.marginPct||0,'Bedre','Svakere')+' enn i '+pmon+', da det var '+pc(prev.marginPct)+'.'+why(),
+                    more(tot.marginPct||0,prev.marginPct||0,'Better','Weaker')+' than '+this.vmonthLbl(ctx.prevMonth).split(' ')[0]+', when it was '+pc(prev.marginPct)+'.'+why()):'',
+        drivers:t('Mer salg av dyre pakker løfter den. Bonus, sykefravær og hvor stor andel selgerne får i provisjon trekker den ned.',
+                  'More sales of high-paying packs lift it. Bonus, sick leave and the share of commission the sellers get pull it down.'),
+        src:t('Regnet ut per selger i BEREGNING PER SELGER. NB: hvor stor andel av inntekten selgerne får ('+shareTxt+') er Clarios antakelse til Kian har bekreftet den.',
+              'Worked out per seller in BEREGNING PER SELGER. Note: the share of revenue paid to sellers ('+shareTxt+') is Clario\'s assumption until Kian confirms it.')}),
+
+      totalCost:()=>({
+        line:t('Alt det kostet å ha selgerne i '+mon+' — '+this.vper100(tot.revenue?tot.totalCostAll/tot.revenue:0)+' av hver 100 kr i inntekt.',
+               'Everything the sellers cost in '+this.vmonthLbl(ctx.month).split(' ')[0]+' — '+this.vper100(tot.revenue?tot.totalCostAll/tot.revenue:0)+' of every 100 kr of revenue.'),
+        what:t('Lønn og provisjon, arbeidsgiveravgift, feriepenger, pensjon, sykefravær, bonus, lister og clawback, lagt sammen.',
+               'Pay and commission, employer tax, holiday pay, pension, sick leave, bonus, lists and clawback, added up.'),
+        good:prev?t(more(tot.totalCostAll,prev.totalCostAll,'Høyere','Lavere')+' enn i '+pmon+' ('+kr(prev.totalCostAll)+').'+why(),
+                    more(tot.totalCostAll,prev.totalCostAll,'Higher','Lower')+' than '+this.vmonthLbl(ctx.prevMonth).split(' ')[0]+' ('+kr(prev.totalCostAll)+').'+why()):'',
+        drivers:t('Provisjonen følger salget. Bonus og fravær kommer i rykk.','Commission follows sales. Bonus and absence come in bursts.'),
+        src:t('Kolonne AH i BEREGNING PER SELGER.','Column AH in BEREGNING PER SELGER.')}),
+
+      costPerSale:()=>({
+        line:t('Hvert salg kostet i snitt '+kr(tot.costPerSale)+' og ga '+kr(tot.salesCount?tot.revenue/tot.salesCount:0)+' i inntekt.',
+               'Each sale cost '+kr(tot.costPerSale)+' on average and brought in '+kr(tot.salesCount?tot.revenue/tot.salesCount:0)+'.'),
+        what:t('Alle kostnadene for selgerne delt på antall salg.','All seller costs divided by the number of sales.'),
+        good:t('Så lenge et salg gir mer enn det koster, tjener dere penger på hvert salg. Nå er forskjellen '+kr(tot.marginPerSale)+' per salg.',
+               'As long as a sale earns more than it costs, every sale makes money. Right now the difference is '+kr(tot.marginPerSale)+' per sale.'),
+        drivers:t('Faste kostnader som bonus og fravær blir billigere per salg når det selges mer.','Fixed costs like bonus and absence get cheaper per sale when more is sold.'),
+        src:t('Total kostnad ÷ antall salg.','Total cost ÷ number of sales.')}),
+
+      absencePct:()=>{
+        const cost=(tot.selfCertCost||0)+(tot.employerSickCost||0)+(tot.leaveCost||0);
+        return {
+        line:t('Av alle arbeidsdagene i '+mon+' var '+pc(tot.absencePct)+' borte på grunn av sykdom.',
+               'Of all working days in '+this.vmonthLbl(ctx.month).split(' ')[0]+', '+pc(tot.absencePct)+' were lost to sickness.'),
+        what:t('Egenmeldings- og sykmeldingsdager, delt på antall arbeidsdager i måneden.','Self-certified and doctor-certified sick days, over the working days in the month.'),
+        good:(tot.absencePct||0)>0.06
+          ? t('Over grensen på 6 %. Fraværet kostet dere '+kr(cost)+' denne måneden.','Above the 6 % limit. Absence cost you '+kr(cost)+' this month.')
+          : t('Under grensen på 6 %. Fraværet kostet '+kr(cost)+'.','Below the 6 % limit. Absence cost '+kr(cost)+'.'),
+        drivers:t('De første 16 dagene av en sykmelding betaler dere selv. Fra dag 17 dekker NAV lønnen.',
+                  'You pay the first 16 days of a sick leave yourselves. From day 17, NAV covers it.'),
+        src:t('HR INPUT, egenmelding og sykmelding.','HR INPUT, self-certified and sick days.')}; },
+
+      sumIn:()=>({line:t('Alt som har kommet inn: salg pluss penger fra NAV.','Everything that came in: sales plus money from NAV.'),
+        what:t('Inntekten fra salg, og sykepenger NAV har betalt tilbake.','Revenue from sales, and sick pay NAV has refunded.'),
+        src:t('PHONERO RAPPORT og HR INPUT (NAV-refusjon).','PHONERO RAPPORT and HR INPUT (NAV refund).')}),
+      sumUt:()=>({line:t('Alt som har gått ut: lønn med avgifter, bonus, lister og andre kostnader.','Everything that went out: pay with on-costs, bonus, lists and other costs.'),
+        what:t('Alle kostnadene for selgerne i perioden, også det som er satt av men ikke betalt ennå (feriepenger, avgift).',
+               'All seller costs in the period, including what is set aside but not yet paid (holiday pay, employer tax).'),
+        src:t('BEREGNING PER SELGER.','BEREGNING PER SELGER.')}),
+      net:()=>({line:t('Det som ble igjen: inn minus ut for hele perioden.','What was left: in minus out over the whole period.'),
+        what:t('Dette er ikke en banksaldo — arbeidsboken har ingen bankdata. Det er hva driften har gitt, måned for måned lagt sammen.',
+               'This is not a bank balance — the workbook holds no bank data. It is what the operation produced, month by month, added up.'),
+        good:t('Positivt betyr at selgerne tjener inn mer enn de koster.','Positive means the sellers earn more than they cost.')}),
+      owed:()=>({line:t('Penger dere allerede skylder, men ikke har betalt ennå.','Money you already owe but have not paid yet.'),
+        what:t('Arbeidsgiveravgift som ikke er betalt, feriepenger og pensjon som er satt av, og bonus som står som ikke utbetalt.',
+               'Employer tax not yet paid, holiday pay and pension set aside, and bonus marked as unpaid.'),
+        good:t('Ikke farlig i seg selv — men pengene må stå på konto når det forfaller. Se «Hva skal betales fremover» under.',
+               'Not a problem in itself — but the money has to be there when it falls due. See "What is coming up" below.'),
+        src:t('Regnet ut fra lønnen, og «Utbetalt»-kolonnen i BONUS REGISTER.','Worked out from pay, and the "Paid" column in BONUS REGISTER.')}),
+      navGap:()=>{ const g=M.accruals?M.accruals.nav.gap:0; return {
+        line:g<0?t('NAV har betalt '+kr(Math.abs(g))+' mindre enn reglene sier. Dette kan dere kreve inn.',
+                   'NAV has paid '+kr(Math.abs(g))+' less than the rules say. You can claim it.')
+                :t('NAV har betalt det de skal.','NAV has paid what it should.'),
+        what:t('Fra dag 17 i en sykmelding skal NAV betale tilbake lønnen. Her sammenlignes det dere skulle fått med det som faktisk kom.',
+               'From day 17 of a sick leave, NAV refunds the pay. This compares what you should have received with what arrived.'),
+        src:t('HR INPUT: sykedager og «NAV-refusjon mottatt».','HR INPUT: sick days and "NAV refund received".')}; }
+    };
+    return C[key]?C[key]():null; }
+
+  /* ── Kort fortalt — the month in four sentences ─────────────────────── */
+  buildPlainSummary(){
+    const M=this.vdModel(); if(!M||!M.months.length) return this.html('');
+    const t=(a,b)=>this.t(a,b);
+    const month=this.vdMonth(), i=M.months.indexOf(month);
+    const tot=M.byMonth[month].total, prevM=i>0?M.months[i-1]:null, prev=prevM?M.byMonth[prevM].total:null;
+    const mon=this.vmonthLbl(month).split(' ')[0];
+    const s=[];
+    // 1 · revenue
+    const d=prev&&prev.revenue?(tot.revenue-prev.revenue)/prev.revenue:0;
+    s.push(t('I '+mon.toLowerCase()+' tjente dere <b>'+this.vkr(tot.revenue)+'</b> på '+this.vnum(tot.salesCount)+' salg'
+        +(prev?' — '+Math.abs(d*100).toFixed(0)+' % '+(d>=0?'mer':'mindre')+' enn i '+this.vmonthLbl(prevM).split(' ')[0].toLowerCase():'')+'.',
+      'In '+mon+' you earned <b>'+this.vkr(tot.revenue)+'</b> from '+this.vnum(tot.salesCount)+' sales'
+        +(prev?' — '+Math.abs(d*100).toFixed(0)+' % '+(d>=0?'more':'less')+' than '+this.vmonthLbl(prevM).split(' ')[0]:'')+'.'));
+    // 2 · margin
+    s.push(t('Etter lønn og alle kostnader satt dere igjen med <b>'+this.vkr(tot.marginKr)+'</b> — '+this.vper100(tot.marginPct||0)+' av hver 100 kr.',
+      'After pay and every cost you kept <b>'+this.vkr(tot.marginKr)+'</b> — '+this.vper100(tot.marginPct||0)+' of every 100 kr.'));
+    // 3 · the biggest cost
+    const casc=window.VenditusModel.cascade(tot,this.state.lang).filter(c=>c.v<0).sort((a,b)=>a.v-b.v)[0];
+    if(casc&&tot.revenue) s.push(t('Den største kostnaden var '+casc.label.toLowerCase()+' ('+this.vround(-casc.v)+', '+Math.round(-casc.v/tot.revenue*100)+' % av inntekten).',
+      'The biggest cost was '+casc.label.toLowerCase()+' ('+this.vround(-casc.v)+', '+Math.round(-casc.v/tot.revenue*100)+' % of revenue).'));
+    // 4 · one thing to watch — the first that applies
+    const rows=(M.byMonth[month].rows||[]).slice().sort((a,b)=>a.marginKr-b.marginKr);
+    const worst=rows[0];
+    let watch='';
+    if(worst&&worst.marginKr<0){
+      const bonusBig=(worst.bonusWithEmployer||0)>Math.abs(worst.marginKr);
+      watch=t('Følg med: '+this.vesc(worst.seller)+' kostet mer enn salgene ga ('+this.vkr(worst.marginKr)+')'
+          +(bonusBig?', mest på grunn av bonus på '+this.vround(worst.bonusWithEmployer):'')+'.',
+        'Watch: '+this.vesc(worst.seller)+' cost more than the sales brought in ('+this.vkr(worst.marginKr)+')'
+          +(bonusBig?', mostly because of a '+this.vround(worst.bonusWithEmployer)+' bonus':'')+'.');
+    } else if((tot.absencePct||0)>0.06){
+      watch=t('Følg med: sykefraværet er '+this.vpct(tot.absencePct)+', over grensen på 6 %.','Watch: sick leave is '+this.vpct(tot.absencePct)+', above the 6 % limit.');
+    } else if(tot.revenue&&Math.abs(tot.revenueVariance||0)/tot.revenue>0.01){
+      watch=t('Følg med: Phonero betalte '+this.vkr(Math.abs(tot.revenueVariance))+(tot.revenueVariance<0?' mindre':' mer')+' enn salgene tilsier.',
+        'Watch: Phonero paid '+this.vkr(Math.abs(tot.revenueVariance))+(tot.revenueVariance<0?' less':' more')+' than the sales imply.');
+    } else {
+      watch=t('Ingen selgere gikk i minus, og fraværet er under grensen.','No seller made a loss, and absence is under the limit.');
+    }
+    s.push(watch);
+    // 5 · where it is heading
+    const F=this.vdForecast();
+    if(F&&F.months.length){
+      const nx=F.months[0];
+      s.push(t('Fortsetter tempoet, ender '+this.vmonthLbl(nx.month).split(' ')[0].toLowerCase()+' på rundt <b>'+this.vround(nx.revenue)+'</b> i inntekt.',
+        'If the pace holds, '+this.vmonthLbl(nx.month).split(' ')[0]+' lands around <b>'+this.vround(nx.revenue)+'</b> in revenue.'));
+    }
+    return this.html('<div class="ks">'
+      +'<div class="ks-hd"><span class="ks-eye">'+t('KORT FORTALT','IN SHORT')+' · '+this.vmonthLbl(month).toUpperCase()+'</span>'
+      +'<span class="ks-note">'+t('Skrevet ut fra tallene — oppdateres når tallene endres','Written from the figures — updates when they change')+'</span></div>'
+      +'<p class="ks-p">'+s.join(' ')+'</p></div>'); }
+
+  /* ── Neste måneder — the forecast card on Oversikt ──────────────────── */
+  buildForecastCard(){
+    const F=this.vdForecast(), M=this.vdModel(); if(!F||!M) return this.html('');
+    const t=(a,b)=>this.t(a,b);
+    const nx=F.months[0], q=F.months.slice(0,3), Y=F.yearEnd;
+    const sum=(arr,f)=>arr.reduce((a,x)=>a+x[f],0);
+    const basis=this.vdBasisLbl(F);
+    const mn=m=>this.vmonthLbl(m).split(' ')[0];
+    const range=(lo,hi)=>'<div class="fc-rng">'+t('mellom ','between ')+this.vround(lo)+t(' og ',' and ')+this.vround(hi)+'</div>';
+    const block=(eyebrow,title,rev,lo,hi,margin,pct,note)=>
+      '<div class="fc-b"><div class="fc-eye">'+eyebrow+'</div><div class="fc-t">'+title+'</div>'
+      +'<div class="mono fc-v">'+this.vround(rev)+'</div>'+range(lo,hi)
+      +'<div class="fc-m"><span>'+t('Igjen etter kostnader','Left after costs')+'</span><span class="mono" style="color:'+this.vtone(margin)+'">'
+      +this.vround(margin)+(pct!==null?' · '+this.vpct(pct,0):'')+'</span></div>'
+      +(note?'<div class="fc-n">'+note+'</div>':'')+'</div>';
+
+    const last=M.byMonth[F.last].total;
+    const dNext=last.revenue?(nx.revenue-last.revenue)/last.revenue:0;
+    const blocks=
+      block(t('NESTE MÅNED','NEXT MONTH'),mn(nx.month),nx.revenue,nx.revenueLow,nx.revenueHigh,nx.marginKr,nx.marginPct,
+        t((dNext>=0?'+':'−')+Math.abs(dNext*100).toFixed(0)+' % mot '+mn(F.last).toLowerCase(),(dNext>=0?'+':'−')+Math.abs(dNext*100).toFixed(0)+' % vs '+mn(F.last)))
+      +block(t('NESTE 3 MÅNEDER','NEXT 3 MONTHS'),mn(q[0].month)+'–'+mn(q[q.length-1].month).toLowerCase(),
+        sum(q,'revenue'),sum(q,'revenueLow'),sum(q,'revenueHigh'),sum(q,'marginKr'),
+        sum(q,'revenue')?sum(q,'marginKr')/sum(q,'revenue'):0,'')
+      +(Y.forecastMonths
+        ? block(t('HELE ÅRET','FULL YEAR'),Y.year,Y.revenue,Y.revenueLow,Y.revenueHigh,Y.marginKr,Y.revenue?Y.marginKr/Y.revenue:0,
+            t(this.vround(Y.actualRevenue)+' er allerede tjent','of which '+this.vround(Y.actualRevenue)+' is already earned'))
+        : '');
+
+    // how far through the year: earned so far vs still to come
+    const yb=Y.forecastMonths&&Y.revenue
+      ? '<div class="fc-yr"><div class="fc-yr-hd"><span>'+t('Året så langt','The year so far')+'</span><span class="mono">'
+        +Math.round(Y.actualRevenue/Y.revenue*100)+' % '+t('av forventet helår','of expected full year')+'</span></div>'
+        +'<div class="fc-yr-bar"><div style="width:'+(Y.actualRevenue/Y.revenue*100).toFixed(1)+'%;background:var(--accent)"></div>'
+        +'<div class="fc-yr-fut" style="flex:1"></div></div>'
+        +'<div class="fc-yr-lg"><span><i style="background:var(--accent)"></i>'+t('Tjent','Earned')+' '+this.vround(Y.actualRevenue)+'</span>'
+        +'<span><i class="fc-yr-fi"></i>'+t('Prognose resten av året','Forecast rest of year')+' '+this.vround(Y.forecastRevenue)+'</span></div></div>'
+      : '';
+
+    const how='<details class="pl-more fc-how"><summary><span class="pl-i" aria-hidden="true">i</span>'+t('Slik er prognosen laget','How this forecast is made')+'</summary>'
+      +'<div class="pl-body">'
+      +'<div class="pl-q">'+t('Grunnlaget','The basis')+'</div><div class="pl-a">'
+      +t('Snittet av '+basis.toLowerCase()+' ('+F.basisN+' måneder) for hver selger: antall salg per pakke, sykefravær, lister og clawback. Bonus regnes med som snittet av samme måneder ('+this.vround(F.bonusPerMonth)+' per måned).',
+         'The average of '+basis+' ('+F.basisN+' months) for each seller: sales per pack, sick leave, lists and clawback. Bonus is carried as the average of the same months ('+this.vround(F.bonusPerMonth)+' a month).')+'</div>'
+      +'<div class="pl-q">'+t('Regnestykket','The arithmetic')+'</div><div class="pl-a">'
+      +t('De samme reglene som resten av dashbordet: satsene i KONFIGURASJON, selgerandel, arbeidsgiveravgift, feriepenger, pensjon og NAV-grensene. Endrer dere et tall i arbeidsboken, endres prognosen med det samme.',
+         'The same rules as the rest of the dashboard: the rates in KONFIGURASJON, seller share, employer tax, holiday pay, pension and the NAV limits. Change a number in the workbook and the forecast follows at once.')+'</div>'
+      +'<div class="pl-q">'+t('Spennet','The range')+'</div><div class="pl-a">'
+      +t('Lav og høy er den svakeste og sterkeste av grunnlagsmånedene. Tre måneder er for lite til en statistisk sikkerhet — spennet viser hvor mye månedene faktisk har variert.',
+         'Low and high are the weakest and strongest of the basis months. Three months is too little for a statistical confidence band — the range shows how much the months have actually varied.')+'</div>'
+      +'<div class="pl-q">'+t('Det prognosen ikke vet','What it cannot know')+'</div><div class="pl-a">'
+      +t('Nye ansettelser, folk som slutter, endrede satser fra Phonero, sesong (sommerferie), sluttpakker og garantilønn. Legg dem inn i arbeidsboken, så kommer de med.',
+         'New hires, people leaving, rate changes from Phonero, seasonality (summer holidays), severance and guarantee pay. Add them to the workbook and they are included.')+'</div>'
+      +'</div></details>';
+
+    const lead=t('Hvis salget fortsetter som snittet av '+basis.toLowerCase()+', tjener dere rundt <b>'+this.vround(nx.revenue)+'</b> i '+mn(nx.month).toLowerCase()
+        +' og sitter igjen med ca. <b>'+this.vround(nx.marginKr)+'</b> etter alle kostnader.',
+      'If sales carry on like the average of '+basis+', you will earn around <b>'+this.vround(nx.revenue)+'</b> in '+mn(nx.month)
+        +' and keep about <b>'+this.vround(nx.marginKr)+'</b> after every cost.');
+
+    return this.html('<div class="card fc">'
+      +'<div class="fc-hd"><div><h2 class="fc-h">'+t('Fremover','Looking ahead')+' <span class="fc-chip">'+t('PROGNOSE','FORECAST')+'</span></h2>'
+      +'<p class="fc-lead">'+lead+'</p></div></div>'
+      +'<div class="fc-grid">'+blocks+'</div>'+yb+how+'</div>'); }
+
+  /* ── Kontantstrøm · what has to be paid in the coming months ────────── */
+  buildPayCalendar(){
+    const F=this.vdForecast(), M=this.vdModel(); if(!F||!M) return '';
+    const t=(a,b)=>this.t(a,b);
+    const C=window.VenditusForecast.calendar(M,F,this.vdStore().dataset,3);
+    if(!C.length) return '';
+    const mn=m=>this.vmonthLbl(m);
+    const col=c=>{
+      const rows=c.items.map(it=>'<div class="pc-r"><div><div class="pc-k">'+this.t(it.no,it.en)
+          +(it.due?' <span class="pc-due mono">'+t('forfaller ','due ')+it.due.slice(0,5)+'</span>':'')
+          +(it.estimate?' <span class="fc-chip fc-chip-s">'+t('ANSLAG','ESTIMATE')+'</span>':'')+'</div>'
+          +'<div class="pc-w">'+this.t(it.whyNo,it.whyEn)+'</div></div>'
+          +'<div class="mono pc-v">−'+this.vround(it.amount)+'</div></div>').join('');
+      return '<div class="pc-c"><div class="pc-m">'+mn(c.month)+'</div>'
+        +'<div class="pc-r pc-in"><div><div class="pc-k">'+t('Forventet inn fra salg','Expected in from sales')+'</div>'
+        +'<div class="pc-w">'+t('Prognosen for måneden','The forecast for the month')+(c.nav?t(' + NAV-refusjon',' + NAV refund'):'')+'</div></div>'
+        +'<div class="mono pc-v" style="color:var(--bar-in)">+'+this.vround(c.inn)+'</div></div>'
+        +rows
+        +'<div class="pc-net"><span>'+t('Igjen etter måneden','Left after the month')+'</span><span class="mono" style="color:'+this.vtone(c.net)+'">'
+        +(c.net>=0?'+':'−')+this.vround(Math.abs(c.net))+'</span></div></div>'; };
+    const hol=M.accruals&&M.accruals.holidayTotal;
+    const nav=M.accruals&&M.accruals.nav.gap;
+    const notes=[];
+    if(hol) notes.push(t('Feriepenger: '+this.vround(hol)+' er satt av så langt i år. De betales ut i juni neste år — sett dem til side.',
+                        'Holiday pay: '+this.vround(hol)+' has been set aside this year. It is paid out next June — keep it aside.'));
+    if(nav<0) notes.push(t('NAV skylder dere '+this.vkr(Math.abs(nav))+' i sykepenger. Det kommer når NAV har behandlet kravet.',
+                          'NAV owes you '+this.vkr(Math.abs(nav))+' in sick pay. It arrives once NAV has processed the claim.'));
+    notes.push(t('Arbeidsgiveravgift betales annenhver måned, den 15. i måneden etter terminen (Skatteetaten). Forpliktelser-kortet under følger arbeidsbokens kvartaler.',
+                 'Employer tax is paid every two months, on the 15th of the month after the term (Skatteetaten). The Obligations card below follows the workbook\'s quarters.'));
+    return '<div style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 26px;box-shadow:var(--elev);margin-bottom:18px">'
+      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:14px">'
+      +'<div><div style="font-size:16.5px;font-weight:700;letter-spacing:-0.02em">'+t('Hva skal betales fremover','What is coming up')
+      +' <span class="fc-chip">'+t('PROGNOSE','FORECAST')+'</span></div>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin-top:4px">'
+      +t('De neste tre månedene: hva som kommer inn, hva som må betales og når. Bygget på snittet av '+this.vdBasisLbl(F).toLowerCase()+'.',
+         'The next three months: what comes in, what has to be paid and when. Built on the average of '+this.vdBasisLbl(F)+'.')+'</div></div></div>'
+      +'<div class="pc-grid">'+C.map(col).join('')+'</div>'
+      +'<div class="pc-notes">'+notes.map(n=>'<div>'+n+'</div>').join('')+'</div></div>'; }
+
   /* ═══ 1 · BUDGET vs ACTUAL — the chart only we can draw ═══ */
   buildBudgetActual(){
-    const W=this.wb(), n=W.M.length, C=W.closed;
+    const W0=this.wb(), FC=W0.venditus?this.vdFcSeries(3):null;
+    // forecast months extend the computed line; nothing is "reported" for them
+    const W=FC?{...W0,M:W0.M.concat(FC.M),revenue:W0.revenue.concat(FC.rev)}:W0;
+    const n=W.M.length, C=W0.closed, nA=W0.M.length;
     const M=this.mq();
     const w=M?372:940,h=M?250:272,padT=26,padB=M?30:34,padL=M?46:76,padR=M?48:86;
     const plot=h-padT-padB, plotW=w-padL-padR;
-    const all=W.revenue.concat(W.actRev);
+    const all=W.revenue.concat(W.actRev).concat(FC?FC.lo.concat(FC.hi):[]);
     const lo=Math.min.apply(null,all)*0.92, hi=Math.max.apply(null,all)*1.05;
     const X=i=>padL+(plotW/(n-1))*i, Y=v=>padT+plot-((v-lo)/(hi-lo))*plot;
     const gB=this.gid('ba'), gV=this.gid('bv'), gl=this.gid('bg');
@@ -8275,13 +8840,31 @@ class Component extends DCLogic {
       g+='<text x="'+p[0].toFixed(1)+'" y="'+(p[1]-14).toFixed(1)+'" font-size="10" font-weight="600" fill="'+(up?'var(--bar-in)':'var(--bar-out)')+'" text-anchor="middle" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .4s '+(1.1+i*0.1)+'s forwards">'
         +(up?'+':'−')+this.nbn(Math.abs(Math.round(diff/1000)))+'k</text>';
     });
-    g+='<text x="'+(w-padR+10)+'" y="'+(Y(W.revenue[n-1])+4).toFixed(1)+'" font-size="10.5" fill="var(--accent)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.4s forwards">'+(this.vdModel()?this.t('beregnet','computed'):this.t('budsjett','budget'))+'</text>';
+    if(FC){
+      // the range, fanning out from the last real month
+      const up=[[X(nA-1),Y(W0.revenue[nA-1])]].concat(FC.hi.map((v,k)=>[X(nA+k),Y(v)]));
+      const dn=[[X(nA-1),Y(W0.revenue[nA-1])]].concat(FC.lo.map((v,k)=>[X(nA+k),Y(v)]));
+      g+='<path d="M'+up.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'L'+dn.reverse().map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'Z" fill="var(--accent)" fill-opacity=".12" style="animation:fadeIn .9s 1s both"/>';
+      g+='<text x="'+(X(nA-1)+8).toFixed(1)+'" y="'+(padT+12)+'" font-size="9" fill="var(--accent)" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('PROGNOSE','FORECAST')+'</text>';
+      FC.rev.forEach((v,k)=>{ g+='<circle cx="'+X(nA+k).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.6" fill="var(--card)" stroke="var(--accent)" stroke-width="2" style="opacity:0;animation:popDot .4s '+(1.2+k*0.1)+'s cubic-bezier(.34,1.56,.64,1) forwards"/>'; });
+    }
+    g+='<text x="'+(w-padR+10)+'" y="'+(Y(W.revenue[n-1])+4).toFixed(1)+'" font-size="10.5" fill="var(--accent)" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .5s 1.4s forwards">'+(FC?this.t('prognose','forecast'):this.vdModel()?this.t('beregnet','computed'):this.t('budsjett','budget'))+'</text>';
     g+=this.xLabels(W.M,padL,plotW/(n-1),h-10,C-1);
 
     // hover detail per month, with a drill link to the sales report
     const V=this.vdModel();
     const half=(plotW/Math.max(1,n-1))/2;
     const bands=W.M.map((mLabel,i)=>{
+      if(FC&&i>=nA){
+        const x=FC.ms[i-nA];
+        return {x0:Math.max(padL,X(i)-half),x1:Math.min(w-padR,X(i)+half),act:'',
+          html:this.ttHTML(this.vmonthLbl(x.month).toUpperCase()+'<span class="ttp">'+this.t('PROGNOSE','FORECAST')+'</span>',[
+            [this.t('Forventet inntekt','Expected revenue'),this.vkr(x.revenue),'var(--accent)'],
+            [this.t('Lav','Low'),this.vkr(x.revenueLow)],[this.t('Høy','High'),this.vkr(x.revenueHigh)],'-',
+            [this.t('Igjen etter kostnader','Left after costs'),this.vkr(x.marginKr),null,this.vtone(x.marginKr)]],
+            this.t('Snittet av '+this.vdBasisLbl(FC.F).toLowerCase()+'. Lav og høy er den svakeste og sterkeste av de månedene.',
+                   'The average of '+this.vdBasisLbl(FC.F)+'. Low and high are the weakest and strongest of those months.'))};
+      }
       const key=V&&V.months[i], tot=key?V.byMonth[key].total:null;
       const diff=W.actRev[i]-W.revenue[i];
       const pct=W.revenue[i]?(diff/W.revenue[i])*100:0;
@@ -8381,7 +8964,9 @@ class Component extends DCLogic {
 
   /* ═══ 3 · MARGIN vs PAYROLL LOAD — two rates, one story ═══ */
   buildMarginTrend(){
-    const W=this.wb(), n=W.M.length;
+    const W0=this.wb(), FC=W0.venditus?this.vdFcSeries(3):null, nA=W0.M.length;
+    const W=FC?{...W0,M:W0.M.concat(FC.M),margin:W0.margin.concat(FC.marginPct),payrollPct:W0.payrollPct.concat(FC.payrollPct)}:W0;
+    const n=W.M.length;
     const M=this.mq();
     const w=M?372:460,h=M?226:236,padT=24,padB=M?36:40,padL=M?40:44,padR=M?38:44;
     const plot=h-padT-padB, plotW=w-padL-padR;
@@ -8399,12 +8984,20 @@ class Component extends DCLogic {
     const pP=W.payrollPct.map((v,i)=>[X(i),Y(v)]);
     const areaM='M'+pM[0][0]+','+(padT+plot)+'L'+this.sp(pM).slice(1)+'L'+pM[n-1][0].toFixed(1)+','+(padT+plot)+'Z';
     g+='<path d="'+areaM+'" fill="url(#'+gM+')" style="animation:fadeIn 1s .4s both"/>';
-    g+='<path d="'+this.sp(pM)+'" fill="none" stroke="var(--bar-in)" stroke-width="2.8" stroke-linecap="round" style="'+this.drawAnim(0.2)+'"/>';
-    g+='<path d="'+this.sp(pP)+'" fill="none" stroke="#EA9E1F" stroke-width="2.4" stroke-linecap="round" style="'+this.drawAnim(0.45)+'"/>';
-    [[pM,W.margin,'var(--bar-in)'],[pP,W.payrollPct,'#EA9E1F']].forEach(([pts,vals,col])=>{
-      const last=pts[n-1];
+    const nL=FC?nA:n;   // the last real month — where the value labels sit
+    g+='<path d="'+this.sp(pM.slice(0,nL))+'" fill="none" stroke="var(--bar-in)" stroke-width="2.8" stroke-linecap="round" style="'+this.drawAnim(0.2)+'"/>';
+    g+='<path d="'+this.sp(pP.slice(0,nL))+'" fill="none" stroke="#EA9E1F" stroke-width="2.4" stroke-linecap="round" style="'+this.drawAnim(0.45)+'"/>';
+    if(FC){
+      g+='<path d="'+this.sp(pM.slice(nA-1))+'" fill="none" stroke="var(--bar-in)" stroke-width="2.4" stroke-dasharray="5 5" stroke-linecap="round" stroke-opacity=".7" style="animation:fadeIn .6s 1.2s both"/>';
+      g+='<path d="'+this.sp(pP.slice(nA-1))+'" fill="none" stroke="#EA9E1F" stroke-width="2.1" stroke-dasharray="5 5" stroke-linecap="round" stroke-opacity=".7" style="animation:fadeIn .6s 1.3s both"/>';
+      const dx=(X(nA-1)+X(nA))/2;
+      g+='<line x1="'+dx.toFixed(1)+'" y1="'+padT+'" x2="'+dx.toFixed(1)+'" y2="'+(padT+plot)+'" stroke="var(--muted2)" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>'
+        +'<text x="'+(dx+6).toFixed(1)+'" y="'+(padT+8)+'" font-size="8.5" fill="var(--accent)" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">'+this.t('PROGNOSE','FORECAST')+'</text>';
+    }
+    [[pM,W.margin,'var(--bar-in)'],[pP,W.payrollPct,'#EA9E1F']].forEach(([pts,vals,col],li)=>{
+      const last=pts[nL-1];
       g+='<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="4.5" fill="'+col+'" stroke="var(--card)" stroke-width="2" style="opacity:0;animation:popDot .4s 1.3s forwards"/>';
-      g+='<text x="'+(last[0]+9).toFixed(1)+'" y="'+(last[1]+4).toFixed(1)+'" font-size="10.5" font-weight="600" fill="'+col+'" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .4s 1.4s forwards">'+vals[n-1].toFixed(1).replace('.',this.t(',','.'))+'%</text>';
+      g+='<text x="'+(FC?last[0]-9:last[0]+9).toFixed(1)+'" y="'+(last[1]+(FC?(li===0?17:-9):4)).toFixed(1)+'"'+(FC?' text-anchor="end"':'')+' font-size="10.5" font-weight="600" fill="'+col+'" font-family="JetBrains Mono,monospace" style="opacity:0;animation:fadeIn .4s 1.4s forwards">'+vals[nL-1].toFixed(1).replace('.',this.t(',','.'))+'%</text>';
     });
     g+=this.xLabels(W.M,padL,plotW/(n-1),h-10);
     return this.html('<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="display:block;overflow:visible">'+defs+g+'</svg>');

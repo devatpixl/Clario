@@ -58,6 +58,7 @@ venditus/mapping.js   sheet + column + config-key → field   ← edit this when
 venditus/parse.js     raw cells → dataset + diagnostics
 venditus/model.js     all 34 BEREGNING columns + roll-ups   ← the client's rules, pure
 venditus/store.js     dataset + user edits → recompute → notify
+venditus/forecast.js  dataset + model → next months, payment calendar (same model, averaged inputs)
 venditus/raw.js       generated from the workbook (python3 tools/xlsx-to-raw.py <file>)
 venditus/demo.js      generated transactions (node tools/seed-demo.mjs)
 ```
@@ -169,6 +170,30 @@ operators, and its identifier charset excludes `$` and `'`. It cannot tokenise `
 everything instead; the Sheet view stays read-only.
 
 ---
+
+## Forecast and plain language (Venditus feedback, round 1)
+
+Venditus: the economy side is right, but they want **more forecast** and **easier language for what
+the key numbers mean**. Everything below is added beside the existing charts — nothing was removed.
+
+**Forecast — `venditus/forecast.js`.** Each seller's average month over the last (up to) three months
+with figures — sales per pack, absence, lists, clawback, and average bonus — is written into the dataset
+as future months, and the *same* `VenditusModel.compute()` runs on it. A forecast cost therefore follows
+Kian's rules exactly and changes the moment a workbook cell does. New hires, guarantee pay, incentives and
+severance are left out (nothing says they repeat). The range is the weakest and strongest basis month
+relative to their average — three months cannot carry a confidence interval, and the UI says so.
+
+- Oversikt: **Fremover** card (next month, next 3 months, full year + "how this is made"), and the
+  computed-vs-reported, in/out and margin charts continue three months past a `PROGNOSE` divider.
+- Kontantstrøm: **Hva skal betales fremover** — three months of money in, salaries, AGA by its real
+  two-month terms (due the 15th), unpaid and average bonus, net per month; *Netto per måned* continues.
+- Selgere: a `PROGNOSE <mnd>` column per seller.
+
+**Plain language.** `vdPlain(key, ctx)` is the catalog; `plBlock()` renders one sentence that is
+always visible plus a native `<details>` "Hva betyr dette?" with four answers (what it is, is it good,
+what moves it, where it comes from). A `<details>`, not a hover card, so it works on a phone and inside
+cards that clip overflow. **Kort fortalt** at the top of Oversikt is four–five sentences assembled from
+the model by fixed templates (no AI), so it can never state a number the page does not show.
 
 ## Oversikt and Kontantstrøm
 
