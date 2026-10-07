@@ -962,6 +962,22 @@
   .pv-sl-tot{border-top:1px solid var(--border);margin-top:4px;padding-top:6px;font-weight:700}
   .pv-sl-note{font-size:10.5px;color:var(--muted);margin-top:8px}
 
+  .pv-mf{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:-2px 0 16px;padding:10px 12px;border-radius:14px;
+    background:var(--surface2);border:1px solid var(--border-soft)}
+  .pv-mf-q{flex:1 1 240px;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--border);
+    background:var(--card);color:var(--muted)}
+  .pv-mf-q:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .pv-mf-q input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font:inherit;font-size:13px;min-width:0}
+  .pv-mf-s{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted)}
+  .pv-mf-s select{height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;padding:0 10px;cursor:pointer}
+  .pv-mf-s select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .pv-mf-n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);background:var(--card);border:1px solid var(--border-soft);border-radius:9999px;padding:4px 10px}
+  .pv-mf-p{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .pv-mf-p b{color:var(--text);font-weight:600}
+  .pv-md[hidden],.pv-md-empty[hidden]{display:none!important}
+  .pv-md-empty{padding:28px;text-align:center;font-size:13px;color:var(--muted);border:1.5px dashed var(--border);border-radius:16px}
+  .pv-md-new{align-self:flex-start;font-size:10.5px;font-weight:600;color:var(--green);background:color-mix(in srgb,var(--green) 11%,transparent);border-radius:9999px;padding:3px 9px;margin-bottom:-2px}
+  @media(max-width:768px){ .pv-mf-p{margin-left:0;flex:1 1 100%} }
   .pv-acts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-soft)}
   .pv-act{flex:1 1 210px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;border:1px solid var(--border);
     background:var(--card);border-radius:10px;padding:8px 11px;cursor:pointer;font:inherit;color:var(--text);transition:border-color .15s,background .15s}
@@ -8519,6 +8535,9 @@ class Component extends DCLogic {
     this._vdChange=(e)=>{
       const el=e.target;
       if(!el||!el.getAttribute) return;
+      if(el.hasAttribute('data-md-y')||el.hasAttribute('data-md-m')){
+        if(el.hasAttribute('data-md-y')) this._mdY=el.value; else this._mdM=el.value;
+        this._c={}; this.forceUpdate(); return; }
       const path=el.getAttribute('data-vd-set'); if(!path) return;
       const kind=el.getAttribute('data-vd-kind');
       const v=kind==='text'?String(el.value):parse(el.value,kind);
@@ -8601,6 +8620,7 @@ class Component extends DCLogic {
         this._phJump=val; this.setState({active:'Inndata',vdSheet:'phgrunnlag'});
         // also drive it from here: componentDidUpdate is not guaranteed to reach vdJump()
         setTimeout(()=>this.phJump(),30); }
+      else if(act==='mdclear'){ this._mdQ=''; this._mdY=''; this._mdM=''; this._c={}; this.forceUpdate(); }
       else if(act==='mdgo'){ e.preventDefault();
         const c=document.querySelector('[data-md="'+val.replace(/"/g,'\\"')+'"]');
         if(c){ c.scrollIntoView({block:'center',behavior:'smooth'}); c.classList.remove('pv-md-hit'); void c.offsetWidth; c.classList.add('pv-md-hit'); } }
@@ -8651,6 +8671,12 @@ class Component extends DCLogic {
     this._vdToggle=(e)=>{ const d=e.target; if(!d||!d.getAttribute||!d.getAttribute('data-slip')) return;
       this._slips=this._slips||{}; this._slips[d.getAttribute('data-slip')]=d.open; };
     document.addEventListener('toggle',this._vdToggle,true);
+    this._mdInput=(e)=>{ const el=e.target; if(!el||!el.hasAttribute||!el.hasAttribute('data-md-q')) return;
+      this._mdQ=el.value; const q=el.value.trim().toLowerCase(); let n=0, all=0;
+      document.querySelectorAll('[data-md-name]').forEach(c=>{ all++; const ok=!q||c.getAttribute('data-md-name').indexOf(q)>=0; c.hidden=!ok; if(ok) n++; });
+      const cnt=document.querySelector('[data-md-count]'); if(cnt) cnt.textContent=n+' '+this.t('av','of')+' '+all+' '+this.t('selgere','sellers');
+      const em=document.querySelector('[data-md-empty]'); if(em) em.hidden=n>0; };
+    document.addEventListener('input',this._mdInput,true);
   }
 
   // Land on a cell a tooltip pointed at: scroll it into view and pulse it, so
@@ -9264,12 +9290,16 @@ class Component extends DCLogic {
                'Phonero approves sales before paying. Rejected sales are never paid. Cancelled sales were paid but are taken back later — they are listed under Cancellations.'),
         src:t('PHONERO RAPPORT: «Avviste salg» og «Ventende salg».','PHONERO RAPPORT: "Rejected" and "Pending".')})+'</div>';
 
-    /* 5 · each seller's agreement */
+    /* 5 · each seller's agreement — with a name search and a year / month filter */
     const S=this.vdStore();
     const nextM=window.VenditusForecast?window.VenditusForecast.addMonths(months[months.length-1],1):months[months.length-1];
+    const fY=this._mdY||'', fM=this._mdM||'', fQ=(this._mdQ||'').trim().toLowerCase();
+    // the month an agreement is looked up for: a full year means its last month
+    const period=fY&&fM?fY+'-'+fM:fY?fY+'-12':fM?month.slice(0,4)+'-'+fM:month;
+    const startedIn=x=>x.from&&(!fY||x.from.slice(0,4)===fY)&&(!fM||x.from.slice(5,7)===fM)&&(fY||fM);
     const mdCard=e=>{
       const name=e.name, k=String(name).replace(/\s+/g,' ').trim().toLowerCase();
-      const cur=M.modelFor(name,month,e.contract);
+      const cur=M.modelFor(name,period,e.contract);
       const all=((S.dataset&&S.dataset.models)||[]).filter(x=>String(x.seller||x._key).replace(/\s+/g,' ').trim().toLowerCase()===k).sort((a,b)=>a.from<b.from?1:-1);
       const rowKey=cur.source==='model'?k+'|'+cur.from:'';
       const base='models.'+rowKey+'.';
@@ -9284,7 +9314,9 @@ class Component extends DCLogic {
         : '<div class="pv-md-def">'+t('Ingen egen avtale registrert — bruker standarden for «','No agreement on file — using the default for "')+this.vesc(e.contract||'')+t('».','".')+'</div>';
       const hist=all.length>1?'<div class="pv-md-h">'+all.map(x=>'<span'+(x.from===cur.from?' class="on"':'')+'>'+t('fra ','from ')+short(x.from)+' '+x.from.slice(0,4)+': '
           +(x.type==='perPack'?t('per produkt','per product'):Math.round((x.share||0)*100)+' %')+(x.from>month?' · '+t('kommende','upcoming'):'')+'</span>').join('')+'</div>':'';
-      return '<div class="pv-md" data-md="'+this.vesc(k)+'">'
+      const fresh=all.filter(startedIn);
+      return '<div class="pv-md" data-md="'+this.vesc(k)+'" data-md-name="'+this.vesc(String(name).toLowerCase())+'"'+(fQ&&String(name).toLowerCase().indexOf(fQ)<0?' hidden':'')+'>'
+        +(fresh.length?'<div class="pv-md-new">'+t('Ny avtale i perioden','New agreement in the period')+' · '+fresh.map(x=>short(x.from)+' '+x.from.slice(0,4)).join(', ')+'</div>':'')
         +'<div class="pv-md-hd"><span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(name)+'">'+this.vdInitials(name)+'</span>'
         +'<div><div class="pv-c-n">'+this.vesc(name)+'</div><div class="pv-c-m">'+this.vesc(e.contract||'')+(cur.from?' · '+t('gjelder fra ','in force from ')+short(cur.from)+' '+cur.from.slice(0,4):'')+'</div></div></div>'
         +'<div class="pv-md-s">'+this.vdModelSentence(cur)+'</div>'
@@ -9296,7 +9328,28 @@ class Component extends DCLogic {
       +'<p>'+t('Hver selger har sin egen avtale. Endrer dere en sats, regnes oppgjøret, marginen og prognosen om med én gang. En ny avtale gjelder fra måneden dere velger — tidligere måneder røres ikke.',
                'Every seller has their own agreement. Change a rate and the settlement, margin and forecast recompute at once. A new agreement applies from the month you choose — earlier months are untouched.')+'</p></div>'
       +'<span class="pv-demo">'+t('Avtalene er eksempler til Venditus sender de ekte','The agreements are examples until Venditus sends the real ones')+'</span></div>'
-      +'<div class="pv-md-grid">'+(M.employees||[]).filter(e=>e.active!==false).map(mdCard).join('')+'</div></div>';
+      +(()=>{ // the filter bar
+        const emps=(M.employees||[]).filter(e=>e.active!==false);
+        const allFrom=((S.dataset&&S.dataset.models)||[]).map(x=>x.from).filter(Boolean);
+        const years=[...new Set(months.concat(allFrom,[nextM]).map(m=>m.slice(0,4)))].sort().reverse();
+        const MN=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+        const ME=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const shown=emps.filter(e=>!fQ||String(e.name).toLowerCase().indexOf(fQ)>=0).length;
+        const anyF=fQ||fY||fM;
+        return '<div class="pv-mf">'
+          +'<label class="pv-mf-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+          +'<input type="search" data-md-q placeholder="'+t('Søk etter navn…','Search by name…')+'" value="'+this.vesc(this._mdQ||'')+'" aria-label="'+t('Søk etter navn','Search by name')+'"></label>'
+          +'<label class="pv-mf-s"><span>'+t('År','Year')+'</span><select data-md-y><option value="">'+t('Alle år','All years')+'</option>'
+          +years.map(y=>'<option value="'+y+'"'+(y===fY?' selected':'')+'>'+y+'</option>').join('')+'</select></label>'
+          +'<label class="pv-mf-s"><span>'+t('Måned','Month')+'</span><select data-md-m><option value="">'+t('Alle måneder','All months')+'</option>'
+          +MN.map((m,i)=>{ const v=(i<9?'0':'')+(i+1); return '<option value="'+v+'"'+(v===fM?' selected':'')+'>'+t(m,ME[i])+'</option>'; }).join('')+'</select></label>'
+          +'<span class="pv-mf-n" data-md-count>'+shown+' '+t('av','of')+' '+emps.length+' '+t('selgere','sellers')+'</span>'
+          +'<span class="pv-mf-p">'+t('Viser avtalen som gjaldt i ','Showing the agreement in force in ')+'<b>'+this.vmonthLbl(period).toLowerCase()+'</b></span>'
+          +(anyF?'<button class="pv-link" data-vd-act="mdclear">'+t('Nullstill','Clear')+'</button>':'')
+          +'</div>'; })()
+      +'<div class="pv-md-grid">'+(M.employees||[]).filter(e=>e.active!==false).map(mdCard).join('')+'</div>'
+      +'<div class="pv-md-empty" data-md-empty'+((M.employees||[]).filter(e=>e.active!==false).some(e=>!fQ||String(e.name).toLowerCase().indexOf(fQ)>=0)?' hidden':'')+'>'
+      +t('Ingen selgere passer søket.','No sellers match the search.')+'</div></div>';
 
     return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+hero+sellers+this.buildPhoneroReportSection()+cxSec+'<div class="pv-two">'+pipe+'</div>'+models); }
 
