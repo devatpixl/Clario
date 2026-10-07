@@ -106,6 +106,8 @@
     var parts = path.split('.');
     if (parts[0] === 'config') return parts.length >= 2 && !!parts[1];
     if (parts[0] === '_hidden') return parts.length >= 3 && !!ROW_KEY[parts[1]];
+    // Phonero's own report: ph.C9 is a cell, ph.map.<seller> links a seller to a block
+    if (parts[0] === 'ph') return (parts.length === 2 && /^[A-Z]{1,3}\d{1,4}$/.test(parts[1])) || (parts.length === 3 && parts[1] === 'map' && !!parts[2]);
     if (!ROW_KEY[parts[0]]) return false;
     // table.rowKey.field — the row key may contain dots, the field may not be empty
     return parts.length >= 3 && !!parts[parts.length - 1];
@@ -227,7 +229,7 @@
         return;
       }
 
-      if (parts[0] === '_hidden') return;
+      if (parts[0] === '_hidden' || parts[0] === 'ph') return;   // ph.* is read by the page, not the model
 
       var table = parts[0];
       var field = parts[parts.length - 1];

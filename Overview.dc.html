@@ -9,7 +9,7 @@
 <script src="./venditus/parse.js?h=a4e5a20b"></script>
 <script src="./venditus/model.js?h=189e8264"></script>
 <script src="./venditus/trace.js?h=3e1778ba"></script>
-<script src="./venditus/store.js?h=c5384bec"></script>
+<script src="./venditus/store.js?h=9c4ca9b0"></script>
 <script src="./venditus/forecast.js?h=102c4749"></script>
 <script src="./venditus/phonero-grunnlag.js"></script>
 <script src="./support.js"></script>
@@ -962,6 +962,22 @@
   .pv-sl-tot{border-top:1px solid var(--border);margin-top:4px;padding-top:6px;font-weight:700}
   .pv-sl-note{font-size:10.5px;color:var(--muted);margin-top:8px}
 
+  .pv-acts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-soft)}
+  .pv-act{flex:1 1 210px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;border:1px solid var(--border);
+    background:var(--card);border-radius:10px;padding:8px 11px;cursor:pointer;font:inherit;color:var(--text);transition:border-color .15s,background .15s}
+  .pv-act span{font-size:12px;font-weight:600}
+  .pv-act em{font-style:normal;font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .pv-act:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .pv-act:hover em{color:var(--accent)}
+  .pv-act-p{background:var(--accent);border-color:var(--accent);color:#fff}
+  .pv-act-p em{color:rgba(255,255,255,.75)}
+  .pv-act-p:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+  .pv-act-p:hover em{color:#fff}
+  .pv-map{flex:1 1 100%;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}
+  .pv-map select{height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12px;padding:0 8px;max-width:220px}
+  @keyframes pvHit{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+  .pv-md-hit{border-color:var(--accent)!important;animation:pvHit 1s ease-out 2}
+
   /* cancellations */
   .pv-cx{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
   .pv-x{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr) minmax(220px,auto) auto 22px;gap:12px;align-items:center;
@@ -1073,31 +1089,33 @@
   .pg-file{font-size:12px;font-weight:600;color:var(--text)}
   .pg-warn{font-size:11px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:9999px;padding:2px 9px}
   .pg-priv{font-size:11px;color:var(--danger-ink);background:var(--danger-soft);border:1px solid var(--danger-border);border-radius:9999px;padding:2px 9px}
-  .pg-scroll{overflow:auto;max-height:72vh;position:relative}
-  .pg{display:inline-block;min-width:100%;font-size:11.5px}
-  .pg-r{display:grid;grid-template-columns:var(--pg-cols);border-bottom:1px solid var(--border-soft);transition:background .2s}
-  .pg-c{padding:5px 8px;border-right:1px solid var(--border-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:26px;
-    background:var(--card);line-height:1.35}
-  .pg-num{text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px}
-  .pg-f{background:color-mix(in srgb,var(--green) 5%,var(--card))}
-  .pg-0{color:var(--muted2)}
-  .pg-neg{color:var(--danger)}
-  .pg-n{position:sticky;left:0;z-index:2;text-align:right;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--surface2)}
-  .pg-pinb{position:sticky;left:48px;z-index:1;font-weight:500}
-  .pg-letters{position:sticky;top:0;z-index:4}
-  .pg-letters .pg-c{background:var(--surface2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;text-align:center;font-weight:600}
-  .pg-letters .pg-n{z-index:5}
-  .pg-head .pg-c{font-weight:700;white-space:normal;font-size:10.5px}
-  .pg-tot .pg-c{font-weight:700;background:color-mix(in srgb,var(--accent) 5%,var(--card))}
-  .pg-grp .pg-c{background:var(--surface2);font-weight:700;border-top:1.5px solid var(--border)}
-  .pg-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);margin-right:4px}
-  .pg-blk .pg-c{background:color-mix(in srgb,var(--accent) 6%,var(--card))}
-  .pg-sel .pg-c{background:color-mix(in srgb,var(--accent) 13%,var(--card))}
-  .pg-sel .pg-n{background:var(--accent);color:#fff}
-  .pg-c.pg-selc{background:color-mix(in srgb,var(--accent) 24%,var(--card));box-shadow:inset 0 0 0 2px var(--accent);color:var(--text);font-weight:700;z-index:3;position:relative}
-  .pg-pinb.pg-selc{position:sticky}
+  .pg-scroll{max-height:70vh}
+  .pg2 .vd-gr{grid-template-columns:var(--pg-cols)}
+  .pg2 .vd-c{height:38px;line-height:38px;font-size:12px}
+  .pg2 .vd-h{height:52px;line-height:1.25;align-items:flex-end;padding:0 8px 7px;white-space:normal;gap:5px}
+  .pg2 .vd-h .pg-ht{display:flex;flex-direction:column;white-space:nowrap;line-height:1.25;min-width:0}
+  .pg2 .pg-ht b{font-weight:650;overflow:hidden;text-overflow:ellipsis}
+  .pg2 .pg-ht small{font-size:9.5px;font-weight:500;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+  .pg-tr{transition:background .12s}
+  .pg-tr:hover{background:var(--hover)}
+  .pg2 .vd-corner{height:52px}
+  .pg2 .vd-pin{position:sticky;z-index:2}
+  .pg2 .vd-ghead .vd-pin{z-index:5}
+  .pg2 input.vd-pin{background:var(--card)!important}
+  .pg-lbl{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:11px;color:var(--text2);background:var(--card)}
+  .pg-rate{background:color-mix(in srgb,var(--vd-in-edge) 4%,var(--card))}
+  .pg-total .vd-c{font-weight:700;background:var(--surface2)}
+  .pg-grp .vd-c{background:var(--surface2)}
+  .pg-grp .vd-sect{color:var(--text);font-size:10.5px}
+  .pg-n2{font-weight:500;color:var(--muted);letter-spacing:0;margin-left:6px}
+  .pg-neg{color:var(--danger)!important}
+  .pg-blk .vd-c,.pg-blk input.vd-c{background:color-mix(in srgb,var(--accent) 6%,var(--card))!important}
+  .pg-sel .vd-c,.pg-sel input.vd-c{background:color-mix(in srgb,var(--accent) 12%,var(--card))!important}
+  .pg-sel .vd-rn{background:var(--accent)!important;color:#fff}
+  .vd-c.pg-selc,input.vd-c.pg-selc{background:color-mix(in srgb,var(--accent) 22%,var(--card))!important;box-shadow:inset 0 0 0 2px var(--accent)!important;font-weight:700}
   @keyframes pgPulse{0%{box-shadow:inset 0 0 0 2px var(--accent),0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}
     100%{box-shadow:inset 0 0 0 2px var(--accent),0 0 0 14px transparent}}
+  .pg-pulse{position:relative;z-index:3}
   .pg-pulse{animation:pgPulse 1.1s ease-out 3}
 
   .ph-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
@@ -1105,6 +1123,7 @@
   .ph-st div{font-size:11px;color:var(--muted)}
   .ph-st b{display:block;font-size:20px;font-weight:700;letter-spacing:-0.03em;margin-top:3px}
   .ph-st span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+  .ph-warn.ph-warn-r{color:var(--danger-ink);background:var(--danger-soft);border-color:var(--danger-border)}
   .ph-warn{font-size:11.5px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:12px;padding:9px 12px;margin-bottom:14px}
   .ph-cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
   .ph-h{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
@@ -6074,7 +6093,13 @@ class Component extends DCLogic {
         {letter:'J',field:'breakEvenCount',type:'num',role:'computed',header:t('Break-even (antall salg)','Break-even (sales)')},
         {letter:'L',field:'lostEarnings',type:'kr',role:'computed',header:t('Tapt inntjening','Lost earnings')}
       ])
-    ].concat(window.PHONERO_GRUNNLAG?[{key:'phgrunnlag',name:'PHONERO-GRUNNLAG',kind:'raw'}]:[]);
+    ].concat(window.PHONERO_GRUNNLAG?[{key:'phgrunnlag',name:'PHONERO-GRUNNLAG',kind:'raw',
+      // every grid row, in order, so "Finn rad" lands on the right one
+      rows:(()=>{ const D=this.vdPh(); if(!D) return [];
+        const out=[{name:t('Provisjonssatser','Commission rates')},{name:t('Totalt','Total')}];
+        D.groups.forEach(g=>{ out.push({name:t('Selger ','Seller ')+g.no+(D.back[g.no]?' · '+this.vdSellerDisplay(D.back[g.no]):'')});
+          g.lines.forEach(x=>out.push({name:x.customer,description:t('Selger ','Seller ')+g.no})); });
+        return out; })()}]:[]);
   }
 
   vdLetterIdx(l){ let n=0; for(let i=0;i<l.length;i++) n=n*26+(l.charCodeAt(i)-64); return n-1; }
@@ -8483,7 +8508,7 @@ class Component extends DCLogic {
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
-    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._fc=null; this._fcDone=false; this._mr=null; this._c={}; this.forceUpdate(); });
+    this._vdOff=S.subscribe(()=>{ this._wb=null; this._fs=null; this._rk=null; this._rkMonth=null; this._fc=null; this._fcDone=false; this._mr=null; this._ph=null; this._c={}; this.forceUpdate(); });
 
     const parse=(raw,kind)=>{
       const s=String(raw).replace(/\s| |kr/gi,'').replace(',','.');
@@ -8576,6 +8601,9 @@ class Component extends DCLogic {
         this._phJump=val; this.setState({active:'Inndata',vdSheet:'phgrunnlag'});
         // also drive it from here: componentDidUpdate is not guaranteed to reach vdJump()
         setTimeout(()=>this.phJump(),30); }
+      else if(act==='mdgo'){ e.preventDefault();
+        const c=document.querySelector('[data-md="'+val.replace(/"/g,'\\"')+'"]');
+        if(c){ c.scrollIntoView({block:'center',behavior:'smooth'}); c.classList.remove('pv-md-hit'); void c.offsetWidth; c.classList.add('pv-md-hit'); } }
       else if(act==='cxdel'){ S.hideRow('cancellations',val); this._vdToast(this.t('Fjernet — ⌘Z angrer','Removed — ⌘Z undoes')); }
       else if(act==='mdtype'){       // key|from|type|name
         const [k,from,ty,...nm]=val.split('|'); const name=nm.join('|');
@@ -8619,6 +8647,10 @@ class Component extends DCLogic {
     };
     document.addEventListener('change',this._vdChange,true);
     document.addEventListener('click',this._vdClick,true);
+    // a re-render must not snap an open settlement shut
+    this._vdToggle=(e)=>{ const d=e.target; if(!d||!d.getAttribute||!d.getAttribute('data-slip')) return;
+      this._slips=this._slips||{}; this._slips[d.getAttribute('data-slip')]=d.open; };
+    document.addEventListener('toggle',this._vdToggle,true);
   }
 
   // Land on a cell a tooltip pointed at: scroll it into view and pulse it, so
@@ -8801,83 +8833,148 @@ class Component extends DCLogic {
 
   vdPh(){
     const P=window.PHONERO_GRUNNLAG; if(!P) return null;
-    if(this._ph&&this._ph.src===P) return this._ph.v;
-    const C=P.cells, val=a=>(C[a]&&C[a].v!==undefined)?C[a].v:null, num=a=>{ const v=val(a); return typeof v==='number'?v:0; };
-    const L=i=>P.cols[i-1];
-    // product columns are the ones with a header on row 3, from C up to V (mobile bonus)
+    const S=this.vdStore(), E=(S&&S.edits)||{};
+    // edits to the report live in the store under ph.*, so undo / reset / the counter all cover them
+    const sig=Object.keys(E).filter(k=>k.indexOf('ph.')===0).sort().map(k=>k+'='+E[k]).join('|');
+    if(this._ph&&this._ph.src===P&&this._ph.sig===sig) return this._ph.v;
+    const C=P.cells, L=i=>P.cols[i-1], li=l=>this.vdLetterIdx(l);
+    const raw=a=>{ const k='ph.'+a; if(E[k]!==undefined) return E[k]; return (C[a]&&C[a].v!==undefined)?C[a].v:null; };
+    const num=a=>{ const v=raw(a); return typeof v==='number'?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:0); };
+
+    // product columns: a header on row 3, from C up to and including V (mobile bonus)
     const prodCols=[];
-    for(let i=3;i<=P.cols.length;i++){ const l=L(i); if(l==='W') break; if(val(l+'3')) prodCols.push(l); }
-    const bind=l=>{ for(const m of (P.merged||[])){ const [a,b]=m.split(':'); const ia=this.vdLetterIdx(a.replace(/\d+/,'')), ib=this.vdLetterIdx(b.replace(/\d+/,'')), il=this.vdLetterIdx(l);
-      if(+a.replace(/\D+/,'')===2&&il>=ia&&il<=ib) return val(a); } return val(l+'2'); };
-    const products=prodCols.map(l=>({col:l,name:String(val(l+'3')).replace(/\s+/g,' ').trim(),group:bind(l)||'',rate:num(l+'4')}));
-    const subsCols=prodCols.filter(l=>this.vdLetterIdx(l)<=this.vdLetterIdx('L'));
+    for(let i=3;i<=P.cols.length;i++){ const l=L(i); if(l==='W') break; if(C[l+'3']&&C[l+'3'].v) prodCols.push(l); }
+    const bind=l=>{ for(const m of (P.merged||[])){ const [a,b]=m.split(':');
+      if(+a.replace(/\D+/,'')!==2) continue;
+      const ia=li(a.replace(/\d+/,'')), ib=li(b.replace(/\d+/,'')), il=li(l);
+      if(il>=ia&&il<=ib) return C[a]&&C[a].v; } return C[l+'2']&&C[l+'2'].v; };
+    const products=prodCols.map(l=>({col:l,name:String(C[l+'3'].v).replace(/\s+/g,' ').trim(),group:bind(l)||'',rate:num(l+'4')}));
+    const rate={}; prodCols.forEach(l=>{ rate[l]=num(l+'4'); });
+    const mob=prodCols.filter(l=>li(l)<=li('J'));          // C..J: the subscriptions bonus and avvik apply to
+    const subsCols=prodCols.filter(l=>li(l)<=li('L'));     // C..L: what counts toward the 35 threshold
+
+    // ── the sheet's own formulas, recomputed so an edit moves the totals ──
+    // V  = if the seller block's C..L total ≥ W, the row's C..J subscriptions earn mobile bonus
+    // Z  = Σ rate × count (K excluded, SIP-trunk capped at 10 000) + (C..F)×X + (G..J)×X / 2
+    // AC = Z + AA − AB;  block row = SUM of its rows;  row 5 = SUM of the block rows
+    const groups=[]; const val={};
+    for(let r=6;r<=P.maxRow;r++){ const b=raw('B'+r);
+      if(typeof b==='number'&&C['B'+r]&&typeof C['B'+r].v==='number') groups.push({no:b,row:r,rows:[]});
+      else if(groups.length&&b!==null&&String(b).trim()!==''&&r<P.maxRow) groups[groups.length-1].rows.push(r); }
+    groups.forEach((g,i)=>{ g.end=(groups[i+1]?groups[i+1].row:P.maxRow)-1; });
     const kindOf=(c,ab,prod)=>{ const s=String(c||'').toLowerCase();
       if(!ab) return '';
       if(/50\s*%/.test(s)) return 'churn50';
       if(/saleschurn|ordren nullet|100\s*%/.test(s)) return 'churn100';
       if(/churn/.test(s)) return 'churn';
       return prod?'price':'other'; };
-    const groups=[];
-    for(let r=6;r<=P.maxRow;r++){ const b=val('B'+r);
-      if(typeof b==='number') groups.push({no:b,row:r,lines:[]});
-      else if(b!==null&&groups.length&&String(b).trim()&&!(r===P.maxRow&&/venditus/i.test(String(b)))) {
-        const g=groups[groups.length-1];
-        const prod=prodCols.filter(l=>l!=='V').reduce((a,l)=>a+num(l+r),0);
-        const subs=subsCols.reduce((a,l)=>a+num(l+r),0);
-        const ab=num('AB'+r);
-        g.lines.push({row:r,customer:String(b),prod,subs,dev:num('X'+r),devNote:val('AE'+r)||'',
-          z:num('Z'+r),aa:num('AA'+r),ab,ac:num('AC'+r),comment:String(val('AD'+r)||'').trim(),
-          kind:kindOf(val('AD'+r),ab,prod),pure:ab>0&&prod===0});
-      } }
-    groups.forEach((g,i)=>{ g.end=(groups[i+1]?groups[i+1].row:P.maxRow)-1;
-      g.trekk=g.lines.reduce((a,x)=>a+x.ab,0); g.tillegg=g.lines.reduce((a,x)=>a+x.aa,0);
+    const SUMC=prodCols.concat(['X','Z','AA','AB','AC']);
+    const overrides=[];   // rows where the mobile bonus was typed over the formula
+    groups.forEach(g=>{
+      const blockSubs=g.rows.reduce((a,r)=>a+subsCols.reduce((x,l)=>x+num(l+r),0),0);
+      g.lines=g.rows.map(r=>{
+        prodCols.forEach(l=>{ if(l!=='V') val[l+r]=num(l+r); });
+        const w=num('W'+r);
+        const vTyped=!(C['V'+r]&&C['V'+r].f);
+        if(vTyped){ val['V'+r]=num('V'+r); if(val['V'+r]) overrides.push(r); }
+        else val['V'+r]=(w&&blockSubs>=w)?mob.reduce((a,l)=>a+val[l+r],0):0;
+        const X=num('X'+r); val['X'+r]=X;
+        let z=0;
+        prodCols.forEach(l=>{ if(l==='K') return; const p=(rate[l]||0)*(val[l+r]||0); z+=l==='R'?Math.min(10000,p):p; });
+        z+=['C','D','E','F'].reduce((a,l)=>a+(val[l+r]||0),0)*X+['G','H','I','J'].reduce((a,l)=>a+(val[l+r]||0),0)*X/2;
+        val['Z'+r]=z; val['AA'+r]=num('AA'+r); val['AB'+r]=num('AB'+r);
+        val['AC'+r]=z+val['AA'+r]-val['AB'+r];
+        const prod=prodCols.filter(l=>l!=='V').reduce((a,l)=>a+val[l+r],0);
+        const subs=subsCols.reduce((a,l)=>a+val[l+r],0);
+        const ab=val['AB'+r];
+        return {row:r,customer:String(raw('B'+r)),prod,subs,dev:X,devNote:raw('AE'+r)||'',
+          z,aa:val['AA'+r],ab,ac:val['AC'+r],comment:String(raw('AD'+r)||'').trim(),
+          kind:kindOf(raw('AD'+r),ab,prod),pure:ab>0&&prod===0}; });
+      SUMC.forEach(l=>{ val[l+g.row]=g.rows.reduce((a,r)=>a+(val[l+r]||0),0); });
+      g.trekk=val['AB'+g.row]; g.tillegg=val['AA'+g.row]; g.total=val['AC'+g.row]; g.product=val['Z'+g.row];
       g.subs=g.lines.reduce((a,x)=>a+x.subs,0); g.prod=g.lines.reduce((a,x)=>a+x.prod,0);
-      g.total=num('AC'+g.row); g.product=num('Z'+g.row);
       g.customers=new Set(g.lines.map(x=>x.customer)).size; });
+    SUMC.forEach(l=>{ val[l+'5']=groups.reduce((a,g)=>a+(val[l+g.row]||0),0); });
     const lines=[].concat(...groups.map(g=>g.lines.map(x=>({...x,seller:g.no}))));
-    const v={P,products,groups,lines,ratesZero:products.every(p=>!p.rate),
-      trekk:lines.reduce((a,x)=>a+x.ab,0),trekkLines:lines.filter(x=>x.ab).length,pure:lines.filter(x=>x.pure).length,
-      subs:lines.reduce((a,x)=>a+x.subs,0),total:groups.reduce((a,g)=>a+g.total,0),
-      threshold:num('W7')||null};
-    this._ph={src:P,v}; return v; }
+    // seller ↔ block links, typed on Provisjon
+    const map={}, back={};
+    Object.keys(E).forEach(k=>{ if(k.indexOf('ph.map.')===0&&E[k]){ map[k.slice(7)]=+E[k]; back[+E[k]]=k.slice(7); } });
+    const v={P,products,prodCols,groups,lines,val,raw,map,back,ratesZero:products.every(p=>!p.rate),
+      trekk:val['AB5']||0,trekkLines:lines.filter(x=>x.ab).length,pure:lines.filter(x=>x.pure).length,
+      subs:lines.reduce((a,x)=>a+x.subs,0),total:val['AC5']||0,threshold:num('W7')||null,
+      edited:Object.keys(E).filter(k=>/^ph\.[A-Z]+\d+$/.test(k)).length,
+      overrides, overrideBlocks:[...new Set(overrides.map(r=>(groups.find(g=>r>g.row&&r<=g.end)||{}).no))].filter(Boolean)};
+    this._ph={src:P,sig,v}; return v; }
 
-  /* the sheet itself — Excel's letters and row numbers, Excel's saved values */
+  /* The sheet, in Clario's own grid — the same chrome as every other sheet:
+     blue = you type, orange = from Phonero (still editable), white = computed. */
   vdRawGrid(){
     const D=this.vdPh(); if(!D) return this.vdEmpty(this.t('Phonero-rapporten er ikke lastet.','The Phonero report is not loaded.'));
-    const SEL=this._phSel||null;   // {cell:'AB26', from:26, to:26}
-    return this.once('phgrid'+this.state.lang+(SEL?SEL.cell+SEL.from+'-'+SEL.to:''),()=>{
-      const P=D.P, C=P.cells, t=(a,b)=>this.t(a,b);
-      const px=l=>Math.round(((P.widths[l]||9.1)*7+6));
-      const cols=P.cols.filter(l=>l!=='A');
-      const tmpl='48px '+cols.map(l=>Math.max(54,Math.min(l==='B'?300:l==='AD'?320:px(l),340))+'px').join(' ');
-      const groupRows={}; D.groups.forEach(g=>{ groupRows[g.row]=g; });
-      const fmt=c=>{ if(!c||c.v===undefined||c.v===null) return '';
-        if(typeof c.v==='number') return c.v===0?'<span class="pg-0">0</span>'
-          :'<span'+(c.v<0?' class="pg-neg"':'')+'>'+this.nbn(Math.round(c.v*100)/100)+'</span>';
-        return this.vesc(String(c.v)).replace(/\n/g,'<br>'); };
-      let h='<div class="pg" style="--pg-cols:'+tmpl+'">';
-      h+='<div class="pg-r pg-letters"><div class="pg-c pg-n"></div>'+cols.map(l=>'<div class="pg-c'+(l==='B'?' pg-pinb':'')+'">'+l+'</div>').join('')+'</div>';
-      for(let r=2;r<=P.maxRow;r++){
-        const g=groupRows[r];
-        const lit=SEL&&r>=SEL.from&&r<=SEL.to;
-        const cls='vd-gr pg-r'+(r<=4?' pg-head':'')+(r===5?' pg-tot':'')+(g?' pg-grp':'')
-          +(lit?(r===SEL.from?' pg-sel':' pg-blk'):'');
-        h+='<div class="'+cls+'" data-ph-row="'+r+'"><div class="pg-c pg-n">'+r+'</div>';
-        cols.forEach(l=>{ const a=l+r, c=C[a];
-          const style=c&&c.fill&&r<=4?' style="background:'+c.fill+';color:#fff"':'';
-          h+='<div class="pg-c'+(c&&c.f?' pg-f':'')+(l==='B'?' pg-pinb':'')+(typeof (c&&c.v)==='number'?' pg-num':'')+(SEL&&SEL.cell===a?' pg-selc':'')+'" data-vd-cell="ph:'+a+'"'
-            +(c&&c.f?' title="'+this.vesc(a+'  '+c.f)+'"':' title="'+a+'"')+style+'>'
-            +(g&&l==='B'?'<span class="pg-tag">'+t('SELGER ','SELLER ')+'</span>'+fmt(c):fmt(c))+'</div>'; });
-        h+='</div>';
-      }
+    const S=this.vdStore(), SEL=this._phSel||null;
+    return this.once('phgrid'+this.state.lang+(SEL?SEL.cell+SEL.from+'-'+SEL.to:'')+'|'+(this._ph&&this._ph.sig),()=>{
+      const P=D.P, t=(a,b)=>this.t(a,b);
+      const ROLE=l=>l==='B'||l==='AD'||l==='AE'?'external'
+        :l==='V'||l==='Z'||l==='AC'?'computed'
+        :l==='W'?'input':'external';
+      const cols=['B'].concat(D.prodCols,['W','X','Z','AA','AB','AC','AD','AE']);
+      const W=l=>l==='B'?260:l==='AD'?300:l==='AE'?200:l==='Z'||l==='AC'||l==='AB'||l==='AA'?108:100;
+      const tmpl='54px '+cols.map(l=>W(l)+'px').join(' ');
+      const head=l=>{ const pr=D.products.find(p=>p.col===l);
+        return pr?(pr.group?pr.name+' · '+pr.group:pr.name):String((P.cells[l+'3']||{}).v||l).replace(/\s+/g,' '); };
+      const headHtml=l=>{ const pr=D.products.find(p=>p.col===l);
+        const nm=pr?pr.name:String((P.cells[l+'3']||{}).v||l).replace(/\s+/g,' ');
+        return '<b>'+this.vesc(nm)+'</b>'+(pr&&pr.group?'<small>'+this.vesc(String(pr.group).toLowerCase())+'</small>':''); };
+      const n=v=>typeof v==='number'?(v===0?'':this.nbn(Math.round(v*100)/100)):'';
+      const cell=(l,r,role,kind,shown,typed)=>{
+        const a=l+r, path='ph.'+a, ed=S.isEdited(path);
+        const lit=SEL&&SEL.cell===a?' pg-selc':'';
+        const bg=role==='input'?'var(--vd-in-bg)':role==='external'?'var(--vd-ext-bg)':'var(--vd-calc-bg)';
+        if(role==='computed'){
+          const v=D.val[a];
+          return '<div class="vd-c vd-ro'+(l==='B'?' vd-pin':'')+(typeof v==='number'&&v<0?' pg-neg':'')+lit+'" data-vd-cell="ph:'+a+'" style="text-align:right;font-weight:600'+(l==='B'?';left:54px':'')+'">'+n(v)+'</div>'; }
+        const v=shown!==undefined?shown:D.raw(a);
+        const disp=kind==='text'?(v===null?'':String(v).replace(/\n+/g,' · ')):(typeof v==='number'?(v===0?'':String(Math.round(v*100)/100).replace('.',t(',','.'))):(v||''));
+        return '<input class="vd-c'+(role==='external'?' vd-c-ext':'')+(ed?' vd-c-ed':'')+(typed&&v?' vd-c-ed vd-c-warn':'')+(l==='B'?' vd-pin':'')+lit+'" data-vd-set="'+path+'" data-vd-kind="'+(kind||'num')+'" data-vd-cell="ph:'+a+'"'
+          +' value="'+this.vesc(disp)+'" title="'+a+(typed&&v?' · '+this.vesc(t('Skrevet inn for hånd over formelen i Excel','Typed by hand over the formula in Excel')):'')+'" style="background:'+bg+(kind==='text'?';text-align:left;font-family:inherit;font-weight:500':';text-align:right')+(l==='B'?';left:54px':'')+'">'; };
+
+      let h='<div class="vd-grid pg2" style="--pg-cols:'+tmpl+'">';
+      h+='<div class="vd-gr vd-ghead" style="grid-template-columns:var(--pg-cols)"><div class="vd-c vd-corner"></div>'
+        +cols.map(l=>'<div class="vd-c vd-h vd-h-'+ROLE(l)+(l==='B'?' vd-pin':'')+'" title="'+l+' · '+this.vesc(head(l))+'" style="'+(l==='B'?'left:54px;z-index:5':'')+'">'
+          +'<span class="vd-hi">'+l+'</span><span class="vd-ht pg-ht">'+headHtml(l)+'</span></div>').join('')+'</div>';
+      // rates row: what Phonero pays per product — the one row Venditus types itself
+      h+='<div class="vd-gr pg-rate'+(SEL&&SEL.from===4?' pg-sel':'')+'" data-ph-row="4" style="grid-template-columns:var(--pg-cols)"><div class="vd-c vd-rn">4</div>'
+        +cols.map(l=>l==='B'?'<div class="vd-c vd-pin pg-lbl" style="left:54px">'+t('Provisjonssatser (kr)','Commission rates (kr)')+'</div>'
+          :D.prodCols.indexOf(l)>=0&&l!=='V'?cell(l,4,'input','num'):'<div class="vd-c"></div>').join('')+'</div>';
+      h+='<div class="vd-gr pg-total" data-ph-row="5" style="grid-template-columns:var(--pg-cols)"><div class="vd-c vd-rn">5</div>'
+        +cols.map(l=>l==='B'?'<div class="vd-c vd-pin pg-lbl" style="left:54px">'+t('Totalt antall','Total')+'</div>'
+          :(D.val[l+'5']!==undefined?cell(l,5,'computed'):'<div class="vd-c"></div>')).join('')+'</div>';
+      D.groups.forEach(g=>{
+        const nm=D.back[g.no];
+        const lit=r=>SEL&&r>=SEL.from&&r<=SEL.to?(r===SEL.from?' pg-sel':' pg-blk'):'';
+        h+='<div class="vd-gr vd-sec pg-grp'+lit(g.row)+'" data-ph-row="'+g.row+'" style="grid-template-columns:var(--pg-cols)"><div class="vd-c vd-rn">'+g.row+'</div>'
+          +cols.map(l=>l==='B'?'<div class="vd-c vd-sect vd-pin'+(SEL&&SEL.cell==='B'+g.row?' pg-selc':'')+'" data-vd-cell="ph:B'+g.row+'" style="left:54px">'+t('SELGER ','SELLER ')+g.no
+              +(nm?' · '+this.vesc(this.vdSellerDisplay(nm)):'')+' <span class="pg-n2">'+g.lines.length+' '+t('linjer','lines')+'</span></div>'
+            :(D.val[l+g.row]!==undefined?cell(l,g.row,'computed'):'<div class="vd-c vd-sect"></div>')).join('')+'</div>';
+        g.rows.forEach(r=>{
+          h+='<div class="vd-gr pg-tr'+lit(r)+'" data-ph-row="'+r+'" style="grid-template-columns:var(--pg-cols)"><div class="vd-c vd-rn">'+r+'</div>'
+            +cols.map(l=>{ const role=ROLE(l);
+              if(l==='V'&&!(P.cells['V'+r]&&P.cells['V'+r].f)) return cell(l,r,'input','num',undefined,true);
+              if(role==='computed') return cell(l,r,'computed');
+              return cell(l,r,role,l==='B'||l==='AD'||l==='AE'?'text':'num'); }).join('')+'</div>'; });
+      });
       h+='</div>';
       const warn=[];
-      if(D.ratesZero) warn.push(t('Satsene på rad 4 er 0 i denne kopien — derfor blir provisjonen i Z og AC kr 0.','The rates on row 4 are 0 in this copy — so commission in Z and AC comes out as kr 0.'));
-      warn.push(t('Selgerne har bare nummer (1–'+D.groups.length+'). Koble numrene til ansatte når listen kommer fra Venditus.','Sellers are numbered only (1–'+D.groups.length+'). Map the numbers to employees once Venditus sends the list.'));
-      return '<div class="pg-info"><span class="pg-file">📄 '+this.vesc(P.source)+' · '+t('ark','sheet')+' «'+this.vesc(P.sheet)+'» · '+t('lest inn som den er, kun visning','read in as is, view only')+'</span>'
+      if(D.ratesZero) warn.push(t('Satsene på rad 4 er 0 i denne kopien — skriv dem inn øverst, så regnes provisjonen ut med en gang.','The rates on row 4 are 0 in this copy — type them in at the top and the commission works itself out.'));
+      if(D.overrides.length) warn.push(t('Mobilbonus (V) er skrevet inn for hånd over formelen på '+D.overrides.length+' linjer, hos selger '+D.overrideBlocks.join(', ')+' — merket med rødt hjørne.',
+          'Mobile bonus (V) was typed by hand over the formula on '+D.overrides.length+' lines, for seller '+D.overrideBlocks.join(', ')+' — marked with a red corner.'));
+      warn.push(t('Selgerne har bare nummer (1–'+D.groups.length+'). Koble dem til ansatte under Provisjon → Oppgjør per selger.','Sellers are numbered only (1–'+D.groups.length+'). Link them to employees under Commission → Settlement per seller.'));
+      return '<div class="pg-info"><span class="pg-file">📄 '+this.vesc(P.source)+' · '+t('alle tall kan redigeres — Z, V og AC regnes ut av Clario','every figure is editable — Z, V and AC are computed by Clario')+'</span>'
         +warn.map(w=>'<span class="pg-warn">'+w+'</span>').join('')
         +'<span class="pg-priv">'+t('Inneholder ekte kundenavn — lagres bare lokalt, aldri i repoet.','Contains real customer names — kept locally only, never in the repo.')+'</span></div>'
-        +'<div class="pg-scroll">'+h+'</div>'; }); }
+        +'<div class="vd-wrap pg-scroll">'+h+'</div>'; }); }
+
+  // "bilal ahmad" → "Bilal Ahmad", from SELGER PROFIL
+  vdSellerDisplay(k){ const M=this.vdModel(); const e=M&&(M.employees||[]).find(x=>String(x.name).replace(/\s+/g,' ').trim().toLowerCase()===k); return e?e.name:k; }
 
   // land on a cell (or a whole seller block) and keep it lit until the next jump
   phJump(tries){
@@ -8947,6 +9044,9 @@ class Component extends DCLogic {
       +stat(t('Trekk i rapporten','Deductions in the report'),'−'+this.vkr(D.trekk),this.vnum(D.trekkLines)+' '+t('linjer','lines'))
       +stat(t('Kun tilbaketrekk','Clawback only'),this.vnum(D.pure),t('kunder uten salg denne måneden — tidligere salg som tas tilbake','customers with no sales this month — earlier sales taken back'))
       +'</div>'
+      +(D.overrides.length?'<div class="ph-warn ph-warn-r">'+t('Mobilbonus er skrevet inn for hånd over formelen på '+D.overrides.length+' linjer (selger '+D.overrideBlocks.join(', ')+'). Disse selgerne er under terskelen på '+(D.threshold||35)+' abonnement, men får likevel bonus — sjekk om det er et bevisst unntak.',
+          'Mobile bonus was typed by hand over the formula on '+D.overrides.length+' lines (seller '+D.overrideBlocks.join(', ')+'). These sellers are below the '+(D.threshold||35)+'-subscription threshold yet still get the bonus — check whether that is a deliberate exception.')
+        +' '+D.overrideBlocks.map(no=>{ const g=D.groups.find(x=>x.no===no); return '<button class="ph-go" data-vd-act="phcell" data-vd-val="V'+D.overrides.find(r=>r>g.row&&r<=g.end)+'">'+t('Selger ','Seller ')+no+' →</button>'; }).join(' ')+'</div>':'')
       +(D.ratesZero?'<div class="ph-warn">'+t('Satsene (rad 4) er 0 i denne kopien, så «Total provisjon» blir bare tillegg minus trekk. Med de ekte satsene regnes provisjonen ut av seg selv.',
           'The rates (row 4) are 0 in this copy, so "Total commission" is only additions minus deductions. With the real rates the commission works itself out.')+'</div>':'')
       +'<div class="ph-cols"><div><div class="ph-h">'+t('Per selger','Per seller')+'</div>'+sellers+'</div>'
@@ -9041,6 +9141,21 @@ class Component extends DCLogic {
           +'<span class="pv-sl-h">'+t('solgt ','sold ')+short(c.saleMonth)+' · '+this.vesc(c.reason||'')+'</span>'
           +'<span class="mono">−'+this.vkr(C.sellerAmount||0)+'</span></div>'; }).join('');
       const carryIn=r.deductionTaken-r.deductions;
+      // straight to where this person's numbers live, so they can be corrected there
+      const key=String(r.seller).replace(/\s+/g,' ').trim().toLowerCase();
+      const PH=this.vdPh(), no=PH&&PH.map[key], G=no&&PH.groups.find(x=>x.no===no);
+      const RA=this.vdRowAttrs('revenue',{seller:r.seller,month:month});
+      const acts='<div class="pv-acts">'
+        +(G?'<button class="pv-act pv-act-p" data-vd-act="phcell" data-vd-val="blk:'+G.row+'-'+G.end+'">'
+            +'<span>'+t('Rediger i PHONERO-GRUNNLAG','Edit in PHONERO-GRUNNLAG')+'</span><em>'+t('Selger ','Seller ')+no+' · '+G.lines.length+' '+t('linjer','lines')+' →</em></button>':'')
+        +(RA.attrs?'<button class="pv-act'+(G?'':' pv-act-p')+'"'+RA.attrs+'><span>'+t('Rediger salgene i PHONERO RAPPORT','Edit the sales in PHONERO RAPPORT')+'</span><em>'+this.vesc(RA.ref||'')+' · '+monL+' →</em></button>':'')
+        +'<button class="pv-act" data-vd-act="mdgo" data-vd-val="'+this.vesc(key)+'"><span>'+t('Endre avtalen','Change the agreement')+'</span><em>'+t('provisjonsavtale','commission agreement')+' →</em></button>'
+        +(PH?'<label class="pv-map"><span>'+t('Phonero-selger nr','Phonero seller no.')+'</span>'
+            +'<select data-vd-set="ph.map.'+this.vesc(key)+'" data-vd-kind="num"><option value="0"'+(no?'':' selected')+'>'+t('ikke koblet','not linked')+'</option>'
+            +PH.groups.map(g=>'<option value="'+g.no+'"'+(g.no===no?' selected':'')+(PH.back[g.no]&&PH.back[g.no]!==key?' disabled':'')+'>'
+              +t('Selger ','Seller ')+g.no+' · '+g.lines.length+' '+t('linjer','lines')+(PH.back[g.no]&&PH.back[g.no]!==key?' ('+this.vesc(this.vdSellerDisplay(PH.back[g.no]))+')':'')+'</option>').join('')
+            +'</select></label>':'')
+        +'</div>';
       return '<div class="pv-c">'
         +'<div class="pv-c-hd"><span class="pv-av" style="background:'+col+'">'+this.vdInitials(r.seller)+'</span>'
         +'<div class="pv-c-who"><div class="pv-c-n">'+this.vesc(r.seller)+'</div><div class="pv-c-m">'+this.vdModelSentence(m,true)+'</div></div>'
@@ -9052,8 +9167,8 @@ class Component extends DCLogic {
         +(r.deductionTaken?'<div class="pv-c-row pv-neg"><span>'+t('Trekk for kansellerte salg','Deduction for cancelled sales')+'</span><span class="mono">−'+this.vkr(r.deductionTaken)+'</span></div>':'')
         +(r.guarantee?'<div class="pv-c-row"><span>'+t('Garantitillegg','Guarantee top-up')+'</span><span class="mono">+'+this.vkr(r.guarantee)+'</span></div>':'')
         +(r.deductionCarry?'<div class="pv-c-row pv-warn"><span>'+t('Trekk som tas neste måned','Deduction carried to next month')+'</span><span class="mono">'+this.vkr(r.deductionCarry)+'</span></div>':'')
-        +'<details class="pl-more pv-slip"><summary><span class="pl-i" aria-hidden="true">i</span>'+t('Se oppgjøret','See the settlement')+'</summary>'
-        +'<div class="pl-body"><div class="pl-q">'+t('Provisjon på salgene i ','Commission on the sales in ')+monL+'</div>'+lines
+        +'<details class="pl-more pv-slip" data-slip="'+this.vesc(key)+'"'+(this._slips&&this._slips[key]?' open':'')+'><summary><span class="pl-i" aria-hidden="true">i</span>'+t('Se oppgjøret','See the settlement')+'</summary>'
+        +'<div class="pl-body">'+acts+'<div class="pl-q">'+t('Provisjon på salgene i ','Commission on the sales in ')+monL+'</div>'+lines
         +'<div class="pv-sl pv-sl-tot"><span>'+t('Opptjent','Earned')+'</span><span></span><span class="mono">'+this.vkr(r.commissionGross)+'</span></div>'
         +(ded||carryIn>0?'<div class="pl-q">'+t('Trekk','Deductions')+'</div>'+ded
           +(carryIn>0?'<div class="pv-sl pv-sl-neg"><span>'+t('Utsatt trekk fra forrige måned','Carried from last month')+'</span><span></span><span class="mono">−'+this.vkr(carryIn)+'</span></div>':''):'')
@@ -9169,7 +9284,7 @@ class Component extends DCLogic {
         : '<div class="pv-md-def">'+t('Ingen egen avtale registrert — bruker standarden for «','No agreement on file — using the default for "')+this.vesc(e.contract||'')+t('».','".')+'</div>';
       const hist=all.length>1?'<div class="pv-md-h">'+all.map(x=>'<span'+(x.from===cur.from?' class="on"':'')+'>'+t('fra ','from ')+short(x.from)+' '+x.from.slice(0,4)+': '
           +(x.type==='perPack'?t('per produkt','per product'):Math.round((x.share||0)*100)+' %')+(x.from>month?' · '+t('kommende','upcoming'):'')+'</span>').join('')+'</div>':'';
-      return '<div class="pv-md">'
+      return '<div class="pv-md" data-md="'+this.vesc(k)+'">'
         +'<div class="pv-md-hd"><span class="pv-av pv-av-s" style="background:'+this.vdSellerHue(name)+'">'+this.vdInitials(name)+'</span>'
         +'<div><div class="pv-c-n">'+this.vesc(name)+'</div><div class="pv-c-m">'+this.vesc(e.contract||'')+(cur.from?' · '+t('gjelder fra ','in force from ')+short(cur.from)+' '+cur.from.slice(0,4):'')+'</div></div></div>'
         +'<div class="pv-md-s">'+this.vdModelSentence(cur)+'</div>'
