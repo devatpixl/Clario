@@ -7,7 +7,7 @@
 <script src="./venditus/demo.js?h=ba25e18a"></script>
 <script src="./venditus/mapping.js?h=6e299dd5"></script>
 <script src="./venditus/parse.js?h=a4e5a20b"></script>
-<script src="./venditus/model.js?h=189e8264"></script>
+<script src="./venditus/model.js?h=2c1cb672"></script>
 <script src="./venditus/trace.js?h=3e1778ba"></script>
 <script src="./venditus/store.js?h=9c4ca9b0"></script>
 <script src="./venditus/forecast.js?h=102c4749"></script>
@@ -962,6 +962,10 @@
   .pv-sl-tot{border-top:1px solid var(--border);margin-top:4px;padding-top:6px;font-weight:700}
   .pv-sl-note{font-size:10.5px;color:var(--muted);margin-top:8px}
 
+  .vd-cxw{position:relative;display:block}
+  .vd-cxb{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-style:normal;font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;font-weight:700;color:var(--danger);background:var(--danger-soft);border:1px solid var(--danger-border);
+    border-radius:6px;padding:0 5px;line-height:16px;pointer-events:none;z-index:2}
   .pv-mf{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:-2px 0 16px;padding:10px 12px;border-radius:14px;
     background:var(--surface2);border:1px solid var(--border-soft)}
   .pv-mf-q{flex:1 1 240px;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--border);
@@ -6568,6 +6572,11 @@ class Component extends DCLogic {
           +'</div>'; }).join('')
       +(def.table?'<div class="vd-c vd-h"></div>':'')+'</div>';
 
+    // PHONERO RAPPORT keeps what Phonero reported; a sale cancelled later is
+    // shown as a note on the cell instead of being edited out of the history
+    const cxAt={};
+    if(def.table==='sales') (M.cancellations||[]).forEach(c=>{
+      const k=this.vdJoinKey(c.seller)+'|'+c.saleMonth+'|'+c.pack; cxAt[k]=(cxAt[k]||0)+c.count; });
     const body=rows.map((r,i)=>{
       const key=def.table?this.vdRowKey(def.table,r):null;
       const who=r.seller||r.name||'';
@@ -6581,11 +6590,17 @@ class Component extends DCLogic {
           fl.empty=(v===null||v===undefined||v==='');
         }
         if(c.field==='seller'&&v&&!known[this.vdJoinKey(v)]) fl.warn=true;
-        return this.vdCell(path,v,c.type,editable?c.role:(c.role==='key'?'key':'computed'),
+        const html=this.vdCell(path,v,c.type,editable?c.role:(c.role==='key'?'key':'computed'),
                            c.letter,[i,ci],fl,
                            {months:months,sellers:sellers,
                             isSeller:c.field==='seller'||c.field==='name',
                             pin:ci<pin});
+        const cx=def.table==='sales'&&cxAt[this.vdJoinKey(who)+'|'+r.month+'|'+c.field];
+        if(!cx) return html;
+        const net=Math.max(0,(+v||0)-cx);
+        return '<span class="vd-cxw" title="'+this.vesc(t(cx+' kansellert senere — Clario regner med '+net+' i '+this.vmonthLbl(r.month).toLowerCase()+'. Phonero rapporterte '+(v||0)+'.',
+            cx+' cancelled later — Clario counts '+net+' for '+this.vmonthLbl(r.month)+'. Phonero reported '+(v||0)+'.'))+'">'
+          +html+'<i class="vd-cxb">−'+cx+'</i></span>';
       }).join('');
       const del=def.table?'<div class="vd-c vd-ro vd-c-x">'
         +'<button data-vd-act="hiderow" data-vd-val="'+def.table+'|'+this.vesc(key)+'" class="vd-x" '
@@ -9146,7 +9161,7 @@ class Component extends DCLogic {
       +'<div class="pv-hero-l"><div class="ks-eye">'+t('TIL UTBETALING','TO PAY OUT')+' · '+this.vmonthLbl(month).toUpperCase()+'</div>'
       +'<div class="pv-hero-v mono">'+this.vkr(T.payout)+'</div><p class="pv-hero-p">'+sentence+'</p></div>'
       +'<div class="pv-hero-r">'
-      +stat(t('Opptjent på salg','Earned on sales'),this.vkr(T.commissionGross),'#fff',this.vnum(T.salesCount)+' '+t('salg','sales'))
+      +stat(t('Opptjent på salg','Earned on sales'),this.vkr(T.commissionGross),'#fff',this.vnum(T.salesCountGross)+' '+t('salg','sales'))
       +stat(t('Trekk for kanselleringer','Cancellation deductions'),(T.deductionTaken?'−':'')+this.vkr(T.deductionTaken),'#FCA5A5',claimedNow.length+' '+t('registrert','registered'))
       +stat(t('Garantitillegg','Guarantee top-up'),this.vkr(T.guarantee),'#fff',t('når provisjonen er under garantilønn','when commission is under the guarantee'))
       +(T.deductionCarry?stat(t('Utsatt trekk','Deferred deduction'),this.vkr(T.deductionCarry),'#FCD34D',t('tas neste måned','taken next month')):'')
@@ -9157,7 +9172,8 @@ class Component extends DCLogic {
     const card=r=>{
       const m=r.model||{}, col=this.vdSellerHue(r.seller);
       const pay=Math.max(r.payout,1), wE=r.commissionGross/(r.commissionGross+r.guarantee||1)*100;
-      const lines=(r.packs||[]).filter(p=>p.count).map(p=>{
+      // the settlement is what was paid at the time — before later cancellations
+      const lines=(r.packsGross||r.packs||[]).filter(p=>p.count).map(p=>{
         const amt=m.type==='perPack'?p.count*(m.rates[p.key]||0):p.amount*m.share;
         const how=m.type==='perPack'?this.vnum(p.count)+' × '+this.vkr(m.rates[p.key]||0)
           :this.vnum(p.count)+' × '+this.vkr(p.rate)+' × '+Math.round(m.share*100)+' %';
@@ -9189,7 +9205,7 @@ class Component extends DCLogic {
         +'<div class="pv-c-bar"><i style="width:'+Math.min(100,wE).toFixed(1)+'%;background:'+col+'"></i>'
         +(r.guarantee?'<i style="width:'+(100-wE).toFixed(1)+'%;background:color-mix(in srgb,'+col+' 40%,transparent)"></i>':'')
         +(r.deductionTaken?'<b style="width:'+Math.min(40,r.deductionTaken/pay*100).toFixed(2)+'%"></b>':'')+'</div>'
-        +'<div class="pv-c-row"><span>'+t('Opptjent','Earned')+' · '+this.vnum(r.salesCount)+' '+t('salg','sales')+'</span><span class="mono">'+this.vkr(r.commissionGross)+'</span></div>'
+        +'<div class="pv-c-row"><span>'+t('Opptjent','Earned')+' · '+this.vnum(r.salesCountGross)+' '+t('salg','sales')+'</span><span class="mono">'+this.vkr(r.commissionGross)+'</span></div>'
         +(r.deductionTaken?'<div class="pv-c-row pv-neg"><span>'+t('Trekk for kansellerte salg','Deduction for cancelled sales')+'</span><span class="mono">−'+this.vkr(r.deductionTaken)+'</span></div>':'')
         +(r.guarantee?'<div class="pv-c-row"><span>'+t('Garantitillegg','Guarantee top-up')+'</span><span class="mono">+'+this.vkr(r.guarantee)+'</span></div>':'')
         +(r.deductionCarry?'<div class="pv-c-row pv-warn"><span>'+t('Trekk som tas neste måned','Deduction carried to next month')+'</span><span class="mono">'+this.vkr(r.deductionCarry)+'</span></div>':'')
@@ -9271,9 +9287,9 @@ class Component extends DCLogic {
 
     /* 4 · what is still waiting on Phonero */
     const pend=rows.reduce((a,r)=>a+(r.pending||0),0), rej=rows.reduce((a,r)=>a+(r.rejected||0),0);
-    const sold=T.salesCount, canc=T.cancelledCount||0, ok=Math.max(0,sold-canc);
+    const sold=T.salesCountGross, canc=T.cancelledCount||0, ok=Math.max(0,sold-canc);
     const tot=Math.max(1,ok+canc+pend+rej);
-    const avg=T.salesCount?T.revenueGross/T.salesCount:0;
+    const avg=T.salesCountGross?T.revenueGross/T.salesCountGross:0;
     const seg=(v,c,l)=>v?'<i style="flex:'+v+';background:'+c+'" title="'+l+': '+v+'"></i>':'';
     const pipe='<div class="pv-sec pv-pipe"><div class="pv-sec-hd"><div><h3>'+t('Venter hos Phonero','Waiting on Phonero')+'</h3>'
       +'<p>'+t('Hva som skjedde med salgene i '+monL+'.','What happened to the sales in '+mon+'.')+'</p></div></div>'

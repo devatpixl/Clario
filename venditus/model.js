@@ -200,6 +200,20 @@
     });
 
     var revenue = attribution === 'sale' ? revenueGross - cancelledRevenue : revenueGross;
+
+    // Counts follow the money: a cancelled sale leaves the month it was sold in.
+    // packsGross / salesCountGross keep what Phonero paid at the time — the
+    // settlement and the reconciliation against Phonero's total need those.
+    var cancelledByPack = {};
+    if (attribution === 'sale') cancelled.forEach(function (c) { cancelledByPack[c.pack] = (cancelledByPack[c.pack] || 0) + n(c.count); });
+    var packsNet = comm.lines.map(function (l) {
+      var cx = Math.min(l.count, cancelledByPack[l.key] || 0);
+      if (!cx) return l;
+      var o = {}; Object.keys(l).forEach(function (k) { o[k] = l[k]; });
+      o.cancelled = cx; o.count = l.count - cx; o.amount = o.count * l.rate;
+      return o;
+    });
+    var salesNet = Math.max(0, comm.count - (attribution === 'sale' ? cancelledCount : 0));
     var commission = attribution === 'sale' ? commissionGross - cancelledCommission : commissionGross - deductions;
     var share = revenue ? commission / revenue : model.share;
 
@@ -294,8 +308,10 @@
       commissionReported: comm.reported,
       commissionVariance: comm.variance,
       commissionVariancePct: comm.variancePct,
-      packs: comm.lines,
-      salesCount: comm.count,
+      packs: packsNet,
+      packsGross: comm.lines,
+      salesCount: salesNet,
+      salesCountGross: comm.count,
       rejected: n(sale && sale.rejected),
       pending: n(sale && sale.pending),
 
@@ -320,8 +336,8 @@
       guarantee: guarantee, incentives: incentives, severance: severance,
       lostEarnings: lostEarnings, totalCostAll: totalCostAll,
 
-      costPerSale: comm.count ? totalCostAll / comm.count : 0,
-      marginPerSale: comm.count ? marginKr / comm.count : 0,
+      costPerSale: salesNet ? totalCostAll / salesNet : 0,
+      marginPerSale: salesNet ? marginKr / salesNet : 0,
 
       hasData: !!(sale || hr || bonuses.length || cancelled.length || claimed.length)
     };
@@ -335,7 +351,7 @@
     'navExpected', 'navReceived', 'navGap', 'netPayroll', 'clawback', 'listCost', 'onboarding',
     'totalCost', 'marginKr', 'bonus', 'bonusWithEmployer', 'guarantee', 'incentives', 'severance',
     'lostEarnings', 'totalCostAll', 'salesCount', 'selfCertDays', 'sickDays', 'leaveDays', 'rejected', 'pending',
-    'revenueGross', 'commissionGross', 'cancelledCount', 'cancelledRevenue', 'cancelledCommission',
+    'revenueGross', 'commissionGross', 'salesCountGross', 'cancelledCount', 'cancelledRevenue', 'cancelledCommission',
     'claimedAmount', 'deductions', 'clawbackReported', 'payout', 'deductionTaken', 'deductionCarry'];
 
   function total(rows, workdays) {
