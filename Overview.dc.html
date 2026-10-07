@@ -11,6 +11,7 @@
 <script src="./venditus/trace.js?h=3e1778ba"></script>
 <script src="./venditus/store.js?h=c5384bec"></script>
 <script src="./venditus/forecast.js?h=102c4749"></script>
+<script src="./venditus/phonero-grunnlag.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -1066,6 +1067,78 @@
     .pv-track{grid-column:1/-1}
     .cxc{flex-wrap:wrap}
   }
+
+  /* ───────── PHONERO-GRUNNLAG sheet + Provisjon links ───────── */
+  .pg-info{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border-soft)}
+  .pg-file{font-size:12px;font-weight:600;color:var(--text)}
+  .pg-warn{font-size:11px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:9999px;padding:2px 9px}
+  .pg-priv{font-size:11px;color:var(--danger-ink);background:var(--danger-soft);border:1px solid var(--danger-border);border-radius:9999px;padding:2px 9px}
+  .pg-scroll{overflow:auto;max-height:72vh;position:relative}
+  .pg{display:inline-block;min-width:100%;font-size:11.5px}
+  .pg-r{display:grid;grid-template-columns:var(--pg-cols);border-bottom:1px solid var(--border-soft);transition:background .2s}
+  .pg-c{padding:5px 8px;border-right:1px solid var(--border-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:26px;
+    background:var(--card);line-height:1.35}
+  .pg-num{text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .pg-f{background:color-mix(in srgb,var(--green) 5%,var(--card))}
+  .pg-0{color:var(--muted2)}
+  .pg-neg{color:var(--danger)}
+  .pg-n{position:sticky;left:0;z-index:2;text-align:right;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--surface2)}
+  .pg-pinb{position:sticky;left:48px;z-index:1;font-weight:500}
+  .pg-letters{position:sticky;top:0;z-index:4}
+  .pg-letters .pg-c{background:var(--surface2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;text-align:center;font-weight:600}
+  .pg-letters .pg-n{z-index:5}
+  .pg-head .pg-c{font-weight:700;white-space:normal;font-size:10.5px}
+  .pg-tot .pg-c{font-weight:700;background:color-mix(in srgb,var(--accent) 5%,var(--card))}
+  .pg-grp .pg-c{background:var(--surface2);font-weight:700;border-top:1.5px solid var(--border)}
+  .pg-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);margin-right:4px}
+  .pg-blk .pg-c{background:color-mix(in srgb,var(--accent) 6%,var(--card))}
+  .pg-sel .pg-c{background:color-mix(in srgb,var(--accent) 13%,var(--card))}
+  .pg-sel .pg-n{background:var(--accent);color:#fff}
+  .pg-c.pg-selc{background:color-mix(in srgb,var(--accent) 24%,var(--card));box-shadow:inset 0 0 0 2px var(--accent);color:var(--text);font-weight:700;z-index:3;position:relative}
+  .pg-pinb.pg-selc{position:sticky}
+  @keyframes pgPulse{0%{box-shadow:inset 0 0 0 2px var(--accent),0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}
+    100%{box-shadow:inset 0 0 0 2px var(--accent),0 0 0 14px transparent}}
+  .pg-pulse{animation:pgPulse 1.1s ease-out 3}
+
+  .ph-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+  .ph-st{border:1px solid var(--border-soft);border-radius:14px;padding:12px 14px}
+  .ph-st div{font-size:11px;color:var(--muted)}
+  .ph-st b{display:block;font-size:20px;font-weight:700;letter-spacing:-0.03em;margin-top:3px}
+  .ph-st span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+  .ph-warn{font-size:11.5px;color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:12px;padding:9px 12px;margin-bottom:14px}
+  .ph-cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+  .ph-h{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .ph-s{border:1px solid var(--border-soft);border-radius:12px;margin-bottom:6px;background:var(--card)}
+  .ph-s>summary{list-style:none;display:grid;grid-template-columns:28px minmax(0,1fr) 70px 104px 112px auto;gap:10px;align-items:center;padding:8px 10px;cursor:pointer}
+  .ph-s>summary::-webkit-details-marker{display:none}
+  .ph-s[open]>summary{border-bottom:1px solid var(--border-soft)}
+  .ph-s-n b{display:block;font-size:12.5px}
+  .ph-s-n span{font-size:10.5px;color:var(--muted)}
+  .ph-s-bar{height:5px;border-radius:9999px;background:var(--surface2);overflow:hidden}
+  .ph-s-bar i{display:block;height:100%;background:var(--danger);border-radius:9999px}
+  .ph-s-t,.ph-s-tot{font-size:12px;font-weight:700;text-align:right}
+  .ph-s-t{color:var(--danger)}
+  .ph-s-t em,.ph-s-tot em{display:block;font-style:normal;font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:400;color:var(--muted)}
+  .ph-s-body{padding:6px 10px 8px}
+  .ph-none{font-size:11.5px;color:var(--muted);padding:4px 0}
+  .ph-l{display:grid;grid-template-columns:auto auto minmax(0,1fr) minmax(0,1.2fr) auto;gap:8px;align-items:center;padding:5px 0;border-top:1px solid var(--border-soft);font-size:11.5px}
+  .ph-s-body .ph-l{grid-template-columns:auto minmax(0,1fr) minmax(0,1.3fr) auto}
+  .ph-l:first-child{border-top:none}
+  .ph-l-s{font-size:10px;color:var(--muted);background:var(--surface2);border-radius:5px;padding:1px 5px}
+  .ph-l-c{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ph-l-m{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px}
+  .ph-k{font-size:9.5px;font-weight:600;color:var(--k);background:color-mix(in srgb,var(--k) 11%,transparent);border-radius:9999px;padding:2px 7px;white-space:nowrap}
+  .ph-go{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+  .ph-go:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .ph-go .mono{font-weight:600}
+  .ph-go .ph-ref{font-size:9.5px;color:var(--muted);font-weight:500}
+  .ph-go:hover .ph-ref{color:var(--accent)}
+  .ph-go-b{font-size:10.5px}
+  .ph-go-open{background:var(--accent);color:#fff;border-color:var(--accent);padding:7px 14px;font-weight:600;font-size:12px}
+  .ph-go-open:hover{background:var(--accent-hover);color:#fff}
+  .ph-more>summary{font-size:12px;font-weight:600;color:var(--accent);cursor:pointer;padding:8px 0}
+  @media(max-width:1100px){ .ph-cols{grid-template-columns:1fr} }
+  @media(max-width:768px){ .ph-stats{grid-template-columns:1fr 1fr} .ph-s>summary{grid-template-columns:28px minmax(0,1fr) auto} .ph-s-bar,.ph-s-tot{display:none} }
 
   /* ───────── mobile shell primitives (inert above 768px) ───────── */
   .burger{display:none}
@@ -6001,7 +6074,7 @@ class Component extends DCLogic {
         {letter:'J',field:'breakEvenCount',type:'num',role:'computed',header:t('Break-even (antall salg)','Break-even (sales)')},
         {letter:'L',field:'lostEarnings',type:'kr',role:'computed',header:t('Tapt inntjening','Lost earnings')}
       ])
-    ];
+    ].concat(window.PHONERO_GRUNNLAG?[{key:'phgrunnlag',name:'PHONERO-GRUNNLAG',kind:'raw'}]:[]);
   }
 
   vdLetterIdx(l){ let n=0; for(let i=0;i<l.length;i++) n=n*26+(l.charCodeAt(i)-64); return n-1; }
@@ -6229,6 +6302,9 @@ class Component extends DCLogic {
       nav:      ['Penger begge veier','Money both ways','⇄',
                  'AGA ut per kvartal, sykepengerefusjon og lønnstilskudd inn fra NAV.',
                  'Employer tax out by quarter, sick-pay refunds and wage subsidy in from NAV.'],
+      phgrunnlag:['Phonero sin rapport','Phonero\'s report','📄',
+                 'DanaKopiGrunnlag — én blokk per selger, én rad per kunde, trekk med årsak. Lest inn som den er.',
+                 'DanaKopiGrunnlag — a block per seller, a row per customer, deductions with the reason. Read in as is.'],
       onboarding:['Kostnad per ansettelse','Cost per hire','🎓',
                  'Annonsering, honorar, opplæring og utstyr — og dager til første salg.',
                  'Advertising, fees, training and equipment — and days to first sale.']
@@ -6238,21 +6314,24 @@ class Component extends DCLogic {
 
   vdSheetStats(def){
     const S=this.vdStore(), t=(a,b)=>this.t(a,b), M=this.vdModel();
-    const rows=def.kind==='keyvalue'
+    const PH=def.kind==='raw'?this.vdPh():null;
+    const rows=def.kind==='raw' ? (PH?PH.lines.length:0)
+      : def.kind==='keyvalue'
       ? Object.keys(M.config.packRates||{}).length+18
       : def.kind==='nav'
         ? (S.dataset.navSubsidy||[]).length+(S.dataset.navSickRefund||[]).length+4
         : (def.rows||[]).length;
     const yours=def.table?(def.cols||[]).filter(c=>c.role==='input').length
               :def.kind==='keyvalue'?null:0;
-    const fromExt=def.table?(def.cols||[]).filter(c=>c.role==='external').length:0;
+    const fromExt=def.kind==='raw'?(PH?PH.P.cols.length-1:0):def.table?(def.cols||[]).filter(c=>c.role==='external').length:0;
     const edits=def.table
       ? Object.keys(S.edits).filter(k=>k.indexOf(def.table+'.')===0).length
       : def.kind==='keyvalue'
         ? Object.keys(S.edits).filter(k=>k.indexOf('config.')===0).length : 0;
     const empty=def.table&&(def.rows||[]).length===0;
     // Which bucket the sheet belongs in, from the roles the workbook declared
-    const group = def.kind==='computed' ? 'computed'
+    const group = def.kind==='raw' ? 'imported'
+                : def.kind==='computed' ? 'computed'
                 : def.kind==='keyvalue' ? 'manual'
                 : def.kind==='nav'      ? 'computed'
                 : fromExt>yours         ? 'imported'
@@ -6359,7 +6438,7 @@ class Component extends DCLogic {
     // thing as two chips in the header — and the reset stays one click away,
     // which it would not be parked at the bottom of a long sheet.
     const chips=
-      (S.usingDemo
+      (S.usingDemo&&cur.kind!=='raw'
         ? '<span class="vd-chip vd-chip-demo" title="'+this.vesc(
             t('PHONERO RAPPORT er tom i arbeidsboken, så salgstallene er demodata. Satser og '
              +'ansatte kommer fra Venditus_v2_Mikro_final.xlsx.',
@@ -6382,7 +6461,8 @@ class Component extends DCLogic {
       +btn('redo','','↷ '+t('Gjør om','Redo'),S.canRedo())
       +finder+'</span></div>';
 
-    const body=cur.kind==='keyvalue'?this.vdKonfigGrid()
+    const body=cur.kind==='raw'?this.vdRawGrid()
+              :cur.kind==='keyvalue'?this.vdKonfigGrid()
               :cur.kind==='nav'?this.vdNavGrid():this.vdGrid(cur);
 
     // Excel puts the sheet tabs and the running totals along the bottom. So do we.
@@ -8490,6 +8570,12 @@ class Component extends DCLogic {
           reason:f('reason')||this.t('Kansellert av kunden','Cancelled by the customer'),amount:count*rate});
         this._vdToast(this.t('Registrert — '+this.vmonthLbl(sale).split(' ')[0].toLowerCase()+' er rettet','Registered — '+this.vmonthLbl(sale).split(' ')[0]+' is corrected'));
       }
+      else if(act==='phcell'){ e.preventDefault(); e.stopPropagation(); this.vdPickClose();
+        if(val.indexOf('blk:')===0){ const [f,to]=val.slice(4).split('-').map(Number); this._phSel={cell:'B'+f,from:f,to:to}; }
+        else { const rr=+String(val).replace(/^[A-Z]+/,''); this._phSel={cell:val,from:rr,to:rr}; }
+        this._phJump=val; this.setState({active:'Inndata',vdSheet:'phgrunnlag'});
+        // also drive it from here: componentDidUpdate is not guaranteed to reach vdJump()
+        setTimeout(()=>this.phJump(),30); }
       else if(act==='cxdel'){ S.hideRow('cancellations',val); this._vdToast(this.t('Fjernet — ⌘Z angrer','Removed — ⌘Z undoes')); }
       else if(act==='mdtype'){       // key|from|type|name
         const [k,from,ty,...nm]=val.split('|'); const name=nm.join('|');
@@ -8549,6 +8635,7 @@ class Component extends DCLogic {
     return out; }
 
   vdJump(){
+    if(this._phJump&&!this._phPending){ this._phPending=true; requestAnimationFrame(()=>{ this._phPending=false; this.phJump(); }); }
     if(!this._vdJump&&!this._vdJumpCol) return;
     const col=this._vdJumpCol; this._vdJumpCol=null;
     const colSel=this.vdCols(col).map(c=>'[data-vd-col="'+c+'"]').join(',');
@@ -8704,6 +8791,168 @@ class Component extends DCLogic {
           marginNok:last.marginKr||0,marginPct:(last.marginPct||0)*100,
           perSub:last.salesCount?last.marginKr/last.salesCount:0}};
   }
+
+  /* ═══ PHONERO-GRUNNLAG — Phonero's own report, read in as it is ══════════
+     window.PHONERO_GRUNNLAG comes from tools/phonero-to-js.py (local only:
+     real customer names, git-ignored). One block per seller — a numbered
+     header row, then a row per customer and product. Shown in Arbeidsbok
+     with the file's own column letters and row numbers, and every figure on
+     Provisjon that comes from it jumps to the exact cell and keeps it lit. */
+
+  vdPh(){
+    const P=window.PHONERO_GRUNNLAG; if(!P) return null;
+    if(this._ph&&this._ph.src===P) return this._ph.v;
+    const C=P.cells, val=a=>(C[a]&&C[a].v!==undefined)?C[a].v:null, num=a=>{ const v=val(a); return typeof v==='number'?v:0; };
+    const L=i=>P.cols[i-1];
+    // product columns are the ones with a header on row 3, from C up to V (mobile bonus)
+    const prodCols=[];
+    for(let i=3;i<=P.cols.length;i++){ const l=L(i); if(l==='W') break; if(val(l+'3')) prodCols.push(l); }
+    const bind=l=>{ for(const m of (P.merged||[])){ const [a,b]=m.split(':'); const ia=this.vdLetterIdx(a.replace(/\d+/,'')), ib=this.vdLetterIdx(b.replace(/\d+/,'')), il=this.vdLetterIdx(l);
+      if(+a.replace(/\D+/,'')===2&&il>=ia&&il<=ib) return val(a); } return val(l+'2'); };
+    const products=prodCols.map(l=>({col:l,name:String(val(l+'3')).replace(/\s+/g,' ').trim(),group:bind(l)||'',rate:num(l+'4')}));
+    const subsCols=prodCols.filter(l=>this.vdLetterIdx(l)<=this.vdLetterIdx('L'));
+    const kindOf=(c,ab,prod)=>{ const s=String(c||'').toLowerCase();
+      if(!ab) return '';
+      if(/50\s*%/.test(s)) return 'churn50';
+      if(/saleschurn|ordren nullet|100\s*%/.test(s)) return 'churn100';
+      if(/churn/.test(s)) return 'churn';
+      return prod?'price':'other'; };
+    const groups=[];
+    for(let r=6;r<=P.maxRow;r++){ const b=val('B'+r);
+      if(typeof b==='number') groups.push({no:b,row:r,lines:[]});
+      else if(b!==null&&groups.length&&String(b).trim()&&!(r===P.maxRow&&/venditus/i.test(String(b)))) {
+        const g=groups[groups.length-1];
+        const prod=prodCols.filter(l=>l!=='V').reduce((a,l)=>a+num(l+r),0);
+        const subs=subsCols.reduce((a,l)=>a+num(l+r),0);
+        const ab=num('AB'+r);
+        g.lines.push({row:r,customer:String(b),prod,subs,dev:num('X'+r),devNote:val('AE'+r)||'',
+          z:num('Z'+r),aa:num('AA'+r),ab,ac:num('AC'+r),comment:String(val('AD'+r)||'').trim(),
+          kind:kindOf(val('AD'+r),ab,prod),pure:ab>0&&prod===0});
+      } }
+    groups.forEach((g,i)=>{ g.end=(groups[i+1]?groups[i+1].row:P.maxRow)-1;
+      g.trekk=g.lines.reduce((a,x)=>a+x.ab,0); g.tillegg=g.lines.reduce((a,x)=>a+x.aa,0);
+      g.subs=g.lines.reduce((a,x)=>a+x.subs,0); g.prod=g.lines.reduce((a,x)=>a+x.prod,0);
+      g.total=num('AC'+g.row); g.product=num('Z'+g.row);
+      g.customers=new Set(g.lines.map(x=>x.customer)).size; });
+    const lines=[].concat(...groups.map(g=>g.lines.map(x=>({...x,seller:g.no}))));
+    const v={P,products,groups,lines,ratesZero:products.every(p=>!p.rate),
+      trekk:lines.reduce((a,x)=>a+x.ab,0),trekkLines:lines.filter(x=>x.ab).length,pure:lines.filter(x=>x.pure).length,
+      subs:lines.reduce((a,x)=>a+x.subs,0),total:groups.reduce((a,g)=>a+g.total,0),
+      threshold:num('W7')||null};
+    this._ph={src:P,v}; return v; }
+
+  /* the sheet itself — Excel's letters and row numbers, Excel's saved values */
+  vdRawGrid(){
+    const D=this.vdPh(); if(!D) return this.vdEmpty(this.t('Phonero-rapporten er ikke lastet.','The Phonero report is not loaded.'));
+    const SEL=this._phSel||null;   // {cell:'AB26', from:26, to:26}
+    return this.once('phgrid'+this.state.lang+(SEL?SEL.cell+SEL.from+'-'+SEL.to:''),()=>{
+      const P=D.P, C=P.cells, t=(a,b)=>this.t(a,b);
+      const px=l=>Math.round(((P.widths[l]||9.1)*7+6));
+      const cols=P.cols.filter(l=>l!=='A');
+      const tmpl='48px '+cols.map(l=>Math.max(54,Math.min(l==='B'?300:l==='AD'?320:px(l),340))+'px').join(' ');
+      const groupRows={}; D.groups.forEach(g=>{ groupRows[g.row]=g; });
+      const fmt=c=>{ if(!c||c.v===undefined||c.v===null) return '';
+        if(typeof c.v==='number') return c.v===0?'<span class="pg-0">0</span>'
+          :'<span'+(c.v<0?' class="pg-neg"':'')+'>'+this.nbn(Math.round(c.v*100)/100)+'</span>';
+        return this.vesc(String(c.v)).replace(/\n/g,'<br>'); };
+      let h='<div class="pg" style="--pg-cols:'+tmpl+'">';
+      h+='<div class="pg-r pg-letters"><div class="pg-c pg-n"></div>'+cols.map(l=>'<div class="pg-c'+(l==='B'?' pg-pinb':'')+'">'+l+'</div>').join('')+'</div>';
+      for(let r=2;r<=P.maxRow;r++){
+        const g=groupRows[r];
+        const lit=SEL&&r>=SEL.from&&r<=SEL.to;
+        const cls='vd-gr pg-r'+(r<=4?' pg-head':'')+(r===5?' pg-tot':'')+(g?' pg-grp':'')
+          +(lit?(r===SEL.from?' pg-sel':' pg-blk'):'');
+        h+='<div class="'+cls+'" data-ph-row="'+r+'"><div class="pg-c pg-n">'+r+'</div>';
+        cols.forEach(l=>{ const a=l+r, c=C[a];
+          const style=c&&c.fill&&r<=4?' style="background:'+c.fill+';color:#fff"':'';
+          h+='<div class="pg-c'+(c&&c.f?' pg-f':'')+(l==='B'?' pg-pinb':'')+(typeof (c&&c.v)==='number'?' pg-num':'')+(SEL&&SEL.cell===a?' pg-selc':'')+'" data-vd-cell="ph:'+a+'"'
+            +(c&&c.f?' title="'+this.vesc(a+'  '+c.f)+'"':' title="'+a+'"')+style+'>'
+            +(g&&l==='B'?'<span class="pg-tag">'+t('SELGER ','SELLER ')+'</span>'+fmt(c):fmt(c))+'</div>'; });
+        h+='</div>';
+      }
+      h+='</div>';
+      const warn=[];
+      if(D.ratesZero) warn.push(t('Satsene på rad 4 er 0 i denne kopien — derfor blir provisjonen i Z og AC kr 0.','The rates on row 4 are 0 in this copy — so commission in Z and AC comes out as kr 0.'));
+      warn.push(t('Selgerne har bare nummer (1–'+D.groups.length+'). Koble numrene til ansatte når listen kommer fra Venditus.','Sellers are numbered only (1–'+D.groups.length+'). Map the numbers to employees once Venditus sends the list.'));
+      return '<div class="pg-info"><span class="pg-file">📄 '+this.vesc(P.source)+' · '+t('ark','sheet')+' «'+this.vesc(P.sheet)+'» · '+t('lest inn som den er, kun visning','read in as is, view only')+'</span>'
+        +warn.map(w=>'<span class="pg-warn">'+w+'</span>').join('')
+        +'<span class="pg-priv">'+t('Inneholder ekte kundenavn — lagres bare lokalt, aldri i repoet.','Contains real customer names — kept locally only, never in the repo.')+'</span></div>'
+        +'<div class="pg-scroll">'+h+'</div>'; }); }
+
+  // land on a cell (or a whole seller block) and keep it lit until the next jump
+  phJump(tries){
+    const v=this._phJump; if(!v) return;
+    const S=this._phSel; const probe=S?'[data-vd-cell="ph:'+S.cell+'"]':null;
+    const el=probe&&document.querySelector(probe);
+    // the sheet may not be painted yet on the first frame after navigating — wait for it
+    if(!el){ if((tries||0)<40) requestAnimationFrame(()=>this.phJump((tries||0)+1)); return; }
+    this._phJump=null;
+    // A re-render can swap the sheet's DOM right after we scroll, so re-find the
+    // cell and settle the scroll a few times rather than trusting one call.
+    const settle=(n)=>{
+      const c=document.querySelector(probe); if(!c) return;
+      const box=c.closest('.pg-scroll');
+      if(box){
+        const br=box.getBoundingClientRect(), cr=c.getBoundingClientRect();
+        box.scrollTop+=(cr.top-br.top)-(box.clientHeight/2-cr.height/2);
+        box.scrollLeft+=(cr.left-br.left)-(box.clientWidth/2-cr.width/2);
+        const page=box.closest('[style*="overflow:auto"]')||document.scrollingElement;
+        const b2=box.getBoundingClientRect();
+        if(page&&(b2.top<70||b2.bottom>innerHeight)) page.scrollTop+=b2.top-90;
+      }
+      if(n===0){ c.classList.remove('pg-pulse'); void c.offsetWidth; c.classList.add('pg-pulse'); }
+      if(n<4) setTimeout(()=>settle(n+1),120); };
+    settle(0); }
+
+  /* Provisjon · what Phonero's own report says, each figure one click from its cell */
+  buildPhoneroReportSection(){
+    const D=this.vdPh(); if(!D) return '';
+    const t=(a,b)=>this.t(a,b);
+    const KIND={churn100:[t('Salg nullet · 100 %','Sale voided · 100 %'),'var(--danger)'],
+                churn50:[t('Churn · 50 %','Churn · 50 %'),'var(--amber)'],
+                churn:[t('Churn','Churn'),'var(--amber)'],
+                price:[t('Pris/rabatt','Price/discount'),'var(--accent)'],
+                other:[t('Annet','Other'),'var(--muted)']};
+    const chip=k=>KIND[k]?'<span class="ph-k" style="--k:'+KIND[k][1]+'">'+KIND[k][0]+'</span>':'';
+    const link=(cell,inner,cls)=>'<button class="ph-go'+(cls?' '+cls:'')+'" data-vd-act="phcell" data-vd-val="'+cell+'" title="'+t('Åpne i arket','Open in the sheet')+' · '+cell.replace('blk:','')+'">'+inner+'</button>';
+    const maxT=Math.max(1,...D.groups.map(g=>g.trekk));
+    const sellers=D.groups.map(g=>{
+      const tr=g.lines.filter(x=>x.ab).sort((a,b)=>b.ab-a.ab);
+      return '<details class="ph-s"><summary>'
+        +'<span class="pv-av pv-av-s" style="background:#64748B">'+g.no+'</span>'
+        +'<span class="ph-s-n"><b>'+t('Selger ','Seller ')+g.no+'</b><span>'+this.vnum(g.lines.length)+' '+t('linjer','lines')+' · '+this.vnum(g.customers)+' '+t('kunder','customers')+' · '+this.vnum(g.subs)+' '+t('abonnement','subscriptions')+'</span></span>'
+        +'<span class="ph-s-bar"><i style="width:'+(g.trekk/maxT*100).toFixed(1)+'%"></i></span>'
+        +'<span class="ph-s-t mono">'+(g.trekk?'−'+this.vkr(g.trekk):'–')+'<em>'+t('trekk','deducted')+'</em></span>'
+        +'<span class="ph-s-tot mono">'+this.vkr(g.total)+'<em>'+t('total provisjon','total commission')+'</em></span>'
+        +link('blk:'+g.row+'-'+g.end,t('Vis i arket','Show in sheet')+' <span class="mono">B'+g.row+'</span>','ph-go-b')
+        +'</summary><div class="ph-s-body">'
+        +(tr.length?tr.map(x=>'<div class="ph-l">'+chip(x.kind)+'<span class="ph-l-c">'+this.vesc(x.customer)+'</span>'
+            +'<span class="ph-l-m">'+this.vesc(x.comment.split('\n')[0]||x.devNote||'')+'</span>'
+            +link('AB'+x.row,'<span class="mono">−'+this.vkr(x.ab)+'</span> <span class="ph-ref mono">AB'+x.row+'</span>')+'</div>').join('')
+          :'<div class="ph-none">'+t('Ingen trekk for denne selgeren.','No deductions for this seller.')+'</div>')
+        +'</div></details>'; }).join('');
+    const top=D.lines.filter(x=>x.ab).sort((a,b)=>b.ab-a.ab);
+    const row=x=>'<div class="ph-l">'+chip(x.kind)+'<span class="ph-l-s mono">'+t('S','S')+x.seller+'</span>'
+      +'<span class="ph-l-c">'+this.vesc(x.customer)+(x.pure?' <span class="fc-chip fc-chip-s">'+t('KUN TREKK','DEDUCTION ONLY')+'</span>':'')+'</span>'
+      +'<span class="ph-l-m">'+this.vesc(x.comment.split('\n')[0])+'</span>'
+      +link('AB'+x.row,'<span class="mono">−'+this.vkr(x.ab)+'</span> <span class="ph-ref mono">AB'+x.row+'</span>')+'</div>';
+    const stat=(l,v,s)=>'<div class="ph-st"><div>'+l+'</div><b class="mono">'+v+'</b>'+(s?'<span>'+s+'</span>':'')+'</div>';
+    return '<div class="pv-sec ph"><div class="pv-sec-hd"><div><h3>'+t('Phonero-rapporten','The Phonero report')+' <span class="fc-chip">'+this.vesc(D.P.source)+'</span></h3>'
+      +'<p>'+t('Phonero sin egen provisjonsrapport, lest inn som den er. Klikk en selger eller et trekk for å se nøyaktig rad og celle i arket.',
+               'Phonero\'s own commission report, read in as it is. Click a seller or a deduction to see the exact row and cell in the sheet.')+'</p></div>'
+      +link('B2',t('Åpne hele arket','Open the whole sheet')+' →','ph-go-open')+'</div>'
+      +'<div class="ph-stats">'
+      +stat(t('Selgere','Sellers'),this.vnum(D.groups.length),t('nummerert, uten navn','numbered, no names'))
+      +stat(t('Salgslinjer','Sales lines'),this.vnum(D.lines.length),this.vnum(D.subs)+' '+t('abonnement','subscriptions'))
+      +stat(t('Trekk i rapporten','Deductions in the report'),'−'+this.vkr(D.trekk),this.vnum(D.trekkLines)+' '+t('linjer','lines'))
+      +stat(t('Kun tilbaketrekk','Clawback only'),this.vnum(D.pure),t('kunder uten salg denne måneden — tidligere salg som tas tilbake','customers with no sales this month — earlier sales taken back'))
+      +'</div>'
+      +(D.ratesZero?'<div class="ph-warn">'+t('Satsene (rad 4) er 0 i denne kopien, så «Total provisjon» blir bare tillegg minus trekk. Med de ekte satsene regnes provisjonen ut av seg selv.',
+          'The rates (row 4) are 0 in this copy, so "Total commission" is only additions minus deductions. With the real rates the commission works itself out.')+'</div>':'')
+      +'<div class="ph-cols"><div><div class="ph-h">'+t('Per selger','Per seller')+'</div>'+sellers+'</div>'
+      +'<div><div class="ph-h">'+t('Største trekk','Largest deductions')+'</div>'+top.slice(0,10).map(row).join('')
+      +(top.length>10?'<details class="ph-more"><summary>'+t('Vis alle ','Show all ')+top.length+'</summary>'+top.slice(10).map(row).join('')+'</details>':'')
+      +'</div></div></div>'; }
 
   /* ═══ PAGE · Provisjon — the Phonero side, without Excel ════════════════
      Venditus, HR meeting: the Phonero report is retyped into a new sheet by
@@ -8934,7 +9183,7 @@ class Component extends DCLogic {
       +'<span class="pv-demo">'+t('Avtalene er eksempler til Venditus sender de ekte','The agreements are examples until Venditus sends the real ones')+'</span></div>'
       +'<div class="pv-md-grid">'+(M.employees||[]).filter(e=>e.active!==false).map(mdCard).join('')+'</div></div>';
 
-    return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+hero+sellers+cxSec+'<div class="pv-two">'+pipe+'</div>'+models); }
+    return this.html(this.vdDemoNote()+this.vdEditNote()+this.vdMonthBar()+hero+sellers+this.buildPhoneroReportSection()+cxSec+'<div class="pv-two">'+pipe+'</div>'+models); }
 
   /* ── Oversikt · one line about cancellations, linking to Provisjon ──── */
   buildCancelCard(){

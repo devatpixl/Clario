@@ -8,3 +8,7 @@ uploads/
 # Design-tool artefacts and OS noise
 .thumbnail
 .DS_Store
+
+# Real Phonero report data (customer names). Never commit, never deploy.
+venditus/phonero-grunnlag.js
+*.xlsx
