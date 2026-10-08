@@ -1245,7 +1245,7 @@
   @media(max-width:768px){ .ph-stats{grid-template-columns:1fr 1fr} .ph-s>summary{grid-template-columns:28px minmax(0,1fr) auto} .ph-s-bar,.ph-s-tot{display:none} }
 
   /* ───────── HR-tavle ───────── */
-  .hb{position:relative}
+  .hb-page{position:relative}
   .hb-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:18px}
   .hb-hero .ks-eye{color:var(--accent)}
   .hb-hero h2{margin:6px 0 0;font-size:clamp(26px,3vw,34px);font-weight:700;letter-spacing:-0.04em;
@@ -5871,7 +5871,7 @@ class Component extends DCLogic {
                 +'<span class="hb-meta">'+(x.checklist.length?'☑ '+dn+'/'+x.checklist.length:'')+'</span>'
                 +(d?'<span class="hb-due hb-due-'+d.cls+'">'+d.txt+'</span>':'<span></span>')+'</button>'; }).join('')+'</section>'; }).join('')+'</div>';
     const cur=H.open&&tasks.find(x=>x.id===H.open);
-    page=this.html('<div class="hb">'+head+stats+filters+board
+    page=this.html('<div class="hb-page">'+head+stats+filters+board
       +'<div class="hb-foot">'+t('Lagres i denne nettleseren til backend er på plass.','Saved in this browser until the backend is in place.')+' <button class="pv-link" data-vd-act="hbreset">'+t('Tilbakestill tavlen','Reset the board')+'</button></div>'
       +'</div>');
     // the drawer and the dialog live on <body>: the content column is its own
