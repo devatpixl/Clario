@@ -1330,7 +1330,7 @@
   .hb-li-e{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hb-li .hb-cat{justify-self:start}
   .hb-foot{font-size:11.5px;color:var(--muted);margin-top:6px}
-  .hb-scrim{position:fixed;inset:0;background:rgba(10,14,25,.32);backdrop-filter:blur(2px);z-index:290;animation:fadeIn .2s both}
+  .hb-scrim{position:fixed;inset:0;background:rgba(10,14,25,.4);backdrop-filter:blur(4px);z-index:290;animation:fadeIn .2s both}
   .hb-drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);z-index:300;background:var(--card);border-left:1px solid var(--border);
     box-shadow:-30px 0 60px -30px rgba(16,24,40,.45);padding:20px 22px;overflow-y:auto;animation:hbIn .28s cubic-bezier(.22,1,.36,1) both}
   @keyframes hbIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
@@ -1370,18 +1370,85 @@
   .hb-del-l{border:none;background:none;color:var(--danger);font:inherit;font-size:12px;cursor:pointer}
   .hb-del{border:none;background:var(--danger);color:#fff;border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
   .hb-del-q{color:var(--text2);font-size:12px}
-  .hb-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:300;width:min(580px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow-y:auto;
-    background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px 22px;box-shadow:0 40px 80px -30px rgba(16,24,40,.55);animation:fadeUp .25s both}
-  .hb-tplpick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0 12px}
-  .hb-tp{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--border);border-radius:12px;padding:9px 11px;background:var(--card);
-    font:inherit;font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer;border-left:3px solid var(--cc)}
-  .hb-tp em{font-style:normal;font-size:10.5px;font-weight:400;color:var(--muted)}
-  .hb-tp.on{background:color-mix(in srgb,var(--cc) 9%,var(--card));border-color:var(--cc)}
-  .hb-tplprev{background:var(--surface2);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--text2);display:flex;flex-direction:column;gap:3px}
+  /* new-task dialog: a centring layer, so no transform has to survive the animation */
+  .hb-mwrap{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px 16px;pointer-events:none;overflow-y:auto}
+  .hb-modal{pointer-events:auto;position:relative;width:min(620px,100%);max-height:calc(100vh - 48px);overflow-y:auto;
+    background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 22px 16px;
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 50px 100px -30px rgba(16,24,40,.5),0 0 0 1px color-mix(in srgb,var(--cc) 6%,transparent);
+    scrollbar-width:thin;scrollbar-color:var(--scroll) transparent}
+  .hb-modal::before{content:'';position:absolute;left:22px;right:22px;top:0;height:3px;border-radius:0 0 4px 4px;background:var(--cc);opacity:.85;transition:background .25s}
+  .hb-modal.in{animation:hbPop .26s cubic-bezier(.2,.9,.3,1.15) both}
+  @keyframes hbPop{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:none}}
+  .hb-m-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;min-height:32px}
+  .hb-m-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hb-m-where{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--text2);background:var(--surface2);border-radius:9999px;padding:3px 10px}
+  .hb-m-where i{width:7px;height:7px;border-radius:50%;background:var(--colc)}
+  .hb-m-ok{font-size:11.5px;font-weight:600;color:var(--green);background:color-mix(in srgb,var(--green) 11%,transparent);border-radius:9999px;padding:3px 10px;
+    max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:fadeIn .3s both}
+  .hb-m-title{width:100%;border:none;background:transparent;color:var(--text);font:inherit;font-size:24px;font-weight:700;letter-spacing:-0.03em;padding:6px 0 4px;outline:none}
+  .hb-m-title::placeholder{color:var(--muted2);font-weight:600}
+  .hb-m-title.shake{animation:hbShake .35s}
+  @keyframes hbShake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+  .hb-m-guess{min-height:20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:11px;color:var(--muted);margin-bottom:10px}
+  .hb-m-guess b{display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--text2);background:var(--surface2);border-radius:9999px;padding:2px 9px;animation:fadeIn .25s both}
+  .hb-m-guess b i{width:6px;height:6px;border-radius:50%;background:var(--cc)}
+  .hb-m-h{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+  .hb-m-h b{font-family:'DM Sans',sans-serif;letter-spacing:0;color:var(--text2);background:var(--surface2);border-radius:9999px;padding:0 7px;margin-left:4px}
+  .hb-m-tpls{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .hb-mt{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:9999px;border:1px solid var(--border);background:var(--card);
+    color:var(--text2);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s}
+  .hb-mt i{width:8px;height:8px;border-radius:50%;background:var(--cc)}
+  .hb-mt em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--muted);background:var(--surface2);border-radius:9999px;padding:0 6px;line-height:17px}
+  .hb-mt:hover{border-color:var(--cc);color:var(--text);transform:translateY(-1px)}
+  .hb-mt.on{background:color-mix(in srgb,var(--cc) 11%,var(--card));border-color:var(--cc);color:var(--text);box-shadow:0 0 0 3px color-mix(in srgb,var(--cc) 14%,transparent)}
+  .hb-mt.on em{background:color-mix(in srgb,var(--cc) 18%,transparent);color:var(--text)}
+  .hb-m-props{border:1px solid var(--border-soft);border-radius:16px;padding:4px 0;margin-bottom:14px;background:color-mix(in srgb,var(--surface2) 45%,var(--card))}
+  .hb-mp{display:grid;grid-template-columns:108px minmax(0,1fr);align-items:center;gap:10px;padding:5px 12px;min-height:44px}
+  .hb-mp+.hb-mp{border-top:1px solid var(--border-soft)}
+  .hb-mp-l{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-weight:500}
+  .hb-mp-l svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .hb-mp-c{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0}
+  .hb-mp-c select,.hb-mp-c input[type=date]{height:32px;border-radius:9px;border:1px solid transparent;background:transparent;color:var(--text);font:inherit;font-size:13px;font-weight:500;
+    padding:0 8px;cursor:pointer;max-width:100%;transition:background .15s,border-color .15s}
+  .hb-mp-c select:hover,.hb-mp-c input[type=date]:hover{background:var(--card);border-color:var(--border)}
+  .hb-mp-c select:focus,.hb-mp-c input[type=date]:focus{outline:none;background:var(--card);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .hb-mdot{width:9px;height:9px;border-radius:50%;background:var(--cc);margin-left:8px;flex:none;transition:background .25s}
+  .hb-mcs{display:flex;flex-wrap:wrap;gap:5px}
+  .hb-mc{height:28px;padding:0 10px;border-radius:9999px;border:1px solid var(--border);background:var(--card);color:var(--text2);font:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
+  .hb-mc:hover{border-color:var(--accent);color:var(--accent)}
+  .hb-mc.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .hb-mseg .pv-seg{flex:none;padding:0 14px}
+  .hb-m-ck ul{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:2px}
+  .hb-m-ck li{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text2);padding:5px 8px;border-radius:9px;animation:fadeIn .2s both}
+  .hb-m-ck li:hover{background:var(--surface2)}
+  .hb-m-ck li span:nth-child(2){flex:1;min-width:0}
+  .hb-mbox{width:15px;height:15px;border-radius:5px;border:1.5px solid var(--border);flex:none}
+  .hb-m-ck li button{border:none;background:none;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;opacity:0;padding:0 2px}
+  .hb-m-ck li:hover button{opacity:1} .hb-m-ck li button:hover{color:var(--danger)}
+  .hb-m-add{display:flex;align-items:center;gap:10px;padding:2px 8px;border-radius:9px}
+  .hb-m-add span{width:15px;text-align:center;color:var(--muted);font-weight:600}
+  .hb-m-add input{flex:1;height:32px;border:none;background:transparent;color:var(--text);font:inherit;font-size:12.5px;outline:none}
+  .hb-m-add:focus-within{background:var(--surface2)}
+  .hb-m-ft{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-soft)}
+  .hb-m-keys{margin-right:auto;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px}
+  .hb-m-keys kbd{font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--card);color:var(--text2)}
+  .hb-m-keys kbd+kbd,.hb-m-keys kbd:nth-of-type(2){margin-left:6px}
+  .hb-btn-g,.hb-btn-o{height:34px;padding:0 14px;border-radius:10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .hb-btn-g{border:none;background:none;color:var(--muted)} .hb-btn-g:hover{color:var(--text);background:var(--surface2)}
+  .hb-btn-o{border:1px solid var(--border);background:var(--card);color:var(--text)} .hb-btn-o:hover{border-color:var(--accent);color:var(--accent)}
+  /* column composer */
+  .hb-qc{background:var(--card);border:1px solid var(--accent);border-radius:14px;padding:8px;box-shadow:0 0 0 3px var(--accent-soft),0 10px 24px -14px rgba(16,24,40,.35);animation:fadeIn .18s both}
+  .hb-qc textarea{width:100%;border:none;background:transparent;resize:none;color:var(--text);font:inherit;font-size:13px;font-weight:600;line-height:1.4;outline:none;padding:2px 4px}
+  .hb-qc textarea::placeholder{font-weight:400;color:var(--muted2)}
+  .hb-qc-r{display:flex;align-items:center;gap:6px;margin-top:4px}
+  .hb-qc-x{width:28px;height:28px;border:none;background:none;color:var(--muted);font-size:18px;border-radius:8px;cursor:pointer}
+  .hb-qc-x:hover{background:var(--surface2);color:var(--text)}
+  .hb-qc-more{margin-left:auto;border:none;background:none;color:var(--accent);font:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
   @media(max-width:768px){
     .hb-stats{grid-template-columns:1fr 1fr} .hb-hero-r{align-items:flex-start} .hb-tplrow{justify-content:flex-start}
     .hb-li{grid-template-columns:1fr auto} .hb-li .hb-cat,.hb-li .hb-meta,.hb-li-e{display:none}
-    .hb-tplpick{grid-template-columns:1fr 1fr} .hb-fields{grid-template-columns:1fr}
+    .hb-fields{grid-template-columns:1fr} .hb-mp{grid-template-columns:1fr;gap:2px;padding:8px 12px} .hb-m-keys{display:none} .hb-m-title{font-size:20px}
+    .hb-m-ft{flex-wrap:wrap} .hb-m-ft .pv-btn{flex:1}
   }
 
   /* ───────── mobile shell primitives (inert above 768px) ───────── */
@@ -5816,24 +5883,83 @@ class Component extends DCLogic {
         :'<button class="hb-del-l" data-vd-act="hbdelask">'+t('Slett oppgave','Delete task')+'</button>')+'</div>'
       +'</aside>'; }
 
+  // a guess from what is typed: "ferie uke 29 Sharjeel" → Ferie, Sharjeel X
+  hbGuess(title){
+    const s=(title||'').toLowerCase(), g={};
+    [['offboarding',/offboard|slutter|sluttoppgj|oppsig/],['onboarding',/onboard|nyansatt|ny selger|oppstart/],
+     ['ferie',/ferie/],['forskudd',/forskudd/],['advarsel',/advarsel/],['kurs',/kurs|opplæring/],
+     ['fravaer',/syk|nav|fravær|egenmeld/],['kontrakt',/kontrakt|avtale/]].some(([k,re])=>re.test(s)&&(g.cat=k));
+    const P=this.hbPeople().find(p=>{ const f=p.split(' ')[0].toLowerCase(); return f.length>2&&new RegExp('\\b'+f+'\\b').test(s); });
+    if(P) g.emp=P; return g; }
+
+  hbDraft(status,tpl,title){
+    const H=this._hb; H.d={title:title||'',cat:'annet',catSet:false,emp:'',due:this.hbIn(7),prio:'normal',status:status||'todo',tpl:'',items:[]};
+    if(tpl) this.hbDraftTpl(tpl); else if(title) this.hbDraftGuess(); }
+  hbDraftTpl(k){
+    const H=this._hb, d=H.d, TP=this.hbTemplates(), tp=TP[k];
+    const auto=!d.title.trim()||Object.keys(TP).some(q=>TP[q].title===d.title);
+    d.tpl=k||''; d.items=tp?tp.items.slice():[];
+    if(tp){ if(auto) d.title=tp.title; d.cat=tp.cat; d.catSet=true; }
+    else { if(auto) d.title=''; d.catSet=false; d.cat='annet'; } }
+  hbDraftGuess(){ const d=this._hb.d; const g=this.hbGuess(d.title);
+    if(!d.catSet) d.cat=g.cat||'annet'; if(!d.empSet&&g.emp) d.emp=g.emp; return g; }
+
   hbNewDialog(){
     const H=this._hb; if(!H.newOpen) return '';
-    const t=(a,b)=>this.t(a,b), CATS=this.hbCats(), TP=this.hbTemplates(), tp=TP[H.tpl];
+    if(!H.d) this.hbDraft('todo');
+    const d=H.d, t=(a,b)=>this.t(a,b), CATS=this.hbCats(), TP=this.hbTemplates(), COLS=this.hbCols();
     const opt=(arr,cur)=>arr.map(([v,l])=>'<option value="'+this.vesc(v)+'"'+(v===cur?' selected':'')+'>'+this.vesc(l)+'</option>').join('');
+    const anim=H.anim; H.anim=false;
+    const col=COLS.find(c=>c.k===d.status)||COLS[0];
+    const tpls=[['',t('Tom','Blank'),'var(--muted)',0]].concat(Object.keys(TP).map(k=>[k,TP[k].title,CATS[TP[k].cat].c,TP[k].items.length]))
+      .map(([k,l,c,n])=>'<button class="hb-mt'+(d.tpl===k?' on':'')+'" data-vd-act="hbtpl" data-vd-val="'+k+'" style="--cc:'+c+'"><i></i>'+this.vesc(l)+(n?'<em>'+n+'</em>':'')+'</button>').join('');
+    const dueChips=[[0,t('I dag','Today')],[1,t('I morgen','Tomorrow')],[7,t('1 uke','1 week')],[14,t('2 uker','2 weeks')]]
+      .map(([n,l])=>'<button class="hb-mc'+(d.due===this.hbIn(n)?' on':'')+'" data-vd-act="hbndue" data-vd-val="'+n+'">'+l+'</button>').join('');
+    const prio=[['lav',t('Lav','Low')],['normal',t('Normal','Normal')],['hoy',t('Høy','High')]]
+      .map(([k,l])=>'<button class="pv-seg'+(d.prio===k?' on':'')+'" data-vd-act="hbnprio" data-vd-val="'+k+'">'+l+'</button>').join('');
+    const row=(ico,lbl,ctl)=>'<div class="hb-mp"><span class="hb-mp-l">'+ico+lbl+'</span><div class="hb-mp-c">'+ctl+'</div></div>';
+    const I={ emp:'<svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.6"/><path d="M3 13.5c.7-2.4 2.7-3.6 5-3.6s4.3 1.2 5 3.6"/></svg>',
+      cat:'<svg viewBox="0 0 16 16"><path d="M2.5 8.6V3.2c0-.4.3-.7.7-.7h5.4l4.9 4.9-6.1 6.1z"/><circle cx="5.6" cy="5.6" r="1"/></svg>',
+      due:'<svg viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="10" rx="2"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>',
+      prio:'<svg viewBox="0 0 16 16"><path d="M3.5 14V2.5M3.5 3h8l-1.8 3 1.8 3h-8"/></svg>',
+      col:'<svg viewBox="0 0 16 16"><rect x="2" y="2.5" width="3.4" height="11" rx="1"/><rect x="6.3" y="2.5" width="3.4" height="7" rx="1"/><rect x="10.6" y="2.5" width="3.4" height="9" rx="1"/></svg>'};
+    const items=d.items.map((it,i)=>'<li><span class="hb-mbox"></span><span>'+this.vesc(it)+'</span><button data-vd-act="hbnitemx" data-vd-val="'+i+'" aria-label="'+t('Fjern','Remove')+'">×</button></li>').join('');
     return '<div class="hb-scrim" data-vd-act="hbnewclose"></div>'
-      +'<div class="hb-modal" role="dialog" aria-label="'+t('Ny oppgave','New task')+'">'
-      +'<div class="hb-dr-hd"><b>'+t('Ny oppgave','New task')+'</b><button class="hb-x" data-vd-act="hbnewclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
-      +'<div class="hb-tplpick">'+[['',t('Tom','Blank')]].concat(Object.keys(TP).map(k=>[k,TP[k].title])).map(([k,l])=>'<button class="hb-tp'+(H.tpl===k?' on':'')+'" data-vd-act="hbtpl" data-vd-val="'+k+'" style="--cc:'+(k?CATS[TP[k].cat].c:'var(--muted)')+'">'+l+(k?'<em>'+TP[k].items.length+' '+t('punkter','items')+'</em>':'')+'</button>').join('')+'</div>'
-      +'<div class="hb-fields">'
-      +'<label class="hb-wide"><span>'+t('Tittel','Title')+'</span><input data-hb-n="title" value="'+this.vesc(tp?tp.title:'')+'" placeholder="'+t('f.eks. Verifiser kontrakt','e.g. Verify contract')+'"></label>'
-      +'<label><span>'+t('Kategori','Category')+'</span><select data-hb-n="cat">'+opt(Object.keys(CATS).map(k=>[k,CATS[k].l]),tp?tp.cat:'annet')+'</select></label>'
-      +'<label><span>'+t('Ansatt','Employee')+'</span><select data-hb-n="emp">'+opt([['',t('Alle ansatte','All employees')]].concat(this.hbPeople().map(p=>[p,p])),'')+'</select></label>'
-      +'<label><span>'+t('Frist','Due')+'</span><input type="date" data-hb-n="due" value="'+this.hbIn(7)+'"></label>'
-      +'<label><span>'+t('Kolonne','Column')+'</span><select data-hb-n="status">'+opt(this.hbCols().map(c=>[c.k,c.l]),H.newStatus||'todo')+'</select></label>'
+      +'<div class="hb-mwrap"><div class="hb-modal'+(anim?' in':'')+'" role="dialog" aria-modal="true" aria-label="'+t('Ny oppgave','New task')+'" style="--cc:'+CATS[d.cat].c+'">'
+      +'<div class="hb-m-top"><span class="hb-m-eye">'+t('Ny oppgave','New task')+'</span>'
+      +'<span class="hb-m-where" style="--colc:'+col.c+'"><i></i>'+col.l+'</span>'
+      +'<button class="hb-x" data-vd-act="hbnewclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
+      +'<input class="hb-m-title" data-hb-n="title" value="'+this.vesc(d.title)+'" placeholder="'+t('Hva skal gjøres?','What needs doing?')+'" autocomplete="off">'
+      +'<div class="hb-m-guess" data-hb-guess>'+this.hbGuessLine()+'</div>'
+      +'<div class="hb-m-h">'+t('Start fra en mal','Start from a template')+'</div>'
+      +'<div class="hb-m-tpls">'+tpls+'</div>'
+      +'<div class="hb-m-props">'
+      +row(I.emp,t('Ansatt','Employee'),'<select data-hb-n="emp">'+opt([['',t('Alle ansatte','All employees')]].concat(this.hbPeople().map(p=>[p,p])),d.emp)+'</select>')
+      +row(I.cat,t('Kategori','Category'),'<span class="hb-mdot"></span><select data-hb-n="cat">'+opt(Object.keys(CATS).map(k=>[k,CATS[k].l]),d.cat)+'</select>')
+      +row(I.due,t('Frist','Due'),'<div class="hb-mcs">'+dueChips+'</div><input type="date" data-hb-n="due" value="'+d.due+'">')
+      +row(I.prio,t('Prioritet','Priority'),'<div class="pv-segs hb-mseg">'+prio+'</div>')
+      +row(I.col,t('Kolonne','Column'),'<select data-hb-n="status">'+opt(COLS.map(c=>[c.k,c.l]),d.status)+'</select>')
       +'</div>'
-      +(tp?'<div class="hb-tplprev"><div class="hb-sec-h">'+t('Sjekklisten som følger med','The checklist that comes with it')+'</div>'+tp.items.map(i=>'<div>☐ '+this.vesc(i)+'</div>').join('')+'</div>':'')
-      +'<div class="hb-dr-ft"><span></span><button class="pv-btn" data-vd-act="hbcreate">'+t('Opprett oppgave','Create task')+'</button></div></div>'; }
+      +'<div class="hb-m-ck"><div class="hb-m-h">'+t('Sjekkliste','Checklist')+(d.items.length?' <b>'+d.items.length+'</b>':'')+'</div>'
+      +(items?'<ul>'+items+'</ul>':'')
+      +'<div class="hb-m-add"><span>+</span><input data-hb-new="nitem" placeholder="'+t('Legg til et punkt og trykk Enter','Add an item and press Enter')+'"></div></div>'
+      +'<div class="hb-m-ft"><span class="hb-m-keys"><kbd>↵</kbd> '+t('opprett','create')+' <kbd>Esc</kbd> '+t('lukk','close')+'</span>'
+      +'<button class="hb-btn-g" data-vd-act="hbnewclose">'+t('Avbryt','Cancel')+'</button>'
+      +'<button class="hb-btn-o" data-vd-act="hbcreate" data-vd-val="again">'+t('Opprett og ny','Create & another')+'</button>'
+      +'<button class="pv-btn" data-vd-act="hbcreate">'+t('Opprett oppgave','Create task')+'</button></div>'
+      +'</div></div>'; }
+  hbGuessLine(){ const H=this._hb, d=H&&H.d; if(!d||d.tpl) return '';
+    const g=this.hbGuess(d.title), CATS=this.hbCats(), t=(a,b)=>this.t(a,b), bits=[];
+    if(g.cat&&!d.catSet) bits.push('<b style="--cc:'+CATS[g.cat].c+'"><i></i>'+CATS[g.cat].l+'</b>');
+    if(g.emp&&!d.empSet) bits.push('<b>'+this.vesc(g.emp)+'</b>');
+    return bits.length?'<span>✦ '+t('Fylt ut fra tittelen:','Filled in from the title:')+'</span>'+bits.join(''):''; }
 
+  // the composer at the bottom of a column: type, Enter, next
+  hbQuick(col){ const t=(a,b)=>this.t(a,b);
+    return '<div class="hb-qc"><textarea data-hb-qc="'+col+'" rows="2" placeholder="'+t('Skriv en tittel… (Enter for å legge til)','Type a title… (Enter to add)')+'">'+this.vesc(this._hb.qText||'')+'</textarea>'
+      +'<div class="hb-qc-r"><button class="pv-btn pv-btn-s" data-vd-act="hbquickadd" data-vd-val="'+col+'">'+t('Legg til','Add')+'</button>'
+      +'<button class="hb-qc-x" data-vd-act="hbquickx" aria-label="'+t('Lukk','Close')+'">×</button>'
+      +'<button class="hb-qc-more" data-vd-act="hbquickmore" data-vd-val="'+col+'">'+t('Flere valg','More options')+' →</button></div></div>'; }
   buildBoardPage(){
     const H=this.hbLoad(), t=(a,b)=>this.t(a,b), COLS=this.hbCols(), CATS=this.hbCats();
     const tasks=H.tasks, open=tasks.filter(x=>x.status!=='done');
@@ -5867,9 +5993,9 @@ class Component extends DCLogic {
       ? '<div class="hb-board">'+COLS.map(c=>{ const list=byCol(c.k), shown=list.filter(x=>this.hbMatch(x)).length;
           return '<section class="hb-col" data-hb-col="'+c.k+'" style="--colc:'+c.c+'">'
             +'<header><span class="hb-dot"></span><h3>'+c.l+'</h3><span class="hb-n mono">'+shown+'</span>'
-            +'<button class="hb-plus" data-vd-act="hbnew" data-vd-val="@'+c.k+'" aria-label="'+t('Ny oppgave i ','New task in ')+c.l+'">+</button></header>'
+            +'<button class="hb-plus" data-vd-act="hbquick" data-vd-val="'+c.k+'" aria-label="'+t('Ny oppgave i ','New task in ')+c.l+'">+</button></header>'
             +'<div class="hb-drop" data-hb-drop="'+c.k+'">'+list.map(x=>this.hbCard(x)).join('')
-            +'<button class="hb-addcard" data-vd-act="hbnew" data-vd-val="@'+c.k+'">+ '+t('Legg til kort','Add card')+'</button></div></section>'; }).join('')+'</div>'
+            +(H.quick===c.k?this.hbQuick(c.k):'<button class="hb-addcard" data-vd-act="hbquick" data-vd-val="'+c.k+'">+ '+t('Legg til kort','Add card')+'</button>')+'</div></section>'; }).join('')+'</div>'
       : '<div class="hb-list">'+COLS.map(c=>{ const list=byCol(c.k).filter(x=>this.hbMatch(x)); if(!list.length) return '';
           return '<section><div class="hb-lh" style="--colc:'+c.c+'"><span class="hb-dot"></span>'+c.l+' <span class="hb-n mono">'+list.length+'</span></div>'
             +list.map(x=>{ const C=CATS[x.cat]||CATS.annet, d=x.status==='done'?null:this.hbDue(x.due), dn=x.checklist.filter(k=>k.done).length;
@@ -5889,9 +6015,17 @@ class Component extends DCLogic {
   hbPortal(){
     let el=document.getElementById('hb-portal');
     const html=this.state.active==='Board'?(this._hbOverlay||''):'';
-    if(!el){ if(!html) return; el=document.createElement('div'); el.id='hb-portal'; document.body.appendChild(el); }
+    if(!el){ el=document.createElement('div'); el.id='hb-portal'; document.body.appendChild(el); }
     if(el._html!==html){ el.innerHTML=html; el._html=html;
-      el.className=document.querySelector('[data-theme="dark"]')?'hb-portal-dark':''; } }
+      el.className=document.querySelector('[data-theme="dark"]')?'hb-portal-dark':''; }
+    const H=this._hb; if(!H||!H.focus) return;
+    const f=H.focus; H.focus=null;
+    if(H.shake){ H.shake=false; const ti=el.querySelector('.hb-m-title'); if(ti){ ti.classList.remove('shake'); void ti.offsetWidth; ti.classList.add('shake'); } }
+    if(H.flash){ const fl=H.flash; H.flash=null; const m=el.querySelector('.hb-m-top');
+      if(m){ const n=document.createElement('span'); n.className='hb-m-ok'; n.textContent='✓ '+fl; m.insertBefore(n,m.querySelector('.hb-x')); } }
+    const tgt=f==='quick'?document.querySelector('[data-hb-qc]'):el.querySelector(f==='nitem'?'[data-hb-new="nitem"]':'[data-hb-n="title"]');
+    if(tgt){ tgt.focus({preventScroll:true}); const L=tgt.value.length; try{ tgt.setSelectionRange(L,L); }catch(e){}
+      if(f==='quick'){ const z=tgt.closest('.hb-drop'); if(z) z.scrollTop=z.scrollHeight; } } }
 
   /* board interaction: clicks go through _vdClick; drag, typing and fields here */
   // Page-wide listeners added for the board, the seller cards and Provisjon.
@@ -5937,30 +6071,70 @@ class Component extends DCLogic {
       const H=this._hb; H.q=el.value; const q=el.value.trim().toLowerCase();
       document.querySelectorAll('.hb-card').forEach(c=>{ const x=H.tasks.find(k=>k.id===c.getAttribute('data-hb-id')); c.hidden=!(x&&this.hbMatch(x)); });
       document.querySelectorAll('.hb-col').forEach(col=>{ const n=col.querySelector('.hb-n'); if(n) n.textContent=col.querySelectorAll('.hb-card:not([hidden])').length; }); });
+    // the new-task draft and the column composer keep what is typed without re-rendering
+    on('input',e=>{ const el=e.target, H=this._hb; if(!H||!el||!el.getAttribute) return;
+      if(el.hasAttribute('data-hb-qc')){ H.qText=el.value; return; }
+      const n=el.getAttribute('data-hb-n'); if(!n||!H.d) return;
+      H.d[n]=el.value;
+      if(n==='title'){ const before=H.d.cat, beforeE=H.d.emp; this.hbDraftGuess();
+        const m=document.querySelector('#hb-portal .hb-modal');
+        if(m){ const g=m.querySelector('[data-hb-guess]'); if(g) g.innerHTML=this.hbGuessLine();
+          if(H.d.cat!==before){ const cs=m.querySelector('[data-hb-n="cat"]'); if(cs) cs.value=H.d.cat; m.style.setProperty('--cc',this.hbCats()[H.d.cat].c); }
+          if(H.d.emp!==beforeE){ const es=m.querySelector('[data-hb-n="emp"]'); if(es) es.value=H.d.emp; } } } });
+    on('change',e=>{ const el=e.target, H=this._hb; if(!H||!H.d||!el||!el.getAttribute) return;
+      const n=el.getAttribute('data-hb-n'); if(!n) return; H.d[n]=el.value;
+      if(n==='cat'){ H.d.catSet=true; }
+      if(n==='emp'){ H.d.empSet=true; }
+      if(n==='cat'||n==='status'||n==='due'){ this.hbRender(); } });
     on('keydown',e=>{ const H=this._hb; if(!H) return;
-      if(e.key==='Escape'&&(H.open||H.newOpen)){ H.open=null; H.newOpen=false; H.confirmDel=false; this.hbRender(); }
+      const tg=e.target&&e.target.getAttribute?e.target:null;
+      if(tg&&tg.hasAttribute('data-hb-qc')){
+        if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); this.hbAct('hbquickadd',tg.getAttribute('data-hb-qc')); }
+        else if(e.key==='Escape'){ e.preventDefault(); this.hbAct('hbquickx'); }
+        return; }
+      if(H.newOpen&&e.key==='Enter'&&tg&&tg.getAttribute('data-hb-new')==='nitem'){ e.preventDefault(); this.hbAct('hbnitemadd'); return; }
+      if(H.newOpen&&e.key==='Enter'&&(e.metaKey||e.ctrlKey||(tg&&tg.getAttribute('data-hb-n')==='title'))){ e.preventDefault(); this.hbAct('hbcreate',e.shiftKey?'again':''); return; }
+      if(e.key==='Escape'&&(H.open||H.newOpen)){ H.open=null; H.newOpen=false; H.d=null; H.confirmDel=false; this.hbRender(); }
       if(e.key==='Enter'&&e.target&&e.target.getAttribute&&e.target.getAttribute('data-hb-new')==='ck'){ e.preventDefault(); this.hbAct('hbckadd'); } });
     // a plain click on a card opens it (a drag never fires click)
     on('click',e=>{ const c=e.target.closest&&e.target.closest('.hb-card'); if(!c||e.target.closest('[data-vd-act]')) return;
       const H=this.hbLoad(); H.open=c.getAttribute('data-hb-id'); H.confirmDel=false; this.hbRender(); });   this.gBind('hb',L); }
+
+  hbAdd(o){ const H=this._hb, id='hb'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+    H.tasks.push({id,title:o.title,status:o.status,cat:o.cat||'annet',emp:o.emp||'',due:o.due||'',prio:o.prio||'normal',desc:'',
+      checklist:(o.items||[]).map(i=>({t:i,done:false})),comments:[],created:this.hbISO(this.hbToday()),owner:'Kian Vestby',
+      pos:Math.max(-1,...H.tasks.filter(k=>k.status===o.status).map(k=>k.pos))+1});
+    return id; }
 
   hbAct(act,val){
     const H=this.hbLoad(), x=H.tasks.find(k=>k.id===H.open);
     const v=s=>{ const el=document.querySelector(s); return el?el.value:''; };
     if(act==='hbopen'){ H.open=val; H.confirmDel=false; }
     else if(act==='hbclose'){ H.open=null; H.confirmDel=false; }
-    else if(act==='hbnew'){ H.newOpen=true; H.tpl=val&&val[0]!=='@'?val:''; H.newStatus=val&&val[0]==='@'?val.slice(1):(H.tpl?'todo':'inbox'); H.open=null; }
-    else if(act==='hbnewclose'){ H.newOpen=false; }
-    else if(act==='hbtpl'){ H.tpl=val; }
+    else if(act==='hbnew'){ const tpl=val&&val[0]!=='@'?val:'';
+      this.hbDraft(val&&val[0]==='@'?val.slice(1):(tpl?'todo':'inbox'),tpl);
+      H.newOpen=true; H.anim=true; H.focus='title'; H.open=null; H.quick=null; }
+    else if(act==='hbnewclose'){ H.newOpen=false; H.d=null; }
+    else if(act==='hbtpl'){ this.hbDraftTpl(val); H.focus='title'; }
+    else if(act==='hbndue'){ H.d.due=this.hbIn(+val); }
+    else if(act==='hbnprio'){ H.d.prio=val; }
+    else if(act==='hbnitemx'){ H.d.items.splice(+val,1); }
+    else if(act==='hbnitemadd'){ const s=v('[data-hb-new="nitem"]').trim(); if(!s) return; H.d.items.push(s); H.focus='nitem'; }
     else if(act==='hbcreate'){
-      const title=v('[data-hb-n="title"]').trim(); if(!title){ this._vdToast&&this._vdToast(this.t('Skriv en tittel','Enter a title')); return; }
-      const tp=this.hbTemplates()[H.tpl], status=v('[data-hb-n="status"]')||'todo';
-      const id='hb'+Date.now().toString(36);
-      H.tasks.push({id,title,status,cat:v('[data-hb-n="cat"]')||'annet',emp:v('[data-hb-n="emp"]'),due:v('[data-hb-n="due"]'),prio:'normal',desc:'',
-        checklist:tp?tp.items.map(i=>({t:i,done:false})):[],comments:[],created:this.hbISO(this.hbToday()),owner:'Kian Vestby',
-        pos:Math.max(-1,...H.tasks.filter(k=>k.status===status).map(k=>k.pos))+1});
-      H.newOpen=false; H.open=id; this.hbSave();
+      const d=H.d; if(!d) return;
+      if(!d.title.trim()){ H.focus='title'; H.shake=true; this.hbRender(); return; }
+      const id=this.hbAdd({title:d.title.trim(),status:d.status,cat:d.cat,emp:d.emp,due:d.due,prio:d.prio,items:d.items});
+      this.hbSave();
+      if(val==='again'){ this.hbDraft(d.status); H.focus='title'; H.flash=d.title.trim(); }
+      else { H.newOpen=false; H.d=null; H.open=id; }
     }
+    else if(act==='hbquick'){ H.quick=val; H.qText=''; H.focus='quick'; }
+    else if(act==='hbquickx'){ H.quick=null; H.qText=''; }
+    else if(act==='hbquickadd'){ const s=(H.qText||'').trim(); if(!s){ H.focus='quick'; this.hbRender(); return; }
+      const g=this.hbGuess(s); this.hbAdd({title:s,status:val,cat:g.cat||'annet',emp:g.emp||'',due:this.hbIn(7),prio:'normal',items:[]});
+      H.qText=''; H.focus='quick'; this.hbSave(); }
+    else if(act==='hbquickmore'){ const s=(H.qText||'').trim(); this.hbDraft(val,'',s); H.quick=null; H.qText='';
+      H.newOpen=true; H.anim=true; H.focus='title'; }
     else if(act==='hbprio'&&x){ x.prio=val; this.hbSave(); }
     else if(act==='hbck'&&x){ const c=x.checklist[+val]; if(c) c.done=!c.done;
       // finishing the last item suggests the card is done
