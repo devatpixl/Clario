@@ -75,9 +75,30 @@
   .kc-st span{display:block;font-size:12.5px;font-weight:600;margin-top:2px}
   .kc-st em{display:block;font-style:normal;font-size:11px;color:var(--muted);margin-top:1px}
   .kc-card{background:var(--card);border:1px solid var(--border-soft);border-radius:20px;padding:8px}
-  .kc-bar{display:flex;align-items:center;gap:12px;padding:8px 8px 12px;border-bottom:1px solid var(--border-soft)}
-  .kc-bar .pv-mf-q{flex:1;max-width:340px}
-  .kc-how{margin-left:auto;font-size:11px;color:var(--muted)}
+  .kc-bar{padding:8px 8px 12px;border-bottom:1px solid var(--border-soft);display:flex;flex-direction:column;gap:10px}
+  .kc-bar-r1{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .kc-bar-r1 .pv-mf-q{flex:1;min-width:200px;max-width:300px}
+  .kc-statuses{display:flex;flex-wrap:wrap;gap:6px}
+  .kc-sort{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+  .kc-sort select{height:32px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12px;padding:0 8px;cursor:pointer}
+  .kc-bar-r2{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+  .kc-fg{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .kc-fl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:3px}
+  .kc-chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:9999px;border:1px solid var(--border);background:var(--card);color:var(--text2);
+    font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+  .kc-chip i{width:7px;height:7px;border-radius:50%;background:var(--sc)}
+  .kc-chip em{font-style:normal;font-size:10px;color:var(--muted);background:var(--surface2);border-radius:9999px;padding:0 6px;line-height:16px}
+  .kc-chip:hover{border-color:var(--sc,var(--accent));color:var(--text)}
+  .kc-chip.on{background:color-mix(in srgb,var(--sc,var(--accent)) 11%,var(--card));border-color:var(--sc,var(--accent));color:var(--text)}
+  .kc-chip.on em{background:color-mix(in srgb,var(--sc,var(--accent)) 20%,transparent);color:var(--text)}
+  .kc-count{margin-left:auto;font-size:11.5px;color:var(--muted)} .kc-count b{color:var(--text)}
+  .kc-clear{border:none;background:var(--surface2);color:var(--text2);border-radius:9999px;height:26px;padding:0 10px;font:inherit;font-size:11px;font-weight:600;cursor:pointer}
+  .kc-clear:hover{background:var(--danger-soft);color:var(--danger)}
+  .kc-sec{display:flex;align-items:center;gap:8px;padding:14px 12px 6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .kc-sec::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sc)}
+  .kc-sec b{font-family:'DM Sans',sans-serif;letter-spacing:0;font-size:10.5px;color:var(--text2);background:var(--surface2);border-radius:9999px;padding:0 7px}
+  .kc-sec+.kc-row{border-top:none}
+  .kc-how{display:none}
   .kc-list{display:flex;flex-direction:column}
   .kc-row{display:grid;grid-template-columns:40px minmax(150px,1fr) minmax(0,1.8fr) minmax(0,1.3fr) auto;align-items:center;gap:16px;padding:14px 12px;border-radius:14px;position:relative;transition:background .15s}
   .kc-row+.kc-row{border-top:1px solid var(--border-soft)}
@@ -97,7 +118,7 @@
   .kc-task:hover{background:var(--accent-soft);color:var(--accent)}
   .kc-act{display:flex;gap:6px;justify-content:flex-end}
   .kc-act .kc-b,.kc-act .pv-btn{height:32px}
-  .kc-empty{padding:30px;text-align:center;color:var(--muted);font-size:12.5px}
+  .kc-empty{padding:36px;text-align:center;color:var(--muted);font-size:12.5px} .kc-empty b{display:block;color:var(--text);font-size:14px;margin-bottom:4px}
   .hb-modal.kc-modal{width:min(640px,100%)}
   .kc-tabs{display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin:4px 0 12px}
   .kc-tabs .pv-seg{height:32px}
@@ -6287,7 +6308,10 @@ class Component extends DCLogic {
     ['model',t('Provisjonsmodell','Commission model'),t('Provisjonsavtale','Agreement')],
     ['rate',t('Sats','Rate'),t('Provisjonsavtale','Agreement')],
     ['from',t('Avtalen gjelder fra','Agreement in force from'),t('Provisjonsavtale','Agreement')]]; }
-  kcSame(a,b){ const n=v=>String(v==null?'':v).toLowerCase().replace(/\s+/g,'').replace(/kr/g,''); return n(a)===n(b); }
+  kcSame(a,b){ const n=v=>String(v==null?'':v).toLowerCase()
+      // the model is stored in whichever language it was read in
+      .replace(/andel av phonero|share of phonero/g,'share').replace(/fast per produkt|fixed per product/g,'perpack')
+      .replace(/\s+/g,'').replace(/kr/g,''); return n(a)===n(b); }
   kcSeed(){ const c=n=>this.kcClario(n);
     const bil=c('Bilal Ahmad'), sha=c('Sharjeel X');
     return {
@@ -6295,7 +6319,7 @@ class Component extends DCLogic {
       'bilal ahmad':{file:'Provisjonsavtale_Bilal_Ahmad_2025.pdf',src:'outlook',mail:'m2',got:'2025-06-09',terms:Object.assign({},bil,{rate:'45 %',salary:'kr 34 000'}),status:'open'}}; }
   kcLoad(){ if(this._kc) return this._kc;
     let recs=null; try{ recs=JSON.parse(localStorage.getItem('clario.hr.contracts.v1')||'null'); }catch(e){}
-    this._kc={recs:recs||this.kcSeed(),filter:'',q:'',check:null,imp:false,tab:'outlook',upName:'',upWho:''}; return this._kc; }
+    this._kc={recs:recs||this.kcSeed(),filter:'',q:'',check:null,imp:false,tab:'outlook',upName:'',upWho:'',contract:'',product:'',src:'',sort:'need'}; return this._kc; }
   kcSave(){ try{ localStorage.setItem('clario.hr.contracts.v1',JSON.stringify(this._kc.recs)); }catch(e){} }
   kcRender(){ this._c={}; this.forceUpdate(); }
   kcState(name){ const K=this.kcLoad(), k=this.kcKey(name), r=K.recs[k];
@@ -6331,7 +6355,16 @@ class Component extends DCLogic {
       +tile('deviation',cnt('deviation')+cnt('review'),cnt('review')?cnt('review')+' '+t('klar til godkjenning','ready to approve')+(cnt('deviation')?' · '+cnt('deviation')+' '+t('med avvik','with a mismatch'):''):t('kontrakt og Clario er ulike','contract and Clario differ'))
       +tile('inbox',cnt('inbox'),t('ligger i innboksen','waiting in the inbox'))
       +tile('missing',cnt('missing'),t('ingen kontrakt mottatt','no contract received'))+'</div>';
-    const list=st.filter(x=>!K.filter||x.s===K.filter||(K.filter==='deviation'&&x.s==='review')).map(x=>{
+    const ORDER={deviation:0,inbox:1,missing:2,review:3,verified:4};
+    const srcOf=x=>x.r?x.r.src:x.mail?'mail':'none';
+    const got=x=>x.r?(x.r.got||''):x.mail?x.mail.at.slice(0,10):'';
+    const shown=st.filter(x=>(!K.filter||x.s===K.filter||(K.filter==='deviation'&&x.s==='review'))
+      &&(!K.contract||x.e.contract===K.contract)&&(!K.product||x.e.product===K.product)&&(!K.src||srcOf(x)===K.src))
+      .sort((p,q)=>K.sort==='name'?p.e.name.localeCompare(q.e.name)
+        :K.sort==='start'?String(q.e.start).localeCompare(String(p.e.start))
+        :K.sort==='got'?got(q).localeCompare(got(p))
+        :(ORDER[p.s]-ORDER[q.s])||p.e.name.localeCompare(q.e.name));
+    const rowHTML=x=>{
       const e=x.e, m=this.kcMeta(x.s), k=this.kcKey(e.name), cl=this.kcClario(e.name);
       const task=H.tasks.find(q=>q.cat==='kontrakt'&&this.kcKey(q.emp)===k&&q.status!=='done');
       const file=x.r?'<span class="kc-file">📄 '+this.vesc(x.r.file)+'<em>'+(x.r.src==='outlook'?t('fra Outlook ','from Outlook '):t('lastet opp ','uploaded '))+this.kcDate(x.r.got)+'</em></span>'
@@ -6351,11 +6384,36 @@ class Component extends DCLogic {
         +'<div class="kc-who"><b>'+this.vesc(e.name)+'</b><span>'+this.vesc(e.contract||'')+' · '+this.vesc(e.product||'')+' · '+t('start ','start ')+this.kcDate(e.start)+'</span></div>'
         +'<div class="kc-mid"><span class="kc-badge"><i>'+m.i+'</i>'+m.l+'</span><div class="kc-why">'+why+'</div></div>'
         +'<div class="kc-fcol">'+file+(task?'<button class="kc-task" data-vd-act="kcboard" data-vd-val="'+task.id+'">▦ '+t('Oppgave på tavlen','Task on the board')+'</button>':'')+'</div>'
-        +'<div class="kc-act">'+act+'</div></article>'; }).join('')
-      ||'<div class="kc-empty">'+t('Ingen kontrakter med denne statusen.','No contracts with this status.')+'</div>';
-    const bar='<div class="kc-bar"><label class="pv-mf-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" data-kc-q placeholder="'+t('Søk etter ansatt…','Search employees…')+'" value="'+this.vesc(K.q)+'"></label>'
-      +(K.filter?'<button class="pv-link" data-vd-act="kcfilter" data-vd-val="">'+t('Vis alle','Show all')+'</button>':'')
-      +'<span class="kc-how">'+t('Sjekkes mot SELGER PROFIL og Provisjonsavtalene','Checked against SELGER PROFIL and the commission agreements')+'</span></div>';
+        +'<div class="kc-act">'+act+'</div></article>'; };
+    const done=x=>x.s==='verified';
+    const sec=(lbl,arr,c)=>arr.length?'<div class="kc-sec" style="--sc:'+c+'"><span>'+lbl+'</span><b class="mono">'+arr.length+'</b></div>'+arr.map(rowHTML).join(''):'';
+    const list=(K.sort==='need'
+      ? sec(t('Trenger handling','Needs action'),shown.filter(x=>!done(x)),'var(--danger)')+sec(t('Ferdig','Done'),shown.filter(done),'var(--green)')
+      : shown.map(rowHTML).join(''))
+      ||'<div class="kc-empty"><b>'+t('Ingen treff','No matches')+'</b>'+t('Ingen ansatte passer filtrene.','No employees match the filters.')+' <button class="pv-link" data-vd-act="kcclear">'+t('Nullstill filtrene','Clear the filters')+'</button></div>';
+    const uniq=f=>[...new Set(emps.map(e=>e[f]).filter(Boolean))];
+    const chip=(kind,v,l,n,c)=>'<button class="kc-chip'+((K[kind]||'')===v?' on':'')+'" data-vd-act="kcf" data-vd-val="'+kind+'|'+this.vesc(v)+'"'+(c?' style="--sc:'+c+'"':'')+'>'
+      +(c?'<i></i>':'')+l+(n!=null?'<em>'+n+'</em>':'')+'</button>';
+    const grp=(lbl,inner)=>'<div class="kc-fg"><span class="kc-fl">'+lbl+'</span>'+inner+'</div>';
+    const SM=['verified','deviation','inbox','missing'].map(k=>[k,this.kcMeta(k)]);
+    const nOpen=cnt('deviation')+cnt('review');
+    const statusChips=chip('filter','',t('Alle','All'),st.length)
+      +chip('filter','deviation',t('Til sjekk','To check'),nOpen,'var(--danger)')
+      +SM.filter(([k])=>k!=='deviation').map(([k,m])=>chip('filter',k,k==='inbox'?t('I Outlook','In Outlook'):m.l,cnt(k),m.c)).join('');
+    const anyF=K.filter||K.contract||K.product||K.src||K.q;
+    const bar='<div class="kc-bar">'
+      +'<div class="kc-bar-r1"><label class="pv-mf-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" data-kc-q placeholder="'+t('Søk etter ansatt…','Search employees…')+'" value="'+this.vesc(K.q)+'"></label>'
+      +'<div class="kc-statuses">'+statusChips+'</div>'
+      +'<label class="kc-sort"><span>'+t('Sorter','Sort')+'</span><select data-kc-sort>'
+      +[['need',t('Trenger handling først','Needs action first')],['name',t('Navn A–Å','Name A–Z')],['start',t('Nyeste ansatt','Newest hire')],['got',t('Sist mottatt','Last received')]]
+        .map(([v,l])=>'<option value="'+v+'"'+(K.sort===v?' selected':'')+'>'+l+'</option>').join('')+'</select></label></div>'
+      +'<div class="kc-bar-r2">'
+      +grp(t('Ansettelse','Employment'),chip('contract','',t('Alle','All'))+uniq('contract').map(v=>chip('contract',v,this.vesc(v),emps.filter(e=>e.contract===v).length)).join(''))
+      +grp(t('Produkt','Product'),chip('product','',t('Alle','All'))+uniq('product').map(v=>chip('product',v,this.vesc(v),emps.filter(e=>e.product===v).length)).join(''))
+      +grp(t('Kilde','Source'),chip('src','',t('Alle','All'))+chip('src','outlook','✉ Outlook')+chip('src','upload','⇪ '+t('Lastet opp','Uploaded'))+chip('src','mail',t('Ikke hentet','Not fetched'))+chip('src','none',t('Ingen fil','No file')))
+      +'<span class="kc-count" data-kc-count>'+t('Viser ','Showing ')+'<b>'+shown.filter(x=>!K.q||x.e.name.toLowerCase().indexOf(K.q)>=0).length+'</b>'+t(' av ',' of ')+st.length+'</span>'
+      +(anyF?'<button class="kc-clear" data-vd-act="kcclear">✕ '+t('Nullstill','Clear')+'</button>':'')
+      +'</div></div>';
     const foot='<div class="hb-foot">'+t('Lagres i denne nettleseren til backend er på plass. ','Saved in this browser until the backend is in place. ')+'<button class="pv-link" data-vd-act="kcreset">'+t('Tilbakestill','Reset')+'</button></div>';
     this._kcOverlay=this.kcImportDialog()+this.kcCheckDialog();
     return this.html('<div class="kc-page">'+head+stats+'<div class="kc-card">'+bar+'<div class="kc-list">'+list+'</div></div>'+foot+'</div>'); }
@@ -6426,6 +6484,8 @@ class Component extends DCLogic {
   kcAct(act,val){
     const K=this.kcLoad(), t=(a,b)=>this.t(a,b), today=this.hbISO(this.hbToday());
     if(act==='kcfilter'){ K.filter=K.filter===val?'':val; }
+    else if(act==='kcf'){ const i=val.indexOf('|'), kind=val.slice(0,i), v=val.slice(i+1); K[kind]=K[kind]===v?'':v; }
+    else if(act==='kcclear'){ K.filter='';K.contract='';K.product='';K.src='';K.q=''; }
     else if(act==='kcimp'){ K.imp=true; K.anim=true; K.check=null; K.tab=val?'upload':'outlook'; K.upWho=val||''; K.upName=''; }
     else if(act==='kctab'){ K.tab=val; }
     else if(act==='kcclose'){ K.imp=false; K.check=null; }
@@ -6471,7 +6531,9 @@ class Component extends DCLogic {
     const L=[]; const on=(ev,fn)=>L.push([ev,fn]);
     on('input',e=>{ const el=e.target, K=this._kc; if(!K||!el||!el.getAttribute) return;
       if(el.hasAttribute('data-kc-q')){ K.q=el.value.trim().toLowerCase();
-        document.querySelectorAll('.kc-row').forEach(r=>{ r.hidden=!!K.q&&r.getAttribute('data-kc-name').indexOf(K.q)<0; }); return; }
+        let n=0; document.querySelectorAll('.kc-row').forEach(r=>{ r.hidden=!!K.q&&r.getAttribute('data-kc-name').indexOf(K.q)<0; if(!r.hidden) n++; });
+        const c=document.querySelector('[data-kc-count] b'); if(c) c.textContent=n;
+        document.querySelectorAll('.kc-sec').forEach(h=>{ let x=h.nextElementSibling, any=false; while(x&&x.classList.contains('kc-row')){ if(!x.hidden) any=true; x=x.nextElementSibling; } h.hidden=!any; }); return; }
       const f=el.getAttribute('data-kc-t'); if(!f||!K.check) return;
       const r=K.recs[this.kcKey(K.check)]; if(!r) return; r.terms[f]=el.value; this.kcSave();
       // live: the row's mark, the paper and the summary follow the typing
@@ -6488,7 +6550,8 @@ class Component extends DCLogic {
       // guess the person from the file name: "Arbeidsavtale_Danish_Y.pdf"
       if(!K.upWho){ const fn=f.name.toLowerCase().replace(/[_\-.]+/g,' '); const p=((this.vdModel()||{}).employees||[]).find(e=>fn.indexOf(e.name.toLowerCase())>=0||fn.indexOf(e.name.split(' ')[0].toLowerCase())>=0); if(p) K.upWho=p.name; }
       this.kcRender(); };
-    on('change',e=>{ const el=e.target; if(el&&el.hasAttribute&&el.hasAttribute('data-kc-file')&&el.files&&el.files[0]) pick(el.files[0]);
+    on('change',e=>{ const el=e.target; if(el&&el.hasAttribute&&el.hasAttribute('data-kc-sort')&&this._kc){ this._kc.sort=el.value; this.kcRender(); return; }
+      if(el&&el.hasAttribute&&el.hasAttribute('data-kc-file')&&el.files&&el.files[0]) pick(el.files[0]);
       if(el&&el.hasAttribute&&el.hasAttribute('data-kc-upwho')&&this._kc) this._kc.upWho=el.value; });
     on('dragover',e=>{ const z=e.target.closest&&e.target.closest('[data-kc-drop]'); if(!z) return; e.preventDefault(); z.classList.add('over'); });
     on('dragleave',e=>{ const z=e.target.closest&&e.target.closest('[data-kc-drop]'); if(z) z.classList.remove('over'); });
