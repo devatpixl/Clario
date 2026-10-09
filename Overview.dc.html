@@ -57,6 +57,105 @@
   a{color:var(--accent);text-decoration:none}
   a:hover{color:var(--accent-hover)}
   .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  /* ───────── HR · Kontrakter ───────── */
+  .kc-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+  .kc-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--hr);margin-bottom:6px}
+  .kc-hero h2{font-size:30px;font-weight:700;letter-spacing:-0.04em;margin:0 0 6px}
+  .kc-hero p{font-size:13px;color:var(--text2);max-width:560px;margin:0;line-height:1.5}
+  .kc-hero-r{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .kc-imp{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 18px;border-radius:12px;box-shadow:0 10px 24px -12px var(--accent)}
+  .kc-imp svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .kc-ol{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+  .kc-ol i{width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#0F6CBD,#28A8EA);box-shadow:inset 0 0 0 4px rgba(255,255,255,.18)}
+  .kc-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+  .kc-st{text-align:left;border:1px solid var(--border-soft);border-left:3px solid var(--sc);border-radius:16px;background:var(--card);padding:13px 15px;cursor:pointer;font:inherit;color:var(--text);transition:transform .15s,box-shadow .15s,background .15s}
+  .kc-st:hover{transform:translateY(-1px);box-shadow:0 12px 26px -18px rgba(16,24,40,.4)}
+  .kc-st.on{background:color-mix(in srgb,var(--sc) 8%,var(--card));box-shadow:0 0 0 3px color-mix(in srgb,var(--sc) 16%,transparent)}
+  .kc-st b{display:block;font-size:24px;font-weight:600;color:var(--sc);letter-spacing:-0.03em}
+  .kc-st span{display:block;font-size:12.5px;font-weight:600;margin-top:2px}
+  .kc-st em{display:block;font-style:normal;font-size:11px;color:var(--muted);margin-top:1px}
+  .kc-card{background:var(--card);border:1px solid var(--border-soft);border-radius:20px;padding:8px}
+  .kc-bar{display:flex;align-items:center;gap:12px;padding:8px 8px 12px;border-bottom:1px solid var(--border-soft)}
+  .kc-bar .pv-mf-q{flex:1;max-width:340px}
+  .kc-how{margin-left:auto;font-size:11px;color:var(--muted)}
+  .kc-list{display:flex;flex-direction:column}
+  .kc-row{display:grid;grid-template-columns:40px minmax(150px,1fr) minmax(0,1.8fr) minmax(0,1.3fr) auto;align-items:center;gap:16px;padding:14px 12px;border-radius:14px;position:relative;transition:background .15s}
+  .kc-row+.kc-row{border-top:1px solid var(--border-soft)}
+  .kc-row:hover{background:color-mix(in srgb,var(--sc) 4%,var(--card))}
+  .kc-row::before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--sc);opacity:.85}
+  .kc-who b{display:block;font-size:13.5px}
+  .kc-who span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+  .kc-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--sc);background:color-mix(in srgb,var(--sc) 11%,transparent);border-radius:9999px;padding:3px 10px 3px 4px}
+  .kc-badge i{width:17px;height:17px;border-radius:50%;background:var(--sc);color:#fff;font-style:normal;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .kc-why{font-size:11.5px;color:var(--text2);margin-top:5px;line-height:1.45}
+  .kc-why b{font-weight:600;color:var(--text)}
+  .kc-fcol{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}
+  .kc-file{display:inline-flex;align-items:baseline;gap:6px;font-size:11.5px;font-weight:600;color:var(--text);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kc-file em{font-style:normal;font-weight:400;color:var(--muted);font-size:10.5px}
+  .kc-file-m{color:var(--hr)} .kc-file-none{color:var(--muted2);font-weight:500}
+  .kc-task{border:none;background:var(--surface2);color:var(--text2);border-radius:9999px;font:inherit;font-size:10.5px;font-weight:600;padding:2px 9px;cursor:pointer}
+  .kc-task:hover{background:var(--accent-soft);color:var(--accent)}
+  .kc-act{display:flex;gap:6px;justify-content:flex-end}
+  .kc-act .kc-b,.kc-act .pv-btn{height:32px}
+  .kc-empty{padding:30px;text-align:center;color:var(--muted);font-size:12.5px}
+  .hb-modal.kc-modal{width:min(640px,100%)}
+  .kc-tabs{display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin:4px 0 12px}
+  .kc-tabs .pv-seg{height:32px}
+  .kc-note{font-size:11.5px;color:var(--muted);background:var(--surface2);border-radius:11px;padding:9px 12px;margin-bottom:10px;line-height:1.45}
+  .kc-mail{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 10px;border-radius:13px;border:1px solid var(--border-soft);margin-bottom:6px;transition:border-color .15s}
+  .kc-mail:hover{border-color:var(--border)}
+  .kc-mail.done{opacity:.65}
+  .kc-mail-t{display:flex;justify-content:space-between;gap:10px;font-size:12.5px}
+  .kc-mail-t span{font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .kc-mail-s{font-size:12px;color:var(--text2);margin-top:1px}
+  .kc-mail-a{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+  .kc-att{font-size:11px;font-weight:600;background:var(--surface2);border-radius:8px;padding:3px 8px}
+  .kc-att em{font-style:normal;font-weight:400;color:var(--muted)}
+  .kc-match{font-size:11px;color:var(--hr);font-weight:600}
+  .kc-mail-a select,.kc-upf select{height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:11.5px;padding:0 8px}
+  .kc-got{font-size:11.5px;font-weight:600;color:var(--green)}
+  .kc-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:150px;border:1.5px dashed var(--border);border-radius:16px;cursor:pointer;
+    background:color-mix(in srgb,var(--surface2) 45%,var(--card));transition:border-color .15s,background .15s;margin-bottom:10px;text-align:center;padding:16px}
+  .kc-drop:hover,.kc-drop.over{border-color:var(--accent);background:var(--accent-soft)}
+  .kc-drop.has{border-style:solid;border-color:var(--green)}
+  .kc-drop-i{font-size:24px;margin-bottom:4px}
+  .kc-drop b{font-size:13.5px} .kc-drop em{font-style:normal;font-size:11.5px;color:var(--muted)}
+  .kc-upf{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:10px}
+  .kc-upf select{height:32px;min-width:200px}
+  .hb-modal.kc-chk{width:min(920px,100%)}
+  .kc-chk-h{display:flex;align-items:center;gap:12px;margin:4px 0 14px}
+  .kc-chk-h b{display:block;font-size:20px;font-weight:700;letter-spacing:-0.03em}
+  .kc-chk-h div>span{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);margin-top:2px}
+  .kc-ok,.kc-bad{font-style:normal;min-width:18px;height:18px;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#fff;padding:0 5px}
+  .kc-ok{background:var(--green)} .kc-bad{background:var(--danger)}
+  .kc-chk-g{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:18px;align-items:start}
+  .kc-paper{background:#FBFBF8;color:#1F2430;border:1px solid #E7E5DD;border-radius:6px;padding:20px 20px 16px;font-family:Georgia,'Times New Roman',serif;font-size:11.5px;line-height:1.6;
+    box-shadow:0 1px 0 #fff inset,0 18px 30px -22px rgba(16,24,40,.45),6px 6px 0 -1px #F1F0EA,6px 6px 0 0 #E7E5DD;transform:rotate(-.4deg)}
+  .kc-pp-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E2E0D8;padding-bottom:8px;margin-bottom:10px}
+  .kc-pp-h b{letter-spacing:.18em;font-size:12px} .kc-pp-h span{font-size:9.5px;color:#7A7F8C;font-family:'DM Sans',sans-serif}
+  .kc-paper p{margin:0 0 8px} .kc-paper u{text-decoration-color:#C9C6BA}
+  .kc-paper mark{background:rgba(124,90,194,.14);color:#3B2A6B;border-radius:3px;padding:0 3px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600}
+  .kc-pp-lines i{display:block;height:5px;border-radius:3px;background:#ECEAE3;margin:7px 0}
+  .kc-pp-sig{display:flex;justify-content:space-between;gap:10px;margin-top:16px;font-size:9.5px;color:#7A7F8C;font-family:'DM Sans',sans-serif}
+  .kc-pp-sig span{border-top:1px solid #C9C6BA;padding-top:4px;font-style:italic}
+  .kc-cmp{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.2fr) minmax(0,1fr) 24px;gap:10px;align-items:center;padding:7px 8px;border-radius:11px}
+  .kc-cmp+.kc-cmp{margin-top:2px}
+  .kc-cmp-hd{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:2px}
+  .kc-cmp-l{font-size:12px;font-weight:600}
+  .kc-cmp-l em{display:block;font-style:normal;font-size:9.5px;font-weight:400;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+  .kc-cmp input{height:32px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;padding:0 9px;min-width:0}
+  .kc-cmp input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .kc-cmp input:disabled{background:transparent;border-color:transparent;color:var(--text);padding:0}
+  .kc-cmp-c{font-size:12.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kc-cmp-s{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+  .kc-cmp.ok .kc-cmp-s{background:var(--green)}
+  .kc-cmp.bad{background:color-mix(in srgb,var(--danger) 7%,transparent)}
+  .kc-cmp.bad .kc-cmp-s{background:var(--danger)}
+  .kc-cmp.bad input{border-color:color-mix(in srgb,var(--danger) 45%,var(--border))}
+  .kc-cmp-n{font-size:11px;color:var(--muted);margin:10px 8px 6px}
+  .kc-chk .pv-link{margin:0 8px}
+  .kc-rm{border:none;background:none;color:var(--danger);font:inherit;font-size:11.5px;cursor:pointer;padding:0}
+  @media(max-width:900px){ .kc-row{grid-template-columns:40px minmax(0,1fr) auto} .kc-mid,.kc-fcol{grid-column:2/-1} .kc-stats{grid-template-columns:1fr 1fr} .kc-chk-g{grid-template-columns:1fr} .kc-paper{transform:none} .kc-how{display:none} }
   /* sidebar segments */
   :root{--hr:#7C5AC2;--hr-soft:rgba(124,90,194,.10)}
   [data-theme="dark"],:root:has([data-theme="dark"]){--hr:#B9A8FF;--hr-soft:rgba(185,168,255,.13)}
@@ -2593,6 +2692,9 @@
         <sc-if value="{{ isSelgere }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeUp .5s both" dangerouslySetInnerHTML="{{ selgerePage }}"></div>
         </sc-if>
+        <sc-if value="{{ isContracts }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeIn .4s both" dangerouslySetInnerHTML="{{ contractsPage }}"></div>
+        </sc-if>
         <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ false }}">
           <div style="animation:fadeIn .4s both" dangerouslySetInnerHTML="{{ boardPage }}"></div>
         </sc-if>
@@ -3273,6 +3375,8 @@ class Component extends DCLogic {
         const c=M.cancellations.filter(x=>x.claimMonth===this.vdMonth()).length; return c?String(c):null; })()],
       ['Fravaer','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',null],
       ['Onboarding','<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M7 11v5c0 1.7 2.2 3 5 3s5-1.3 5-3v-5"/>',null],
+      ['Contracts','<path d="M6 2.5h8l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 5 20V4a1.5 1.5 0 0 1 1-1.5z"/><path d="M14 2.5v4h4M8.5 13l2 2 4-4"/>',(()=>{
+        const M=this.vdModel(); if(!M) return null; const n=(M.employees||[]).filter(e=>e.active!==false).filter(e=>['verified','review'].indexOf(this.kcState(e.name).s)<0).length; return n?String(n):null; })()],
       ['Inndata','<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',null],
       ['Import','<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M8 9l4-4 4 4M12 5v11"/>',null],
       ['Workpapers','<path d="M4 3h10l6 6v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',null],
@@ -3294,12 +3398,12 @@ class Component extends DCLogic {
       Insights:['Innsikt','Insights'],Alerts:['Varsler','Alerts'],
       Recommendations:['Anbefalinger','Recommendations'],Invoices:['Fakturaer','Invoices'],
       Selgere:['Selgere','Sellers'],Provisjon:['Provisjon','Commission'],Fravaer:['Fravær & NAV','Absence & NAV'],
-      Onboarding:['Onboarding','Onboarding'],Inndata:['Arbeidsbok','Workbook'],
+      Onboarding:['Onboarding','Onboarding'],Contracts:['Kontrakter','Contracts'],Inndata:['Arbeidsbok','Workbook'],
       Import:['Import','Import'],Workpapers:['Arbeidspapirer','Workpapers'],
       Board:['Oppgavetavle','Task board'],Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
-    const HRK=['Selgere','Provisjon','Fravaer','Onboarding','Board','Inndata'];
+    const HRK=['Selgere','Provisjon','Fravaer','Onboarding','Contracts','Board','Inndata'];
     const nav=navDefs.filter(([label])=>DEMO_ONLY.indexOf(label)<0).map(([label,path,badge])=>{
       const on=active===label, hr=HRK.indexOf(label)>=0, ac=hr?'var(--hr)':'var(--accent)', acs=hr?'var(--hr-soft)':'var(--accent-soft)';
       return { _key:label, label:t.apply(null,NAVLBL[label]||[label,label]),badge:navMin?null:badge,select:()=>this.setState({active:label,notifOpen:false,navOpen:false}),
@@ -3312,7 +3416,7 @@ class Component extends DCLogic {
     // five micro-level routes were inserted after Invoices, so the rails shift
     // two segments: Økonomi (Monitor + Plan) and HR — separate access levels later
     const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Import','Workpapers'],
-                 hr:['Selgere','Provisjon','Fravaer','Onboarding','Board','Inndata'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
+                 hr:['Selgere','Provisjon','Fravaer','Onboarding','Contracts','Board','Inndata'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
     const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings'), navHr=inGroup('hr');
     const SCEN={
@@ -3343,15 +3447,15 @@ class Component extends DCLogic {
                      :{display:'flex',alignItems:'center',gap:'9px',padding:'4px 12px',borderRadius:'8px',cursor:'pointer'},
       orgLbl:navMin?{display:'none'}:{minWidth:0,flex:1,fontSize:'11.5px',fontWeight:500,letterSpacing:'-0.02em',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
       orgChev:navMin?{display:'none'}:{display:'flex',flex:'none'},
-      segEco:navMin?{display:'flex',justifyContent:'center',margin:'18px 0 0'}:{display:'flex',alignItems:'center',gap:'9px',margin:'18px 0 0',padding:'0 10px'},
+      segEco:navMin?{display:'flex',justifyContent:'center',margin:'18px 0 0'}:{display:'flex',alignItems:'center',gap:'9px',margin:'12px 0 0',padding:'0 10px'},
       segHr:navMin?{display:'flex',justifyContent:'center',margin:'22px 0 0',paddingTop:'18px',borderTop:'1px solid var(--border-soft)'}
-                  :{display:'flex',alignItems:'center',gap:'9px',margin:'14px 0 0',padding:'14px 10px 0',borderTop:'1px solid var(--border-soft)'},
+                  :{display:'flex',alignItems:'center',gap:'9px',margin:'10px 0 0',padding:'10px 10px 0',borderTop:'1px solid var(--border-soft)'},
       segLbl:navMin?{display:'none'}:{flex:1,minWidth:0},
       segEcoT:t('Økonomi','Economy'), segHrT:'HR',
       segEcoS:t('Regnskap, kontantstrøm og plan','Accounts, cash flow and plan'), segHrS:t('Selgere, provisjon og ansatte','Sellers, commission and staff'),
-      ebMon:navMin?Object.assign({margin:'14px 14px 12px'},ebHid):Object.assign({margin:'12px 0 6px'},ebBase),
-      ebHr:navMin?{display:'none'}:{height:'8px'},
-      ebPlan:navMin?Object.assign({margin:'18px 14px 12px'},ebHid):Object.assign({margin:'14px 0 6px'},ebBase),
+      ebMon:navMin?Object.assign({margin:'14px 14px 12px'},ebHid):Object.assign({margin:'8px 0 5px'},ebBase),
+      ebHr:navMin?{display:'none'}:{height:'4px'},
+      ebPlan:navMin?Object.assign({margin:'18px 14px 12px'},ebHid):Object.assign({margin:'10px 0 5px'},ebBase),
       footPad:{marginTop:'16px',padding:navMin?'14px 8px':'14px 24px',borderTop:'1px solid var(--border)'},
       liveRow:navMin?{display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'13px'}
                     :{display:'flex',alignItems:'center',gap:'8px',marginBottom:'13px'},
@@ -3371,6 +3475,7 @@ class Component extends DCLogic {
       Selgere:[t('HR · per selger','HR · per seller'),t('Selgere','Sellers')],
       Provisjon:[t('HR · Phonero-oppgjør og kanselleringer','HR · Phonero settlement and cancellations'),t('Provisjon','Commission')],
       Board:[t('HR · oppgaver','HR · tasks'),t('Oppgavetavle','Task board')],
+      Contracts:[t('HR · signerte kontrakter mot avtalene','HR · signed contracts against the agreements'),t('Kontrakter','Contracts')],
       Fravaer:[t('HR · egenmelding, sykemelding og NAV','HR · self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
       Onboarding:[t('HR · kostnad per ansettelse','HR · cost per hire'),'Onboarding'],
       Inndata:[t('HR · alle arkene — rediger direkte','HR · all sheets — edit directly'),t('Arbeidsbok','Workbook')],
@@ -4466,7 +4571,7 @@ class Component extends DCLogic {
       invoicesPage:this.once('inv'+LANG,()=>this.buildInvoices(t)),
       active, isOverview:active==='Overview',isCashflow:active==='Cashflow',isInsights:active==='Insights',isRecommendations:active==='Recommendations',isInvoices:active==='Invoices',
       isAlerts:active==='Alerts',
-      isSelgere:active==='Selgere',isProvisjon:active==='Provisjon',isBoard:active==='Board',isFravaer:active==='Fravaer',
+      isSelgere:active==='Selgere',isProvisjon:active==='Provisjon',isBoard:active==='Board',isContracts:active==='Contracts',isFravaer:active==='Fravaer',
       isOnboarding:active==='Onboarding',isInndata:active==='Inndata',
       isScenarios:active==='Scenarios',isDara:active==='Dara',isClients:active==='Clients',isSettings:active==='Settings',
       goInsights:()=>this.setState({active:'Recommendations'}), goCashflow:()=>this.setState({active:'Cashflow'}), goScenario:()=>this.setState({active:'Scenarios'}),
@@ -4504,6 +4609,7 @@ class Component extends DCLogic {
       plainSummary:this.buildPlainSummary(),
       provisjonPage:this.buildProvisjonPage(),
       boardPage:active==='Board'?this.buildBoardPage():this.html(''),
+      contractsPage:active==='Contracts'?this.buildContractsPage():this.html(''),
       cancelCard:this.buildCancelCard(),
       forecastCard:this.buildForecastCard(),
       cashflowPage:this.buildKontantstrom(),   // depends on the selected month, so never cached
@@ -6060,9 +6166,16 @@ class Component extends DCLogic {
 
   hbPortal(){
     let el=document.getElementById('hb-portal');
-    const html=this.state.active==='Board'?(this._hbOverlay||''):'';
+    const html=this.state.active==='Board'?(this._hbOverlay||''):this.state.active==='Contracts'?(this._kcOverlay||''):'';
     if(!el){ el=document.createElement('div'); el.id='hb-portal'; document.body.appendChild(el); }
-    if(el._html!==html){ el.innerHTML=html; el._html=html;
+    if(el._html!==html){
+      // a re-render from elsewhere (a toast, the store) must not throw the
+      // person out of the field they are typing in: put the caret back
+      const ae=document.activeElement; let keep=null;
+      if(ae&&el.contains(ae)) ['data-hb-n','data-kc-t','data-hb-new','data-kc-upwho','data-kc-who'].some(a=>ae.hasAttribute(a)&&(keep={a,v:ae.getAttribute(a),s:ae.selectionStart,e:ae.selectionEnd}));
+      el.innerHTML=html; el._html=html;
+      if(keep){ const nf=el.querySelector('['+keep.a+'="'+String(keep.v).replace(/"/g,'\\"')+'"]');
+        if(nf){ nf.focus({preventScroll:true}); try{ if(keep.s!=null) nf.setSelectionRange(keep.s,keep.e); }catch(err){} } }
       el.className=document.querySelector('[data-theme="dark"]')?'hb-portal-dark':''; }
     const H=this._hb; if(!H||!H.focus) return;
     const f=H.focus; H.focus=null;
@@ -6145,6 +6258,244 @@ class Component extends DCLogic {
     // a plain click on a card opens it (a drag never fires click)
     on('click',e=>{ const c=e.target.closest&&e.target.closest('.hb-card'); if(!c||e.target.closest('[data-vd-act]')) return;
       const H=this.hbLoad(); H.open=c.getAttribute('data-hb-id'); H.confirmDel=false; this.hbRender(); });   this.gBind('hb',L); }
+
+  /* ═══ PAGE · Kontrakter — signed contracts from Outlook, checked against Clario ═══
+     Frontend only: the inbox is a demo, uploads keep only the file name, and the
+     contract's terms are typed (or pre-filled) rather than read from the PDF.
+     State lives in this browser under clario.hr.contracts.v1 until the backend. */
+  kcKey(n){ return String(n||'').replace(/\s+/g,' ').trim().toLowerCase(); }
+  kcInbox(){ return [
+    {id:'m1',from:'Danish Y',addr:'danish.y@venditus.no',subj:'Signert arbeidsavtale',at:'2025-06-12 09:41',file:'Arbeidsavtale_Danish_Y_signert.pdf',size:'218 KB',who:'Danish Y'},
+    {id:'m2',from:'Bilal Ahmad',addr:'bilal@venditus.no',subj:'Re: Ny provisjonsavtale 2025',at:'2025-06-09 14:02',file:'Provisjonsavtale_Bilal_Ahmad_2025.pdf',size:'164 KB',who:'Bilal Ahmad'},
+    {id:'m3',from:'Sharjeel X',addr:'sharjeel@venditus.no',subj:'Kontrakt signert',at:'2025-05-28 16:20',file:'Arbeidsavtale_Sharjeel_X.pdf',size:'201 KB',who:'Sharjeel X'},
+    {id:'m4',from:'Lønn · Venditus',addr:'lonn@venditus.no',subj:'Kontrakt til signering – ny selger',at:'2025-06-15 11:05',file:'Arbeidsavtale_utkast.pdf',size:'96 KB',who:''}]; }
+  // what Clario holds for this person — the side the contract is checked against
+  kcClario(name){
+    const M=this.vdModel(), t=(a,b)=>this.t(a,b);
+    const e=(M.employees||[]).find(x=>this.kcKey(x.name)===this.kcKey(name))||{};
+    const cur=M.modelFor?M.modelFor(e.name||name,this.vdMonth(),e.contract):{};
+    const rate=cur.type==='perPack'
+      ? Object.keys(cur.rates||{}).filter(k=>cur.rates[k]).map(k=>this.vdPackLbl(k)+' '+cur.rates[k]).join(' · ')
+      : Math.round((cur.share||0)*100)+' %';
+    return {contract:e.contract||'',product:e.product||'',start:e.start||'',
+      model:cur.type==='perPack'?t('Fast per produkt','Fixed per product'):t('Andel av Phonero','Share of Phonero'),
+      rate, from:cur.from||'', fromModel:cur.source==='model', row:e._row}; }
+  kcFields(){ const t=(a,b)=>this.t(a,b); return [
+    ['contract',t('Ansettelsesform','Employment type'),'SELGER PROFIL'],
+    ['product',t('Produkt','Product'),'SELGER PROFIL'],
+    ['start',t('Startdato','Start date'),'SELGER PROFIL'],
+    ['model',t('Provisjonsmodell','Commission model'),t('Provisjonsavtale','Agreement')],
+    ['rate',t('Sats','Rate'),t('Provisjonsavtale','Agreement')],
+    ['from',t('Avtalen gjelder fra','Agreement in force from'),t('Provisjonsavtale','Agreement')]]; }
+  kcSame(a,b){ const n=v=>String(v==null?'':v).toLowerCase().replace(/\s+/g,'').replace(/kr/g,''); return n(a)===n(b); }
+  kcSeed(){ const c=n=>this.kcClario(n);
+    const bil=c('Bilal Ahmad'), sha=c('Sharjeel X');
+    return {
+      'sharjeel x':{file:'Arbeidsavtale_Sharjeel_X.pdf',src:'outlook',mail:'m3',got:'2025-05-28',terms:Object.assign({},sha,{salary:'kr 28 000'}),status:'verified',at:'2025-06-02',by:'Kian Vestby'},
+      'bilal ahmad':{file:'Provisjonsavtale_Bilal_Ahmad_2025.pdf',src:'outlook',mail:'m2',got:'2025-06-09',terms:Object.assign({},bil,{rate:'45 %',salary:'kr 34 000'}),status:'open'}}; }
+  kcLoad(){ if(this._kc) return this._kc;
+    let recs=null; try{ recs=JSON.parse(localStorage.getItem('clario.hr.contracts.v1')||'null'); }catch(e){}
+    this._kc={recs:recs||this.kcSeed(),filter:'',q:'',check:null,imp:false,tab:'outlook',upName:'',upWho:''}; return this._kc; }
+  kcSave(){ try{ localStorage.setItem('clario.hr.contracts.v1',JSON.stringify(this._kc.recs)); }catch(e){} }
+  kcRender(){ this._c={}; this.forceUpdate(); }
+  kcState(name){ const K=this.kcLoad(), k=this.kcKey(name), r=K.recs[k];
+    if(r){ if(r.status==='verified') return {s:'verified',r};
+      const cl=this.kcClario(name), bad=this.kcFields().filter(([f])=>!this.kcSame(r.terms[f],cl[f]));
+      return {s:bad.length?'deviation':'review',r,bad}; }
+    const mail=this.kcInbox().find(m=>this.kcKey(m.who)===k);
+    return mail?{s:'inbox',mail}:{s:'missing'}; }
+  kcMeta(s){ const t=(a,b)=>this.t(a,b); return {
+    verified:{l:t('Verifisert','Verified'),c:'var(--green)',i:'✓'},
+    review:{l:t('Klar til godkjenning','Ready to approve'),c:'var(--accent)',i:'●'},
+    deviation:{l:t('Avvik','Mismatch'),c:'var(--danger)',i:'!'},
+    open:{l:t('Til sjekk','To check'),c:'var(--danger)',i:'!'},
+    inbox:{l:t('I Outlook — ikke hentet','In Outlook — not fetched'),c:'var(--hr)',i:'✉'},
+    missing:{l:t('Mangler kontrakt','No contract'),c:'var(--amber)',i:'?'}}[s]; }
+  kcDate(d){ if(!d) return '–'; const p=String(d).slice(0,10).split('-'); return p.length===3?p[2]+'.'+p[1]+'.'+p[0]:d; }
+
+  buildContractsPage(){
+    const M=this.vdModel(), t=(a,b)=>this.t(a,b), K=this.kcLoad();
+    if(!M) return this.html(this.vdEmpty(t('Ingen data lastet.','No data loaded.')));
+    const emps=(M.employees||[]).filter(e=>e.active!==false);
+    const st=emps.map(e=>Object.assign({e},this.kcState(e.name)));
+    const cnt=s=>st.filter(x=>x.s===s).length;
+    const H=this.hbLoad();
+    const head='<div class="kc-hero"><div><div class="kc-eye">HR · '+t('Kontrakter','Contracts')+'</div><h2>'+t('Kontrakter','Contracts')+'</h2>'
+      +'<p>'+t('Signerte kontrakter fra Outlook, sjekket punkt for punkt mot det Clario betaler etter. Avvik blir en oppgave på tavlen.','Signed contracts from Outlook, checked term by term against what Clario pays by. A mismatch becomes a task on the board.')+'</p></div>'
+      +'<div class="kc-hero-r"><button class="pv-btn kc-imp" data-vd-act="kcimp" data-vd-val="">'
+      +'<svg viewBox="0 0 16 16"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 11.5v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/></svg>'+t('Hent kontrakt','Fetch contract')+'</button>'
+      +'<span class="kc-ol"><i></i>Outlook · '+t('demo — kobles til når backend er klar','demo — connected once the backend is ready')+'</span></div></div>';
+    const tile=(s,n,sub)=>{ const m=Object.assign({},this.kcMeta(s)); if(s==='deviation'&&cnt('review')){ m.l=this.kcMeta('open').l; if(!cnt('deviation')) m.c='var(--accent)'; } return '<button class="kc-st'+(K.filter===s?' on':'')+'" data-vd-act="kcfilter" data-vd-val="'+s+'" style="--sc:'+m.c+'"><b class="mono">'+n+'</b><span>'+m.l+'</span><em>'+sub+'</em></button>'; };
+    const stats='<div class="kc-stats">'
+      +tile('verified',cnt('verified'),t('stemmer med Clario','match Clario'))
+      +tile('deviation',cnt('deviation')+cnt('review'),cnt('review')?cnt('review')+' '+t('klar til godkjenning','ready to approve')+(cnt('deviation')?' · '+cnt('deviation')+' '+t('med avvik','with a mismatch'):''):t('kontrakt og Clario er ulike','contract and Clario differ'))
+      +tile('inbox',cnt('inbox'),t('ligger i innboksen','waiting in the inbox'))
+      +tile('missing',cnt('missing'),t('ingen kontrakt mottatt','no contract received'))+'</div>';
+    const list=st.filter(x=>!K.filter||x.s===K.filter||(K.filter==='deviation'&&x.s==='review')).map(x=>{
+      const e=x.e, m=this.kcMeta(x.s), k=this.kcKey(e.name), cl=this.kcClario(e.name);
+      const task=H.tasks.find(q=>q.cat==='kontrakt'&&this.kcKey(q.emp)===k&&q.status!=='done');
+      const file=x.r?'<span class="kc-file">📄 '+this.vesc(x.r.file)+'<em>'+(x.r.src==='outlook'?t('fra Outlook ','from Outlook '):t('lastet opp ','uploaded '))+this.kcDate(x.r.got)+'</em></span>'
+        :x.mail?'<span class="kc-file kc-file-m">✉ '+this.vesc(x.mail.file)+'<em>'+t('mottatt ','received ')+this.kcDate(x.mail.at)+'</em></span>'
+        :'<span class="kc-file kc-file-none">'+t('Ingen fil','No file')+'</span>';
+      const why=x.s==='verified'?t('Godkjent ','Approved ')+this.kcDate(x.r.at)+' · '+this.vesc(x.r.by||'')
+        :x.s==='deviation'?x.bad.map(([f,l])=>'<b>'+l+'</b>: '+this.vesc(x.r.terms[f]||'–')+' ≠ '+this.vesc(cl[f]||'–')).join(' · ')
+        :x.s==='review'?t('Alle punkter stemmer — mangler bare godkjenning','Every term matches — only approval left')
+        :x.s==='inbox'?t('«'+x.mail.subj+'» fra '+x.mail.from,'"'+x.mail.subj+'" from '+x.mail.from)
+        :t('Ingen e-post med kontrakt fra denne personen','No email with a contract from this person');
+      const act=x.s==='inbox'?'<button class="pv-btn pv-btn-s" data-vd-act="kcfetch" data-vd-val="'+x.mail.id+'">'+t('Hent og sjekk','Fetch and check')+'</button>'
+        :x.s==='missing'?'<button class="hb-btn-o kc-b" data-vd-act="kcimp" data-vd-val="'+this.vesc(e.name)+'">'+t('Last opp','Upload')+'</button>'
+          +'<button class="hb-btn-g kc-b" data-vd-act="kctask" data-vd-val="'+this.vesc(e.name)+'|missing">'+t('Lag oppgave','Create task')+'</button>'
+        :'<button class="'+(x.s==='verified'?'hb-btn-o':'pv-btn pv-btn-s')+' kc-b" data-vd-act="kccheck" data-vd-val="'+this.vesc(e.name)+'">'+(x.s==='verified'?t('Vis','View'):x.s==='deviation'?t('Se avvik','See mismatch'):t('Godkjenn','Approve'))+'</button>';
+      return '<article class="kc-row kc-'+x.s+'" style="--sc:'+m.c+'" data-kc-name="'+this.vesc(e.name.toLowerCase())+'"'+(K.q&&e.name.toLowerCase().indexOf(K.q)<0?' hidden':'')+'>'
+        +'<span class="pv-av" style="background:'+this.vdSellerHue(e.name)+'">'+this.vdInitials(e.name)+'</span>'
+        +'<div class="kc-who"><b>'+this.vesc(e.name)+'</b><span>'+this.vesc(e.contract||'')+' · '+this.vesc(e.product||'')+' · '+t('start ','start ')+this.kcDate(e.start)+'</span></div>'
+        +'<div class="kc-mid"><span class="kc-badge"><i>'+m.i+'</i>'+m.l+'</span><div class="kc-why">'+why+'</div></div>'
+        +'<div class="kc-fcol">'+file+(task?'<button class="kc-task" data-vd-act="kcboard" data-vd-val="'+task.id+'">▦ '+t('Oppgave på tavlen','Task on the board')+'</button>':'')+'</div>'
+        +'<div class="kc-act">'+act+'</div></article>'; }).join('')
+      ||'<div class="kc-empty">'+t('Ingen kontrakter med denne statusen.','No contracts with this status.')+'</div>';
+    const bar='<div class="kc-bar"><label class="pv-mf-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" data-kc-q placeholder="'+t('Søk etter ansatt…','Search employees…')+'" value="'+this.vesc(K.q)+'"></label>'
+      +(K.filter?'<button class="pv-link" data-vd-act="kcfilter" data-vd-val="">'+t('Vis alle','Show all')+'</button>':'')
+      +'<span class="kc-how">'+t('Sjekkes mot SELGER PROFIL og Provisjonsavtalene','Checked against SELGER PROFIL and the commission agreements')+'</span></div>';
+    const foot='<div class="hb-foot">'+t('Lagres i denne nettleseren til backend er på plass. ','Saved in this browser until the backend is in place. ')+'<button class="pv-link" data-vd-act="kcreset">'+t('Tilbakestill','Reset')+'</button></div>';
+    this._kcOverlay=this.kcImportDialog()+this.kcCheckDialog();
+    return this.html('<div class="kc-page">'+head+stats+'<div class="kc-card">'+bar+'<div class="kc-list">'+list+'</div></div>'+foot+'</div>'); }
+
+  kcImportDialog(){
+    const K=this._kc; if(!K||!K.imp) return '';
+    const t=(a,b)=>this.t(a,b), anim=K.anim; K.anim=false;
+    const people=((this.vdModel()||{}).employees||[]).filter(e=>e.active!==false).map(e=>e.name);
+    const sel=(attr,cur)=>'<select '+attr+'><option value="">'+t('Velg ansatt…','Choose employee…')+'</option>'+people.map(p=>'<option'+(this.kcKey(p)===this.kcKey(cur)?' selected':'')+'>'+this.vesc(p)+'</option>').join('')+'</select>';
+    const fetched=id=>Object.values(K.recs).some(r=>r.mail===id);
+    const mails=this.kcInbox().map(m=>'<div class="kc-mail'+(fetched(m.id)?' done':'')+'">'
+      +'<span class="pv-av pv-av-s" style="background:'+(m.who?this.vdSellerHue(m.who):'#64748B')+'">'+this.vdInitials(m.from)+'</span>'
+      +'<div class="kc-mail-b"><div class="kc-mail-t"><b>'+this.vesc(m.from)+'</b><span>'+this.vesc(m.at)+'</span></div>'
+      +'<div class="kc-mail-s">'+this.vesc(m.subj)+'</div>'
+      +'<div class="kc-mail-a"><span class="kc-att">📎 '+this.vesc(m.file)+' <em>'+m.size+'</em></span>'
+      +(m.who?'<span class="kc-match">→ '+this.vesc(m.who)+'</span>':sel('data-kc-who="'+m.id+'"',''))+'</div></div>'
+      +(fetched(m.id)?'<span class="kc-got">✓ '+t('Hentet','Fetched')+'</span>':'<button class="pv-btn pv-btn-s" data-vd-act="kcfetch" data-vd-val="'+m.id+'">'+t('Hent','Fetch')+'</button>')+'</div>').join('');
+    const outlook='<div class="kc-note">'+t('Demo-innboks. Når backend er klar, kobles denne til Outlook (Microsoft 365) og viser e-poster med kontrakter som vedlegg.','Demo inbox. Once the backend is ready this connects to Outlook (Microsoft 365) and lists emails with contracts attached.')+'</div>'+mails;
+    const upload='<label class="kc-drop'+(K.upName?' has':'')+'" data-kc-drop><input type="file" accept=".pdf,.doc,.docx" data-kc-file hidden>'
+      +'<span class="kc-drop-i">'+(K.upName?'📄':'⇪')+'</span>'
+      +(K.upName?'<b>'+this.vesc(K.upName)+'</b><em>'+t('Klikk for å velge en annen fil','Click to choose another file')+'</em>'
+        :'<b>'+t('Slipp kontrakten her','Drop the contract here')+'</b><em>'+t('eller klikk for å velge · PDF eller Word','or click to choose · PDF or Word')+'</em>')+'</label>'
+      +'<div class="kc-upf"><span>'+t('Gjelder','For')+'</span>'+sel('data-kc-upwho',K.upWho)+'</div>'
+      +'<div class="kc-note">'+t('Bare filnavnet lagres nå. Med backend leses tallene ut av kontrakten automatisk — til da fyller du dem inn i neste steg.','Only the file name is kept for now. With the backend the terms are read from the contract — until then you fill them in on the next step.')+'</div>'
+      +'<div class="hb-m-ft"><span class="hb-m-keys"></span><button class="hb-btn-g" data-vd-act="kcclose">'+t('Avbryt','Cancel')+'</button>'
+      +'<button class="pv-btn" data-vd-act="kcupload">'+t('Hent inn og sjekk','Add and check')+'</button></div>';
+    return '<div class="hb-scrim" data-vd-act="kcclose"></div><div class="hb-mwrap"><div class="hb-modal kc-modal'+(anim?' in':'')+'" role="dialog" aria-modal="true" style="--cc:var(--hr)">'
+      +'<div class="hb-m-top"><span class="hb-m-eye">'+t('Hent kontrakt','Fetch contract')+'</span><button class="hb-x" data-vd-act="kcclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
+      +'<div class="kc-tabs">'+[['outlook','✉ '+t('Fra Outlook','From Outlook')],['upload','⇪ '+t('Last opp fil','Upload a file')]].map(([k,l])=>'<button class="pv-seg'+(K.tab===k?' on':'')+'" data-vd-act="kctab" data-vd-val="'+k+'">'+l+'</button>').join('')+'</div>'
+      +(K.tab==='outlook'?outlook:upload)+'</div></div>'; }
+
+  kcCheckDialog(){
+    const K=this._kc; if(!K||!K.check) return '';
+    const t=(a,b)=>this.t(a,b), anim=K.anim; K.anim=false;
+    const name=K.check, k=this.kcKey(name), r=K.recs[k]; if(!r) return '';
+    const cl=this.kcClario(name), F=this.kcFields(), ver=r.status==='verified';
+    const rows=F.map(([f,l,src])=>{ const ok=this.kcSame(r.terms[f],cl[f]);
+      return '<div class="kc-cmp '+(ok?'ok':'bad')+'" data-kc-row="'+f+'"><span class="kc-cmp-l">'+l+'<em>'+src+'</em></span>'
+        +'<input data-kc-t="'+f+'" value="'+this.vesc(r.terms[f]||'')+'"'+(ver?' disabled':'')+'>'
+        +'<span class="kc-cmp-c">'+this.vesc(cl[f]||'–')+'</span><span class="kc-cmp-s">'+(ok?'✓':'≠')+'</span></div>'; }).join('');
+    const bad=F.filter(([f])=>!this.kcSame(r.terms[f],cl[f])).length;
+    const hl=f=>'<mark data-kc-p="'+f+'">'+this.vesc(r.terms[f]||'…')+'</mark>';
+    const paper='<div class="kc-paper"><div class="kc-pp-h"><b>'+t('ARBEIDSAVTALE','EMPLOYMENT CONTRACT')+'</b><span>Venditus AS · org. 9xx xxx xxx</span></div>'
+      +'<p>'+t('Mellom Venditus AS og ','Between Venditus AS and ')+'<u>'+this.vesc(name)+'</u>.</p>'
+      +'<p><b>§ 2</b> '+t('Tiltredelse: ','Start: ')+hl('start')+'. '+t('Stillingen er ','The position is ')+hl('contract')+t(', for salg av ',', selling ')+hl('product')+'.</p>'
+      +'<p><b>§ 4</b> '+t('Fastlønn: ','Fixed salary: ')+'<mark>'+this.vesc(r.terms.salary||'—')+'</mark> '+t('per måned.','per month.')+'</p>'
+      +'<p><b>§ 5</b> '+t('Provisjon: ','Commission: ')+hl('model')+', '+hl('rate')+', '+t('fra ','from ')+hl('from')+'.</p>'
+      +'<div class="kc-pp-lines"><i></i><i></i><i style="width:70%"></i></div>'
+      +'<div class="kc-pp-sig"><span>'+t('Signert','Signed')+' · '+this.vesc(name)+'</span><span>'+t('Signert','Signed')+' · Venditus AS</span></div></div>';
+    return '<div class="hb-scrim" data-vd-act="kcclose"></div><div class="hb-mwrap"><div class="hb-modal kc-modal kc-chk'+(anim?' in':'')+'" role="dialog" aria-modal="true" style="--cc:'+(ver?'var(--green)':bad?'var(--danger)':'var(--accent)')+'">'
+      +'<div class="hb-m-top"><span class="hb-m-eye">'+t('Kontraktsjekk','Contract check')+'</span><span class="kc-file">📄 '+this.vesc(r.file)+'<em>'+(r.src==='outlook'?'Outlook · ':'')+this.kcDate(r.got)+'</em></span>'
+      +'<button class="hb-x" data-vd-act="kcclose" aria-label="'+t('Lukk','Close')+'">×</button></div>'
+      +'<div class="kc-chk-h"><span class="pv-av" style="background:'+this.vdSellerHue(name)+'">'+this.vdInitials(name)+'</span><div><b>'+this.vesc(name)+'</b>'
+      +'<span data-kc-sum>'+this.kcSum(bad,ver,r)+'</span></div></div>'
+      +'<div class="kc-chk-g">'+paper+'<div><div class="kc-cmp kc-cmp-hd"><span></span><span>'+t('I kontrakten','In the contract')+'</span><span>'+t('I Clario','In Clario')+'</span><span></span></div>'+rows
+      +'<div class="kc-cmp-n">'+t('Fastlønn sjekkes når lønn hentes fra Tripletex (backend).','Fixed salary is checked once pay comes from Tripletex (backend).')+'</div>'
+      +'<button class="pv-link" data-vd-act="kcagree" data-vd-val="'+this.vesc(name)+'">'+t('Åpne avtalen i Provisjon →','Open the agreement on Commission →')+'</button></div></div>'
+      +'<div class="hb-m-ft"><span class="hb-m-keys">'+(ver?'':'<button class="kc-rm" data-vd-act="kcremove" data-vd-val="'+this.vesc(name)+'">'+t('Fjern filen','Remove the file')+'</button>')+'</span>'
+      +(ver?'<button class="hb-btn-o" data-vd-act="kcreopen" data-vd-val="'+this.vesc(name)+'">'+t('Åpne for ny sjekk','Reopen for a new check')+'</button><button class="pv-btn" data-vd-act="kcclose">'+t('Lukk','Close')+'</button>'
+        :'<button class="hb-btn-o" data-vd-act="kctask" data-vd-val="'+this.vesc(name)+'|deviation" data-kc-taskbtn'+(bad?'':' hidden')+'>'+t('Lag oppgave om avviket','Create a task for the mismatch')+'</button>'
+          +'<button class="pv-btn" data-vd-act="kcapprove" data-vd-val="'+this.vesc(name)+'" data-kc-ok>'+(bad?t('Godkjenn likevel','Approve anyway'):t('Godkjenn kontrakt','Approve contract'))+'</button>')
+      +'</div></div></div>'; }
+  kcSum(bad,ver,r){ const t=(a,b)=>this.t(a,b);
+    return ver?'<i class="kc-ok">✓</i> '+t('Verifisert ','Verified ')+this.kcDate(r.at)+' · '+this.vesc(r.by||'')
+      :bad?'<i class="kc-bad">'+bad+'</i> '+t(bad===1?'punkt stemmer ikke med Clario':'punkter stemmer ikke med Clario',bad===1?'term differs from Clario':'terms differ from Clario')
+      :'<i class="kc-ok">✓</i> '+t('Alle punkter stemmer — klar til godkjenning','Every term matches — ready to approve'); }
+
+  kcAct(act,val){
+    const K=this.kcLoad(), t=(a,b)=>this.t(a,b), today=this.hbISO(this.hbToday());
+    if(act==='kcfilter'){ K.filter=K.filter===val?'':val; }
+    else if(act==='kcimp'){ K.imp=true; K.anim=true; K.check=null; K.tab=val?'upload':'outlook'; K.upWho=val||''; K.upName=''; }
+    else if(act==='kctab'){ K.tab=val; }
+    else if(act==='kcclose'){ K.imp=false; K.check=null; }
+    else if(act==='kcfetch'){ const m=this.kcInbox().find(x=>x.id===val); if(!m) return;
+      let who=m.who; if(!who){ const s=document.querySelector('[data-kc-who="'+val+'"]'); who=s&&s.value; }
+      if(!who){ this._vdToast(t('Velg hvem kontrakten gjelder','Choose who the contract is for')); return; }
+      // the demo "reads" the contract: Clario's own values, so the person checks rather than types
+      K.recs[this.kcKey(who)]={file:m.file,src:'outlook',mail:m.id,got:m.at.slice(0,10),terms:Object.assign({},this.kcClario(who),{salary:''}),status:'open'};
+      this.kcSave(); K.imp=false; K.check=who; K.anim=true;
+      this._vdToast(t('Hentet fra Outlook — sjekk punktene','Fetched from Outlook — check the terms')); }
+    else if(act==='kcupload'){ const s=document.querySelector('[data-kc-upwho]'), who=s&&s.value;
+      if(!K.upName){ this._vdToast(t('Velg en fil først','Choose a file first')); return; }
+      if(!who){ this._vdToast(t('Velg hvem kontrakten gjelder','Choose who the contract is for')); return; }
+      K.recs[this.kcKey(who)]={file:K.upName,src:'upload',got:today,terms:Object.assign({},this.kcClario(who),{salary:''}),status:'open'};
+      this.kcSave(); K.imp=false; K.check=who; K.anim=true; K.upName=''; }
+    else if(act==='kccheck'){ K.check=val; K.anim=true; K.imp=false; }
+    else if(act==='kcapprove'){ const r=K.recs[this.kcKey(val)]; if(!r) return;
+      r.status='verified'; r.at=today; r.by='Kian Vestby'; this.kcSave();
+      const H=this.hbLoad(); let n=0;
+      H.tasks.filter(q=>q.cat==='kontrakt'&&this.kcKey(q.emp)===this.kcKey(val)&&q.status!=='done').forEach(q=>{ q.status='done'; q.checklist.forEach(c=>c.done=true); n++; });
+      if(n) this.hbSave();
+      K.check=null; this._vdToast(t('Kontrakten er verifisert','Contract verified')+(n?t(' · oppgaven på tavlen er ferdig',' · the board task is done'):'')); }
+    else if(act==='kcreopen'){ const r=K.recs[this.kcKey(val)]; if(r){ r.status='open'; delete r.at; this.kcSave(); } }
+    else if(act==='kcremove'){ delete K.recs[this.kcKey(val)]; this.kcSave(); K.check=null; this._vdToast(t('Filen er fjernet','File removed')); }
+    else if(act==='kctask'){ const [name,why]=val.split('|'), r=K.recs[this.kcKey(name)], cl=this.kcClario(name);
+      const bad=r?this.kcFields().filter(([f])=>!this.kcSame(r.terms[f],cl[f])):[];
+      const H=this.hbLoad();
+      const id=this.hbAdd({title:why==='missing'?t('Hent signert kontrakt','Get the signed contract')+' – '+name:t('Kontraktavvik','Contract mismatch')+' – '+name,
+        status:'todo',cat:'kontrakt',emp:name,due:this.hbIn(3),prio:'hoy',
+        items:why==='missing'?[t('Be om signert kontrakt','Ask for the signed contract'),t('Hent den inn under HR → Kontrakter','Fetch it under HR → Contracts'),t('Sjekk mot avtalen i Clario','Check it against the agreement in Clario')]
+          :bad.map(([f,l])=>l+': '+t('kontrakt ','contract ')+(r.terms[f]||'–')+' / Clario '+(cl[f]||'–'))});
+      const x=H.tasks.find(q=>q.id===id); if(x&&why!=='missing') x.desc=t('Funnet i kontraktsjekken for ','Found in the contract check for ')+name+' ('+(r?r.file:'')+').';
+      this.hbSave(); K.check=null;
+      this._vdToast(t('Oppgave lagt på tavlen','Task added to the board')); }
+    else if(act==='kcboard'){ const H=this.hbLoad(); H.open=val; K.check=null; this.setState({active:'Board'}); return; }
+    else if(act==='kcagree'){ K.check=null; this.setState({active:'Provisjon'});
+      setTimeout(()=>{ const c=document.querySelector('[data-md="'+this.kcKey(val).replace(/"/g,'\\"')+'"]'); if(c){ c.scrollIntoView({block:'center',behavior:'smooth'}); c.classList.remove('pv-md-hit'); void c.offsetWidth; c.classList.add('pv-md-hit'); } },350); return; }
+    else if(act==='kcreset'){ K.recs=this.kcSeed(); this.kcSave(); }
+    this.kcRender(); }
+
+  kcBind(){
+    if(this._kcBound) return; this._kcBound=true;
+    const L=[]; const on=(ev,fn)=>L.push([ev,fn]);
+    on('input',e=>{ const el=e.target, K=this._kc; if(!K||!el||!el.getAttribute) return;
+      if(el.hasAttribute('data-kc-q')){ K.q=el.value.trim().toLowerCase();
+        document.querySelectorAll('.kc-row').forEach(r=>{ r.hidden=!!K.q&&r.getAttribute('data-kc-name').indexOf(K.q)<0; }); return; }
+      const f=el.getAttribute('data-kc-t'); if(!f||!K.check) return;
+      const r=K.recs[this.kcKey(K.check)]; if(!r) return; r.terms[f]=el.value; this.kcSave();
+      // live: the row's mark, the paper and the summary follow the typing
+      const cl=this.kcClario(K.check), ok=this.kcSame(el.value,cl[f]), row=el.closest('.kc-cmp');
+      if(row){ row.classList.toggle('ok',ok); row.classList.toggle('bad',!ok); row.querySelector('.kc-cmp-s').textContent=ok?'✓':'≠'; }
+      document.querySelectorAll('[data-kc-p="'+f+'"]').forEach(m=>m.textContent=el.value||'…');
+      const bad=this.kcFields().filter(([q])=>!this.kcSame(r.terms[q],cl[q])).length;
+      const sum=document.querySelector('[data-kc-sum]'); if(sum) sum.innerHTML=this.kcSum(bad,false,r);
+      const tb=document.querySelector('[data-kc-taskbtn]'); if(tb) tb.hidden=!bad;
+      const okb=document.querySelector('[data-kc-ok]'); if(okb) okb.textContent=bad?this.t('Godkjenn likevel','Approve anyway'):this.t('Godkjenn kontrakt','Approve contract');
+      const m=document.querySelector('.kc-chk'); if(m) m.style.setProperty('--cc',bad?'var(--danger)':'var(--accent)'); });
+    const pick=f=>{ const K=this._kc; if(!K||!f) return; K.upName=f.name;
+      const s=document.querySelector('[data-kc-upwho]'); if(s) K.upWho=s.value;
+      // guess the person from the file name: "Arbeidsavtale_Danish_Y.pdf"
+      if(!K.upWho){ const fn=f.name.toLowerCase().replace(/[_\-.]+/g,' '); const p=((this.vdModel()||{}).employees||[]).find(e=>fn.indexOf(e.name.toLowerCase())>=0||fn.indexOf(e.name.split(' ')[0].toLowerCase())>=0); if(p) K.upWho=p.name; }
+      this.kcRender(); };
+    on('change',e=>{ const el=e.target; if(el&&el.hasAttribute&&el.hasAttribute('data-kc-file')&&el.files&&el.files[0]) pick(el.files[0]);
+      if(el&&el.hasAttribute&&el.hasAttribute('data-kc-upwho')&&this._kc) this._kc.upWho=el.value; });
+    on('dragover',e=>{ const z=e.target.closest&&e.target.closest('[data-kc-drop]'); if(!z) return; e.preventDefault(); z.classList.add('over'); });
+    on('dragleave',e=>{ const z=e.target.closest&&e.target.closest('[data-kc-drop]'); if(z) z.classList.remove('over'); });
+    on('drop',e=>{ const z=e.target.closest&&e.target.closest('[data-kc-drop]'); if(!z) return; e.preventDefault(); z.classList.remove('over');
+      const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) pick(f); });
+    on('keydown',e=>{ const K=this._kc; if(e.key==='Escape'&&K&&(K.imp||K.check)){ K.imp=false; K.check=null; this.kcRender(); } });
+    this.gBind('kc',L); }
 
   hbAdd(o){ const H=this._hb, id='hb'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
     H.tasks.push({id,title:o.title,status:o.status,cat:o.cat||'annet',emp:o.emp||'',due:o.due||'',prio:o.prio||'normal',desc:'',
@@ -8359,7 +8710,7 @@ class Component extends DCLogic {
     const t=(a,b)=>this.t(a,b), M=this.vdModel();
     const items=[];
     const PAGES=[['Overview',t('Oversikt','Overview')],['Cashflow',t('Kontantstrøm','Cash flow')],
-      ['Selgere',t('Selgere','Sellers')],['Provisjon',t('Provisjon','Commission')],['Board',t('Oppgavetavle','Task board')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
+      ['Selgere',t('Selgere','Sellers')],['Provisjon',t('Provisjon','Commission')],['Board',t('Oppgavetavle','Task board')],['Contracts',t('Kontrakter','Contracts')],['Fravaer',t('Fravær & NAV','Absence & NAV')],
       ['Onboarding','Onboarding'],['Inndata',t('Arbeidsbok','Workbook')],
       ['Insights',t('Innsikt','Insights')],['Recommendations',t('Anbefalinger','Recommendations')],
       ['Invoices',t('Fakturaer','Invoices')],['Scenarios',t('Scenarier','Scenarios')],
@@ -9508,7 +9859,7 @@ class Component extends DCLogic {
     if(this._vdBound) return; this._vdBound=true;
     const S=this.vdStore(); if(!S) return;
     this.vdBindSellerTips();
-    this.hbBind();
+    this.hbBind(); this.kcBind();
 
     // Recompute → flush every memo the app keeps, or half the page keeps
     // showing the previous numbers.
@@ -9592,6 +9943,7 @@ class Component extends DCLogic {
           setTimeout(()=>cc.classList.remove('vd-pulse'),2700); });
       }
       else if(act==='spsrc'){ e.preventDefault(); e.stopPropagation(); this.spMenuOpen(el,val); }
+      else if(act.indexOf('kc')===0){ e.preventDefault(); this.kcAct(act,val); }
       else if(act.indexOf('hb')===0){ e.preventDefault(); this.hbAct(act,val); }
       else if(act==='premium'){ this._c={}; this.setState({premium:true}); }
       else if(act==='cxadd'){        // register one cancelled sale, every field in one undo step
