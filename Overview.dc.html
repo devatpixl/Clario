@@ -57,6 +57,15 @@
   a{color:var(--accent);text-decoration:none}
   a:hover{color:var(--accent-hover)}
   .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  /* sidebar segments */
+  :root{--hr:#7C5AC2;--hr-soft:rgba(124,90,194,.10)}
+  [data-theme="dark"],:root:has([data-theme="dark"]){--hr:#B9A8FF;--hr-soft:rgba(185,168,255,.13)}
+  .sb-seg-i{width:26px;height:26px;flex:none;border-radius:8px;display:flex;align-items:center;justify-content:center}
+  .sb-seg-i svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .sb-seg-eco .sb-seg-i{color:var(--accent);background:var(--accent-soft)}
+  .sb-seg-hr .sb-seg-i{color:var(--hr);background:var(--hr-soft)}
+  .sb-seg b{display:block;font-size:13px;font-weight:700;letter-spacing:-0.02em;color:var(--text);line-height:1.15}
+  .sb-seg em{display:block;font-style:normal;font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
   .nav{transition:background .18s ease,color .18s ease}
   .nav:hover{background:var(--hover)}
@@ -1845,7 +1854,7 @@
         </div>
       </div>
     </div>
-    <div style="padding:32px 12px 0">
+    <div style="padding:24px 12px 0">
       <div class="btn" style="{{ orgStyle }}">
         <div style="width:20px;height:20px;flex:none;border-radius:5px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;box-shadow:0 6px 14px -4px rgba(43,95,224,.55)">P</div>
         <div style="{{ orgLbl }}">Venditus AS</div>
@@ -1854,8 +1863,12 @@
     </div>
 
     <nav style="padding:0 12px;display:flex;flex-direction:column;flex:1">
+      <div class="sb-seg sb-seg-eco" style="{{ segEco }}">
+        <span class="sb-seg-i"><svg viewBox="0 0 16 16"><path d="M2.5 13.5h11M4 11V7.5M7 11V4.5M10 11V8M13 11V5.5"/></svg></span>
+        <span style="{{ segLbl }}"><b>{{ segEcoT }}</b><em>{{ segEcoS }}</em></span>
+      </div>
       <div class="eyebrow" style="{{ ebMon }}">Monitor</div>
-      <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="display:flex;flex-direction:column;gap:2px">
         <sc-for list="{{ navOverview }}" as="item" hint-placeholder-count="4">
           <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
             <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
@@ -1866,26 +1879,30 @@
           </div>
         </sc-for>
       </div>
-      <div class="eyebrow" style="{{ ebPlan }}">HR</div>
-      <div style="display:flex;flex-direction:column;gap:4px">
-        <sc-for list="{{ navHr }}" as="item" hint-placeholder-count="1">
-          <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
-            <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
-            <span style="{{ item.lbl }}">{{ item.label }}</span>
-            <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
-              <span class="mono" style="font-size:10px;color:#fff;background:var(--danger);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
       <div class="eyebrow" style="{{ ebPlan }}">Plan</div>
-      <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="display:flex;flex-direction:column;gap:2px">
         <sc-for list="{{ navPlan }}" as="item" hint-placeholder-count="3">
           <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
             <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
             <span style="{{ item.lbl }}">{{ item.label }}</span>
             <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
               <span class="mono" style="font-size:10px;color:#fff;background:var(--accent);min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div class="sb-seg sb-seg-hr" style="{{ segHr }}">
+        <span class="sb-seg-i"><svg viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.3"/><path d="M1.8 13c.6-2.2 2.2-3.3 4.2-3.3s3.6 1.1 4.2 3.3"/><circle cx="11.4" cy="6.3" r="1.8"/><path d="M11 9.8c1.6.1 2.7 1 3.2 2.7"/></svg></span>
+        <span style="{{ segLbl }}"><b>{{ segHrT }}</b><em>{{ segHrS }}</em></span>
+      </div>
+      <div style="{{ ebHr }}"></div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ navHr }}" as="item" hint-placeholder-count="1">
+          <div class="nav" onClick="{{ item.select }}" style="{{ item.style }}">
+            <span style="width:17px;height:17px;flex:none;display:flex;color:{{ item.icon }}" dangerouslySetInnerHTML="{{ item.svg }}"></span>
+            <span style="{{ item.lbl }}">{{ item.label }}</span>
+            <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
+              <span class="mono" style="font-size:10px;color:#fff;background:{{ item.badgeBg }};min-width:18px;text-align:center;padding:1px 5px;border-radius:9999px">{{ item.badge }}</span>
             </sc-if>
           </div>
         </sc-for>
@@ -3261,19 +3278,20 @@ class Component extends DCLogic {
       Board:['Oppgavetavle','Task board'],Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
+    const HRK=['Selgere','Provisjon','Fravaer','Onboarding','Board'];
     const nav=navDefs.filter(([label])=>DEMO_ONLY.indexOf(label)<0).map(([label,path,badge])=>{
-      const on=active===label;
+      const on=active===label, hr=HRK.indexOf(label)>=0, ac=hr?'var(--hr)':'var(--accent)', acs=hr?'var(--hr-soft)':'var(--accent-soft)';
       return { _key:label, label:t.apply(null,NAVLBL[label]||[label,label]),badge:navMin?null:badge,select:()=>this.setState({active:label,notifOpen:false,navOpen:false}),
-        lbl:navMin?{display:'none'}:{flex:1},
+        lbl:navMin?{display:'none'}:{flex:1}, badgeBg:label==='Board'?'var(--danger)':hr?'#7C5AC2':'var(--accent)',
         style:navMin
-          ?{display:'flex',alignItems:'center',justifyContent:'center',padding:'10px 0',borderRadius:'10px',cursor:'pointer',color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent'}
-          :{display:'flex',alignItems:'center',gap:'10px',padding:'8px 12px',borderRadius:'10px',cursor:'pointer',fontSize:'13.5px',fontWeight:on?500:400,color:on?'var(--accent)':'var(--text2)',background:on?'var(--accent-soft)':'transparent',letterSpacing:'-0.01em'},
-        icon:on?'var(--accent)':'var(--muted2)', svg:this.icon(path) };
+          ?{display:'flex',alignItems:'center',justifyContent:'center',padding:'10px 0',borderRadius:'10px',cursor:'pointer',color:on?ac:'var(--text2)',background:on?acs:'transparent'}
+          :{display:'flex',alignItems:'center',gap:'10px',padding:'6px 12px',borderRadius:'10px',cursor:'pointer',fontSize:'13.5px',fontWeight:on?500:400,color:on?ac:'var(--text2)',background:on?acs:'transparent',letterSpacing:'-0.01em'},
+        icon:on?ac:'var(--muted2)', svg:this.icon(path) };
     });
     // five micro-level routes were inserted after Invoices, so the rails shift
-    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Selgere','Provisjon',
-                          'Fravaer','Onboarding','Inndata','Import','Workpapers'],
-                 hr:['Board'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
+    // two segments: Økonomi (Monitor + Plan) and HR — separate access levels later
+    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Inndata','Import','Workpapers'],
+                 hr:['Selgere','Provisjon','Fravaer','Onboarding','Board'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
     const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings'), navHr=inGroup('hr');
     const SCEN={
@@ -3304,8 +3322,15 @@ class Component extends DCLogic {
                      :{display:'flex',alignItems:'center',gap:'9px',padding:'4px 12px',borderRadius:'8px',cursor:'pointer'},
       orgLbl:navMin?{display:'none'}:{minWidth:0,flex:1,fontSize:'11.5px',fontWeight:500,letterSpacing:'-0.02em',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
       orgChev:navMin?{display:'none'}:{display:'flex',flex:'none'},
-      ebMon:navMin?Object.assign({margin:'26px 14px 12px'},ebHid):Object.assign({margin:'32px 0 8px'},ebBase),
-      ebPlan:navMin?Object.assign({margin:'18px 14px 12px'},ebHid):Object.assign({margin:'24px 0 8px'},ebBase),
+      segEco:navMin?{display:'flex',justifyContent:'center',margin:'18px 0 0'}:{display:'flex',alignItems:'center',gap:'9px',margin:'18px 0 0',padding:'0 10px'},
+      segHr:navMin?{display:'flex',justifyContent:'center',margin:'22px 0 0',paddingTop:'18px',borderTop:'1px solid var(--border-soft)'}
+                  :{display:'flex',alignItems:'center',gap:'9px',margin:'14px 0 0',padding:'14px 10px 0',borderTop:'1px solid var(--border-soft)'},
+      segLbl:navMin?{display:'none'}:{flex:1,minWidth:0},
+      segEcoT:t('Økonomi','Economy'), segHrT:'HR',
+      segEcoS:t('Regnskap, kontantstrøm og plan','Accounts, cash flow and plan'), segHrS:t('Selgere, provisjon og ansatte','Sellers, commission and staff'),
+      ebMon:navMin?Object.assign({margin:'14px 14px 12px'},ebHid):Object.assign({margin:'12px 0 6px'},ebBase),
+      ebHr:navMin?{display:'none'}:{height:'8px'},
+      ebPlan:navMin?Object.assign({margin:'18px 14px 12px'},ebHid):Object.assign({margin:'14px 0 6px'},ebBase),
       footPad:{marginTop:'16px',padding:navMin?'14px 8px':'14px 24px',borderTop:'1px solid var(--border)'},
       liveRow:navMin?{display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'13px'}
                     :{display:'flex',alignItems:'center',gap:'8px',marginBottom:'13px'},
@@ -3322,11 +3347,11 @@ class Component extends DCLogic {
       Alerts:[t('Varsler fra arbeidsboken','Alerts from the workbook'),t('Varsler','Alerts')],
       Recommendations:[t('3 åpne · juni 2026','3 open · June 2026'),t('Anbefalinger','Recommendations')],
       Invoices:[t('4 forfalt · leverandørgjeld','4 overdue · accounts payable'),t('Fakturaer','Invoices')],
-      Selgere:[t('Per selger · mikronivå','Per seller · micro level'),t('Selgere','Sellers')],
-      Provisjon:[t('Phonero · oppgjør og kanselleringer','Phonero · settlement and cancellations'),t('Provisjon','Commission')],
+      Selgere:[t('HR · per selger','HR · per seller'),t('Selgere','Sellers')],
+      Provisjon:[t('HR · Phonero-oppgjør og kanselleringer','HR · Phonero settlement and cancellations'),t('Provisjon','Commission')],
       Board:[t('HR · oppgaver','HR · tasks'),t('Oppgavetavle','Task board')],
-      Fravaer:[t('Egenmelding, sykemelding og NAV','Self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
-      Onboarding:[t('Kostnad per ansettelse','Cost per hire'),'Onboarding'],
+      Fravaer:[t('HR · egenmelding, sykemelding og NAV','HR · self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
+      Onboarding:[t('HR · kostnad per ansettelse','HR · cost per hire'),'Onboarding'],
       Inndata:[t('Alle åtte arkene — rediger direkte','All eight sheets — edit directly'),t('Arbeidsbok','Workbook')],
       Import:[t('Regnearklaget','Spreadsheet layer'),'Import'],
       Workpapers:[t('Arbeidspapir · beløp i NOK','Workpaper · amounts in NOK'),t('Arbeidspapirer','Workpapers')],
