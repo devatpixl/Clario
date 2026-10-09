@@ -3278,7 +3278,7 @@ class Component extends DCLogic {
       Board:['Oppgavetavle','Task board'],Scenarios:['Scenarier','Scenarios'],Dara:['Dara','Dara'],Clients:['Kunder','Clients'],
       Settings:['Innstillinger','Settings']};
     const navMin=!!this.state.navMin;
-    const HRK=['Selgere','Provisjon','Fravaer','Onboarding','Board'];
+    const HRK=['Selgere','Provisjon','Fravaer','Onboarding','Board','Inndata'];
     const nav=navDefs.filter(([label])=>DEMO_ONLY.indexOf(label)<0).map(([label,path,badge])=>{
       const on=active===label, hr=HRK.indexOf(label)>=0, ac=hr?'var(--hr)':'var(--accent)', acs=hr?'var(--hr-soft)':'var(--accent-soft)';
       return { _key:label, label:t.apply(null,NAVLBL[label]||[label,label]),badge:navMin?null:badge,select:()=>this.setState({active:label,notifOpen:false,navOpen:false}),
@@ -3290,8 +3290,8 @@ class Component extends DCLogic {
     });
     // five micro-level routes were inserted after Invoices, so the rails shift
     // two segments: Økonomi (Monitor + Plan) and HR — separate access levels later
-    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Inndata','Import','Workpapers'],
-                 hr:['Selgere','Provisjon','Fravaer','Onboarding','Board'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
+    const GROUP={monitor:['Overview','Cashflow','Insights','Alerts','Recommendations','Invoices','Import','Workpapers'],
+                 hr:['Selgere','Provisjon','Fravaer','Onboarding','Board','Inndata'], plan:['Scenarios','Dara','Clients'], settings:['Settings']};
     const inGroup=g=>nav.filter(x=>GROUP[g].indexOf(x._key)>=0);
     const navOverview=inGroup('monitor'), navPlan=inGroup('plan'), navSettings=inGroup('settings'), navHr=inGroup('hr');
     const SCEN={
@@ -3352,7 +3352,7 @@ class Component extends DCLogic {
       Board:[t('HR · oppgaver','HR · tasks'),t('Oppgavetavle','Task board')],
       Fravaer:[t('HR · egenmelding, sykemelding og NAV','HR · self-certified, doctor-certified and NAV'),t('Fravær & NAV','Absence & NAV')],
       Onboarding:[t('HR · kostnad per ansettelse','HR · cost per hire'),'Onboarding'],
-      Inndata:[t('Alle åtte arkene — rediger direkte','All eight sheets — edit directly'),t('Arbeidsbok','Workbook')],
+      Inndata:[t('HR · alle arkene — rediger direkte','HR · all sheets — edit directly'),t('Arbeidsbok','Workbook')],
       Import:[t('Regnearklaget','Spreadsheet layer'),'Import'],
       Workpapers:[t('Arbeidspapir · beløp i NOK','Workpaper · amounts in NOK'),t('Arbeidspapirer','Workpapers')],
       Scenarios:[t('Planlegging','Planning'),t('Scenarier','Scenarios')],
